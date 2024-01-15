@@ -2,12 +2,12 @@ project:
   type: website
 
 website:
-  title: "Blog_website"
+  title: "HOME 🏡"
   navbar:
     right:
       - about.qmd
       - icon: github
-        href: https://github.com/
+        href: https://github.com/arinbaruah
       - icon: twitter
         href: https://twitter.com
 format:

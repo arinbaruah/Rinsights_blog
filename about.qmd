@@ -1,0 +1,27 @@
+---
+title: "About the author"
+image: profile_pic.png
+author: "Arindam Baruah <br> Monash University <br> abar0090@student.monash.edu"
+about:
+  template: solana
+  links:
+    - icon: github
+      text: Github
+      href: https://github.com/arinbaruah
+
+---
+
+Hi ! I am Arindam Baruah, a graduate student of Business Analytics at [Monash Business School](https://github.com/arinbaruah), Monash University. With a keen interest and salient experiences in the field of analytics, I am intrigued by the patterns which can be uncovered through data visualisations and some very interesting mathematics. I focus on implementing data science concepts to real-world problems and have successfully implemented them for predicting various estimates in the field of manufacturing. 
+
+My studies generally span over various fields and I am constantly in the hunt to uncover more scenarios which would let me harness the power of analytics to automate various tasks and allow me to gain meaningful insights post analysis.
+
+As part of my coursework, I analyse and visualise data, mostly in R or python. I am currently developing an application for studying the diversity among the PhD graduates in the United States.
+
+:::{.callout-note}
+## Major interests
+__Statistics, Data analytics in the manufacturing industry and formula 1, Machine learning, Steel manufacturing.__
+:::
+# Recent publications
+
+1. __Optimised machine learning classification model to detect void formations in friction stir welding.__ [Link](https://www.sciencedirect.com/science/article/pii/S2214785323014323)
+2. __Numerically modelled study of the plunge stage in friction stir spot welding using multi-tiered mesh partitions.__ [Link](https://iopscience.iop.org/article/10.1088/2631-8695/ac352e/meta)

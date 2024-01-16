@@ -12,6 +12,10 @@ website:
         href: https://www.linkedin.com/in/arindam-baruah/
 format:
   html:
-    theme: journal
-    css: styles.css
+    theme: 
+      - sandstone
+      - style.scss
+    toc: false
+
+editor: source
 

@@ -1,5 +1,8 @@
 ---
-title: "R-insights 📈⚙️📊🖥️"
+title: "Arindam (Aaron) Baruah"
+image: profile_pic.png
+about: 
+  template: jolla
 listing:
   contents: posts
   sort: "date desc"
@@ -12,4 +15,8 @@ title-block-banner: true
 theme: cyborg
 ---
 
-![](intro.gif)
+
+
+<img src="https://ghchart.rshah.org/arinbaruah" alt="Github chart"/>
+
+

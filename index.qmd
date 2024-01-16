@@ -1,22 +1,28 @@
 ---
-title: "Arindam (Aaron) Baruah"
 image: profile_pic.png
+
 about: 
   template: jolla
-listing:
-  contents: posts
-  sort: "date desc"
-  type: default
-  categories: true
-  sort-ui: false
-  filter-ui: false
+  links: 
+    - icon: github
+      text: Github
+      href: https://github.com/arinbaruah
+    - icon: envelope-fill
+      text: Email
+      href: "mailto:abar0090@student.monash.edu"
+    - icon: person-lines-fill
+      text: CV
+      href: cv/Aaron_Baruah-32779267-Resume.pdf
+    - icon: kaggle
+      text: Kaggle
+      href: https://www.kaggle.com/arindambaruah
 page-layout: full
 title-block-banner: true
-theme: cyborg
 ---
 
+# Arindam (Aaron) Baruah
+### Github Activity
 
-
-<img src="https://ghchart.rshah.org/arinbaruah" alt="Github chart"/>
+<img src="https://ghchart.rshah.org/arinbaruah" >
 
 

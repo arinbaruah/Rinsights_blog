@@ -1,0 +1,14 @@
+---
+title: "R-insights : Infomative and insightful analytical blogs"
+about: 
+  template: jolla
+listing:
+  contents: blogs
+  sort: "date desc"
+  type: default
+  categories: true
+  sort-ui: false
+  filter-ui: false
+page-layout: full
+title-block-banner: true
+---

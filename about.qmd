@@ -1,5 +1,5 @@
 ---
-title: "About the author"
+title: "About"
 image: profile_pic.png
 author: "Arindam Baruah <br> Monash University <br> abar0090@student.monash.edu"
 about:

@@ -26,20 +26,32 @@ page-layout: full
 title-block-banner: true
 ---
 
+```{r setup, include=FALSE}
+library(htmltools)
+```
+
 # Arindam (Aaron) Baruah
 
-I am currently a final year graduate student of Business Analytics at [Monash Business School](https://github.com/arinbaruah), Monash University. 
+I am a current final year graduate student of Business Analytics at [Monash Business School](https://github.com/arinbaruah), Monash University. 🧑‍🎓
 
-With a strong foundation from my academic journey, I bring two years of hands-on experience as a data analyst at [ArcelorMittal](https://corporate.arcelormittal.com) and [Nippon Steel](https://www.nipponsteel.com), where I honed my analytical skills in a real-world setting. Additionally, I've spent two years as a teaching assistant at [The Indian Institute of Technology Indore](https://www.iiti.ac.in), contributing to research and development in the field of metallurgy. 
+With a strong foundation from my academic journey, I bring two years of hands-on experience as a data analyst at [ArcelorMittal](https://corporate.arcelormittal.com) and [Nippon Steel](https://www.nipponsteel.com), where I honed my analytical skills in a real-world setting. Additionally, I've spent two years as a teaching assistant at [The Indian Institute of Technology Indore](https://www.iiti.ac.in), contributing to research and development in the field of metallurgy. ⚙️🕵️‍♂️🖥️
 
-I'm passionate about leveraging data-driven insights and analytical expertise to solve complex business as well as research challenges. 
+I'm passionate about leveraging data-driven insights and analytical expertise to solve complex business as well as research challenges. 📊
 
-Please feel free to go through the links below to learn more about my experiences, skills, current projects and ways to get in touch with me.
+__Please feel free to go through the links below to learn more about my experiences, skills, current projects and ways to get in touch with me.__ 📤 <button id="scrollButton"> __Important links__ </button>
 
 :::{.callout-note}
 # Interested in analytics content ?
-For those interested in uncovering data and what is expected when studying a graduate course in the field of Business Analytics, I post informative content on my blog [R-insights](posts/index.qmd). Be sure to check it out !
+For those interested in uncovering data and what is expected when studying a graduate course in the field of Business Analytics, I post informative content on my blog, [R-insights](posts/index.qmd). Be sure to check it out !
 :::
+
+
+<script>
+  document.getElementById("scrollButton").addEventListener("click", function() {
+    window.scrollTo(0, document.body.scrollHeight);
+  });
+</script>
+
 
 ### Github Activity
 

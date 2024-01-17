@@ -21,6 +21,14 @@ title-block-banner: true
 ---
 
 # Arindam (Aaron) Baruah
+
+I am currently a final year graduate student of Business Analytics at [Monash Business School](https://github.com/arinbaruah), Monash University. 
+
+With a strong foundation from my academic journey, I bring two years of hands-on experience as a data analyst at [ArcelorMittal](https://corporate.arcelormittal.com) and [Nippon Steel](https://www.nipponsteel.com), where I honed my analytical skills in a real-world setting. Additionally, I've spent two years as a teaching assistant at [The Indian Institute of Technology Indore](https://www.iiti.ac.in), contributing to research and development in the field of metallurgy. I'm passionate about leveraging data-driven insights and analytical expertise to solve complex business as well as research challenges. 
+
+I am excited to explore opportunities where I can apply my skills and continue making an impact in the world of analytics.
+
+
 ### Github Activity
 
 <img src="https://ghchart.rshah.org/arinbaruah" >

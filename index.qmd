@@ -5,14 +5,20 @@ about:
   template: jolla
   links: 
     - icon: github
-      text: Github
+      text: University Github profile
       href: https://github.com/arinbaruah
+    - icon: github
+      text: Personal Github profile
+      href: https://github.com/rinbaruah
     - icon: envelope-fill
       text: Email
       href: "mailto:abar0090@student.monash.edu"
     - icon: person-lines-fill
       text: CV
       href: cv/Aaron_Baruah-32779267-Resume.pdf
+    - icon: linkedin
+      text: LinkedIn
+      href: https://www.linkedin.com/in/arindam-baruah/
     - icon: kaggle
       text: Kaggle
       href: https://www.kaggle.com/arindambaruah
@@ -24,10 +30,16 @@ title-block-banner: true
 
 I am currently a final year graduate student of Business Analytics at [Monash Business School](https://github.com/arinbaruah), Monash University. 
 
-With a strong foundation from my academic journey, I bring two years of hands-on experience as a data analyst at [ArcelorMittal](https://corporate.arcelormittal.com) and [Nippon Steel](https://www.nipponsteel.com), where I honed my analytical skills in a real-world setting. Additionally, I've spent two years as a teaching assistant at [The Indian Institute of Technology Indore](https://www.iiti.ac.in), contributing to research and development in the field of metallurgy. I'm passionate about leveraging data-driven insights and analytical expertise to solve complex business as well as research challenges. 
+With a strong foundation from my academic journey, I bring two years of hands-on experience as a data analyst at [ArcelorMittal](https://corporate.arcelormittal.com) and [Nippon Steel](https://www.nipponsteel.com), where I honed my analytical skills in a real-world setting. Additionally, I've spent two years as a teaching assistant at [The Indian Institute of Technology Indore](https://www.iiti.ac.in), contributing to research and development in the field of metallurgy. 
 
-I am excited to explore opportunities where I can apply my skills and continue making an impact in the world of analytics.
+I'm passionate about leveraging data-driven insights and analytical expertise to solve complex business as well as research challenges. 
 
+Please feel free to go through the links below to learn more about my experiences, skills, current projects and ways to get in touch with me.
+
+:::{.callout-note}
+# Interested in analytics content ?
+For those interested in uncovering data and what is expected when studying a graduate course in the field of Business Analytics, I post informative content on my blog [R-insights](posts/index.qmd). Be sure to check it out !
+:::
 
 ### Github Activity
 

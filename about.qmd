@@ -1,6 +1,5 @@
 ---
 title: "About"
-image: profile_pic.png
 author: "Arindam Baruah <br> Monash University <br> abar0090@student.monash.edu"
 about:
   template: solana
@@ -31,6 +30,7 @@ __Data Analysis, MS Office, Data Visualisation, Python, Customer Relations, Team
 
 ![](arcelor.png)
 
+### Technical Data Analyst (2021-23)
 
 After studying a specialisation in the field of metallurgy and manufacturing engineering at IIT Indore, I joined the world's second largest steel manufacturer in the world, ArcelorMittal in their joint venture with Nippon Steel, AM/NS India. 
 
@@ -52,24 +52,25 @@ As part of my deployment, I was posted as a technical data analyst in the compac
 # Skills
 __Data Analysis, MS Office, Data Visualisation, Python, Research, Metallurgy, Computer Aided Drawing, Communication Skills, Root Cause Analysis, Finite Element Analysis.__
 :::
+![](iit.png)
+
+### Teaching Assistant (2019-21)
 
 As a teaching assistant at the Indian Institute of Technology Indore, I was a part of the Advanced Mechanical Metallurgy laboratory, mostly working with various computational methods such as machine learning classification models and finite element models to detect defects in solid state welding processes such as Friction Stir Welding.
 
 
-![](iit.png)
+
 
 
 Some of my key highlights while in academia are as follows:
 
--	Conduct detailed experimentation and perform data analysis of the results from various metallurgical studies such as X-ray diffraction, electron microscopy and universal testing machines.
+-	Conducte detailed experimentation and perform data analysis of the results from various metallurgical studies such as X-ray diffraction, electron microscopy and universal testing machines.
 -	Utilised machine learning models such as XGBoost, and LightGBM to train datasets which would allow for accurate detection of process parameters resulting in joint defects such as voids in welded mechanical joints.
 -	Nominated as a delegate to showcase my research at the Annual Technical Meet hosted by The Indian Institute of Metals and was awarded with the best poster presentation for my research on creating a finite element model of aluminium and magnesium welded friction stir welded joints.
--	Compiled, maintained and visualised data containing critical sustainability indicators for studying the effect of the manufacturing plant on the environment.
--	Worked closely with R&D, Quality control and Automation department for resolving process and product defects through data driven studies.
--	Performed root cause analysis and suggested corrective actions for major product defects.
--	Conducted technical and software-based trainings for shop floor operators.
--	Implemented various statistical quality control techniques, such as control charts, to study and monitor the current process deviations before and after any significant process alteration through sample analysis.
--	Involved in investigation of customer or downstream complaints and suggesting corrective actions to prevent recurrence of similar complaints.
+-	Served as a key member of the placement committee which was tasked with maintaing industrial relations with various organisations to conduct recruitment programs for the current cohort of students.
+-	Served as a class representative who was responsible for representing the class of 2021 in various redressal meetings with the faculties of the institute.
+- Successfully published a total of 3 research papers during my tenure at the institute which can be referred to [here](https://scholar.google.com/citations?user=pfC-JnoAAAAJ&hl=en&oi=ao).
+
 :::
 
 
@@ -77,3 +78,4 @@ Some of my key highlights while in academia are as follows:
 
 1.  **Optimised machine learning classification model to detect void formations in friction stir welding.** [Link](https://www.sciencedirect.com/science/article/pii/S2214785323014323)
 2.  **Numerically modelled study of the plunge stage in friction stir spot welding using multi-tiered mesh partitions.** [Link](https://iopscience.iop.org/article/10.1088/2631-8695/ac352e/meta)
+3. **Numerical Simulation of Friction Stir Spot Welding of Aluminium-6061 and Magnesium AZ-31B.** [Link](https://www.scientific.net/MSF.1048.241)

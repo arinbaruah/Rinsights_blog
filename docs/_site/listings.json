@@ -1,0 +1,20 @@
+[
+  {
+    "listing": "/index.html",
+    "items": [
+      "/posts/index.html",
+      "/posts/post-with-code/index.html",
+      "/posts/welcome/index.html"
+    ]
+  },
+  {
+    "listing": "/posts/index.html",
+    "items": [
+      "/posts/blogs/Bank_churn/index.html",
+      "/posts/blogs/gender_diversity/index.html",
+      "/posts/blogs/field_diversity/index.html",
+      "/posts/blogs/Mach_failure_preds/index.html",
+      "/posts/blogs/welcome/index.html"
+    ]
+  }
+]

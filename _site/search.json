@@ -32,7 +32,7 @@
     "href": "posts/index.html",
     "title": "R-insights : Informative and insightful analytical blogs",
     "section": "",
-    "text": "Detecting a possible event of bank churn using machine learning classification models 💸🏦\n\n\n\n\n\n\nanalysis\n\n\nexploratory data analysis\n\n\nvisualisation\n\n\nstatistics\n\n\nmachine learning\n\n\nclassification model\n\n\n\n\n\n\n\n\n\n\n\nJan 18, 2024\n\n\nArindam Baruah\n\n\n\n\n\n\n  \n\n\n\n\nEquity in Academia: A New Era of Gender Diversity in US PhD Programs 🧑‍🎓👩‍🎓\n\n\n\n\n\n\nanalysis\n\n\nexploratory data analysis\n\n\nvisualisation\n\n\nstatistics\n\n\n\n\n\n\n\n\n\n\n\nAug 31, 2023\n\n\nArindam Baruah\n\n\n\n\n\n\n  \n\n\n\n\nUnveiling the Mosaic: A Deep Dive into the Educational Diversity Amongst US PhD Graduates 🧑‍🎓📚🇺🇸\n\n\n\n\n\n\nanalysis\n\n\nvisualisation\n\n\nexploratory data analysis\n\n\n\n\n\n\n\n\n\n\n\nAug 28, 2023\n\n\nArindam Baruah\n\n\n\n\n\n\n  \n\n\n\n\n⚙️⚠️ Can we accurately predict if a machine is going to undergo failure using machine learning ?\n\n\n\n\n\n\n\n\n\n\n\nJun 23, 2023\n\n\nArindam Baruah\n\n\n\n\n\n\n  \n\n\n\n\nAll aboard the blog train !\n\n\n\n\n\n\nnews\n\n\n\n\n\n\n\n\n\n\n\nJun 13, 2023\n\n\nArindam Baruah\n\n\n\n\n\n\nNo matching items"
+    "text": "Detecting a possible event of bank churn using machine learning classification models 💸🏦\n\n\n\n\n\n\nanalysis\n\n\nexploratory data analysis\n\n\nvisualisation\n\n\nstatistics\n\n\nmachine learning\n\n\nclassification model\n\n\n\n\n\n\n\n\n\n\n\nJan 18, 2024\n\n\nArindam Baruah\n\n\n\n\n\n\n  \n\n\n\n\nEquity in Academia: A New Era of Gender Diversity in US PhD Programs 🧑‍🎓👩‍🎓\n\n\n\n\n\n\nanalysis\n\n\nexploratory data analysis\n\n\nvisualisation\n\n\nstatistics\n\n\n\n\n\n\n\n\n\n\n\nAug 31, 2023\n\n\nArindam Baruah\n\n\n\n\n\n\n  \n\n\n\n\nUnveiling the Mosaic: A Deep Dive into the Educational Diversity Amongst US PhD Graduates 🧑‍🎓📚🇺🇸\n\n\n\n\n\n\nanalysis\n\n\nvisualisation\n\n\nexploratory data analysis\n\n\n\n\n\n\n\n\n\n\n\nAug 28, 2023\n\n\nArindam Baruah\n\n\n\n\n\n\n  \n\n\n\n\n⚙️⚠️ Can we accurately predict if a machine is going to undergo failure using machine learning ?\n\n\n\n\n\n\nanalysis\n\n\nexploratory data analysis\n\n\nvisualisation\n\n\nstatistics\n\n\nmachine learning\n\n\nregression\n\n\nclassification\n\n\n\n\n\n\n\n\n\n\n\nJun 23, 2023\n\n\nArindam Baruah\n\n\n\n\n\n\n  \n\n\n\n\nAll aboard the blog train !\n\n\n\n\n\n\nnews\n\n\n\n\n\n\n\n\n\n\n\nJun 13, 2023\n\n\nArindam Baruah\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "posts/blogs/welcome/index.html",
@@ -292,5 +292,236 @@
     "title": "🔩🛠️⚠️ Binary Machine Failure Prediction",
     "section": "Feature transformation",
     "text": "Feature transformation\nNow that we have created all our baseline models, let us try our hand out with some feature transformation with standard scaling options.\n\ntrain$tool_wear_min &lt;- train$tool_wear_min %&gt;% scale(center=TRUE,scale=TRUE)\ntrain$power_w &lt;- train$power_w %&gt;% scale(center=TRUE,scale=TRUE)\ntrain$temp_diff_k &lt;- train$temp_diff_k %&gt;% scale(center=TRUE,scale=TRUE)\n\ntest$tool_wear_min &lt;- test$tool_wear_min %&gt;% scale(center=TRUE,scale=TRUE)\ntest$power_w &lt;- test$power_w %&gt;% scale(center=TRUE,scale=TRUE)\ntest$temp_diff_k &lt;- test$temp_diff_k %&gt;% scale(center=TRUE,scale=TRUE)\n\n\ncols &lt;- c(\"twf\",\"hdf\",\"pwf\",\"osf\",\"rnf\")\n\n\ntrain %&lt;&gt;%\n       mutate_each_(funs(factor(.)),cols)   #Converting  to factors\ntest %&lt;&gt;%\n       mutate_each_(funs(factor(.)),cols)\ndf_test %&lt;&gt;%\n       mutate_each_(funs(factor(.)),cols)\n\nNow that we have standardised all the continuous numeric variables, let us attempt to train the model once again on the scaled dataset.\n\nmodel_logit &lt;- glm(machine_failure~.,family=binomial(link='logit'),data=train)\npR2(model_logit)\n\nfitting null model for pseudo-r2\n\n\n          llh       llhNull            G2      McFadden          r2ML \n-2224.7236061 -7735.2112184 11020.9752246     0.7123901     0.1089918 \n         r2CU \n    0.7287878 \n\n\n\nfitted.results &lt;- predict(model_logit,newdata=subset(test,select=-(machine_failure)),type='response')\nfitted.results &lt;- ifelse(fitted.results &gt; 0.5,1,0)\n\nmisClasificError &lt;- mean(fitted.results != test$machine_failure)\nprint(paste('Accuracy of logistic regression:',1-misClasificError))\n\n[1] \"Accuracy of logistic regression: 0.996090695856138\"\n\n\n\ndf_test$tool_wear_min &lt;- df_test$tool_wear_min %&gt;% scale(center=TRUE,scale=TRUE)\ndf_test$power_w &lt;- df_test$power_w %&gt;% scale(center=TRUE,scale=TRUE)\ndf_test$temp_diff_k &lt;- df_test$temp_diff_k %&gt;% scale(center=TRUE,scale=TRUE)\n\n\npreds &lt;- predict(model_logit,df_test,type='response')\nfitted.results &lt;- as.data.frame(preds)\nfitted.results &lt;- fitted.results %&gt;% rename(\"Machine failure\" = \"preds\" )\nfitted.results$id &lt;- test_id\nfitted.results &lt;- fitted.results %&gt;% select(c(\"id\",\"Machine failure\"))\n\nwrite_csv(fitted.results,\"Logistic_Reg_predictions_std.csv\")"
+  },
+  {
+    "objectID": "posts/blogs/Machine_failure_prediction/machine_failure.html",
+    "href": "posts/blogs/Machine_failure_prediction/machine_failure.html",
+    "title": "⚙️⚠️ Can we accurately predict if a machine is going to undergo failure using machine learning ?",
+    "section": "",
+    "text": "Binary machine failure prediction using machine learning is a technique employed to anticipate the occurrence of failures or malfunctions in a binary system or machine. With the increasing complexity of modern machines, the ability to predict and prevent failures becomes crucial for optimizing performance, reducing downtime, and avoiding costly repairs.\nMachine learning algorithms play a vital role in this prediction process by analyzing historical data and identifying patterns or anomalies that indicate potential failures. These algorithms learn from past failure instances, considering various factors such as sensor readings, environmental conditions, maintenance records, and other relevant parameters.\nThe predictive models are trained on labeled datasets, where each instance is associated with a failure or non-failure outcome. Common machine learning techniques used for binary machine failure prediction include logistic regression, decision trees, random forests, support vector machines (SVM), and neural networks.\nDuring the training phase, the algorithms learn the relationships between input features and failure occurrences, thereby enabling them to make accurate predictions on unseen data. Feature engineering, which involves selecting or transforming relevant input variables, is an essential step in improving the model’s performance.\nOnce the model is trained, it can be deployed to make real-time predictions on new data streams. By continuously monitoring machine inputs and comparing them to the learned patterns, the system can generate alerts or take preventive actions whenever a potential failure is detected. This proactive approach helps minimize unexpected downtime, reduce maintenance costs, and improve overall operational efficiency.\nBinary machine failure prediction using machine learning is widely applied across various industries, including manufacturing, power generation, healthcare, transportation, and more. By leveraging the power of data and advanced analytics, it offers a valuable tool for optimizing maintenance strategies, enhancing productivity, and ensuring the reliability of critical systems.\n\n\n\n\n\nFigure 1: Source: www.gesrepair.com"
+  },
+  {
+    "objectID": "posts/blogs/Machine_failure_prediction/machine_failure.html#check-for-null-values",
+    "href": "posts/blogs/Machine_failure_prediction/machine_failure.html#check-for-null-values",
+    "title": "⚙️⚠️ Can we accurately predict if a machine is going to undergo failure using machine learning ?",
+    "section": "3.1 Check for null values",
+    "text": "3.1 Check for null values\nAs a part of checking for the cleanliness of the dataset, let us visaulise the presence of null values for each of the variables.\n\n\n\n\n\nFigure 2: Missingness in the dataset\n\n\n\n\nAs we can observe from figure Figure 2, there are no missing values for any of the variables in the dataset. As a result, the dataset can be considered clean for further analysis."
+  },
+  {
+    "objectID": "posts/blogs/Machine_failure_prediction/machine_failure.html#removal-of-variables",
+    "href": "posts/blogs/Machine_failure_prediction/machine_failure.html#removal-of-variables",
+    "title": "⚙️⚠️ Can we accurately predict if a machine is going to undergo failure using machine learning ?",
+    "section": "3.2 Removal of variables",
+    "text": "3.2 Removal of variables\nAfter studying for the presence of null values, we now remove the variables that do not provide any extra insights into our analysis.\n\ndf_train &lt;- df_train %&gt;% select(-c(id,`Product ID`))"
+  },
+  {
+    "objectID": "posts/blogs/Machine_failure_prediction/machine_failure.html#cleaning-the-variable-names",
+    "href": "posts/blogs/Machine_failure_prediction/machine_failure.html#cleaning-the-variable-names",
+    "title": "⚙️⚠️ Can we accurately predict if a machine is going to undergo failure using machine learning ?",
+    "section": "3.3 Cleaning the variable names",
+    "text": "3.3 Cleaning the variable names\nThe current dataset contains variable names which are not ideal for data wrangling and EDA. Hence, we will try to remove any unnecessary white space and special characters for each of the variable names.\n\ndf_train &lt;- clean_names(df_train)\nhead(df_train)\n\n# A tibble: 6 × 12\n  type  air_temperature_k process_temperature_k rotational_speed_rpm torque_nm\n  &lt;chr&gt;             &lt;dbl&gt;                 &lt;dbl&gt;                &lt;dbl&gt;     &lt;dbl&gt;\n1 L                  301.                  310.                 1596      36.1\n2 M                  303.                  312.                 1759      29.1\n3 L                  299.                  308.                 1805      26.5\n4 L                  301                   311.                 1524      44.3\n5 M                  298                   309                  1641      35.4\n6 M                  298.                  309.                 1429      42.1\n# ℹ 7 more variables: tool_wear_min &lt;dbl&gt;, machine_failure &lt;dbl&gt;, twf &lt;dbl&gt;,\n#   hdf &lt;dbl&gt;, pwf &lt;dbl&gt;, osf &lt;dbl&gt;, rnf &lt;dbl&gt;"
+  },
+  {
+    "objectID": "posts/blogs/Machine_failure_prediction/machine_failure.html#type-of-machine",
+    "href": "posts/blogs/Machine_failure_prediction/machine_failure.html#type-of-machine",
+    "title": "⚙️⚠️ Can we accurately predict if a machine is going to undergo failure using machine learning ?",
+    "section": "4.1 Type of machine",
+    "text": "4.1 Type of machine\nThere are a total of 3 types machines in this dataset. These are encoded as:\n\nL (Light)\nM (Medium)\nH (Heavy)\n\nLet us see the number of machine failures for each of the machine types.\n\n\n\n\n\nFigure 3: Number of machine failures for each type\n\n\n\n\nFigure Figure 3 illustrates the number of failures observed for each machine type. The failures constitute:\n- 1 % of the incidents for machine type “H”\n- 2 % of the incidents for machine type “L”\n- 1 % of the incidents for machine type “M”\n\n\n📵  Hence, we can observe that the number of failure cases are fairly evenly distributed among each of the machine types.  📵 ."
+  },
+  {
+    "objectID": "posts/blogs/Machine_failure_prediction/machine_failure.html#label2",
+    "href": "posts/blogs/Machine_failure_prediction/machine_failure.html#label2",
+    "title": "⚙️⚠️ Can we accurately predict if a machine is going to undergo failure using machine learning ?",
+    "section": "4.2 Air and process temperatures",
+    "text": "4.2 Air and process temperatures\nTemperatures can play a critical role in relation to machine health. In this dataset, we have air and process temperatures. The difference of these values could allow us to understand the overall heat dissipation of the machines. Analysing these variables may allow us when do the machines undergo overall failure as well as heat dissipation failure (HDF).\nLeet us first study the distribution of the temperature values.\n\n\n\n\n\nTemperature variation distribution\n\n\n\n\nAs we can observe from @ref(fig:temps), majority of the heat dissipation failures have occurred at relatively higher values of air temperatures. These air temperatures are observed to be around 302.5 K. Higher air temperatures invariably leads to lower value of heat dissipation which may cause heat dissipation failure and subsequently, machine failure.\nHeat dissipation values are governed by the following heat transfer equation.\n\\[ \\boxed{\\Delta H = mC_p(T_{process} - T_{air})}\\] Based on the above equation, let us now study how the difference between process and air temperatures vary for heat dissipation failures.\n\n\n\n\n\nHeat dissipation failure based on temperature difference\n\n\n\n\nAs illustrated by figure @ref(fig:tempdiff) and based on the heat transfer equation, we can observe that\n\n ⚠️ the majority of the heat dissipation failures occur at low temperature differences between process and air temperatures. ⚠️  ."
+  },
+  {
+    "objectID": "posts/blogs/Machine_failure_prediction/machine_failure.html#label1",
+    "href": "posts/blogs/Machine_failure_prediction/machine_failure.html#label1",
+    "title": "⚙️⚠️ Can we accurately predict if a machine is going to undergo failure using machine learning ?",
+    "section": "4.3 Torque and Tool rotation speed",
+    "text": "4.3 Torque and Tool rotation speed\nThe torque of a machine can be defined as the amount of rotational energy required to perform mechanical work. As a result of torque applied, a machine element, such as the tool in this case rotates at a particular speed. This speed of rotation is measured by the tool rotation speed in revolutions per minute (RPM).\nIn addition to the above definitions, the product of the torque and the tool rotation speeds give us the value of the power consumption of a machine. The equaiton for the same is as follows :\n\\[ \\boxed{P = \\omega T} \\] Where,\n\\(P =\\) Power consumption of the machine in Watts\n\\(T =\\) Torque in Nm\n\\(\\omega = 2\\pi N/60\\), with \\(N\\) being the tool rotational speed (RPM)\n\nLet us now visualise the torque and tool rotation speed values for each machine type.\n\n\n\n\n\nWorking window of Torque and Rotational speeds\n\n\n\n\nBased on the plot in figure @ref(fig:pwf), we can observe\n\n ⚠️The ideal working window for torque lies between 25 Nm - 50 Nm while that for the rotational speed lies between 1250-2000 RPM . ⚠️  .\n\nLet us now try to study how do the values for tool rotation speeds and torque vary based on power failure (PWF) faceted for each machine type.\n\n\n\n\n\nFaceted hex plot of working windows for each machine type\n\n\n\n\nBased on the analysis of figure @ref(fig:facetwindown) we can conclude that\n\n❌ Power failures (PWF) are observed to majorly occur outside the ideal working window. These failures are  majorly concentrated in either the regions of high torque and low rotational speeds or low torque and high rotational speeds. The observation holds consistent for all three machine types ❌  ."
+  },
+  {
+    "objectID": "posts/blogs/Machine_failure_prediction/machine_failure.html#power-consumption",
+    "href": "posts/blogs/Machine_failure_prediction/machine_failure.html#power-consumption",
+    "title": "⚙️⚠️ Can we accurately predict if a machine is going to undergo failure using machine learning ?",
+    "section": "4.4 Power consumption",
+    "text": "4.4 Power consumption\nBased on the analysis in section Section 4.3, let us study how does the power consumption differ for machines which have undergone power failure (PWF).\n\n\n\n\n\nFigure 8: Probability density of power consumption for each PWF status\n\n\n\n\nFigure Figure 8 illustrates the density distribution of power consumption for each power failure (PWF) status and faceted for each of the machine types. We can observe that:\n\n⚡️the density plot for machines which have undergone power failure is bimodal in nature while the plot is unimodal for machines which did not undergo power failure. Based on the density plot, we can observe that the ideal working window for power consumption should be between 4000-10000 W. Machines reporting power consumption below or above this band are observed to be prone to undergo power failure.⚡️"
+  },
+  {
+    "objectID": "posts/blogs/Machine_failure_prediction/machine_failure.html#toolwear",
+    "href": "posts/blogs/Machine_failure_prediction/machine_failure.html#toolwear",
+    "title": "⚙️⚠️ Can we accurately predict if a machine is going to undergo failure using machine learning ?",
+    "section": "4.5 Toolwear",
+    "text": "4.5 Toolwear\nThe toolwear can play a critical role in terms of overstrain failure (OSF) as it can lead to excess loads on various parts of the machine equipment. Hence, it is pertinent to study the importance of toolwear through visualisations.\n\n\n\n\n\nFigure 9: Tool wear values for overstrain failure status (OSF) faceted for each machine type\n\n\n\n\nAfter analysing figure Figure 9, we observe that\n\n🔩 Overstrain failures as a result of tool wear occurs  majorly for tool wear values of 200 mm or above . While there are some overstrain failures at low toolwear values, however, OSF is majorly a result of higher toolwear as can be observed through the violin plots. This observation is fairly consistent for each of the three machine types. 🔩."
+  },
+  {
+    "objectID": "posts/blogs/Machine_failure_prediction/machine_failure.html#logistic-regression",
+    "href": "posts/blogs/Machine_failure_prediction/machine_failure.html#logistic-regression",
+    "title": "⚙️⚠️ Can we accurately predict if a machine is going to undergo failure using machine learning ?",
+    "section": "7.1 Logistic Regression",
+    "text": "7.1 Logistic Regression\n\nmodel_logit &lt;- glm(machine_failure~.,family=binomial(link='logit'),data=train)\npR2(model_logit)\n\nfitting null model for pseudo-r2\n\n\n          llh       llhNull            G2      McFadden          r2ML \n-2224.7236061 -7735.2112184 11020.9752246     0.7123901     0.1089918 \n         r2CU \n    0.7287878 \n\n\n\n💡 Upon studying the McFadden \\(R^2\\) value, we observe that the model accuracy was approximately 71.2%  💡.\n\nLet us now observe how well we can predict on the test dataset based on the logistic regression model.\n\n\n[1] \"Accuracy of logistic regression: 0.996090695856138\"\n\n\nAs we can observe, the logistic regression model was able to accurately predict 97.2% of the machine failures.\nLet us further study the performance of the logistic regression model through the Receiver Operating Curve (ROC) metric.\n\n\n\n\n\nFigure 11: Receiver Operating Curve for Logistic Regression\n\n\n\n\nBased on the ROC as illustrated by figure Figure 11, we can observe that a large section of the upper half of the plot has been covered by the operating curve.\n\n💡 The Area Under Curve (AUC) score of 0.9261326 suggests that the model was able to  predict the machine failures fairly well.  💡\n\nNext, we try to obtain a more intuitive performance metric of the model by creating a confusion matrix.\n\n\n\n\n\nFigure 12: Confusion matrix for Logistic Regression\n\n\n\n\nFigure Figure 12 illustrates the confusion matrix for the logistic regression model along with its various performance metrics."
+  },
+  {
+    "objectID": "posts/blogs/Machine_failure_prediction/machine_failure.html#random-forest",
+    "href": "posts/blogs/Machine_failure_prediction/machine_failure.html#random-forest",
+    "title": "⚙️⚠️ Can we accurately predict if a machine is going to undergo failure using machine learning ?",
+    "section": "7.2 Random Forest",
+    "text": "7.2 Random Forest\nLet us use an ensemble algorithm to classify our results. We shall utilise the Random Forest technique which utilises multiple decision trees to predict results.\n\n\n\n\n\nFigure 13: Error vs Number of trees for Random Forest\n\n\n\n\nAs we can observe from figure Figure 13,\n\n💡 the error of the random forest model is observed to reduce  as the number of trees cross 100 . 💡\n\n\n\n\n\n\nFigure 14: Confusion matrix of the random forest model"
+  },
+  {
+    "objectID": "posts/blogs/Machine_failure_prediction/machine_failure.html#xgboost",
+    "href": "posts/blogs/Machine_failure_prediction/machine_failure.html#xgboost",
+    "title": "⚙️⚠️ Can we accurately predict if a machine is going to undergo failure using machine learning ?",
+    "section": "7.3 XGboost",
+    "text": "7.3 XGboost\nLet us try to use an extra gradient boosted ensemble method commonly termed as the XGboost classifier.\n\n\n[1] train-logloss:0.144407 \n[2] train-logloss:0.059787 \n\n\n\n\n\n\n\nConfusion matrix of the XGBoost model"
+  },
+  {
+    "objectID": "posts/blogs/Machine_failure_prediction/machine_failure.html#light-gbm",
+    "href": "posts/blogs/Machine_failure_prediction/machine_failure.html#light-gbm",
+    "title": "⚙️⚠️ Can we accurately predict if a machine is going to undergo failure using machine learning ?",
+    "section": "7.4 Light GBM",
+    "text": "7.4 Light GBM\nLet us utilise the LGBM algorithm and train it on the given dataset.\n\n\n\n\n\nConfusion matrix of the Light GB model"
+  },
+  {
+    "objectID": "posts/blogs/Machine_failure_prediction/machine_failure.html#catboost",
+    "href": "posts/blogs/Machine_failure_prediction/machine_failure.html#catboost",
+    "title": "⚙️⚠️ Can we accurately predict if a machine is going to undergo failure using machine learning ?",
+    "section": "7.5 Catboost",
+    "text": "7.5 Catboost\n\n\n\n\n\nFeature importance using Catboost model\n\n\n\n\n\n\n\n\n\nConfusion matrix of the Catboost model"
+  },
+  {
+    "objectID": "posts/blogs/Machine_failure_prediction/machine_failure.html#feature-transformation",
+    "href": "posts/blogs/Machine_failure_prediction/machine_failure.html#feature-transformation",
+    "title": "⚙️⚠️ Can we accurately predict if a machine is going to undergo failure using machine learning ?",
+    "section": "7.6 Feature transformation",
+    "text": "7.6 Feature transformation\nNow that we have created all our baseline models, let us try our hand out with some feature transformation with standard scaling options.\n\ntrain$tool_wear_min &lt;- train$tool_wear_min %&gt;% scale(center=TRUE,scale=TRUE)\ntrain$power_w &lt;- train$power_w %&gt;% scale(center=TRUE,scale=TRUE)\ntrain$temp_diff_k &lt;- train$temp_diff_k %&gt;% scale(center=TRUE,scale=TRUE)\n\ntest$tool_wear_min &lt;- test$tool_wear_min %&gt;% scale(center=TRUE,scale=TRUE)\ntest$power_w &lt;- test$power_w %&gt;% scale(center=TRUE,scale=TRUE)\ntest$temp_diff_k &lt;- test$temp_diff_k %&gt;% scale(center=TRUE,scale=TRUE)\n\n\ncols &lt;- c(\"twf\",\"hdf\",\"pwf\",\"osf\",\"rnf\")\n\n\ntrain %&lt;&gt;%\n       mutate_each_(funs(factor(.)),cols)   #Converting  to factors\ntest %&lt;&gt;%\n       mutate_each_(funs(factor(.)),cols)\ndf_test %&lt;&gt;%\n       mutate_each_(funs(factor(.)),cols)\n\nNow that we have standardised all the continuous numeric variables, let us attempt to train the model once again on the scaled dataset.\n\nmodel_logit &lt;- glm(machine_failure~.,family=binomial(link='logit'),data=train)\npR2(model_logit)\n\nfitting null model for pseudo-r2\n\n\n          llh       llhNull            G2      McFadden          r2ML \n-2224.7236061 -7735.2112184 11020.9752246     0.7123901     0.1089918 \n         r2CU \n    0.7287878 \n\n\n\n\n[1] \"Accuracy of logistic regression: 0.996090695856138\""
+  },
+  {
+    "objectID": "posts/blogs/Machine_failure_prediction/machine_failure.html#sec-label2",
+    "href": "posts/blogs/Machine_failure_prediction/machine_failure.html#sec-label2",
+    "title": "⚙️⚠️ Can we accurately predict if a machine is going to undergo failure using machine learning ?",
+    "section": "4.2 Air and process temperatures",
+    "text": "4.2 Air and process temperatures\nTemperatures can play a critical role in relation to machine health. In this dataset, we have air and process temperatures. The difference of these values could allow us to understand the overall heat dissipation of the machines. Analysing these variables may allow us when do the machines undergo overall failure as well as heat dissipation failure (HDF).\nLet us first study the distribution of the temperature values.\n\n\n\n\n\nFigure 4: Temperature variation distribution\n\n\n\n\nAs we can observe from Figure 4, majority of the heat dissipation failures have occurred at relatively higher values of air temperatures. These air temperatures are observed to be around 302.5 K. Higher air temperatures invariably leads to lower value of heat dissipation which may cause heat dissipation failure and subsequently, machine failure.\nHeat dissipation values are governed by the following heat transfer equation.\n\\[ \\boxed{\\Delta H = mC_p(T_{process} - T_{air})}\\] Based on the above equation, let us now study how the difference between process and air temperatures vary for heat dissipation failures.\n\n\n\n\n\nFigure 5: Heat dissipation failure based on temperature difference\n\n\n\n\nAs illustrated by figure Figure 5 and based on the heat transfer equation, we can observe that\n\n ⚠️ the majority of the heat dissipation failures occur at low temperature differences between process and air temperatures. ⚠️  ."
+  },
+  {
+    "objectID": "posts/blogs/Machine_failure_prediction/machine_failure.html#sec-label1",
+    "href": "posts/blogs/Machine_failure_prediction/machine_failure.html#sec-label1",
+    "title": "⚙️⚠️ Can we accurately predict if a machine is going to undergo failure using machine learning ?",
+    "section": "4.3 Torque and Tool rotation speed",
+    "text": "4.3 Torque and Tool rotation speed\nThe torque of a machine can be defined as the amount of rotational energy required to perform mechanical work. As a result of torque applied, a machine element, such as the tool in this case rotates at a particular speed. This speed of rotation is measured by the tool rotation speed in revolutions per minute (RPM).\nIn addition to the above definitions, the product of the torque and the tool rotation speeds give us the value of the power consumption of a machine. The equaiton for the same is as follows :\n\\[ \\boxed{P = \\omega T} \\] Where,\n\\(P =\\) Power consumption of the machine in Watts\n\\(T =\\) Torque in Nm\n\\(\\omega = 2\\pi N/60\\), with \\(N\\) being the tool rotational speed (RPM)\n\nLet us now visualise the torque and tool rotation speed values for each machine type.\n\n\n\n\n\nFigure 6: Working window of Torque and Rotational speeds\n\n\n\n\nBased on the plot in figure Figure 6, we can observe\n\n ⚠️The ideal working window for torque lies between 25 Nm - 50 Nm while that for the rotational speed lies between 1250-2000 RPM . ⚠️  .\n\nLet us now try to study how do the values for tool rotation speeds and torque vary based on power failure (PWF) faceted for each machine type.\n\n\n\n\n\nFigure 7: Faceted hex plot of working windows for each machine type\n\n\n\n\nBased on the analysis of figure Figure 7 we can conclude that\n\n❌ Power failures (PWF) are observed to majorly occur outside the ideal working window. These failures are  majorly concentrated in either the regions of high torque and low rotational speeds or low torque and high rotational speeds. The observation holds consistent for all three machine types ❌  ."
+  },
+  {
+    "objectID": "posts/blogs/Machine_failure_prediction/machine_failure.html#feature-transformation-and-model-implementation",
+    "href": "posts/blogs/Machine_failure_prediction/machine_failure.html#feature-transformation-and-model-implementation",
+    "title": "⚙️⚠️ Can we accurately predict if a machine is going to undergo failure using machine learning ?",
+    "section": "7.6 Feature transformation and model implementation",
+    "text": "7.6 Feature transformation and model implementation\nNow that we have created all our baseline models, let us try our hand out with some feature transformation with standard scaling options.\n\ntrain$tool_wear_min &lt;- train$tool_wear_min %&gt;% scale(center=TRUE,scale=TRUE)\ntrain$power_w &lt;- train$power_w %&gt;% scale(center=TRUE,scale=TRUE)\ntrain$temp_diff_k &lt;- train$temp_diff_k %&gt;% scale(center=TRUE,scale=TRUE)\n\ntest$tool_wear_min &lt;- test$tool_wear_min %&gt;% scale(center=TRUE,scale=TRUE)\ntest$power_w &lt;- test$power_w %&gt;% scale(center=TRUE,scale=TRUE)\ntest$temp_diff_k &lt;- test$temp_diff_k %&gt;% scale(center=TRUE,scale=TRUE)\n\n\ncols &lt;- c(\"twf\",\"hdf\",\"pwf\",\"osf\",\"rnf\")\n\n\ntrain %&lt;&gt;%\n       mutate_each_(funs(factor(.)),cols)   #Converting  to factors\ntest %&lt;&gt;%\n       mutate_each_(funs(factor(.)),cols)\ndf_test %&lt;&gt;%\n       mutate_each_(funs(factor(.)),cols)\n\nNow that we have standardised all the continuous numeric variables, let us attempt to train the model once again on the scaled dataset.\n\nmodel_logit &lt;- glm(machine_failure~.,family=binomial(link='logit'),data=train)\npR2(model_logit)\n\nfitting null model for pseudo-r2\n\n\n          llh       llhNull            G2      McFadden          r2ML \n-2224.7236061 -7735.2112184 11020.9752246     0.7123901     0.1089918 \n         r2CU \n    0.7287878 \n\n\n\n\n[1] \"Accuracy of logistic regression: 0.996090695856138\""
+  },
+  {
+    "objectID": "posts/blogs/Machine_failure_prediction/index.html",
+    "href": "posts/blogs/Machine_failure_prediction/index.html",
+    "title": "⚙️⚠️ Can we accurately predict if a machine is going to undergo failure using machine learning ?",
+    "section": "",
+    "text": "Binary machine failure prediction using machine learning is a technique employed to anticipate the occurrence of failures or malfunctions in a binary system or machine. With the increasing complexity of modern machines, the ability to predict and prevent failures becomes crucial for optimizing performance, reducing downtime, and avoiding costly repairs.\nMachine learning algorithms play a vital role in this prediction process by analyzing historical data and identifying patterns or anomalies that indicate potential failures. These algorithms learn from past failure instances, considering various factors such as sensor readings, environmental conditions, maintenance records, and other relevant parameters.\nThe predictive models are trained on labeled datasets, where each instance is associated with a failure or non-failure outcome. Common machine learning techniques used for binary machine failure prediction include logistic regression, decision trees, random forests, support vector machines (SVM), and neural networks.\nDuring the training phase, the algorithms learn the relationships between input features and failure occurrences, thereby enabling them to make accurate predictions on unseen data. Feature engineering, which involves selecting or transforming relevant input variables, is an essential step in improving the model’s performance.\nOnce the model is trained, it can be deployed to make real-time predictions on new data streams. By continuously monitoring machine inputs and comparing them to the learned patterns, the system can generate alerts or take preventive actions whenever a potential failure is detected. This proactive approach helps minimize unexpected downtime, reduce maintenance costs, and improve overall operational efficiency.\nBinary machine failure prediction using machine learning is widely applied across various industries, including manufacturing, power generation, healthcare, transportation, and more. By leveraging the power of data and advanced analytics, it offers a valuable tool for optimizing maintenance strategies, enhancing productivity, and ensuring the reliability of critical systems.\n\n\n\n\n\nFigure 1: Source: www.gesrepair.com"
+  },
+  {
+    "objectID": "posts/blogs/Machine_failure_prediction/index.html#check-for-null-values",
+    "href": "posts/blogs/Machine_failure_prediction/index.html#check-for-null-values",
+    "title": "⚙️⚠️ Can we accurately predict if a machine is going to undergo failure using machine learning ?",
+    "section": "3.1 Check for null values",
+    "text": "3.1 Check for null values\nAs a part of checking for the cleanliness of the dataset, let us visaulise the presence of null values for each of the variables.\n\n\n\n\n\nFigure 2: Missingness in the dataset\n\n\n\n\nAs we can observe from figure Figure 2, there are no missing values for any of the variables in the dataset. As a result, the dataset can be considered clean for further analysis."
+  },
+  {
+    "objectID": "posts/blogs/Machine_failure_prediction/index.html#removal-of-variables",
+    "href": "posts/blogs/Machine_failure_prediction/index.html#removal-of-variables",
+    "title": "⚙️⚠️ Can we accurately predict if a machine is going to undergo failure using machine learning ?",
+    "section": "3.2 Removal of variables",
+    "text": "3.2 Removal of variables\nAfter studying for the presence of null values, we now remove the variables that do not provide any extra insights into our analysis.\n\ndf_train &lt;- df_train %&gt;% select(-c(id,`Product ID`))"
+  },
+  {
+    "objectID": "posts/blogs/Machine_failure_prediction/index.html#cleaning-the-variable-names",
+    "href": "posts/blogs/Machine_failure_prediction/index.html#cleaning-the-variable-names",
+    "title": "⚙️⚠️ Can we accurately predict if a machine is going to undergo failure using machine learning ?",
+    "section": "3.3 Cleaning the variable names",
+    "text": "3.3 Cleaning the variable names\nThe current dataset contains variable names which are not ideal for data wrangling and EDA. Hence, we will try to remove any unnecessary white space and special characters for each of the variable names.\n\ndf_train &lt;- clean_names(df_train)\nhead(df_train)\n\n# A tibble: 6 × 12\n  type  air_temperature_k process_temperature_k rotational_speed_rpm torque_nm\n  &lt;chr&gt;             &lt;dbl&gt;                 &lt;dbl&gt;                &lt;dbl&gt;     &lt;dbl&gt;\n1 L                  301.                  310.                 1596      36.1\n2 M                  303.                  312.                 1759      29.1\n3 L                  299.                  308.                 1805      26.5\n4 L                  301                   311.                 1524      44.3\n5 M                  298                   309                  1641      35.4\n6 M                  298.                  309.                 1429      42.1\n# ℹ 7 more variables: tool_wear_min &lt;dbl&gt;, machine_failure &lt;dbl&gt;, twf &lt;dbl&gt;,\n#   hdf &lt;dbl&gt;, pwf &lt;dbl&gt;, osf &lt;dbl&gt;, rnf &lt;dbl&gt;"
+  },
+  {
+    "objectID": "posts/blogs/Machine_failure_prediction/index.html#type-of-machine",
+    "href": "posts/blogs/Machine_failure_prediction/index.html#type-of-machine",
+    "title": "⚙️⚠️ Can we accurately predict if a machine is going to undergo failure using machine learning ?",
+    "section": "4.1 Type of machine",
+    "text": "4.1 Type of machine\nThere are a total of 3 types machines in this dataset. These are encoded as:\n\nL (Light)\nM (Medium)\nH (Heavy)\n\nLet us see the number of machine failures for each of the machine types.\n\n\n\n\n\nFigure 3: Number of machine failures for each type\n\n\n\n\nFigure Figure 3 illustrates the number of failures observed for each machine type. The failures constitute:\n- 1 % of the incidents for machine type “H”\n- 2 % of the incidents for machine type “L”\n- 1 % of the incidents for machine type “M”\n\n\n📵  Hence, we can observe that the number of failure cases are fairly evenly distributed among each of the machine types.  📵 ."
+  },
+  {
+    "objectID": "posts/blogs/Machine_failure_prediction/index.html#sec-label2",
+    "href": "posts/blogs/Machine_failure_prediction/index.html#sec-label2",
+    "title": "⚙️⚠️ Can we accurately predict if a machine is going to undergo failure using machine learning ?",
+    "section": "4.2 Air and process temperatures",
+    "text": "4.2 Air and process temperatures\nTemperatures can play a critical role in relation to machine health. In this dataset, we have air and process temperatures. The difference of these values could allow us to understand the overall heat dissipation of the machines. Analysing these variables may allow us when do the machines undergo overall failure as well as heat dissipation failure (HDF).\nLet us first study the distribution of the temperature values.\n\n\n\n\n\nFigure 4: Temperature variation distribution\n\n\n\n\nAs we can observe from Figure 4, majority of the heat dissipation failures have occurred at relatively higher values of air temperatures. These air temperatures are observed to be around 302.5 K. Higher air temperatures invariably leads to lower value of heat dissipation which may cause heat dissipation failure and subsequently, machine failure.\nHeat dissipation values are governed by the following heat transfer equation.\n\\[ \\boxed{\\Delta H = mC_p(T_{process} - T_{air})}\\] Based on the above equation, let us now study how the difference between process and air temperatures vary for heat dissipation failures.\n\n\n\n\n\nFigure 5: Heat dissipation failure based on temperature difference\n\n\n\n\nAs illustrated by figure Figure 5 and based on the heat transfer equation, we can observe that\n\n ⚠️ the majority of the heat dissipation failures occur at low temperature differences between process and air temperatures. ⚠️  ."
+  },
+  {
+    "objectID": "posts/blogs/Machine_failure_prediction/index.html#sec-label1",
+    "href": "posts/blogs/Machine_failure_prediction/index.html#sec-label1",
+    "title": "⚙️⚠️ Can we accurately predict if a machine is going to undergo failure using machine learning ?",
+    "section": "4.3 Torque and Tool rotation speed",
+    "text": "4.3 Torque and Tool rotation speed\nThe torque of a machine can be defined as the amount of rotational energy required to perform mechanical work. As a result of torque applied, a machine element, such as the tool in this case rotates at a particular speed. This speed of rotation is measured by the tool rotation speed in revolutions per minute (RPM).\nIn addition to the above definitions, the product of the torque and the tool rotation speeds give us the value of the power consumption of a machine. The equaiton for the same is as follows :\n\\[ \\boxed{P = \\omega T} \\] Where,\n\\(P =\\) Power consumption of the machine in Watts\n\\(T =\\) Torque in Nm\n\\(\\omega = 2\\pi N/60\\), with \\(N\\) being the tool rotational speed (RPM)\n\nLet us now visualise the torque and tool rotation speed values for each machine type.\n\n\n\n\n\nFigure 6: Working window of Torque and Rotational speeds\n\n\n\n\nBased on the plot in figure Figure 6, we can observe\n\n ⚠️The ideal working window for torque lies between 25 Nm - 50 Nm while that for the rotational speed lies between 1250-2000 RPM . ⚠️  .\n\nLet us now try to study how do the values for tool rotation speeds and torque vary based on power failure (PWF) faceted for each machine type.\n\n\n\n\n\nFigure 7: Faceted hex plot of working windows for each machine type\n\n\n\n\nBased on the analysis of figure Figure 7 we can conclude that\n\n❌ Power failures (PWF) are observed to majorly occur outside the ideal working window. These failures are  majorly concentrated in either the regions of high torque and low rotational speeds or low torque and high rotational speeds. The observation holds consistent for all three machine types ❌  ."
+  },
+  {
+    "objectID": "posts/blogs/Machine_failure_prediction/index.html#power-consumption",
+    "href": "posts/blogs/Machine_failure_prediction/index.html#power-consumption",
+    "title": "⚙️⚠️ Can we accurately predict if a machine is going to undergo failure using machine learning ?",
+    "section": "4.4 Power consumption",
+    "text": "4.4 Power consumption\nBased on the analysis in section Section 4.3, let us study how does the power consumption differ for machines which have undergone power failure (PWF).\n\n\n\n\n\nFigure 8: Probability density of power consumption for each PWF status\n\n\n\n\nFigure Figure 8 illustrates the density distribution of power consumption for each power failure (PWF) status and faceted for each of the machine types. We can observe that:\n\n⚡️the density plot for machines which have undergone power failure is bimodal in nature while the plot is unimodal for machines which did not undergo power failure. Based on the density plot, we can observe that the ideal working window for power consumption should be between 4000-10000 W. Machines reporting power consumption below or above this band are observed to be prone to undergo power failure.⚡️"
+  },
+  {
+    "objectID": "posts/blogs/Machine_failure_prediction/index.html#toolwear",
+    "href": "posts/blogs/Machine_failure_prediction/index.html#toolwear",
+    "title": "⚙️⚠️ Can we accurately predict if a machine is going to undergo failure using machine learning ?",
+    "section": "4.5 Toolwear",
+    "text": "4.5 Toolwear\nThe toolwear can play a critical role in terms of overstrain failure (OSF) as it can lead to excess loads on various parts of the machine equipment. Hence, it is pertinent to study the importance of toolwear through visualisations.\n\n\n\n\n\nFigure 9: Tool wear values for overstrain failure status (OSF) faceted for each machine type\n\n\n\n\nAfter analysing figure Figure 9, we observe that\n\n🔩 Overstrain failures as a result of tool wear occurs  majorly for tool wear values of 200 mm or above . While there are some overstrain failures at low toolwear values, however, OSF is majorly a result of higher toolwear as can be observed through the violin plots. This observation is fairly consistent for each of the three machine types. 🔩."
+  },
+  {
+    "objectID": "posts/blogs/Machine_failure_prediction/index.html#logistic-regression",
+    "href": "posts/blogs/Machine_failure_prediction/index.html#logistic-regression",
+    "title": "⚙️⚠️ Can we accurately predict if a machine is going to undergo failure using machine learning ?",
+    "section": "7.1 Logistic Regression",
+    "text": "7.1 Logistic Regression\n\nmodel_logit &lt;- glm(machine_failure~.,family=binomial(link='logit'),data=train)\npR2(model_logit)\n\nfitting null model for pseudo-r2\n\n\n          llh       llhNull            G2      McFadden          r2ML \n-2224.7236061 -7735.2112184 11020.9752246     0.7123901     0.1089918 \n         r2CU \n    0.7287878 \n\n\n\n💡 Upon studying the McFadden \\(R^2\\) value, we observe that the model accuracy was approximately 71.2%  💡.\n\nLet us now observe how well we can predict on the test dataset based on the logistic regression model.\n\n\n[1] \"Accuracy of logistic regression: 0.996090695856138\"\n\n\nAs we can observe, the logistic regression model was able to accurately predict 97.2% of the machine failures.\nLet us further study the performance of the logistic regression model through the Receiver Operating Curve (ROC) metric.\n\n\n\n\n\nFigure 11: Receiver Operating Curve for Logistic Regression\n\n\n\n\nBased on the ROC as illustrated by figure Figure 11, we can observe that a large section of the upper half of the plot has been covered by the operating curve.\n\n💡 The Area Under Curve (AUC) score of 0.9261326 suggests that the model was able to  predict the machine failures fairly well.  💡\n\nNext, we try to obtain a more intuitive performance metric of the model by creating a confusion matrix.\n\n\n\n\n\nFigure 12: Confusion matrix for Logistic Regression\n\n\n\n\nFigure Figure 12 illustrates the confusion matrix for the logistic regression model along with its various performance metrics."
+  },
+  {
+    "objectID": "posts/blogs/Machine_failure_prediction/index.html#random-forest",
+    "href": "posts/blogs/Machine_failure_prediction/index.html#random-forest",
+    "title": "⚙️⚠️ Can we accurately predict if a machine is going to undergo failure using machine learning ?",
+    "section": "7.2 Random Forest",
+    "text": "7.2 Random Forest\nLet us use an ensemble algorithm to classify our results. We shall utilise the Random Forest technique which utilises multiple decision trees to predict results.\n\n\n\n\n\nFigure 13: Error vs Number of trees for Random Forest\n\n\n\n\nAs we can observe from figure Figure 13,\n\n💡 the error of the random forest model is observed to reduce  as the number of trees cross 100 . 💡\n\n\n\n\n\n\nFigure 14: Confusion matrix of the random forest model"
+  },
+  {
+    "objectID": "posts/blogs/Machine_failure_prediction/index.html#xgboost",
+    "href": "posts/blogs/Machine_failure_prediction/index.html#xgboost",
+    "title": "⚙️⚠️ Can we accurately predict if a machine is going to undergo failure using machine learning ?",
+    "section": "7.3 XGboost",
+    "text": "7.3 XGboost\nLet us try to use an extra gradient boosted ensemble method commonly termed as the XGboost classifier.\n\n\n[1] train-logloss:0.144407 \n[2] train-logloss:0.059787 \n\n\n\n\n\n\n\nConfusion matrix of the XGBoost model"
+  },
+  {
+    "objectID": "posts/blogs/Machine_failure_prediction/index.html#light-gbm",
+    "href": "posts/blogs/Machine_failure_prediction/index.html#light-gbm",
+    "title": "⚙️⚠️ Can we accurately predict if a machine is going to undergo failure using machine learning ?",
+    "section": "7.4 Light GBM",
+    "text": "7.4 Light GBM\nLet us utilise the LGBM algorithm and train it on the given dataset.\n\n\n\n\n\nConfusion matrix of the Light GB model"
+  },
+  {
+    "objectID": "posts/blogs/Machine_failure_prediction/index.html#catboost",
+    "href": "posts/blogs/Machine_failure_prediction/index.html#catboost",
+    "title": "⚙️⚠️ Can we accurately predict if a machine is going to undergo failure using machine learning ?",
+    "section": "7.5 Catboost",
+    "text": "7.5 Catboost\n\n\n\n\n\nFeature importance using Catboost model\n\n\n\n\n\n\n\n\n\nConfusion matrix of the Catboost model"
+  },
+  {
+    "objectID": "posts/blogs/Machine_failure_prediction/index.html#feature-transformation-and-model-implementation",
+    "href": "posts/blogs/Machine_failure_prediction/index.html#feature-transformation-and-model-implementation",
+    "title": "⚙️⚠️ Can we accurately predict if a machine is going to undergo failure using machine learning ?",
+    "section": "7.6 Feature transformation and model implementation",
+    "text": "7.6 Feature transformation and model implementation\nNow that we have created all our baseline models, let us try our hand out with some feature transformation with standard scaling options.\n\ntrain$tool_wear_min &lt;- train$tool_wear_min %&gt;% scale(center=TRUE,scale=TRUE)\ntrain$power_w &lt;- train$power_w %&gt;% scale(center=TRUE,scale=TRUE)\ntrain$temp_diff_k &lt;- train$temp_diff_k %&gt;% scale(center=TRUE,scale=TRUE)\n\ntest$tool_wear_min &lt;- test$tool_wear_min %&gt;% scale(center=TRUE,scale=TRUE)\ntest$power_w &lt;- test$power_w %&gt;% scale(center=TRUE,scale=TRUE)\ntest$temp_diff_k &lt;- test$temp_diff_k %&gt;% scale(center=TRUE,scale=TRUE)\n\n\ncols &lt;- c(\"twf\",\"hdf\",\"pwf\",\"osf\",\"rnf\")\n\n\ntrain %&lt;&gt;%\n       mutate_each_(funs(factor(.)),cols)   #Converting  to factors\ntest %&lt;&gt;%\n       mutate_each_(funs(factor(.)),cols)\ndf_test %&lt;&gt;%\n       mutate_each_(funs(factor(.)),cols)\n\nNow that we have standardised all the continuous numeric variables, let us attempt to train the model once again on the scaled dataset.\n\nmodel_logit &lt;- glm(machine_failure~.,family=binomial(link='logit'),data=train)\npR2(model_logit)\n\nfitting null model for pseudo-r2\n\n\n          llh       llhNull            G2      McFadden          r2ML \n-2224.7236061 -7735.2112184 11020.9752246     0.7123901     0.1089918 \n         r2CU \n    0.7287878 \n\n\n\n\n[1] \"Accuracy of logistic regression: 0.996090695856138\""
   }
 ]

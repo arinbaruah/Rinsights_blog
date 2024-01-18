@@ -2,19 +2,19 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>htt/index.html</loc>
-    <lastmod>2024-01-18T16:50:41.887Z</lastmod>
+    <lastmod>2024-01-18T17:53:44.597Z</lastmod>
   </url>
   <url>
     <loc>htt/about.html</loc>
-    <lastmod>2024-01-18T09:21:05.320Z</lastmod>
+    <lastmod>2024-01-18T17:53:42.173Z</lastmod>
   </url>
   <url>
     <loc>htt/posts/index.html</loc>
-    <lastmod>2024-01-18T16:50:42.806Z</lastmod>
+    <lastmod>2024-01-18T17:53:41.210Z</lastmod>
   </url>
   <url>
     <loc>htt/posts/blogs/welcome/index.html</loc>
-    <lastmod>2024-01-18T09:19:21.627Z</lastmod>
+    <lastmod>2024-01-18T17:53:34.432Z</lastmod>
   </url>
   <url>
     <loc>htt/posts/blogs/post-with-code/index.html</loc>
@@ -22,15 +22,15 @@
   </url>
   <url>
     <loc>htt/posts/blogs/gender_diversity/index.html</loc>
-    <lastmod>2024-01-18T08:41:42.010Z</lastmod>
+    <lastmod>2024-01-18T17:53:35.901Z</lastmod>
   </url>
   <url>
     <loc>htt/posts/blogs/field_diversity/index.html</loc>
-    <lastmod>2024-01-18T09:00:57.114Z</lastmod>
+    <lastmod>2024-01-18T17:53:37.393Z</lastmod>
   </url>
   <url>
     <loc>htt/posts/blogs/Bank_churn/index.html</loc>
-    <lastmod>2024-01-18T09:19:04.087Z</lastmod>
+    <lastmod>2024-01-18T17:53:33.854Z</lastmod>
   </url>
   <url>
     <loc>htt/posts/blogs/Machine_failure_prediction/Machine_failure_preds.html</loc>
@@ -46,6 +46,6 @@
   </url>
   <url>
     <loc>htt/posts/blogs/Mach_failure_preds/index.html</loc>
-    <lastmod>2024-01-18T16:50:45.540Z</lastmod>
+    <lastmod>2024-01-18T17:53:39.756Z</lastmod>
   </url>
 </urlset>

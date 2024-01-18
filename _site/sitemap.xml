@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>htt/index.html</loc>
-    <lastmod>2024-01-18T16:16:15.462Z</lastmod>
+    <lastmod>2024-01-18T16:50:41.887Z</lastmod>
   </url>
   <url>
     <loc>htt/about.html</loc>
@@ -10,7 +10,7 @@
   </url>
   <url>
     <loc>htt/posts/index.html</loc>
-    <lastmod>2024-01-18T16:16:27.803Z</lastmod>
+    <lastmod>2024-01-18T16:50:42.806Z</lastmod>
   </url>
   <url>
     <loc>htt/posts/blogs/welcome/index.html</loc>
@@ -43,5 +43,9 @@
   <url>
     <loc>htt/posts/blogs/Machine_failure_prediction/index.html</loc>
     <lastmod>2024-01-18T16:16:18.651Z</lastmod>
+  </url>
+  <url>
+    <loc>htt/posts/blogs/Mach_failure_preds/index.html</loc>
+    <lastmod>2024-01-18T16:50:45.540Z</lastmod>
   </url>
 </urlset>

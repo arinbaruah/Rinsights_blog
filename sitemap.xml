@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>htt/about.html</loc>
+    <lastmod>2024-01-18T17:36:12.123Z</lastmod>
+  </url>
+  <url>
+    <loc>htt/posts/index.html</loc>
+    <lastmod>2024-01-18T17:36:09.049Z</lastmod>
+  </url>
+  <url>
+    <loc>htt/posts/blogs/field_diversity/index.html</loc>
+    <lastmod>2024-01-18T17:36:06.647Z</lastmod>
+  </url>
+  <url>
+    <loc>htt/posts/blogs/welcome/index.html</loc>
+    <lastmod>2024-01-18T17:36:04.872Z</lastmod>
+  </url>
+  <url>
+    <loc>htt/posts/blogs/Bank_churn/index.html</loc>
+    <lastmod>2024-01-18T17:36:04.539Z</lastmod>
+  </url>
+  <url>
+    <loc>htt/posts/blogs/gender_diversity/index.html</loc>
+    <lastmod>2024-01-18T17:36:05.682Z</lastmod>
+  </url>
+  <url>
+    <loc>htt/posts/blogs/Mach_failure_preds/index.html</loc>
+    <lastmod>2024-01-18T17:36:08.183Z</lastmod>
+  </url>
+  <url>
+    <loc>htt/index.html</loc>
+    <lastmod>2024-01-18T17:36:11.623Z</lastmod>
+  </url>
+</urlset>

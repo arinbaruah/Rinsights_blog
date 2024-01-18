@@ -1,5 +1,5 @@
 ---
-title: "R-insights : Infomative and insightful analytical blogs"
+title: "R-insights : Informative and insightful analytical blogs"
 about: 
   template: jolla
 listing:

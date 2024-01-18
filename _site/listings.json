@@ -10,7 +10,10 @@
   {
     "listing": "/posts/index.html",
     "items": [
-      "/posts/blogs/post-with-code/index.html",
+      "/posts/blogs/Bank_churn/index.html",
+      "/posts/blogs/gender_diversity/index.html",
+      "/posts/blogs/field_diversity/index.html",
+      "/posts/blogs/Machine_failure_prediction/Machine_failure_preds.html",
       "/posts/blogs/welcome/index.html"
     ]
   }

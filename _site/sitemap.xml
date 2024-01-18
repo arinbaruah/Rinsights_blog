@@ -2,22 +2,38 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>htt/index.html</loc>
-    <lastmod>2024-01-17T10:45:47.379Z</lastmod>
+    <lastmod>2024-01-18T09:19:26.748Z</lastmod>
   </url>
   <url>
     <loc>htt/about.html</loc>
-    <lastmod>2024-01-17T12:58:30.087Z</lastmod>
+    <lastmod>2024-01-18T09:14:19.025Z</lastmod>
   </url>
   <url>
     <loc>htt/posts/index.html</loc>
-    <lastmod>2024-01-17T12:54:51.203Z</lastmod>
+    <lastmod>2024-01-18T09:19:23.389Z</lastmod>
   </url>
   <url>
     <loc>htt/posts/blogs/welcome/index.html</loc>
-    <lastmod>2024-01-16T16:04:25.501Z</lastmod>
+    <lastmod>2024-01-18T09:19:21.627Z</lastmod>
   </url>
   <url>
     <loc>htt/posts/blogs/post-with-code/index.html</loc>
-    <lastmod>2024-01-16T16:04:24.923Z</lastmod>
+    <lastmod>2024-01-18T08:34:34.650Z</lastmod>
+  </url>
+  <url>
+    <loc>htt/posts/blogs/gender_diversity/index.html</loc>
+    <lastmod>2024-01-18T08:41:42.010Z</lastmod>
+  </url>
+  <url>
+    <loc>htt/posts/blogs/field_diversity/index.html</loc>
+    <lastmod>2024-01-18T09:00:57.114Z</lastmod>
+  </url>
+  <url>
+    <loc>htt/posts/blogs/Bank_churn/index.html</loc>
+    <lastmod>2024-01-18T09:19:04.087Z</lastmod>
+  </url>
+  <url>
+    <loc>htt/posts/blogs/Machine_failure_prediction/Machine_failure_preds.html</loc>
+    <lastmod>2024-01-18T09:14:56.400Z</lastmod>
   </url>
 </urlset>

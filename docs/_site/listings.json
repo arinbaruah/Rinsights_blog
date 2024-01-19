@@ -2,6 +2,7 @@
   {
     "listing": "/posts/index.html",
     "items": [
+      "/posts/blogs/mdss_datathon/index.html",
       "/posts/blogs/Bank_churn/index.html",
       "/posts/blogs/gender_diversity/index.html",
       "/posts/blogs/field_diversity/index.html",

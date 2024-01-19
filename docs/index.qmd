@@ -15,7 +15,7 @@ about:
       href: "mailto:abar0090@student.monash.edu"
     - icon: person-lines-fill
       text: CV
-      href: cv/Aaron_Baruah-32779267-Resume.pdf
+      href: cv/AaronBaruah_resume.pdf
     - icon: linkedin
       text: LinkedIn
       href: https://www.linkedin.com/in/arindam-baruah/

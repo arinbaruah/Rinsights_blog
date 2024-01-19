@@ -30,7 +30,9 @@ title-block-banner: true
 library(htmltools)
 ```
 
-# Arindam (Aaron) Baruah
+# Arindam Baruah
+
+### Other names: Rin, Aaron
 
 I am a current final year graduate student of Business Analytics at [Monash Business School](https://github.com/arinbaruah), Monash University. 🧑‍🎓
 

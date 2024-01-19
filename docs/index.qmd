@@ -1,6 +1,6 @@
 ---
 image: profile_pic.png
-
+resources: cv/AaronBaruah_resume.pdf
 about: 
   template: jolla
   links: 

@@ -5,11 +5,11 @@ about:
   template: jolla
   links: 
     - icon: github
-      text: University Github profile
+      text: Github profile
       href: https://github.com/arinbaruah
-    - icon: github
-      text: Personal Github profile
-      href: https://github.com/rinbaruah
+    - icon: google scholar
+      text: Google Scholar
+      href: https://scholar.google.com/citations?user=pfC-JnoAAAAJ&hl=en&oi=ao
     - icon: envelope-fill
       text: Email
       href: "mailto:abar0090@student.monash.edu"

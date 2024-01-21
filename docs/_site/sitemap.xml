@@ -2,38 +2,42 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>htt/about.html</loc>
-    <lastmod>2024-01-20T11:57:07.282Z</lastmod>
+    <lastmod>2024-01-21T13:17:35.708Z</lastmod>
   </url>
   <url>
     <loc>htt/posts/index.html</loc>
-    <lastmod>2024-01-20T11:57:05.298Z</lastmod>
+    <lastmod>2024-01-21T13:17:33.743Z</lastmod>
   </url>
   <url>
     <loc>htt/posts/blogs/field_diversity/index.html</loc>
-    <lastmod>2024-01-20T11:57:02.765Z</lastmod>
+    <lastmod>2024-01-21T13:17:31.147Z</lastmod>
   </url>
   <url>
     <loc>htt/posts/blogs/gender_diversity/index.html</loc>
-    <lastmod>2024-01-20T11:57:00.614Z</lastmod>
+    <lastmod>2024-01-21T13:17:29.061Z</lastmod>
   </url>
   <url>
     <loc>htt/posts/blogs/Bank_churn/index.html</loc>
-    <lastmod>2024-01-20T11:56:59.308Z</lastmod>
+    <lastmod>2024-01-21T13:17:27.743Z</lastmod>
+  </url>
+  <url>
+    <loc>htt/posts/blogs/coastal_taipan_sightings/index.html</loc>
+    <lastmod>2024-01-21T13:17:26.117Z</lastmod>
   </url>
   <url>
     <loc>htt/posts/blogs/welcome/index.html</loc>
-    <lastmod>2024-01-20T11:56:59.687Z</lastmod>
+    <lastmod>2024-01-21T13:17:28.147Z</lastmod>
   </url>
   <url>
     <loc>htt/posts/blogs/mdss_datathon/index.html</loc>
-    <lastmod>2024-01-20T11:57:01.791Z</lastmod>
+    <lastmod>2024-01-21T13:17:30.227Z</lastmod>
   </url>
   <url>
     <loc>htt/posts/blogs/Mach_failure_preds/index.html</loc>
-    <lastmod>2024-01-20T11:57:04.296Z</lastmod>
+    <lastmod>2024-01-21T13:17:32.650Z</lastmod>
   </url>
   <url>
     <loc>htt/index.html</loc>
-    <lastmod>2024-01-20T11:57:06.636Z</lastmod>
+    <lastmod>2024-01-21T13:17:35.083Z</lastmod>
   </url>
 </urlset>

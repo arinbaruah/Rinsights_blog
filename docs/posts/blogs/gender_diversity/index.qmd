@@ -2,7 +2,7 @@
 title: "Equity in Academia: A New Era of Gender Diversity in US PhD Programs 🧑‍🎓👩‍🎓"
 author: "Arindam Baruah"
 date: "2023-08-31"
-categories: [analysis,exploratory data analysis,visualisation,statistics]
+categories: [analysis,exploratory data analysis,visualisation,statistics,R-Shiny app]
 image: "equality.jpeg"
 number-sections: true
 toc: true
@@ -41,6 +41,14 @@ For many centuries, women have been discriminated against when it comes to the f
 __Access to quality education often leads to higher opportunities, with accomplishments often being closely associated with higher level of schooling and the quality of schooling__. However, the brazen discrimination against women was a well accepted way of life in many countries including the current day developed nations. A study by @eisenmann2007impact observed that beliefs about women over time led to three expectations about their educational participation: initially, that women were not interested in schooling; later, that they were not capable of advanced education; and throughout the 19th and 20th centuries, that they were best educated in segregated settings with separate curricula. 
 
 Such a biased thinking process inevitably led to misinterpretations regarding women: first, that they “feminized” certain fields, driving men out; second, that they have been minor and unsuccessful participants in science; and third, that in the early post-World War II era their educational participation was merely incidental. In many ways, when women’s performance defied expectation, people tended to see what they expected rather than analyzing what the behavior actually meant, and women’s momentum in higher education remains inhibited by these earlier beliefs. Despite various studies such as the one by @gillooly2021having reporting a significant advantage in the overall learning of the cohort when placed in a diverse environment, there has still been a disappointing historical push back from the society to be inclusive towards women.
+
+:::{.callout-note}
+
+If you're interested to look into the R-code which went into analysing the current report, please feel free to go through the markdown files on my [GitHub repository](https://github.com/arinbaruah/Rinsights_blog/tree/main/posts/blogs). 
+
+I have also created an R-shiny application to visualise and analyse the current data. Feel free to check it out [here](https://usxccd-arinbaruah.shinyapps.io/ETC5523_Assignment1_Arindom_32779267/).
+
+:::
 
 ::: {.callout-note collapse="true"}
 # Aim of the current analysis

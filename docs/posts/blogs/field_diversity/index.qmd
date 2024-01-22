@@ -2,7 +2,7 @@
 title: "Unveiling the Mosaic: A Deep Dive into the Educational Diversity Amongst US PhD Graduates 🧑‍🎓📚🇺🇸"
 author: "Arindam Baruah"
 date: "2023-08-28"
-categories: [analysis,visualisation,exploratory data analysis]
+categories: [analysis,visualisation,exploratory data analysis, R-shiny app]
 image: "phd.png"
 bibliography: references.bib 
 number-sections: true
@@ -54,6 +54,14 @@ The current study aims to delineate the diversity of the field of research in th
 <p style='margin-bottom:1em; margin-right:1em; text-align:right; font-family:Georgia'> </b> <i>- Ian .R. McAndrew</i>
 </p></span>
 </div>
+
+:::{.callout-note}
+
+If you're interested to look into the R-code which went into analysing the current report, please feel free to go through the markdown files on my [GitHub repository](https://github.com/arinbaruah/Rinsights_blog/tree/main/posts/blogs). 
+
+I have also created an R-shiny application to visualise and analyse the current data. Feel free to check it out [here](https://usxccd-arinbaruah.shinyapps.io/ETC5523_Assignment1_Arindom_32779267/).
+
+:::
 
 # Where is the data coming from 💁‍♂️ ?
 

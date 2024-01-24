@@ -1,15 +1,25 @@
 ---
-title: "Q4"
-author: "Arindom Baruah (32779267)"
+title: "A brief football match analysis using StatsBombR ⚽️"
+author: "Arindam Baruah"
+image: "football.png"
+categories: [match analysis,data cleaning,exploratory data analysis,visualisation,null plots,hypothesis test]
+date: "2024-01-24"
 format: html
+number-sections: true
 execute: 
   warning: false
   message: false
+  echo: false
+  
 ---
 
-## Exercise 4
+![](football.png)
 
-A very successful 2023 Women's World Cup soccer was held in Australia and New Zealand in the last two months. Data from the last one held in 2019 can be downloaded from R using the package `StatsBombR`. The data for the Australia vs Brazil match have been downloaded and processed and made available in the file `aus_brazil.rda`. The match was played on June 14, 2019, in Stade de la Mosson, in France, and Australia won 3-2. This question explores the match data. It will help if you install these packages:
+# Introduction
+
+The current football match analysis between the Matildas and the Selecao is an introduction to the interesting analysis and visualisation features of StatsBombR. A really nice introduction to working with the data is available [here](https://statsbomb.com/wp-content/uploads/2022/08/Working-with-R.pdf). 
+
+If you're interested in the R code that was used for conducting the following analysis, please check out my GitHub repository [here](https://github.com/arinbaruah/Rinsights_blog/tree/main/docs/posts/blogs/football_analysis). 
 
 ```{r}
 library(tidyverse)
@@ -26,14 +36,15 @@ library(nullabor)
 load("data/aus_brazil.rda")
 ```
 
-A really nice introduction to working with the data is available [here](https://statsbomb.com/wp-content/uploads/2022/08/Working-with-R.pdf). 
+# Exploratory data analysis
 
 :::{.callout-note}
-# Question A
-Make a plot of shots on goal made by each team that looks like the following, and include your cleanly written code. (Note: 1. `location` has the position from which passes were made, in the form of an array. You can access the x and y values using `location.x` and `location.y`. 2. The positions have been processed so both teams are playing from left to right, so that it is easy to compare their play.)
+# Task 1
+
+Observe the pitch location of the key moments that occurred during the match and the inferences.
+
 :::
 
-Answer A
 
 <div class="alert alert-block alert-warning">
 In order to visualise the shots on goal, we will filter the data with the following shot outcomes:
@@ -76,12 +87,11 @@ Figure @fig-goal illustrates the number of shots on target in the match of Austr
 
 
 :::{.callout-note}
-# Question B
-Summarise the shots for each country by player. Would you say that shots were a team effort or dominated by certain players?
+# Task 2
+How many attempts were made in the match ? Are there any interesting insights ?
 :::
 
 
-Answer B
 
 ```{r}
 #| label: fig-playershot
@@ -110,9 +120,10 @@ pl2
 </div>
 
 :::{.callout-note}
-# Question C
+# Task 3
 
-Now let's take a look at passes. The location from which passes are made could be characteristic of a team. Make a lineup to test whether the position from which a pass was made was different between Australia and Brazil. Conduct a visual inference analysis to determine if the actual plot can be distinguished from the null plots. Report your $p$-value, after asking 8 of your friends to judge your lineup, and summarise your findings. 
+Study the passes made by each team. How do they differ from one another ? Can we determine any particular pattern of play ?
+
 :::
 
 
@@ -198,9 +209,9 @@ The P-value for the above observations is `r pvisual(1,8,20)[3]`. At a signfican
 
 
 :::{.callout-note}
-# Question D
+# Task 4
 
-The type of passes can also be characteristic of a team's play. Explore this with the variable `pass.length`, using a visual inference analysis.
+The type of passes can also be characteristic of a team's play. Are there any characteristic differences in the pass lengths for the two teams ?.
 
 :::
 

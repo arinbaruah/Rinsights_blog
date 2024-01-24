@@ -2,42 +2,46 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>htt/about.html</loc>
-    <lastmod>2024-01-22T10:12:49.774Z</lastmod>
+    <lastmod>2024-01-24T07:11:49.656Z</lastmod>
   </url>
   <url>
     <loc>htt/posts/index.html</loc>
-    <lastmod>2024-01-22T10:12:47.855Z</lastmod>
+    <lastmod>2024-01-24T07:11:46.185Z</lastmod>
   </url>
   <url>
     <loc>htt/posts/blogs/field_diversity/index.html</loc>
-    <lastmod>2024-01-22T10:12:45.248Z</lastmod>
-  </url>
-  <url>
-    <loc>htt/posts/blogs/gender_diversity/index.html</loc>
-    <lastmod>2024-01-22T10:12:43.153Z</lastmod>
-  </url>
-  <url>
-    <loc>htt/posts/blogs/Bank_churn/index.html</loc>
-    <lastmod>2024-01-22T10:12:41.765Z</lastmod>
-  </url>
-  <url>
-    <loc>htt/posts/blogs/coastal_taipan_sightings/index.html</loc>
-    <lastmod>2024-01-22T10:12:40.084Z</lastmod>
-  </url>
-  <url>
-    <loc>htt/posts/blogs/welcome/index.html</loc>
-    <lastmod>2024-01-22T10:12:42.176Z</lastmod>
+    <lastmod>2024-01-24T07:11:43.480Z</lastmod>
   </url>
   <url>
     <loc>htt/posts/blogs/mdss_datathon/index.html</loc>
-    <lastmod>2024-01-22T10:12:44.293Z</lastmod>
+    <lastmod>2024-01-24T07:11:41.750Z</lastmod>
+  </url>
+  <url>
+    <loc>htt/posts/blogs/welcome/index.html</loc>
+    <lastmod>2024-01-24T07:11:39.703Z</lastmod>
+  </url>
+  <url>
+    <loc>htt/posts/blogs/coastal_taipan_sightings/index.html</loc>
+    <lastmod>2024-01-24T07:11:37.772Z</lastmod>
+  </url>
+  <url>
+    <loc>htt/posts/blogs/Bank_churn/index.html</loc>
+    <lastmod>2024-01-24T07:11:39.354Z</lastmod>
+  </url>
+  <url>
+    <loc>htt/posts/blogs/gender_diversity/index.html</loc>
+    <lastmod>2024-01-24T07:11:40.636Z</lastmod>
+  </url>
+  <url>
+    <loc>htt/posts/blogs/football_analysis/index.html</loc>
+    <lastmod>2024-01-24T07:11:42.517Z</lastmod>
   </url>
   <url>
     <loc>htt/posts/blogs/Mach_failure_preds/index.html</loc>
-    <lastmod>2024-01-22T10:12:46.750Z</lastmod>
+    <lastmod>2024-01-24T07:11:44.952Z</lastmod>
   </url>
   <url>
     <loc>htt/index.html</loc>
-    <lastmod>2024-01-22T10:12:49.171Z</lastmod>
+    <lastmod>2024-01-24T07:11:49.041Z</lastmod>
   </url>
 </urlset>

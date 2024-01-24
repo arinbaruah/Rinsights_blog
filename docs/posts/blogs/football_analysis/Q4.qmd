@@ -1,0 +1,343 @@
+---
+title: "Q4"
+author: "Arindom Baruah (32779267)"
+format: html
+execute: 
+  warning: false
+  message: false
+---
+
+## Exercise 4
+
+A very successful 2023 Women's World Cup soccer was held in Australia and New Zealand in the last two months. Data from the last one held in 2019 can be downloaded from R using the package `StatsBombR`. The data for the Australia vs Brazil match have been downloaded and processed and made available in the file `aus_brazil.rda`. The match was played on June 14, 2019, in Stade de la Mosson, in France, and Australia won 3-2. This question explores the match data. It will help if you install these packages:
+
+```{r}
+library(tidyverse)
+library(plotly)
+library(rvest)
+library(StatsBombR)
+library(SBpitch)
+library(ggplot2)
+library(nullabor)
+```
+
+```{r}
+#| echo: false
+load("data/aus_brazil.rda")
+```
+
+A really nice introduction to working with the data is available [here](https://statsbomb.com/wp-content/uploads/2022/08/Working-with-R.pdf). 
+
+:::{.callout-note}
+# Question A
+Make a plot of shots on goal made by each team that looks like the following, and include your cleanly written code. (Note: 1. `location` has the position from which passes were made, in the form of an array. You can access the x and y values using `location.x` and `location.y`. 2. The positions have been processed so both teams are playing from left to right, so that it is easy to compare their play.)
+:::
+
+Answer A
+
+<div class="alert alert-block alert-warning">
+In order to visualise the shots on goal, we will filter the data with the following shot outcomes:
+
+1. __Shots which led to goals__.
+2. __Shots which were saved by the goalkeeper__.
+
+</div>
+
+The above two shot outcomes can be considered as "shots on goal" and will be visualised on the pitch through the code below.
+
+```{r}
+#| label: fig-goal
+#| fig-cap: "Total shots on goal"
+on_goal_conditions <- c("Goal","Saved")
+shots_on_goal <- aus_brazil %>%
+filter(shot.outcome.name %in% (on_goal_conditions)) %>% 
+  select(c(location.x,location.y,team.name,player.name)) %>% mutate(team_name = case_match(team.name,"Australia Women's"~"Australia (Matildas)",
+                                                                                          "Brazil Women's"~"Brazil (Seleção)"))
+
+
+pl1 <- create_Pitch() +
+geom_point(data = shots_on_goal, aes(x = location.x, y = location.y,color=team_name),size=5) + 
+  labs(color="Team name",
+       title = "Australia Vs Brazil, Shots on target", 
+       subtitle = "Stadium De La Mosson, France,Women's World Cup, 2019") + 
+  scale_y_reverse() + coord_fixed(ratio = 105/100) + 
+  scale_color_manual(values=c('#FFCD00','Blue')) + theme(legend.position = "bottom") 
+
+pl1
+```
+
+<div class="alert alert-block alert-warning">
+Figure @fig-goal illustrates the number of shots on target in the match of Australia Vs Brazil for the Women's World Cup. Following are the key observations:
+
+1. There were a total of 8 shots on target from both the sides.
+2. Of these 8 shots, Australia shot 5 goals on target while Brazil shot 3 goals on target.
+3. The above analysis can be further confirmed through the google analytics and can be referred to [here](https://www.google.com/search?q=australia+vs+brazil+women%27s+worldcup+2019&client=safari&sca_esv=563943516&rls=en&sxsrf=AB5stBiFbjHF5qvMujaWoiD1OnnyX9Bmpg%3A1694243015849&ei=xxj8ZOevM-C02roP8Im9mAI&ved=0ahUKEwinr_2I-5yBAxVgmlYBHfBEDyMQ4dUDCBA&uact=5&oq=australia+vs+brazil+women%27s+worldcup+2019&gs_lp=Egxnd3Mtd2l6LXNlcnAiKWF1c3RyYWxpYSB2cyBicmF6aWwgd29tZW4ncyB3b3JsZGN1cCAyMDE5MgcQIRigARgKMgcQIRigARgKMgcQIRigARgKMgoQIRgWGB4YHRgKMgoQIRgWGB4YHRgKSLpMUABY7UpwAngBkAEAmAHSAqABgDuqAQgwLjM5LjMuMbgBA8gBAPgBAcICCBAuGIoFGJECwgIOEAAYigUYsQMYgwEYkQLCAgsQLhiABBixAxiDAcICCxAAGIAEGLEDGIMBwgIREC4YgAQYsQMYgwEYxwEY0QPCAgsQABiKBRixAxiDAcICCxAuGIAEGMcBGNEDwgIXEC4YigUYkQIYlwUY3AQY3gQY3wTYAQHCAgQQIxgnwgIIEAAYigUYkQLCAgcQABiKBRhDwgIQEC4YigUYsQMYxwEY0QMYQ8ICDRAuGIoFGMcBGNEDGEPCAgcQLhiKBRhDwgIHECMYigUYJ8ICDRAuGIoFGLEDGIMBGEPCAgoQLhiKBRixAxhDwgIKEAAYigUYsQMYQ8ICDRAAGIoFGLEDGIMBGEPCAgsQLhiDARixAxiABMICBRAAGIAEwgILEC4YgAQYxwEYrwHCAgsQABiKBRixAxiRAsICCBAAGIAEGLEDwgILEC4YgwEYsQMYigXCAgsQLhiKBRixAxiDAcICChAAGIAEGBQYhwLCAgYQABgWGB7CAggQABiKBRiGA8ICCBAAGBYYHhgPwgIHEAAYDRiABMICBBAhGBXCAggQIRgWGB4YHeIDBBgAIEGIBgG6BgYIARABGBQ&sclient=gws-wiz-serp#sie=m;/g/11gxvrqfj4;2;/m/01kglk;dt;fp;1;;;). 
+</div>
+
+
+:::{.callout-note}
+# Question B
+Summarise the shots for each country by player. Would you say that shots were a team effort or dominated by certain players?
+:::
+
+
+Answer B
+
+```{r}
+#| label: fig-playershot
+#| fig-cap: "Number of shots by each player of each team"
+total_shots <- aus_brazil %>%
+filter(shot.outcome.name != is.na(shot.outcome.name)) %>% 
+  select(c(location.x,location.y,team.name,player.name,player.id)) %>% mutate(team_name = case_match(team.name,"Australia Women's"~"Australia (Matildas)",
+                                                                                          "Brazil Women's"~"Brazil (Seleção)"))
+
+total_shots_grouped <- total_shots %>% group_by(team_name,player.name) %>% mutate("Shot_incident" = 1) %>% summarise(Total_shots = sum(Shot_incident))
+pl2 <- ggplot(data = total_shots_grouped,aes(x = reorder(player.name,Total_shots),y = Total_shots)) + 
+  geom_col(color='black') + geom_col(data = ~filter(.x, Total_shots >= 2,team_name == "Australia (Matildas)"),fill = "#FFCD00") + geom_col(data = ~filter(.x, Total_shots >= 2,team_name == "Brazil (Seleção)"),fill = "blue")+ coord_flip() + facet_wrap(~team_name,scales = "free_y") + theme_classic() + labs(y = "Number of shots",x = "Player",title = "Australia Vs Brazil, Total shots registered", 
+       subtitle = "Stadium De La Mosson, France,Women's World Cup, 2019")
+pl2
+```
+<div class="alert alert-block alert-warning">
+@fig-playershot illustrates the number of shots registered by each player of each country. Following are our key observations:
+
+1. There were a total of 21 shots registered by the 2 teams. Of these 21 shots, 11 were attributed to Brazil while the remaining 10 were attributed to Australia.
+2. A total of 7 players from Australia registered shots while 8 players from Brazil registered shots.
+3. It can be observed that two players of Australia, namely Samantha May Kerr and Tameka Yallop had higher shots than the rest of the team. Kerr was attributed with 3 shots while Yallop with 2 shots. 
+4. On the other hand, there were 3 players of Brazil with 2 shots on target while the rest of the team had registered one shot.
+5. Based on our analysis, __we can say that there were certain players in the Australian team who dominated the shots in the match__.
+6. For Brazil however, __we can say that the shots were contributed nearly uniformly from the entire team__. 
+
+</div>
+
+:::{.callout-note}
+# Question C
+
+Now let's take a look at passes. The location from which passes are made could be characteristic of a team. Make a lineup to test whether the position from which a pass was made was different between Australia and Brazil. Conduct a visual inference analysis to determine if the actual plot can be distinguished from the null plots. Report your $p$-value, after asking 8 of your friends to judge your lineup, and summarise your findings. 
+:::
+
+
+```{r}
+#| label: fig-passausall
+#| fig-cap: "Total complete passes by Australia"
+passes_aus = aus_brazil %>%
+filter(type.name=="Pass" & is.na(pass.outcome.name) & team.name == "Australia Women's") 
+
+
+create_Pitch() +
+geom_segment(data = passes_aus, aes(x = location.x, y = location.y,
+xend = pass.end_location.x, yend = pass.end_location.y), lineend = "round", size = 0.5, colour = "#FFCD00", arrow =
+arrow(length = unit(0.07, "inches"), ends = "last", type = "open")) + labs(title = "All passes of Australia",subtitle = "Stadium De La Mosson, France,Women's World Cup, 2019")
+
+
+```
+
+
+```{r}
+#| label: fig-passbraall
+#| fig-cap: "Total complete passes by Brazil"
+passes_bra = aus_brazil %>%
+filter(type.name=="Pass" & is.na(pass.outcome.name) & team.name == "Brazil Women's") 
+
+create_Pitch() +
+geom_segment(data = passes_bra, aes(x = location.x, y = location.y,
+xend = pass.end_location.x, yend = pass.end_location.y), lineend = "round", size = 0.5, colour = "blue", arrow =
+arrow(length = unit(0.07, "inches"), ends = "last", type = "open")) + labs(title = "All passes of Brazil",
+                                                                           subtitle = "Stadium De La Mosson, France,Women's World Cup, 2019")
+
+```
+
+<div class="alert alert-block alert-warning">
+Upon analysing the completed passes made by Australia and Brazil throug @fig-passausall and @fig-passbraall, we observe the following:
+
+1. __Australia made more number of successful passes as compared to Brazil__ as can be observed through the density of the arrows in the two figures.
+2. __Australia were observed to effectively use the left and right flanks__.
+3. On the other hand, __Brazil were observed to overload the right flank but not use the left flank as much__.
+4. Australia were __also observed to play centrally with more passes in the middle of the field as compared to Brazil__.
+</div>
+
+Let us now create null plots of the total passes by both teams to check for the presence of any key differences in the ways the two teams passed through the matches.
+
+## Null plots for total passes of Australia and Brazil
+
+
+```{r}
+#| label: fig-null
+#| fig-cap: "Null plot generation for passes by each team"
+set.seed(123532536)
+pass_aus_brazil <- aus_brazil %>%
+  filter(type.name == "Pass" & is.na(pass.outcome.name)) 
+
+pass_plot <- create_Pitch()
+
+# Overlay the soccer pitch as a custom annotation on the scatter plot
+ggplot() + annotation_custom(ggplotGrob(pass_plot),
+                    xmin = -Inf, xmax = Inf,
+                    ymin = -Inf, ymax = Inf) + 
+  geom_point(data = lineup(null_permute("team.name"),pass_aus_brazil, n = 20),
+                      aes(x = location.x,y = location.y,color = team.name)) + facet_wrap(~.sample) +   theme(
+    legend.position = "none",
+    axis.title = element_blank(),
+    axis.text = element_blank()
+  ) + scale_color_manual(values = c("#FFCD00","blue"))
+```
+<div class="alert alert-block alert-warning">
+The null hypothesis which will be tested through visual inference is as follows:
+
+$H_o$: __There is no significant difference in the way the passes were made in the match for the two teams__.
+
+Null generating mechanism: Permutation of the variable team.name by using the null_permute function.
+
+Upon showing @fig-null to 8 different subjects, the following results were observed:
+
+1. 1 of the 8 subjects were able to distinguish the actual plot (in position 13), citing more number of yellow points (Players from Australia) in the attacking half of the field.
+2. Remaining 7 of the 8 subjects were not able to distinguish the actual plot from the null plots.
+
+The P-value for the above observations is `r pvisual(1,8,20)[3]`. At a signficance level of 5% or in other words, with a confidence interval of 95 %, the P-value which is 33.65% suggests that the null hypothesis __cannot be rejected__.
+
+</div>
+
+
+:::{.callout-note}
+# Question D
+
+The type of passes can also be characteristic of a team's play. Explore this with the variable `pass.length`, using a visual inference analysis.
+
+:::
+
+Answer D
+
+```{r}
+#| label: fig-denspasslength
+#| fig-cap: "Distribution of pass lengths"
+
+pl5 <- ggplot(data = aus_brazil %>% mutate(team_name = case_match(team.name,"Australia Women's"~"Australia (Matildas)",
+                                                                                          "Brazil Women's"~"Brazil (Seleção)")),aes(x = pass.length,fill = team_name)) + theme_classic() + geom_density(alpha=0.4) + labs(x = "Pass length (m)",y = "Probability density",fill = "Team name") + scale_fill_manual(values=c('#FFCD00','Blue')) 
+pl5
+```
+Based on the analysis of @fig-denspasslength, we can observe the pass lengths of both teams are __very similar__. However, these passes could be in different locations on the pitch. 
+
+Let us now create a lineup of this plot to understand whether there is a visual difference among the pass lengths by each team.
+
+
+
+```{r}
+#| label: fig-nullpass
+#| fig-cap: "Null plot generation for pass length by each team"
+set.seed(123532536)
+pass_aus_brazil <- aus_brazil %>%
+  filter(type.name == "Pass" & is.na(pass.outcome.name)) 
+
+pl6 <- ggplot() + geom_density(data = lineup(null_permute("team.name"),aus_brazil, n = 20),
+                      aes(x = pass.length,fill = team.name,alpha=0.4)) + facet_wrap(~.sample) + theme_classic() + theme(
+    legend.position = "none",
+    axis.title = element_blank(),
+    axis.text = element_blank()
+  ) + scale_fill_manual(values = c("#FFCD00","blue"))
+pl6
+```
+
+Following is the null hypothesis and the null generating mechanism which we will be using for assessing the null plot.
+
+<div class="alert alert-block alert-warning">
+
+$H_o$: __There is no significant difference in the pass lengths of the two teams__.
+
+Null generating mechanism = Permutation of the team name by using the null_permute function.
+
+
+Upon analysing @fig-nullpass, we could make the following observations:
+
+1. 8 subjects were allowed to select the most unique plot in the lineup.
+2. All 8 of the subjects chose a plot which was not the actual plot.
+
+The P-value for the above observations is `r pvisual(0,8,20)[3]`. At a signficance level of 5% or in other words, with a confidence interval of 95 %, the P-value which is 100% suggests that the null hypothesis __cannot be rejected__. As a result, we can say that there is __not enough evidence that suggests that the pass lengths of the two teams are different from each other__.
+</div>
+
+## Deeper analysis into passes of each team
+
+While we couldn't find signficant difference in the pass lengths of each teams, however, can we observe any interesting insights for the long passes made by each team ?
+
+```{r}
+#| label: fig-longpassauskey
+#| fig-cap: "Long passes by Australia"
+passes_bra = aus_brazil %>%
+filter(type.name=="Pass" & is.na(pass.outcome.name) & team.name == "Australia Women's" & pass.length > 40) 
+
+create_Pitch() +
+geom_segment(data = passes_bra, aes(x = location.x, y = location.y,
+xend = pass.end_location.x, yend = pass.end_location.y), lineend = "round", size = 0.5, colour = "#FFCD00", arrow =
+arrow(length = unit(0.07, "inches"), ends = "last", type = "open")) + labs(title = "Long passes of Australia",
+                                                                           subtitle = "Stadium De La Mosson, France,Women's World Cup, 2019")
+```
+
+
+
+
+
+```{r}
+#| label: fig-longpassbrakey
+#| fig-cap: "Long passes by Brazil"
+passes_bra = aus_brazil %>%
+filter(type.name=="Pass" & is.na(pass.outcome.name) & team.name == "Brazil Women's" & pass.length > 40) 
+
+create_Pitch() +
+geom_segment(data = passes_bra, aes(x = location.x, y = location.y,
+xend = pass.end_location.x, yend = pass.end_location.y), lineend = "round", size = 0.5, colour = "blue", arrow =
+arrow(length = unit(0.07, "inches"), ends = "last", type = "open")) + labs(title = "Long passes of Brazil",
+                                                                           subtitle = "Stadium De La Mosson, France,Women's World Cup, 2019")
+```
+<div class="alert alert-block alert-warning">
+
+Based on our analysis of @fig-longpassauskey and @fig-longpassbrakey, we can make the following observations:
+
+1. Most long passes for Australia originated from the Goalkeeper's position
+2. On the other hand, Brazil's long passes originated from the defense. This suggests that Brazil employed short goal kicks while Australia flung more balls from the goalkeeping position to an attacking position.
+
+</div>
+
+Let us now observe how do the key passes change for each team.
+
+```{r}
+#| label: fig-passauskey
+#| fig-cap: "Key passes by Australia"
+
+passes_aus = aus_brazil %>%
+filter(type.name=="Pass" & is.na(pass.outcome.name) & team.name == "Australia Women's") %>% #1
+filter(pass.end_location.x>=102 & pass.end_location.y<=62 & # Only key attacking passes
+pass.end_location.y>=18)
+
+
+create_Pitch() +
+geom_segment(data = passes_aus, aes(x = location.x, y = location.y,
+xend = pass.end_location.x, yend = pass.end_location.y), lineend = "round", size = 0.5, colour = "#FFCD00", arrow =
+arrow(length = unit(0.07, "inches"), ends = "last", type = "open")) + labs(title = "Key attacking passes of Australia",
+                                                                           subtitle = "Stadium De La Mosson, France,Women's World Cup, 2019")
+
+```
+
+```{r}
+#| label: fig-passbrakey
+#| fig-cap: "Key passes by Brazil"
+
+passes_bra = aus_brazil %>%
+filter(type.name=="Pass" & is.na(pass.outcome.name) & team.name == "Brazil Women's") %>% #1
+filter(pass.end_location.x>=102 & pass.end_location.y<=62 & # Only key attacking passes
+pass.end_location.y>=18)
+
+
+create_Pitch() +
+geom_segment(data = passes_bra, aes(x = location.x, y = location.y,
+xend = pass.end_location.x, yend = pass.end_location.y), lineend = "round", size = 0.5, colour = "blue", arrow =
+arrow(length = unit(0.07, "inches"), ends = "last", type = "open")) + labs(title = "Key attacking passes of Brazil",
+                                                                           subtitle = "Stadium De La Mosson, France,Women's World Cup, 2019")
+
+```
+
+<div class="alert alert-block alert-warning">
+Upon analysing the key passes as illustrated by @fig-passauskey and @fig-passbrakey, we can make the following observations:
+
+1. Australia was able to make more number of key passes in the box as compared to Brazil.
+2. Brazil were able to make only 4 outfield passes in the box while the other 2 were attributed to corners.
+</div>
+
+

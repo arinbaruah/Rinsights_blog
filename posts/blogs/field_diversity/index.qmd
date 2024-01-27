@@ -1,0 +1,225 @@
+---
+title: "Unveiling the Mosaic: A Deep Dive into the Educational Diversity Amongst US PhD Graduates 🧑‍🎓📚🇺🇸"
+author: "Arindam Baruah"
+date: "2023-08-28"
+categories: [analysis,visualisation,exploratory data analysis, R-shiny app]
+image: "phd.png"
+bibliography: references.bib 
+number-sections: true
+toc: true
+execute: 
+  echo: false
+  warning: false
+  message: false
+---
+
+```{r}
+library(tidyverse)
+library(kableExtra)
+library(scales)
+library(ggrepel)
+library(patchwork)
+library(plotly)
+library(DT)
+library(ggthemes)
+library(plotly)
+library(ggpubr)
+```
+
+```{r load-data}
+
+df <- read_csv("data/phd_by_field.csv")
+
+```
+
+![](phd.png)
+
+
+# Introduction
+
+For years, the United States have boasted to be one of the biggest and the best education providers around the world. While being the best education provider maybe a subjective title, however, the universities and organisations of the US can definitely take the credit for grooming some of the best researchers around the world with a total of __954 Nobel Laureates in the country__. This by no means is an ordinary feat. There have been multiple studies such as the one by @brint2016us to investigate what drives the American education sector to be so effective. @mcalpine2020influences have reported that the trajectory of higher educations are on the rise as there are more industrial collaborations and fundings in today's time than it ever was the case.
+
+As a result, the United States have been successful to recruit some of the best minds in the world. A large number of researchers and the leading scientists at organisations in The United States are immigrants. This has also added a multi-cultural diversity among the higher education cohorts, leading to a more inclusive environment.
+
+The current study aims to delineate the diversity of the field of research in the United States. This study would additionally investigate the temporal trends of the rise of PhD graduates and the popular fields among the graduating cohorts and whether we can observe any specific pattern.
+
+<div class="warning" style='background-color:#8bd69f; color: #000301; border-left: solid #044716 4px; border-radius: 4px; padding:0.7em;'>
+<span>
+<p style='margin-top:1em; text-align:center'>
+<p style='margin-left:1em;'>
+
+
+<b> Anyone starting out to research for a doctorate degree should remember that hours of self centered work has the ability to be the spark for others to progress. All research is potentially useful to open doors or show others that door does not lead anywhere useful. Advancements happen by building on others research. 
+</p>
+<p style='margin-bottom:1em; margin-right:1em; text-align:right; font-family:Georgia'> </b> <i>- Ian .R. McAndrew</i>
+</p></span>
+</div>
+
+:::{.callout-note}
+
+If you're interested to look into the R-code which went into analysing the current report, please feel free to go through the markdown files on my [GitHub repository](https://github.com/arinbaruah/Rinsights_blog/tree/main/posts/blogs). 
+
+I have also created an R-shiny application to visualise and analyse the current data. Feel free to check it out [here](https://usxccd-arinbaruah.shinyapps.io/ETC5523_Assignment1_Arindom_32779267/).
+
+:::
+
+# Where is the data coming from 💁‍♂️ ?
+
+Before we proceed further with our analysis, it is important to figure out the source and the authenticity of the data.
+
+The data for the fields of research of the various graduating PhDs have been released by [The National Science Foundation](https://www.nsf.gov) (NSF) and can be downloaded from the GitHub repository of [TidyTuesday](https://github.com/rfordatascience/tidytuesday/blob/master/data/2019/2019-02-19).
+
+# How does the data look like 🔍 ?
+
+Once we have ascertained the source and authenticity of our data, we will now obtain a glimpse of the dataset. The dataset contains a total of __`r df %>% nrow()`__ rows and __`r df %>% ncol()`__ columns.
+
+```{r}
+#| label: tbl-df
+#| tbl-cap: Initial rows of the dataset
+head(df) %>% kable() %>% 
+kable_styling(bootstrap_options = c("bordered","hover")) %>%
+  row_spec(0,background="rgb(172,175,145)",color='black',font_size = 18)
+```
+
+# What does the data mean 🤔 ? 
+
+Once the data has been read in and checked though @tbl-df, let us understand what do these variables mean. The metadata for the dataset has been described through @tbl-met.
+
+```{r}
+#| label: tbl-met
+#| tbl-cap: Description of the variables in the dataset
+tibble(
+  "Variable" = colnames(df),
+  "Class" = c("character", "character", "character",
+              "double","double"),
+  "Description" = c("The broad field of research",
+                    "Major field within the broad field of research",
+                    "Specific field within the major field of research",
+                    "Year of graduation",
+                    "Number of PhD graduates for the corresponding year"
+                   )) %>%
+  kable() %>%
+  kable_styling(full_width = F, 
+                bootstrap_options = c("striped", "hover", "condensed")) %>%   row_spec(0,background="rgb(172,175,145)",color='black',font_size = 18)
+```
+
+# What insights can we gain from the data 🎯📊? {#sec-analysis}
+
+
+For a very long time, the United States have produced the leading researchers in the world. One of the major reasons for this is due to the significant endowment funds and grants available at the universities which allows them to recruit some of the best researchers around the world. The following sections will delineate the various aspects of the current analysis to understand the meteoric rise of the researchers by studying the number of PhDs graduating each year and the fields they are graduating in.
+
+## Are we observing a rise in the popularity of research ? {#sec-sec1}
+
+While the universities and research labs across the United States have historically produced some of the best researchers in the world, it is important to study the growth of these researchers. One of the ways to do so would be through analysing the number of graduating PhDs in the various fields of research. 
+
+
+```{r }
+#| label: fig-year
+#| fig-cap: Number of graduating PhDs in the US
+df$year <- as.factor(df$year)
+df_year <- df %>% group_by(year) %>% summarise(total = sum(n_phds,na.rm = TRUE))
+df_end <- df_year %>% filter(year == 2017)
+df_start <- df_year %>% filter(year == 2008)
+
+pl1 <- ggplot(data = df_year,aes(x = year,y = total,group = "year")) + 
+  geom_line() + geom_point(color='red') + theme_economist() + 
+  labs(x = "Year of graduation",y = "Number of PhDs graduated",caption = "Source: The National Science Foundation") + ggtitle("Growth of researchers in the US") + 
+  theme(panel.background = element_rect(fill = 'cornsilk'),plot.title = element_text(hjust=0.5)) + geom_text_repel(aes(label = total), data=df_end,size = 3,color='black',nudge_x=1,nudge_y = 4) + geom_text_repel(aes(label = total), data=df_start,size = 3,color='black',nudge_x=-1,nudge_y = 400)
+pl1
+```
+As illustrated through @fig-year, we can observe a trend of rising PhD graduates in the United States. Between the years of 2008 to 2017, apart from the year of 2010, there has been a __constant rise in the number of PhD students graduating__ across the various universities and research labs in the country. Since 2008 to 2017, we can observe a __12.6 %__ rise in the total number of graduating PhD students as per the statistics released by The National Science Foundation (NSF). The rise in these numbers can be attributed to the funding received in various fields of research, leading to higher recruitment and consequently, higher number of PhD graduates. This additionally makes the United States a very attractive study destination for the rest of the world. As a result, we can definitely observe a rise in the popularity of the research field in The United States of America.
+
+
+
+## Which fields of research are these PhDs graduating in ?
+
+In this section, we shall investigate the popular areas of research. While there has been an overall rise in the number of graduating PhDs as explained in @sec-sec1, however, not all broad fields of research may observe the same growth in popularity. @fig-broad illustrates the distribution of the total number of PhD graduates in each of the broad fields of research. We can observe that __the field of Life Sciences attracts the highest number of PhDs__ while the __least number of PhD graduates can be observed in the STEM field of Engineering__. 
+
+The results corroborate with the findings of @meirmans2019science who have identified the field of __biological life sciences to be the one with the highest fundings__ worldwide as these researches are directly related to various answering some of the toughest challenges to mankind such as curing cancer, eradication of polio, epidemic research as such COVID-19, and many such critical studies. 
+
+On the other hand, the field of __engineering__ is observed to attract the least number of researchers. A part of the reason maybe __due to the vast number of opportunities in the industry or the corporate__ which tends to attract more number of engineering graduates rather than the field of research.
+
+```{r}
+#| label: fig-broad
+#| fig-cap: PhD graduates in each broad field
+df_broad <- df %>% group_by(broad_field) %>% summarise(Total =  sum(n_phds,na.rm=TRUE))
+ggdotchart(df_broad, y = "Total", 
+           x = "broad_field",
+           color = "broad_field",                       
+           add = "segments",
+           add.params = list(color = "lightgray", size = 2),                             
+           dot.size = 12,
+           rotate=TRUE,
+           label = "Total",
+           group = "broad_field",                                
+           font.label = list(color = "black", size = 7, 
+                             vjust = 0, face = 'bold'),               
+           ggtheme = theme_economist()                        
+           ) + theme(legend.position = "none",panel.background = element_rect(fill = 'cornsilk')) +
+  geom_hline(yintercept = 0, linetype = 2, color = "lightgray") + labs(y = "Number of PhD graduates", 
+                                                                       x= "Broad field of research",
+                                                                       caption = "Source: The National Science Foundation") + ggtitle("PhD graduates in each broad field") 
+```
+
+## A deeper look into the field of Life Sciences 🔬 ! {#sec-sec2}
+
+Now that we have established the broad field of Life Sciences to be the one with the most number of PhD graduates,let us look deeper into this field and whether we can break down the distribution further.
+
+```{r}
+#| label: fig-lifesci
+#| fig-cap: Distribution of PhD graduates within the field of Life Science
+df_life <- df %>% filter(broad_field == "Life sciences") %>% group_by(major_field) %>% summarise(Total = sum(n_phds,na.rm=TRUE))
+
+pl3 <- ggplot(data = df_life,aes(x =reorder(major_field,Total),y = Total)) + theme_economist()+ geom_col(color='black') + geom_col(data = ~filter(.x, major_field == "Biological and biomedical sciences"),fill = "darkred") + scale_fill_brewer(palette = "Set2") + theme(legend.position = "none",axis.text = element_text(size = 8),panel.background = element_rect(fill = 'cornsilk')) + coord_flip() + geom_label(aes(label = Total),nudge_y = -1000) + labs(y = "Number of PhD graduates",x = "Major field of research within Life Science",caption = "Source: The National Science Foundation")
+pl3
+
+```
+@fig-lifesci illustrates distribution of the PhD graduates within the broad field of Life Sciences. As we can observe, there is indeed an uneven distribution of graduates in the various major fields of Life Sciences. We can observe that __the number of graduates in the domain of biological and biomedical sciences is more than double the number of students in the second most popular field__ which is the field of Physics and astronomy. 
+
+<div class="alert alert-block alert-success">
+__This clearly suggests that the requirement for researchers and the funding available in the major field of biological and biomedical sciences is considerable higher than any other major field of Life Sciences__.
+</div>
+
+
+## How is the distribution amongst the engineering graduates ✈️ ⚙️?
+
+Now that we have looked into the most popular field of research in @sec-sec2, let us now investigate the distribution of PhD graduates in the field with the least number of total PhD graduates, which is the field of engineering.
+
+```{r}
+#| label: fig-eng
+#| fig-cap: Distribution of PhD graduates within the field of Engineering
+
+df_eng <- df %>% filter(broad_field == "Engineering") %>% group_by(field) %>% summarise(Total =  sum(n_phds,na.rm = TRUE))
+
+pl4 <- ggplot(data = df_eng,aes(x = reorder(field,Total),y = Total)) + geom_col() + geom_col(data = ~filter(.x, field == "Computer engineering"),
+             fill = "red") + coord_flip() + theme_economist() + theme(legend.position = 'none',panel.background = element_rect(fill = 'cornsilk'),axis.text = element_text(size = 7)) + geom_label(aes(label = Total)) + labs(x = "Field of engineering",y = "Number of PhD graduates",caption = "Source: The National Science Foundation") 
+pl4
+```
+@fig-eng illustrates a far larger number of fields within the field of Engineering when compared to Life Sciences. However, similar to the distribution of Life Sciences, the PhD graduates in the field of Engineering __are unevenly distributed__ with a clear trend in popularity for specific fields. As we can observe, the number of researchers in the field of Computer Engineering is much higher than the next popular field of Environmental Engineering. 
+
+
+<div class="alert alert-block alert-success">
+This can be __attributed to the recent advancements in the field of Artificial Intelligence (AI), Machine Learning (ML), Data Science, and many more state of the art technologies__
+</div>
+
+# What are our key takeaways 📈?
+
+Based on our analysis in @sec-analysis, following are our key takeaways:
+
+1. Since the year of 2008, there has been a rise in the number of graduating PhDs in the United States across various fields of research. Based on the data provided and various studies, the increase in the number of graduates can be attributed to the higher funds sanctioned across various universities and research labs, which consequently leads to higher recruitment of doctoral candidates and hence, the expected rise in the popularity of research.
+
+2. While the number of PhD candidates in the United States have increased as a whole, however, the field of Life Sciences was adjudged as the most popular field of research. On the other hand, the field of Engineering observed to have recruited the least number of PhD candidates for the same duration.
+
+3. Within the field of Life Sciences, the growth in the number of doctoral candidates between 2006-2017 was observed to be unevenly distributed across the multiple major fields. The major field of Biological and Biomedical sciences was observed to be clearly the hottest area of research with more than double the number of PhD candidates compared to its closest competitor which was Physics and Astronomy.
+
+4. Similar to the field of Life Sciences, the broad field of Engineering also observed an uneven distribution of PhD researchers with a clear trend of inclination towards the field of Computer Engineering. This can be attributed to the vast fundings received for projects involving AI,ML,Data Science and similar state of the art technologies.
+
+
+<details>
+<summary> Session information </summary>
+
+```{r}
+library(sessioninfo)
+sessioninfo::session_info()
+```
+</details>

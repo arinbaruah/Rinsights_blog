@@ -1,20 +1,18 @@
 ---
 title: "Woylies Unveiled: A Peek into the World of Australia's Mysterious Marsupials"
-author: "Tanish Johar, Ashvin Ranatunga, Khuyen Nguyen, Arindam Baruah, Yashika Taneja"
-format: 
-  html:
-    code-fold: true
+author: "Arindam Baruah, Tanish Johar, Ashvin Ranatunga, Kelly Nguyen, Yashika Taneja"
+image: "woylie.png"
+categories: [data cleaning,exploratory data analysis,visualisation,null plots,choropleth,spatial analysis,temporal analysis]
+date: "2024-01-29"
+format: html
 number-sections: true
-toc: true
-editor: 
-  markdown: 
-    wrap: 72
+execute: 
+  warning: false
+  message: false
+  echo: false
     
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE,message = FALSE,warning = FALSE)
-```
 
 
 # Introduction

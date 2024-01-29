@@ -1,0 +1,1119 @@
+---
+title: "Woylies Unveiled: A Peek into the World of Australia's Mysterious Marsupials"
+author: "Tanish Johar, Ashvin Ranatunga, Khuyen Nguyen, Arindam Baruah, Yashika Taneja"
+format: 
+  html:
+    code-fold: true
+number-sections: true
+toc: true
+editor: 
+  markdown: 
+    wrap: 72
+    
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE,message = FALSE,warning = FALSE)
+```
+
+
+# Introduction
+
+```{r, message=FALSE,echo=FALSE}
+# Load libraries
+library(galah)
+library(tidyverse)
+library(ggplot2)
+library(nullabor)
+library(leaflet)
+library(spatstat) 
+library(plotly)
+library(tsibble)
+library(sf)
+library(rmapshaper)
+library(lubridate)
+library(broom)
+library(GGally)
+library(forecast)
+library(ggalt)
+library(rnoaa)
+
+```
+
+```{r echo=FALSE}
+# loading tourism data 
+load("data/tourism.RDA")
+```
+
+
+
+
+The Brush-Tailed Bettong or Woylie (Bettongia penicillata ogilbyi) is a
+remarkable Australian marsupial with unique characteristics. It thrives
+in a diverse range of habitats, including forests, woodlands, and
+shrublands, where dense vegetation offers shelter and sustenance. This
+nocturnal creature is most active during the night and rests in leafy
+grass nests during the day. Unfortunately, the Woylie has faced a
+perilous decline, with its population plummeting by more than 90% in the
+past two centuries. This decline can be attributed to various factors,
+including habitat loss, introduced predators, and disease. Consequently,
+the Woylie is currently classified as a critically endangered species,
+receiving protection from the Australian government. Most of the
+remaining Woylie population resides in wildlife sanctuaries, where they
+can live free from predators.The allure of encountering unique creatures in the wild has given rise to ecotourism, a sustainable form of tourism that emphasizes personal experiences with nature and promotes conservation. Given the Woylie's elusive nature, our analysis seeks to understand the relationship between Woylie sightings and tourist visits 
+
+![The brush-tailed Bettong or Woylie (Bettongia penicillata ogilbyi)](woylie.png){#fig-woyliepic}
+
+:::{.callout-note}
+# Expectations for sightings and weather data
+
+From this data we expect the following results:
+
+
+-   We expect to observe a decline in Woylie occurrences over the past
+    20 years, reflecting their critically endangered status.
+-   The dataset is likely to show fewer sightings in the wild over
+    recent years, given that Woylies are mostly found in protected
+    sanctuaries.
+-   Woylies are expected to have limited sightings near weather
+    stations, as their habitat preferences are specific to certain
+    regions within Australia.
+-   We anticipate a seasonal pattern in sightings, with more
+    occurrences during specific times of the year, possibly correlating
+    with breeding seasons or favorable climate conditions.
+-   It is unlikely that there will be a significant number of sightings
+    in urban areas, as Woylies tend to avoid human-populated regions due
+    to habitat disturbance.
+
+:::
+
+In our report we first analyse records from [Atlas of Living Australia (ALA)](https://www.ala.org.au/) database and check if they match our expectations, we also explore how weather is related to when Woylie sightings occur and find the region with most number of Woylie sightings. Further we perform an analysis that delves into the trends of tourism within that region. With respect to our analysis pertaining to the tourism trends, our expectations are as follows:
+
+:::{.callout-note}
+# Expectations for tourism data
+
+-   We expect most of the Woylie sightings to either be in Western or Southern        Australia.
+-   We expect most number of holiday trips to be in September through November or     March through May.
+-   We expect a seasonal holiday pattern in the region of interest which may          consequently lead to higher Woylie sightings.
+
+:::
+
+# Data description
+## Species data
+
+To ensure a robust foundation for the analysis, occurrence records of the Brush-Tailed Bettong or Woylie (Bettongia penicillata ogilbyi) were obtained from the [Atlas of Living Australia (ALA)](https://www.ala.org.au/) database using the functions of the [galah](https://cran.r-project.org/web/packages/galah/index.html) R package. 
+
+This dataset includes essential information, such as date, time, and collector identification details, and comprises 13 variables and 2,276 observations across Australia as of the current report.
+
+The code to derive the species data can be viewed below and the data dictionary of the variables can be seen in @tbl-data.
+
+```{r, eval=FALSE}
+# load occurence records for woylie from ALA
+galah_config(email = "aran0026@student.monash.edu")
+woylie <-
+  galah_call() %>%
+  galah_identify("Bettongia penicillata ogilbyi") %>%
+  galah_select(group = c("basic", "event")) %>% 
+  atlas_occurrences()
+
+# save data as a csv in data-raw folder
+write.csv(woylie, file = "data-raw/woylie.csv")
+```
+
+```{r echo=FALSE}
+# load data back into R environment
+woylie <- read_csv("data-raw/woylie.csv") %>%
+  select(-1)
+```
+
+```{r echo=FALSE}
+#| label: tbl-data
+#| tbl-cap: "Variable definitions for the Woylie dataset"
+
+variables <-
+  data.frame(
+    Variable = c(
+      "scientificName",
+      "taxonConceptID",
+      "recordID",
+      "dataResourceName",
+      "occurenceStatus",
+      "eventDate",
+      "decimalLatitude",
+      "decimalLongitude",
+      "eventTime",
+      "eventID",	
+      "eventRemarks",
+      "samplingEffort",
+      "samplingProtocol"
+    ),
+    Explained = c(
+      "The scientific name of the observed species.",
+      "The taxonomy website ID.",
+      "The record ID of each observation.",
+      "The data resource associated with the observation.",
+      "The occurrence status: Present.",
+      "Recorded sighting date in the format YYYY-MM-DD.",
+      "Latitude value of sighting in decimal format.",
+      "Longitude value of sighting in decimal format.",
+      "Time of the event recorded in the format hh:mm:ss.",
+      "The event ID of each observation.",
+      "Any additional remarks or comments related to the observation.",
+      "The number of nights spent on trapping activities.",
+      "The protocol that was used to sample the species"
+    )
+  )
+
+variables %>%
+  kableExtra::kbl(caption = "Data Dictionary for the Woylie dataset") %>%
+  kableExtra::kable_styling(bootstrap_options = "bordered")
+```
+
+## Tourism data
+
+In addition, to conduct an analysis on ecotourism of the Woylie, tourism data from [Tourism Research Australia (TRA)](https://www.tra.gov.au) was obtained. 
+
+This dataset includes spatial, temporal, and trip information. It comprises 4 variables and 1,228,000 observations covering Quarter 1 of 1998 to Quarter 4 of 2022 across all Australian Statistical Area Level 2 (SA2) regions of Australia.
+
+The data dictionary of the variables can be seen in @tbl-data-tourism.
+
+```{r echo=FALSE}
+#| label: tbl-data-tourism
+#| tbl-cap: "Variable definitions for the Tourism dataset"
+
+variables2 <-
+  data.frame(
+    Variable = c(
+      "Quarter",
+      "Region",
+      "Purpose",
+      "Trips"
+    ),
+    Explained = c(
+      "The year and quarter of the observation in the format YYYY Q, e.g., Q1, Q2, Q3, or Q4.",
+      "The Australian Statistical Area Level 2 (SA2) region of the observation.",
+      "The purpose of the trip, categorised as Holiday, Visiting friends and relatives, Business, or Other reason.",
+      "The total number of trips in thousands ('000)."
+    )
+  )
+
+
+variables2 %>%
+  kableExtra::kbl(caption = "Data Dictionary for the Tourism dataset") %>%
+  kableExtra::kable_styling(bootstrap_options = "bordered")
+```
+
+# Initial data analysis
+
+## Species data
+
+In preparation for the forthcoming analysis, an Initial Data Analysis (IDA) was conducted on the species data. This involved removing a few unnecessary columns and systematically saving only the wild sightings, as the analysis focuses on the natural wild habitat and behavior of the species.
+
+```{r}
+# filter wild sightings
+WILD_THING_woylie <- woylie %>%
+  select(-c(eventRemarks, eventID)) %>%
+  filter(
+    samplingProtocol %in% c(
+      "Camera Trapping",
+      "Transect Spotlighting",
+      "Sign-diggings",
+      "Observed-spotlighting",
+      "Sign-dropping"
+    )
+  )
+
+save(WILD_THING_woylie, file = "data/WILD_THING_woylie.rda")
+```
+
+After reducing the dataset, variable types and missing values were checked, as depicted in @fig-vis-dat. There were no missing values that were significantly of interest or required cleaning.
+
+```{r}
+#| label: fig-vis-dat
+#| fig-cap: "Visualising the data set using the `visdat` function."
+
+# view missing variables and variable types
+visdat::vis_dat(WILD_THING_woylie)
+```
+
+## Weather data {#sec-ref}
+
+Exploring the correlation between weather conditions and Woylie sightings can yield valuable insights into their behavior. To conduct this analysis, it would be useful to first identify the locations where Woylies are most frequently found and then obtain the weather data from the nearest weather stations.
+
+The [Global Historical Climatology Network (GHCN)](https://www.ncei.noaa.gov/products/land-based-station/global-historical-climatology-network-daily) database contains weather station data that are valuable for analysing trends in weather patterns and precipitation. This data can be obtained using the `rnoaa` package.
+
+```{r}
+# downloading the coordinates of Australian weather stations
+aus_stations <- ghcnd_stations() |>
+  filter(str_starts(id, "ASN")) |>
+  filter(last_year >= 2020) |>
+  mutate(wmo_id = as.numeric(wmo_id),
+         name = str_to_lower(name)) |>
+  select(-state,-gsn_flag) |>
+  filter(element %in% c("PRCP", "TMAX", "TMIN")) |>
+  nest(element:last_year) |>
+  rowwise() |>
+  filter(nrow(data) == 3) |>
+  select(-data) 
+```
+
+Utilising an interactive Leaflet map of Woylie sightings allows for the identification of the nearest weather stations to the clusters of Woylie sightings. 
+
+```{r}
+#| label: fig-cluster-map
+#| fig-cap: "The five highest clusters of Woylie sightings."
+
+# k-means clustering
+set.seed(383724)
+
+coords_matrix <- WILD_THING_woylie %>%
+  select(decimalLongitude, decimalLatitude) %>%
+  as.matrix()
+
+num_clusters <- 5  # number of clusters
+kmeans_result <- kmeans(coords_matrix, centers = num_clusters)
+
+# extract clusters
+WILD_THING_woylie$cluster <- kmeans_result$cluster
+
+# number of sightings in each cluster
+cluster_counts <- WILD_THING_woylie %>%
+  group_by(cluster) %>%
+  summarise(num_sightings = n())
+
+max_count <- max(cluster_counts$num_sightings)
+normalized_counts <- cluster_counts$num_sightings / max_count
+scaled_radius <- normalized_counts * 20  
+
+# add circle markers for each sighting
+map_clusters <- leaflet(data = WILD_THING_woylie) %>%
+  addTiles() 
+
+map_clusters <- map_clusters %>%
+  addCircleMarkers(
+    lng = ~decimalLongitude, 
+    lat = ~decimalLatitude,    
+    popup = ~paste("Sighting Date: ", format(eventDate, "%Y-%m-%d")),  # Popup text
+    radius = ~scaled_radius[cluster],  #scaled radius based on the cluster
+    color = "#C94A53",  
+    fillOpacity = 0.7  
+  )
+
+# view the map of clusters
+map_clusters
+```
+
+As demonstrated in @fig-cluster-map, the five closest weather stations are:
+
+1.  Weather Station ID: ASN00020028, which is closest to the Danggali
+    Wilderness Protection area.
+
+2.  Weather Station ID: ASN00023373, which is closest to the Yookamura
+    Private Nature Reserve.
+
+3.  Weather Station ID: ASN00018192, which is closest to the sightings
+    near Port Lincoln at the Lincoln National Park.
+
+4.  Weather Station ID: ASN00076031, which is closest to the sightings
+    at Mallee Cliffs National Park.
+
+5.  Weather Station ID: ASN00054038, located near the sightings at
+    Pilliga East State Forest.
+    
+The highest number of Woylie sightings was recorded in Pilliga East State Forest, and as a result, the weather data to be obtained will be from the nearest weather station, which is the Narrabri Airport weather station.
+
+```{r eval=FALSE}
+# filter weather station
+narrabri <- aus_stations |>
+  filter(id %in% "ASN00054038") |>
+  rowwise() |>
+  mutate(ts = list(
+    meteo_pull_monitors(
+      monitors = id,
+      var = c("PRCP", "TMAX", "TMIN"),
+      date_min = "2004-01-01",
+      date_max = "2023-09-13"
+    ) |>
+      select(-id)
+  )) |>
+  rename(lat = latitude, long = longitude, elev = elevation) |> select(id, long, lat, elev, name, wmo_id, ts) %>%
+  unnest(ts) |>
+  mutate(tmax = tmax / 10, tmin = tmin / 10)
+```
+
+This weather data can then be merged with Woylie observation data to create a comprehensive dataset for use in @sec-ref-1.
+
+```{r eval=FALSE}
+# rename eventDate as date for convenience
+WILD_THING_woylie <- WILD_THING_woylie %>%
+  rename(date = eventDate)
+
+# classifying the date columns as Date
+WILD_THING_woylie$date <-
+  as.Date(WILD_THING_woylie$date, origin = "1970-01-01")
+narrabri$date <- 
+  as.Date(narrabri$date, origin = "1970-01-01")
+
+# filter observations in cluster 1 as it is the largest
+woylie_most <- WILD_THING_woylie %>% 
+  filter(cluster == 1)
+
+# join the data sets by date
+woylie_stations <- narrabri %>%
+  left_join(woylie_most, by = "date")
+
+# tidy data further
+woylie_stations <- woylie_stations %>%
+  
+  # remove observations based on duplicate record IDs
+  filter(!duplicated(recordID) | is.na(recordID)) %>%
+  
+  # create the sightings column
+  mutate(sightings = ifelse(is.na(scientificName), 0, 1))
+
+# save this as an rda file
+save(woylie_stations, file = "data/woylie_stations.rda")
+```
+
+# Exploratory data analysis 
+
+## Exploration of Woylie Sightings against intial expectations
+
+```{r}
+# load the wild sightings data back in
+load(file = "data/WILD_THING_woylie.rda")
+```
+
+In this section, we will delve into the exploratory data analysis of
+Woylie sightings, focusing on verifying our expectations through data
+visualization and analysis. Furthermore, we will evaluate whether visual
+inference techniques support or contradict our initial assumptions.
+
+Now, let's move forward with exploring the data visually to acquire
+meaningful insights into the behavior and distribution of the Woylie.
+
+### Trend in Woylie Sightings {#sec-ref-3}
+
+```{r}
+#| label: fig-woylietrend1
+#| fig-cap: "The trend in Woylie Sightings Over Time"
+WILD_THING_woylie$year <- year(WILD_THING_woylie$eventDate)
+sightings_per_year <- WILD_THING_woylie %>% group_by(year) %>% summarise(Total_sightings = n())
+ggplot(sightings_per_year, aes(x = year, y = Total_sightings)) +
+  geom_line(aes(group = 1)) +           
+  geom_point(size = 3, color = "blue") + 
+  labs(title = "Trend in Woylie Sightings Over Time",
+       x = "Year",
+       y = "Number of Sightings") +
+  theme_classic() +
+  theme(
+    plot.title = element_text(hjust = 0.5), # Center the title
+    axis.title.x = element_text(margin = margin(t = 20, b = 0)),
+    axis.title.y = element_text(margin = margin(l = 20, r = 0))
+  ) + geom_label(aes(label = Total_sightings,vjust = -0.25,hjust = 1)) + ylim(c(0,2000))
+
+```
+@fig-woylietrend1 shows the trend in Woylie sightings over the years.
+
+:::{.callout-note}
+# Key takeaway
+
+We see that the actual trend is not aligning with our expectations, we see a relatively flat trend with minimal sightings from around 2000 up until approximately 2015 and a significant spike in sightings around 2020.
+
+:::
+
+
+### Geographical Distribution {#sec-ref-2}
+
+```{r}
+#| label: fig-cluster-map-2
+#| fig-cap: "The five highest clusters of Woylie sightings."
+
+map_clusters
+```
+
+The Leaflet map, initially featured in @sec-ref and presented again in @fig-cluster-map-2, provides a clear geographic representation of Woylie sightings.
+
+Woylies exhibit distinct habitat preferences across various regions in Australia, and these preferences are closely associated with five specific weather stations: Gluepot Reserve, Nuriootpa Viticultural, North Shields (Port Lincoln Airport), Mildura Airport, and Narrabri Airport. These weather stations correspond to the following National Parks: Danggali Wilderness Protection area, Yookamura Private Nature Reserve, Lincoln National Park, Mallee Cliffs National Park, and Pilliga East State Forest.
+
+The map starkly highlights the significant reduction in Woylie populations, stemming from challenges related to habitat loss and disease. Notably, it demonstrates the success of the population relocation strategy, which aims to guide Woylies towards conservation areas. The majority of Woylie clusters are now concentrated within the National Parks, as shown on the map.
+
+Moreover, the implementation of disease management programs is supported by evidence in @sec-ref-3, which indicates a recent upsurge in Woylie sightings in recent years. This increase can be attributed to the fact that these creatures are more readily observed within National Parks, further underscoring the effectiveness of this conservation approach.
+
+
+
+
+
+## Exploration of Woylie Sightings with Weather Data {#sec-ref-1}
+
+```{r}
+# load the woylie stations file back in
+load(file = "data/woylie_stations.rda")
+```
+
+
+
+
+
+```{r}
+#| label: fig-monthly
+#| fig-cap: "Woylie sightings in 2022 across various seasons"
+
+load(file = "data/woylie_stations.rda")
+spring_months <- c("September","October","November","December")
+summer_months <- c("January","February","March")
+autumn_months <- c("April","May")
+winter_months <- c("June","July","August")
+
+
+# Filtering  the data for sightings in 2022
+woylie_sightings_2022 <- woylie_stations %>%
+  filter(year(date) == 2022)
+
+#Extracting the month name
+woylie_sightings_2022$month_name <- 
+  factor(format(as.Date(woylie_sightings_2022$date), "%B"), levels = month.name)
+
+woylie_sightings_2022 <- woylie_sightings_2022 %>% mutate(season = case_when(month_name %in% spring_months ~ "Spring",
+                                                                             month_name %in% summer_months ~ "Summer",
+                                                                             month_name %in% autumn_months ~ "Autumn",
+                                                                             month_name %in% winter_months ~ "Winter"
+                                                                             ))
+
+# A bar chart to visualize the number of sightings in 2022
+
+woylie_sightings_2022_grouped <- woylie_sightings_2022 %>% group_by(month_name,season) %>% summarise(Total_sightings = n())
+
+ggplot(woylie_sightings_2022_grouped, aes(x = month_name,y = Total_sightings,fill = season)) +
+  geom_col(color = 'black') +
+  labs(title = "Woylie sightings in 2022 across various seasons",
+       x = "Month",
+       y = "Number of Sightings",fill = "Season") +  theme_classic() +
+  theme(axis.text.x  = element_text(angle = 25, hjust = 1)) + geom_label(aes(label = Total_sightings)) + 
+  scale_fill_brewer(palette = "Accent",type = "div") 
+
+```
+
+@fig-monthly illustrates that the number of Woylie sightings varied throughout the year, but the highest number of sightings occurred in the spring season (between September to Deecem
+
+
+The provided code filters the dataset to isolate Woylie sightings that occurred exclusively in the year 2022 and subsequently generates a bar chart to visualize the distribution of these sightings across different months.
+
+The resulting bar chart shows that the number of Woylie sightings varied throughout the year, but the highest number of sightings occurred in the spring and summer months (October to March). The lowest number of sightings occurred in the winter months (April to September).
+
+There are a few possible explanations for this pattern. One possibility is that Woylies are more active during the spring and summer months due to the warmer weather and longer days. Another possibility is that there is more food available for Woylies during the spring and summer months. Finally, it is also possible that Woylies are more visible during the spring and summer months because they are spending more time outside.
+
+To delve into the connection between temperature and sightings, you have the option to craft scatter plots or line plots that unveil how temperature variables like 'tmax' or 'tmin' correlate with the observed number of sightings. Here's an illustrative instance of crafting a plot:
+
+```{r}
+#A scatter plot to visualize the relationship between tmax and sightings
+woylie_sightings_2022<-
+  woylie_sightings_2022 %>% 
+  group_by(month_name) %>%
+  mutate(count_sightings=n())
+
+```
+
+
+```{r warning=FALSE}
+#| label: fig-temp
+#| fig-cap: "Temperature range on the days of Woylie sightings for each month of the year"
+
+woylie_sightings_2022$observation <- 1:nrow(woylie_sightings_2022)
+woylie_sightings_2022$observation <- factor(woylie_sightings_2022$observation)
+pl_temp <- ggplot(woylie_sightings_2022, aes(y = observation)) +
+  geom_dumbbell(aes(x = tmin, xend = tmax),
+                color = "darkgray",
+                size = 1, dot_guide = FALSE, 
+                size_x = 3,  size_xend = 3,
+                colour_xend = "#F69541", colour_x = "#699DC6")  + theme_classic()
+   
+pl_temp + geom_vline(xintercept = mean(woylie_sightings_2022$tmax,na.rm = TRUE),alpha = 0.5,linetype =2,color = 'red') +  
+  geom_vline(xintercept = mean(woylie_sightings_2022$tmin,na.rm = TRUE),alpha = 0.5,linetype =2,color = 'blue') +
+    scale_linetype_manual(values = "Mean Temperature", name = "Line Type") +
+ facet_wrap(~month(date,label = TRUE),scales = "free_y") + theme(axis.text.y = element_blank()) + 
+  labs(x = "Temperature (in degree celsius)",y= "Unique Woylie sighting") +
+  ggtitle("Temperature range on days of Woylie sightings for different months of the year")
+  
+
+```
+
+:::{.callout-note}
+# Key takeaway
+
+Upon analysing the maximum and minimum temperatures on the days of Woylie sightings as illustrated by @fig-temp, we can obseve the following:
+
+1. There appears to be lower number of Woylie sightings during the initial months of the year. The initial months in Australia constitute of the summer and is typically characterised by higher than average maximum and minimum temperatures. The low sightings during the summer suggests that the Woylies are not as active on warmer days.
+
+2. Between the months of April to August, the number of Woylie sightings are observed to gradually rise. These months are relatively cold in Australia and appear to promote higher mobility among the Woylies.
+
+
+3. There are distinctly higher number of observations from the month of September to December. This coincides with the Australian spring season. Based on the data, we can infer that the spring season appears to be the one promoting the highest activity among the Woylies.
+
+:::
+
+# Temporal analysis
+
+For the purpose of performing a temporal analysis of the tourist patterns, we will be focusing on the tourist footfalls in the Narrabri region with the highest Woylie sightings.
+
+```{r}
+#| label: fig-temporal1
+#| fig-cap: "Annual trend of trips in Narrabri Surrounds"
+
+temporal_data <- tourism %>% filter(Region == "Narrabri Surrounds")
+temporal_data$Quarter <- as.character(temporal_data$Quarter)
+quarter_split <- strsplit(temporal_data$Quarter, " ")
+temporal_data$Year <- sapply(quarter_split, function(x) x[1])
+temporal_data$Quarter <- sapply(quarter_split, function(x) x[2])
+temporal_data$Year <- as.numeric(temporal_data$Year)
+
+annual_data <- temporal_data %>%
+  group_by(Year) %>%
+  summarise(TotalTrips = sum(Trips))
+ggplot(annual_data, aes(x = Year, y = TotalTrips)) +
+  geom_line(group=1, size=1,aes(color = "Annual trips")) +
+  geom_point(size=3) +
+  geom_smooth(method='loess', se=FALSE,aes(color = "Trend line")) +  
+  annotate("text", x=2002, y=75, label="Peak in 2002", vjust=-1) +  
+  annotate("text", x=2016, y=75, label="Peak around 2018", vjust=-1.5) +  
+  expand_limits(y=0) +  
+  labs(title = "Annual Trend of Trips",
+       x = "Year",
+       y = "Total Trips") +
+  theme_classic() +
+  theme(axis.text.x=element_text(angle=45, hjust=1)) +
+  scale_color_manual(values = c("Trend line" = "red","Annual trips" = "black")) + labs(colour = "Legend")
+
+
+```
+ @fig-temporal1 displays the annual trend of trips from 2000 to 2020, highlighting both the yearly fluctuations in the number of trips and the overarching trend across the years.
+
+:::{.callout-note}
+# Key takeaway
+
+1. There are two significant peaks in the data – one around 2002 and another around 2018. The trend suggests fluctuations in the total number of trips throughout the years.
+
+2. Post-2018, there seems to be a decline in trips, but it recovers towards 2022.
+
+3. Around the years 2005 and 2015, there are evident dips in the number of trips,thus the trips were considerably lower than their surrounding years.
+
+4. The trend line indicates a cyclic nature of the trip volumes with peaks and troughs. 
+
+:::
+
+```{r}
+#| label: fig-temporal2
+#| fig-cap: "Seasonal Patterns Across Years"
+#| 
+
+plot_data <- temporal_data %>%
+  group_by(Year, Quarter) %>%
+  summarize(
+    TotalTrips = sum(Trips, na.rm = TRUE)
+  )
+plot_data$Year <- as.factor(plot_data$Year)
+plot_data$Quarter <- factor(plot_data$Quarter, levels = c("Q1", "Q2", "Q3", "Q4"))
+
+# Sort data by Year and Quarter
+plot_data <- plot_data[order(plot_data$Year, plot_data$Quarter), ]
+
+# Plotting the heatmap
+hp <- ggplot(plot_data, aes(x = Quarter, y = Year, fill = TotalTrips)) +
+  geom_tile() +
+  scale_fill_gradient2(name = "Trips (in 1000s)", 
+                       low = "white",  high = "darkred") +
+  labs(title = "Seasonal Patterns Across Years", x = "Quarter", y = "Year") +
+  theme_classic()
+
+
+ggplotly(hp)
+
+```
+
+
+@fig-temporal2 represents seasonal patterns from the years 1998-2022 in the Narrabbri Surrounds region
+
+:::{.callout-note}
+# Key takeaway
+
+1. The number of trips seems to be consistent throughout the earlier years ( 1998-2005), with no significant peaks or troughs across the quarters.
+
+2. **Q1**: Generally, the colors for Q1 across the years seem to be on the lighter side compared to other quarters. This suggests that Q1 typically witnesses fewer trips. 1998-2005 shows a fairly consistent shade for Q1, indicating that the number of trips were fairly consistent during this period for Q1
+
+3. **Q2** : This quarter appears to have variable trip numbers without a consistent trend, the volume of trips seem similar to Q1 but with some years having higher number of trips 
+
+4. **Q3** :   Q3 consistently displays the darkest hues on the heatmap across multiple years, indicating that this quarter usually experiences the highest volume of trips when compared to the other quarters.
+
+5. **Q4** : This quarter appears to have variable trip numbers without a consistent trend. Some years in the early and mid-2010s display darker shades, indicating increased travel activity during that time
+
+:::
+
+
+```{r}
+#| label: fig-temporal4
+#| fig-cap: "Trips per Quarter by Purpose"
+
+all_purposes_data <- temporal_data %>%
+  group_by(Quarter, Purpose) %>%
+  summarize(
+    TotalTrips = sum(Trips, na.rm = TRUE)
+  )
+all_purposes_data$Purpose <- factor(all_purposes_data$Purpose, 
+                                    levels = c("Business", "Holiday", "Visiting", "Other", "Total"))
+
+ggplot(all_purposes_data, aes(x = Quarter, y = TotalTrips, fill = Purpose)) +
+  geom_bar(stat = "identity", color = "black") +
+  facet_wrap(~ Purpose) +   
+  theme_classic() +
+  labs(title = "Trips per Quarter by Purpose",
+       x = "Quarter",
+       y = "",subtitle = "Narrabri Surrounds region") +
+  theme(text = element_text(size = 14))
+
+```
+@fig-temporal4 shows distribution of trips made in the Narrabri Surrounds region, broken down by their primary purpose - Business, Holiday, Visiting, Other, and Total.
+
+:::{.callout-note}
+# Key takeaway
+
+1. Business trips are least frequent in the first quarter and peak in Q2 and Q4. This could imply end-of-year meetings, reviews, or projects that drive increased business travel.
+
+2. Visiting-related trips maintain a fairly consistent number throughout the year, suggesting that family or friend visits are evenly spread and not particularly influenced by the season.
+
+3. Holiday trips gradually increase from Q1 to Q2 and surge in Q3. There's a decline in Q4, but it still remains higher than Q1, suggesting an interest in holidays during the latter part of the year.
+
+4. Overall, The third quarter (Q3) is the most active period, suggesting factors or events in these months (July to September) that drive an increase in the number of trips. There is a clear progression of activity from Q1 to Q3, starting with the lowest activity in Q1 and gradually increasing to reach its pinnacle in Q3.
+
+
+5. Among the specific purposes, "Visiting" trips dominate, followed by "Holiday" trips. "Business" and "Other" have a relatively lower volume of trips, with "Business" trips being the least common.
+
+
+:::
+
+
+```{r}
+
+library(tsibble)
+library(tsibbletalk)
+library(feasts)
+
+top_regions <- c("Narrabri Surrounds")
+
+tourism_shared <- tourism %>% filter(Region %in% top_regions) %>%
+  as_shared_tsibble(spec = Region * Purpose)
+
+
+
+
+tourism_feat <- tourism_shared %>%
+
+  features(Trips, feat_stl)
+
+ 
+
+p1 <- tourism_shared %>%
+
+  ggplot(aes(x = Quarter, y = Trips)) +
+
+  geom_line(aes(group = Region), alpha = 0.5) +
+
+  facet_wrap(~ Purpose, scales = "free_y") + theme_classic() + ggtitle("Tourism trends in the Narrabri region") + 
+  theme(axis.text.x = element_text(size =5)) + labs(y = "Number of trips (in 1000s)")
+
+p2 <- tourism_feat %>%
+
+  ggplot(aes(x = trend_strength, y = seasonal_strength_year,color=Purpose)) +
+  geom_point(size = 3) + theme_classic() + ggtitle("Trend analysis of tourism estimates in Narrabri region") + 
+  labs(x = "Trend strength",y = "Seasonality strength (annual)") + scale_color_brewer(palette = "Dark2")
+```
+
+```{r}
+#| label: fig-trend
+#| fig-cap: "Tourism trends in the Narrabri region for various purposes"
+ggplotly(p1)
+```
+
+
+```{r}
+#| label: fig-trendanalysis
+#| fig-cap: "Trend analysis in the Narrabri region for various purposes"
+ggplotly(p2)
+```
+
+@fig-trend illustrates the pattern of trips for various purposes in the Narrabri region, while @fig-trendanalysis provides us with an understanding of the relative trend strength and seasonality of the data related to various trip purposes.
+
+:::{.callout-note}
+# Key takeaway
+1. There is a distinct pattern in the number of trips for each of the purposes (Business, Holiday, Other, and Visiting) when analysing the tourism data for the Narrabri region.
+
+2. There have been significant periods of time in this region with very low business trips. However, recently, business trips have become more frequent and in higher numbers.
+
+3. As expected, typical of many holiday trends, a noticeable seasonality in holiday trips for the Narrabri region becomes apparent. This is further substantiated by the intermediate seasonal strength of around 0.4 observed in @fig-trendanalysis.
+
+4. Additionally, there seems to be low seasonality in trips related to business, visits, and 'other' purposes. This suggests that the patterns of trips in the region for these purposes do not exhibit regular intervals.
+
+5. However, there is a moderate trend strength in the overall total trips as well as in visit-related trips, based on the analysis in @fig-trendanalysis. This indicates that the total trips due to visits and the overall total trips in the region have increased over time, particularly in recent years.
+
+:::
+
+
+```{r}
+#| label: fig-trendecomp
+#| fig-cap: "Trend analysis in the Narrabri region for various purposes"
+
+
+tourism_woylie <- tourism %>%
+  filter(Purpose == "Holiday")
+
+tourism_pl <- tourism_woylie %>%
+  filter(Region == "Narrabri Surrounds")
+
+tourism_pl_grouped <- tourism_pl %>%
+  group_by_key() %>%
+  index_by() %>%
+  summarise(Total_trips = round(sum(Trips * 1000)))
+
+# Convert data to a ts object 
+ts_data_trips <- ts(tourism_pl_grouped$Total_trips, frequency=4)
+
+ 
+
+# Decompose the time series for average trips
+decomposition_trips <- stl(ts_data_trips, s.window="periodic")
+
+ 
+
+# Plot the decomposition
+autoplot(decomposition_trips) + labs(title = "Seasonal Decomposition of Holiday Trips in Narrabri region") + theme_minimal()
+```
+@fig-trendecomp illustrates the seasonal decomposition of the total trips over the years in the Narrabri region. The resulting plot will typically include four components:
+
+__Original Time Series:__ The actual data points. \
+__Trend Component:__ This represents the long-term trend in the data. \
+__Seasonal Component:__ This represents the seasonal pattern or periodic fluctuations. \
+__Residual Component:__ This is the part of the data that is not explained by the trend or seasonal components. \
+
+:::{.callout-note}
+# Key takeaways
+
+1. The holiday data shows that the seasonality has been more consistent in the recent years when compared to the initial years of the data.
+
+2. The trend of the holiday data does not show a clear rise or fall of trips in the Narrabri region. The total trips are observed to vary around approximately 2000 trips every quarter.
+
+3. The recent rise in the seasonality of the holiday trips for the Narrabri regions could attributed to the annual 45km [Tour de Gorge bike ride](https://www.environment.nsw.gov.au/media/OEHMedia16082601.htm) through the Pilliga Nature Reserve which first started in the year 2013. 
+:::
+
+# Ecotourism
+
+Ecotourism involves traveling to places in support of the conservation efforts of endangered wildlife. To assess the level of interest in ecotourism for the Woylie, an analysis that combines tourism data from [Tourism Research Australia (TRA)](https://www.tra.gov.au) and Woylie sightings near the weather station of interest, Narrabri Airport, as reported in @sec-ref, will provide us with a holistic view. To ensure a more accurate matching of the data with tourism data, the observations of the Woylie are subsetted to focus on the Australian Statistical Area Level 2 (SA2) region: Narrabri Surrounds.
+
+## Tourism trend in Narrabri Surrounds 
+
+The tourism data will be filtered for the region of Narrabri Surrounds as part of the analysis. The purpose of tourism trips will also be filtered to holiday trips since this suggests the intention to travel for sightseeing and exploration. Other purposes, such as visiting friends and relatives or business, may include visiting the endangered Woylie species during the trip, but the purposes are too broad to draw conclusive insights. Therefore, choosing holiday tourism data will result in the most accurate analysis.
+
+```{r}
+load("data/woylie_region.rda")
+
+tourism_woylie <- tourism %>%
+  filter(Purpose == "Holiday")
+
+tourism_pl <- tourism_woylie %>%
+  filter(Region == "Narrabri Surrounds")
+
+tourism_pl_grouped <- tourism_pl %>%
+  group_by_key() %>%
+  index_by() %>%
+  summarise(Total_trips = round(sum(Trips * 1000)))
+```
+
+```{r}
+#| label: fig-narr
+#| fig-cap: "Total Holiday Trips in Narrabri Surrounds"
+
+pl1 <-
+  ggplot(data = tourism_pl_grouped, aes(x = Quarter, y = Total_trips)) +
+  geom_line() +
+  geom_point() +
+  theme_classic() +
+  ggtitle("Tourism Trends in Narrabri Surrounds") +
+  labs(
+    x = "Year (Quarter)",
+    y = "Total holiday trips",
+    caption = "Source: Tourism Research Australia",
+    subtitle = "1998 Q1 - 2022 Q4"
+  )
+ggplotly(pl1)
+```
+
+:::{.callout-note}
+# Key takeaway
+Based on the initial analysis of @fig-narr, the following observations can be made:
+
+1. The number of trips designated as "holiday" is irregular, with several quarters and years showing no holiday visitors in the region of interest. However, after 2008, trips become more frequent.
+2. Consequently, there is only a moderate seasonality in holiday visits in this region.
+3. The highest number of holiday visitors was recorded in the 3rd quarter of 2001, with nearly 13,445 visits.
+:::
+
+```{r echo=FALSE}
+narrabri_surrounds_tourism <- tourism_pl %>%
+  mutate(Year = year(Quarter),
+         Q = quarter(Quarter),
+         Quarter = tsibble::yearquarter(Quarter))
+```
+
+```{r}
+#| label: fig-holiday-year
+#| fig-cap: "Holiday Tourism in Narrabri Surrounds by Year (1998 - 2022)"
+
+ggplot(narrabri_surrounds_tourism,
+       aes(x = Quarter, y = Trips, fill = as.factor(Q))) +
+  geom_col() +
+  facet_wrap( ~ Year, scales = "free_x") +
+  labs(title = "Holiday Tourism in Narrabri Surrounds by Year",
+       x = "",
+       y = "Number of trips ('000)") +
+  theme_classic() +
+  scale_fill_brewer(palette = "Set3") +
+  guides(fill = guide_legend(title = "Quarterly Period")) +
+  theme(axis.text.x = element_blank(),
+        axis.ticks.x = element_blank())
+```
+
+Similar to @fig-narr, @fig-holiday-year presents holiday tourism in a year calendar format to visualise and observe the annual tourism trend. The data reveals increased tourism frequency after 2008.
+
+```{r}
+#| label: fig-holiday-group
+#| fig-cap: "Total Holiday Tourism in Narrabri Surrounds by Quarter (1998 - 2022)"
+
+narrabri_surrounds_tourism %>%
+  ggplot(aes(x = Q, y = Trips, fill = as.factor(Q))) +
+  geom_col() +
+  labs(
+    title = "Total Holiday Tourism in Narrabri Surrounds by Quarter",
+    subtitle = "Years 1998 - 2022",
+    x = "Quarter",
+    y = "Number of trips ('000)"
+  ) +
+  theme_classic() +
+  scale_fill_brewer(palette = "Set3") +
+  guides(fill = "none") 
+```
+
+When grouping the tourism visit numbers in Narrabri Surrounds by quarter, Quarter 1 experiences the fewest tourists compared to Quarter 3, which receives the most, as can be seen in @fig-holiday-group. Specifically, from January to March, Narrabri Surrounds sees the least tourism, while from July to September, the area has the most tourism.
+
+## Species Sightings
+
+The examination of the number of visitors in the Narrabri Surrounds region for holiday purposes has now laid the foundation for an exploration of wildlife sightings and visitation trends, allowing for the investigation of potential correlations.
+
+Below, an analysis of Woylie sightings with visitor trends in the Narrabri Surrounds region is conducted.
+
+```{r include=FALSE,echo=FALSE}
+t_region <- st_read(here::here("data/SA2_2021_AUST_SHP_GDA2020/SA2_2021_AUST_GDA2020.shp")) |>
+  ms_simplify(keep = 0.1) |>
+  st_transform(crs = st_crs("WGS84")) |>
+  st_make_valid() |>
+  select(STE_NAME21, SA2_NAME21, SA2_CODE21, geometry) |>
+  rename("state" = STE_NAME21,
+         "region" = SA2_NAME21,
+         "sa2_code21" = SA2_CODE21)
+
+
+woylie_sf <- WILD_THING_woylie |>
+  filter(!is.na(decimalLongitude) & !is.na(decimalLatitude)) |>
+  select(-c(dataResourceName , recordID,scientificName,taxonConceptID)) |>
+  st_as_sf(coords = c("decimalLongitude", "decimalLatitude"),
+  crs = st_crs("WGS84"))
+
+
+woylie_stsf <-
+  st_join(t_region, woylie_sf, left = TRUE) %>%  
+  filter(!is.na(region))
+
+woylie_narrabri <- woylie_stsf %>% filter(region == "Narrabri Surrounds")
+woylie_narrabri_grouped <- woylie_narrabri %>% group_by(eventDate) %>% summarise(Total_sightings = n() )
+```
+
+```{r}
+#| label: fig-woylie-obs
+#| fig-cap: "Trend line graph of Woylie Sightings in Narrabri Surrounds (September - December 2022)"
+
+q_colours <- RColorBrewer::brewer.pal(12, "Set3")[3:4]
+
+woylie_tsibble <- woylie_narrabri_grouped %>%
+  as_tsibble(key = Total_sightings, index = eventDate)
+
+woylie_tsibble %>%
+  ggplot(aes(x = as.Date(eventDate), y = Total_sightings)) +
+  geom_rect(aes(xmin = as.Date("2022-09-06"), xmax = as.Date("2022-10-01"), ymin = 0, ymax = +Inf, fill = "Quarter 3")) +
+ # geom_rect(aes(xmin = as.Date("2022-10-01"), xmax = as.Date("2023-01-01"), ymin = 0, ymax = 1, fill = "4")) +
+  geom_line() +
+  geom_point() +
+  scale_fill_manual(values = c("Quarter 3" = q_colours[1], "4" = q_colours[2])) +
+  labs(
+    title = "Woylie Observations in Narrabri Surrounds",
+    subtitle = "September - December 2022",
+    x = "Date of Sighting",
+    y = "Number of Sightings"
+  ) +
+  theme_classic() +
+  geom_label(aes(x = as.Date("2022-09-19"), y = 3, label = "~6,522 tourists"), color = "#800080", size = 3)+
+  guides(fill = guide_legend(title = "Tourism"))
+```
+
+@fig-woylie-obs displays the sightings that occurred in Quarters 3 and 4 of 2022. This recent, short surge in observations is too brief to correspond with the tourism data. This is evident from the highlighted quarter. It was the only quarter where trips involving over a thousand people occurred, which is also noticeable in the last calendar plot in @fig-holiday-year.
+
+:::{.callout-note}
+# Key takeaways
+
+Based on the analysis of @fig-woylie-obs, the following key observations can be made:
+
+1. While the Narrabri region was found to have the highest Woylie sightings in Australia, this was not always the case.
+2. According to the sightings data from the Atlas of Living Australia, Woylie sightings in the Narrabri region were exclusively in the 3rd and 4th quarters of 2022.
+3. Recognising this unique trend in the data, a more in-depth analysis was conducted to identify the underlying cause of this skewed pattern.
+4. According to a detailed report by the [Australian wildlife organisation](https://www.australianwildlife.org/wp-content/uploads/2023/08/Pilliga-Ecohealth-Report-2022-23.pdf), Woylies, __being an endangered species__, are now inhabiting the __protected Pilliga East Forest reserve, located in the Narrabri SA2 region.__
+5. A significant number of Woylies were transferred from Western Australia to New South Wales (including the Narrabri region) in 2022, with the __purpose of providing a safe environment for breeding and conservation efforts.__
+6. The __special conservation initiatives undertaken by the Australian wildlife organisation,__ as mentioned in the points above, are expected to contribute to the __high number of Woylie sightings in the year 2022.__
+
+:::
+
+Overall, there is a limited relation between these two sets of data. It is evident that tourism in the Narrabri Surrounds area exhibits significant inconsistency and year-to-year variation. The peak in Woylie observations in Narrabri Surrounds toward the end of 2022 can be attributed to conservation efforts for this endangered species, resulting in a notable increase in sightings. However, the lack of alignment between these two time periods hinders further analysis. This suggests that tourism in the area may not be strongly linked to Woylie sightings, ultimately yielding an inconclusive result in terms of ecotourism.
+
+In general, an internet search for terms such as _"Pilliga State Conservation Area,"_ _"Pilliga National Park",_ _"Woylie,"_ and _"Narrabri Surrounds,"_ or a combination of these terms, yields minimal results related to marketing efforts promoting visits to the area for Woylie sightings.
+
+This aligns with our findings, indicating that there is little to no ecotourism activity in this area for this particular species.
+
+
+
+# Summary
+
+In summary, our thorough exploration of Woylie (Brush-Tailed Bettong)
+sightings in Australia has unveiled crucial insights into the behavior,
+distribution, and population trends of this critically endangered
+species. Our findings hold significant implications for the conservation
+of Woylies and provide valuable guidance for future endeavors.
+
+Key Observations
+
+Trend in Woylie Sightings: Our analysis has illuminated a discernible
+trend in Woylie sightings over time. This trend analysis offers
+invaluable insights into the dynamics of Woylie populations,
+highlighting whether their numbers are on the rise, in decline, or
+holding steady.
+
+Seasonal Patterns: Our investigation into seasonal patterns of Woylie
+sightings has revealed distinct trends. These patterns shed light on the
+species' breeding behaviors and responses to climatic fluctuations,
+enhancing our comprehension of their life cycles.
+
+Geographical Distribution: An examination of geographical distribution
+has pinpointed specific regions with varying degrees of Woylie
+sightings. These findings are instrumental in assessing habitat
+preferences and delineating priorities for conservation efforts.
+
+Conservation Significance
+
+Our findings carry significant implications for the conservation of
+Woylies. They underscore the importance of implementing conservation
+strategies, including safeguarding their habitats, curbing the impact of
+invasive species, and effectively managing diseases that affect these
+marsupials.
+
+:::{.callout-warning}
+# Limitations
+
+It is imperative to acknowledge the constraints and limitations
+encountered during our analysis which have been delineated as follows:
+
+- The observations for the Woylie sightings were observed to be extremely skewed towards the year 2022 for the Narrabri region. 
+As a result, the insights generated were for a brief period of time and require more data for further meaningful analysis.
+
+- The tourism data with respect to the Narrabri Surrounds region for the year of 2022 was observed to be extremely limited. The poor quality and availability of the data was observed to pose further challenges so as to ascertain any significant correlation between the tourim and sighting trends.
+
+:::
+
+:::{.callout-note}
+# Suggestions
+
+- While performing a detailed analysis of the Woylie sightings, the data quality was observed to be poor with multiple missing values.
+The reporting authorities can take note of the challenges faced while performing a detailed analysis with incomplete data.
+
+- Multiple observations have been recorded after long periods of time. While this may indicate the elusive behaviour of the Woylies, it is unclear whether this is contributed by the irregular recording of data. Hence, a key suggestion to aid detailed and accurate analyses would be to furnish complete data at regular intervals.
+
+:::
+
+
+Future Directions
+
+To further advance our understanding of Woylie behavior and
+conservation, future research avenues could encompass expanded data
+collection, enhanced monitoring techniques, and comprehensive studies of
+habitat quality.
+
+
+# Conclusion
+
+In conclusion, our exploratory data analysis offers valuable insights
+into Woylie sightings in Australia. Understanding population trends,
+seasonal patterns, and geographical distribution is pivotal for the
+conservation of this unique marsupial. Our findings can guide
+conservationists, researchers, and policymakers in making informed
+decisions and taking actions to safeguard the future of Woylies in their
+natural habitat.
+
+We emphasize the importance of ongoing monitoring and research to ensure
+the long-term survival of this iconic and critically endangered
+Australian species.
+
+
+# References
+
+## Websites 
+
+-   WWF Australia. (2021). Census Results Show West Australian Woylies
+    Are Ready for Big Move to South Australia. Retrieved from
+    https://wwf.org.au/news/2021/census-results-show-west-australian-woylies-are-ready-for-big-move-to-south-australia/
+-   Department of Biodiversity, Conservation and Attractions, Western
+    Australia. (n.d.). Recovery plan for the Woylie (Bettongia
+    penicillata ogilbyi) 2019-2023. Retrieved from
+    https://library.dbca.wa.gov.au/static/FullTextFiles/071861.pdf
+-   Australian Wildlife Conservancy. (n.d.). Woylie - Brush-tailed
+    Bettong. Retrieved from
+    https://www.australianwildlife.org/wildlife/woylie-brush-tailed-bettong/
+-   Jones, M. E., & Benshemesh, J. (2013). The Woylie: Australia's
+    Forgotten Future. The Conversation. Retrieved from
+    https://theconversation.com/australian-endangered-species-woylie-19448
+-   Museum of Western Australia. (n.d.). Woylie. Retrieved from             https://visit.museum.wa.gov.au/boolabardip/woylie#:~:text=Now%2C%20they%20can%20only%20be,to%20a%20few%20fenced%20reserves.
+-   Australia Your Way. (n.d.). When to Visit NSW. Retrieved from     https://australiayourway.com/when-to-visit-nsw/
+    
+## Packages
+
+- **broom**: Robinson D, Hayes A, Couch S (2023). _broom: Convert Statistical Objects into Tidy Tibbles_. R package version 1.0.5, <https://CRAN.R-project.org/package=broom>.
+- **forecast**: Hyndman R, Athanasopoulos G, Bergmeir C, Caceres G, Chhay L, O'Hara-Wild M,
+  Petropoulos F, Razbash S, Wang E, Yasmeen F (2023). _forecast: Forecasting functions
+  for time series and linear models_. R package version 8.21,
+  <https://pkg.robjhyndman.com/forecast/>.
+  Hyndman RJ, Khandakar Y (2008). “Automatic time series forecasting: the forecast
+  package for R.” _Journal of Statistical Software_, *26*(3), 1-22.
+  doi:10.18637/jss.v027.i03 <https://doi.org/10.18637/jss.v027.i03>.
+- **galah**:   Westgate M, Kellie D, Stevenson M, Newman P (2023). _galah: Biodiversity Data from the Living Atlas Community_. R package version 1.5.3, <https://CRAN.R-project.org/package=galah>.
+- **GGally**: Schloerke B, Cook D, Larmarange J, Briatte F, Marbach M, Thoen E, Elberg A, Crowley J (2021). _GGally: Extension to 'ggplot2'_. R package version 2.1.2, <https://CRAN.R-project.org/package=GGally>.
+- **ggalt**: Rudis B, Bolker B, Schulz J (2017). _ggalt: Extra Coordinate Systems, 'Geoms', Statistical Transformations, Scales and Fonts for 'ggplot2'_. R package version 0.4.0, <https://CRAN.R-project.org/package=ggalt>.
+- **ggplot2**: H. Wickham. ggplot2: Elegant Graphics for Data Analysis. Springer-Verlag New York, 2016.
+- **leaflet**: Cheng J, Schloerke B, Karambelkar B, Xie Y (2023). _leaflet: Create Interactive Web Maps with the JavaScript 'Leaflet' Library_. R package version 2.2.0, <https://CRAN.R-project.org/package=leaflet>.
+- **lubridate**: Garrett Grolemund, Hadley Wickham (2011). Dates and Times Made Easy with lubridate. Journal of Statistical Software, 40(3), 1-25. URL https://www.jstatsoft.org/v40/i03/.
+- **nullabor**: Buja, A., Cook, D., Hofmann, H., Lawrence, M., Lee, E.-K., Swayne, D. F, Wickham, H. (2009) Statistical Inference for Exploratory Data Analysis and Model Diagnostics Royal Society Philosophical Transactions A, 367(1906):4361-4383. URL http://rsta.royalsocietypublishing.org/content/367/1906/4361.article-info
+- **plotly**: C. Sievert. Interactive Web-Based Data Visualization with R, plotly, and shiny. Chapman and Hall/CRC Florida, 2020.
+- **rmapshaper**: Teucher A, Russell K (2023). _rmapshaper: Client for 'mapshaper' for 'Geospatial' Operations_. R package version 0.5.0, <https://CRAN.R-project.org/package=rmapshaper>.
+- **rnoaa**: Chamberlain S, Hocking D (2023). _rnoaa: 'NOAA' Weather Data from R_. R package version 1.4.0, <https://CRAN.R-project.org/package=rnoaa>.
+- **sf**: Pebesma, E., & Bivand, R. (2023). Spatial Data Science: With Applications in R. Chapman and Hall/CRC. https://doi.org/10.1201/9780429459016 Pebesma, E., 2018. Simple Features for R: Standardized Support for Spatial Vector Data. The R Journal 10 (1), 439-446, https://doi.org/10.32614/RJ-2018-009
+- **spatstat**: Baddeley A, Rubak E, Turner R (2015). _Spatial Point Patterns: Methodology and Applications with R_. Chapman and Hall/CRC Press, London. ISBN 9781482210200, <https://www.routledge.com/Spatial-Point-Patterns-Methodology-and-Applications-with-R/Baddeley-Rubak-Turner/p/book/9781482210200/>.
+- **tidyverse**: Wickham H, Averick M, Bryan J, Chang W, McGowan LD, François R, Grolemund G, Hayes A, Henry L, Hester J, Kuhn M, Pedersen TL, Miller E, Bache SM, Müller K, Ooms J, Robinson D, Seidel DP, Spinu V, Takahashi K, Vaughan D, Wilke C, Woo K, Yutani H (2019). “Welcome to the tidyverse.” _Journal of Open Source Software_, *4*(43), 1686. doi:10.21105/joss.01686 <https://doi.org/10.21105/joss.01686>.
+- **tsibble**: Wang, E, D Cook, and RJ Hyndman (2020). A new tidy data structure to support exploration and modeling of temporal data, Journal of Computational and Graphical Statistics, 29:3, 466-478, doi:10.1080/10618600.2019.1695624.
+
+# Acknowledgments
+
+We extend our gratitude to the Atlas of Living Australia (ALA) for
+providing access to the Woylie occurrence records that underpin this
+analysis. Additionally, we appreciate the invaluable conservation
+efforts undertaken by organizations and individuals dedicated to
+preserving the Woylie and its fragile ecosystem.

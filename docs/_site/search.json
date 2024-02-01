@@ -410,7 +410,7 @@
     "href": "plots/index.html",
     "title": "R-insights : Informative and insightful analytical blogs",
     "section": "",
-    "text": "Upset plots to analyse intersections and unions in data 📊💡\n\n\n\n\n\n\n\n\n\n\n\nJan 31, 2024\n\n\nArindam Baruah\n\n\n\n\n\n\n  \n\n\n\n\nUnveiling the Mosaic: A Deep Dive into the Educational Diversity Amongst US PhD Graduates 🧑‍🎓📚🇺🇸\n\n\n\n\n\n\nanalysis\n\n\nvisualisation\n\n\nexploratory data analysis\n\n\nR-shiny app\n\n\n\n\n\n\n\n\n\n\n\nAug 28, 2023\n\n\nArindam Baruah\n\n\n\n\n\n\n  \n\n\n\n\nAll aboard the blog train !\n\n\n\n\n\n\nnews\n\n\n\n\n\n\n\n\n\n\n\nJun 13, 2023\n\n\nArindam Baruah\n\n\n\n\n\n\nNo matching items"
+    "text": "Upset plots to analyse intersections and unions in data 📊💡\n\n\n\n\n\n\n\n\n\n\n\nJan 31, 2024\n\n\nArindam Baruah\n\n\n\n\n\n\n  \n\n\n\n\nAll aboard the blog train !\n\n\n\n\n\n\nnews\n\n\n\n\n\n\n\n\n\n\n\nJun 13, 2023\n\n\nArindam Baruah\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "plots/visualisations/January/January_challenge.html",
@@ -446,5 +446,12 @@
     "title": "Unveiling the Mosaic: A Deep Dive into the Educational Diversity Amongst US PhD Graduates 🧑‍🎓📚🇺🇸",
     "section": "5.4 How is the distribution amongst the engineering graduates ✈️ ⚙️?",
     "text": "5.4 How is the distribution amongst the engineering graduates ✈️ ⚙️?\nNow that we have looked into the most popular field of research in Section 5.3, let us now investigate the distribution of PhD graduates in the field with the least number of total PhD graduates, which is the field of engineering.\n\n\n\n\n\nFigure 4: Distribution of PhD graduates within the field of Engineering\n\n\n\n\nFigure 4 illustrates a far larger number of fields within the field of Engineering when compared to Life Sciences. However, similar to the distribution of Life Sciences, the PhD graduates in the field of Engineering are unevenly distributed with a clear trend in popularity for specific fields. As we can observe, the number of researchers in the field of Computer Engineering is much higher than the next popular field of Environmental Engineering.\n\nThis can be attributed to the recent advancements in the field of Artificial Intelligence (AI), Machine Learning (ML), Data Science, and many more state of the art technologies"
+  },
+  {
+    "objectID": "plots/visualisations/January/index.html",
+    "href": "plots/visualisations/January/index.html",
+    "title": "Upset plots to analyse intersections and unions in data 📊💡",
+    "section": "",
+    "text": "Description\nImagine visualising data with multiple intersections and unions, making drawing insights from a traditional Venn diagram extremely complex! 🤔🤷\nIntroducing the Upset Plots! 💡\nIn this month’s visualisation challenge, I was implemented an “Upset plots”. This utilitarian plot, while not the easiest to comprehend at the get-go, is incredibly useful for studying intersections within our data. 📈📊\nThe plot works on a combination matrix and creates the bar plot by summing the frequencies of the observations for every respective combination of observations. ⚙️\nHere is my attempt at visualising data on the popular book reads between 1980-2023 where we can observe a trend of book choices with inter-genre content. The visualisation was created using the UpSetR package on R studio.\n\n\n\nAn upset plot depicting the intersections and total observations\n\n\n\n\n\n\n\n\nImportant sources\n\n\n\nData source: https://www.kaggle.com/datasets/cristaliss/ultimate-book-collection-top-100-books-up-to-2023\nIf you’re interested in the code which went behind the creation of the above plot, please refer to the link here.\n\n\n\n\nReferences\n\nR studio: RStudio Team (2020). RStudio: Integrated Development for R. RStudio, PBC, Boston, MA URL http://www.rstudio.com/.\nggplot2: H. Wickham. ggplot2: Elegant Graphics for Data Analysis. Springer-Verlag New York, 2016.\nUpsetR: Gehlenborg N (2019). UpSetR: A More Scalable Alternative to Venn and Euler Diagrams for Visualizing Intersecting Sets. R package version 1.4.0, https://CRAN.R-project.org/package=UpSetR."
   }
 ]

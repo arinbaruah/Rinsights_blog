@@ -2,11 +2,11 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>htt/about.html</loc>
-    <lastmod>2024-01-29T19:02:03.242Z</lastmod>
+    <lastmod>2024-02-01T18:33:26.507Z</lastmod>
   </url>
   <url>
     <loc>htt/posts/index.html</loc>
-    <lastmod>2024-01-29T19:02:01.342Z</lastmod>
+    <lastmod>2024-02-01T18:33:22.634Z</lastmod>
   </url>
   <url>
     <loc>htt/posts/blogs/field_diversity/index.html</loc>
@@ -46,6 +46,22 @@
   </url>
   <url>
     <loc>htt/index.html</loc>
-    <lastmod>2024-01-29T19:02:02.652Z</lastmod>
+    <lastmod>2024-02-01T18:33:15.604Z</lastmod>
+  </url>
+  <url>
+    <loc>htt/plots/index.html</loc>
+    <lastmod>2024-02-01T18:33:14.607Z</lastmod>
+  </url>
+  <url>
+    <loc>htt/plots/visualisations/January/January_challenge.html</loc>
+    <lastmod>2024-02-01T18:15:26.384Z</lastmod>
+  </url>
+  <url>
+    <loc>htt/plots/visualisations/field_diversity/index.html</loc>
+    <lastmod>2024-02-01T17:42:03.071Z</lastmod>
+  </url>
+  <url>
+    <loc>htt/plots/visualisations/January/index.html</loc>
+    <lastmod>2024-02-01T18:33:14.192Z</lastmod>
   </url>
 </urlset>

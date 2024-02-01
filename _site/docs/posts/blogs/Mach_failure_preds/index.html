@@ -1,0 +1,1046 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.450">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Arindam Baruah">
+<meta name="dcterms.date" content="2023-06-23">
+
+<title>R-insights 📊📈🖥️ - ⚙️⚠️ Can we accurately predict if a machine is going to undergo failure using machine learning ?</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../../">
+<script src="../../../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+<script src="../../../../site_libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="../../../../site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="../../../../index.html">
+    <span class="navbar-title">R-insights 📊📈🖥️</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../../../about.html" rel="" target="">
+ <span class="menu-text">About</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../../posts/index.qmd" rel="" target="">
+ <span class="menu-text">Blog</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/arinbaruah" rel="" target=""><i class="bi bi-github" role="img" aria-label="GitHub">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://www.linkedin.com/in/arindam-baruah/" rel="" target=""><i class="bi bi-linkedin" role="img" aria-label="LinkedIn">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+</ul>
+            <div class="quarto-navbar-tools">
+</div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">⚙️⚠️ Can we accurately predict if a machine is going to undergo failure using machine learning ?</h1>
+                                <div class="quarto-categories">
+                <div class="quarto-category">analysis</div>
+                <div class="quarto-category">exploratory data analysis</div>
+                <div class="quarto-category">visualisation</div>
+                <div class="quarto-category">statistics</div>
+                <div class="quarto-category">machine learning</div>
+                <div class="quarto-category">regression</div>
+                <div class="quarto-category">classification</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Arindam Baruah </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">June 23, 2023</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="header-section-number">1</span> Introduction</a></li>
+  <li><a href="#importing-the-relevant-libraries-and-dataset" id="toc-importing-the-relevant-libraries-and-dataset" class="nav-link" data-scroll-target="#importing-the-relevant-libraries-and-dataset"><span class="header-section-number">2</span> Importing the relevant libraries and dataset 🛠️</a></li>
+  <li><a href="#data-cleaning" id="toc-data-cleaning" class="nav-link" data-scroll-target="#data-cleaning"><span class="header-section-number">3</span> Data cleaning</a>
+  <ul class="collapse">
+  <li><a href="#check-for-null-values" id="toc-check-for-null-values" class="nav-link" data-scroll-target="#check-for-null-values"><span class="header-section-number">3.1</span> Check for null values</a></li>
+  <li><a href="#removal-of-variables" id="toc-removal-of-variables" class="nav-link" data-scroll-target="#removal-of-variables"><span class="header-section-number">3.2</span> Removal of variables</a></li>
+  <li><a href="#cleaning-the-variable-names" id="toc-cleaning-the-variable-names" class="nav-link" data-scroll-target="#cleaning-the-variable-names"><span class="header-section-number">3.3</span> Cleaning the variable names</a></li>
+  </ul></li>
+  <li><a href="#exploratory-data-analysis" id="toc-exploratory-data-analysis" class="nav-link" data-scroll-target="#exploratory-data-analysis"><span class="header-section-number">4</span> Exploratory Data Analysis</a>
+  <ul class="collapse">
+  <li><a href="#type-of-machine" id="toc-type-of-machine" class="nav-link" data-scroll-target="#type-of-machine"><span class="header-section-number">4.1</span> Type of machine</a></li>
+  <li><a href="#sec-label2" id="toc-sec-label2" class="nav-link" data-scroll-target="#sec-label2"><span class="header-section-number">4.2</span> Air and process temperatures</a></li>
+  <li><a href="#sec-label1" id="toc-sec-label1" class="nav-link" data-scroll-target="#sec-label1"><span class="header-section-number">4.3</span> Torque and Tool rotation speed</a></li>
+  <li><a href="#power-consumption" id="toc-power-consumption" class="nav-link" data-scroll-target="#power-consumption"><span class="header-section-number">4.4</span> Power consumption</a></li>
+  <li><a href="#toolwear" id="toc-toolwear" class="nav-link" data-scroll-target="#toolwear"><span class="header-section-number">4.5</span> Toolwear</a></li>
+  </ul></li>
+  <li><a href="#feature-engineering" id="toc-feature-engineering" class="nav-link" data-scroll-target="#feature-engineering"><span class="header-section-number">5</span> Feature Engineering</a></li>
+  <li><a href="#correlation-plot" id="toc-correlation-plot" class="nav-link" data-scroll-target="#correlation-plot"><span class="header-section-number">6</span> Correlation plot</a></li>
+  <li><a href="#classification-model" id="toc-classification-model" class="nav-link" data-scroll-target="#classification-model"><span class="header-section-number">7</span> Classification model</a>
+  <ul class="collapse">
+  <li><a href="#logistic-regression" id="toc-logistic-regression" class="nav-link" data-scroll-target="#logistic-regression"><span class="header-section-number">7.1</span> Logistic Regression</a></li>
+  <li><a href="#random-forest" id="toc-random-forest" class="nav-link" data-scroll-target="#random-forest"><span class="header-section-number">7.2</span> Random Forest</a></li>
+  <li><a href="#xgboost" id="toc-xgboost" class="nav-link" data-scroll-target="#xgboost"><span class="header-section-number">7.3</span> XGboost</a></li>
+  <li><a href="#light-gbm" id="toc-light-gbm" class="nav-link" data-scroll-target="#light-gbm"><span class="header-section-number">7.4</span> Light GBM</a></li>
+  <li><a href="#catboost" id="toc-catboost" class="nav-link" data-scroll-target="#catboost"><span class="header-section-number">7.5</span> Catboost</a></li>
+  <li><a href="#feature-transformation-and-model-implementation" id="toc-feature-transformation-and-model-implementation" class="nav-link" data-scroll-target="#feature-transformation-and-model-implementation"><span class="header-section-number">7.6</span> Feature transformation and model implementation</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+<section id="introduction" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Introduction</h1>
+<p>Binary machine failure prediction using machine learning is a technique employed to anticipate the occurrence of failures or malfunctions in a binary system or machine. With the increasing complexity of modern machines, the ability to predict and prevent failures becomes crucial for optimizing performance, reducing downtime, and avoiding costly repairs.</p>
+<p>Machine learning algorithms play a vital role in this prediction process by analyzing historical data and identifying patterns or anomalies that indicate potential failures. These algorithms learn from past failure instances, considering various factors such as sensor readings, environmental conditions, maintenance records, and other relevant parameters.</p>
+<p>The predictive models are trained on labeled datasets, where each instance is associated with a failure or non-failure outcome. Common machine learning techniques used for binary machine failure prediction include <strong>logistic regression, decision trees, random forests, support vector machines (SVM), and neural networks</strong>.</p>
+<p>During the training phase, the algorithms learn the relationships between input features and failure occurrences, thereby enabling them to make accurate predictions on unseen data. Feature engineering, which involves selecting or transforming relevant input variables, is an essential step in improving the model’s performance.</p>
+<p>Once the model is trained, it can be deployed to make real-time predictions on new data streams. By continuously monitoring machine inputs and comparing them to the learned patterns, the system can generate alerts or take preventive actions whenever a potential failure is detected. This proactive approach helps minimize unexpected downtime, reduce maintenance costs, and improve overall operational efficiency.</p>
+<p>Binary machine failure prediction using machine learning is widely applied across various industries, including manufacturing, power generation, healthcare, transportation, and more. By leveraging the power of data and advanced analytics, it offers a valuable tool for optimizing maintenance strategies, enhancing productivity, and ensuring the reliability of critical systems.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-fail" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="mach_failure.jpeg" class="img-fluid figure-img" width="512"></p>
+<figcaption class="figure-caption">Figure&nbsp;1: Source: www.gesrepair.com</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="importing-the-relevant-libraries-and-dataset" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Importing the relevant libraries and dataset 🛠️</h1>
+<p>First, we import the required libraries which we will use to perform the current analysis.</p>
+<p>Great ! We have all the libraries loaded. Next, we are gonna load the required dataset for conducting the machine failure classification analysis.</p>
+<p>We will use one dataset for the purpose of exploratory data analysis and training the classification model while the test dataset for testing the classification model on a completely new dataset.</p>
+<p>After reading the data, let us see how the train dataset looks like.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="tbl-train" class="anchored">
+<table class="lightable-paper table table-sm table-striped small" data-quarto-postprocess="true">
+<caption>Table&nbsp;1: Glimpse of the train dataset</caption>
+<thead>
+<tr class="header">
+<th style="text-align: right;" data-quarto-table-cell-role="th">id</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Product ID</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Type</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Air temperature [K]</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Process temperature [K]</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Rotational speed [rpm]</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Torque [Nm]</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Tool wear [min]</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Machine failure</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">TWF</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">HDF</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">PWF</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">OSF</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">RNF</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">0</td>
+<td style="text-align: left; width: 30em; background-color: yellow !important;">L50096</td>
+<td style="text-align: left;">L</td>
+<td style="text-align: right;">300.6</td>
+<td style="text-align: right;">309.6</td>
+<td style="text-align: right;">1596</td>
+<td style="text-align: right;">36.1</td>
+<td style="text-align: right;">140</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right; font-weight: bold; border-right: 1px solid;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1</td>
+<td style="text-align: left; width: 30em; background-color: yellow !important;">M20343</td>
+<td style="text-align: left;">M</td>
+<td style="text-align: right;">302.6</td>
+<td style="text-align: right;">312.1</td>
+<td style="text-align: right;">1759</td>
+<td style="text-align: right;">29.1</td>
+<td style="text-align: right;">200</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right; font-weight: bold; border-right: 1px solid;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2</td>
+<td style="text-align: left; width: 30em; background-color: yellow !important;">L49454</td>
+<td style="text-align: left;">L</td>
+<td style="text-align: right;">299.3</td>
+<td style="text-align: right;">308.5</td>
+<td style="text-align: right;">1805</td>
+<td style="text-align: right;">26.5</td>
+<td style="text-align: right;">25</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right; font-weight: bold; border-right: 1px solid;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">3</td>
+<td style="text-align: left; width: 30em; background-color: yellow !important;">L53355</td>
+<td style="text-align: left;">L</td>
+<td style="text-align: right;">301.0</td>
+<td style="text-align: right;">310.9</td>
+<td style="text-align: right;">1524</td>
+<td style="text-align: right;">44.3</td>
+<td style="text-align: right;">197</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right; font-weight: bold; border-right: 1px solid;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">4</td>
+<td style="text-align: left; width: 30em; background-color: yellow !important;">M24050</td>
+<td style="text-align: left;">M</td>
+<td style="text-align: right;">298.0</td>
+<td style="text-align: right;">309.0</td>
+<td style="text-align: right;">1641</td>
+<td style="text-align: right;">35.4</td>
+<td style="text-align: right;">34</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right; font-weight: bold; border-right: 1px solid;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">5</td>
+<td style="text-align: left; width: 30em; background-color: yellow !important;">M24300</td>
+<td style="text-align: left;">M</td>
+<td style="text-align: right;">298.4</td>
+<td style="text-align: right;">308.9</td>
+<td style="text-align: right;">1429</td>
+<td style="text-align: right;">42.1</td>
+<td style="text-align: right;">65</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right; font-weight: bold; border-right: 1px solid;">0</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+
+</div>
+</div>
+<p>From <a href="#tbl-train">Table&nbsp;1</a>, we can observe that there are multiple process parameters present in the dataset which can help us analyse whether a machine undergoes failure. We can also observe that there are multiple abbreviations in this dataset. Let us try to understand what do these abbreviations mean :</p>
+<ol type="1">
+<li><strong>Tool Wear Failure (TWF)</strong>: A type of machine failure which is associated with excessive tool wear.</li>
+<li><strong>Heat Dissipation Failure (HDF)</strong>: Machine failures which are associated with high process temperatures.</li>
+<li><strong>Power Failure (PWF)</strong>: Machine failures which are associated with power readings above or below a certain value.</li>
+<li><strong>Overstrain Failure (OSF)</strong>: Machine failures which are associated with high strain values.</li>
+<li><strong>Random Failure (RNF)</strong>: Machine failures which maybe associated with random conditions.</li>
+</ol>
+</section>
+<section id="data-cleaning" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Data cleaning</h1>
+<section id="check-for-null-values" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="check-for-null-values"><span class="header-section-number">3.1</span> Check for null values</h2>
+<p>As a part of checking for the cleanliness of the dataset, let us visaulise the presence of null values for each of the variables.</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div id="fig-missvis" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="index_files/figure-html/fig-missvis-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption class="figure-caption">Figure&nbsp;2: Missingness in the dataset</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>As we can observe from figure <a href="#fig-missvis">Figure&nbsp;2</a>, there are no missing values for any of the variables in the dataset. As a result, the <strong>dataset can be considered clean</strong> for further analysis.</p>
+</section>
+<section id="removal-of-variables" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="removal-of-variables"><span class="header-section-number">3.2</span> Removal of variables</h2>
+<p>After studying for the presence of null values, we now remove the variables that do not provide any extra insights into our analysis.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>df_train <span class="ot">&lt;-</span> df_train <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="sc">-</span><span class="fu">c</span>(id,<span class="st">`</span><span class="at">Product ID</span><span class="st">`</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="cleaning-the-variable-names" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="cleaning-the-variable-names"><span class="header-section-number">3.3</span> Cleaning the variable names</h2>
+<p>The current dataset contains variable names which are not ideal for data wrangling and EDA. Hence, we will try to remove any unnecessary white space and special characters for each of the variable names.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>df_train <span class="ot">&lt;-</span> <span class="fu">clean_names</span>(df_train)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(df_train)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 12
+  type  air_temperature_k process_temperature_k rotational_speed_rpm torque_nm
+  &lt;chr&gt;             &lt;dbl&gt;                 &lt;dbl&gt;                &lt;dbl&gt;     &lt;dbl&gt;
+1 L                  301.                  310.                 1596      36.1
+2 M                  303.                  312.                 1759      29.1
+3 L                  299.                  308.                 1805      26.5
+4 L                  301                   311.                 1524      44.3
+5 M                  298                   309                  1641      35.4
+6 M                  298.                  309.                 1429      42.1
+# ℹ 7 more variables: tool_wear_min &lt;dbl&gt;, machine_failure &lt;dbl&gt;, twf &lt;dbl&gt;,
+#   hdf &lt;dbl&gt;, pwf &lt;dbl&gt;, osf &lt;dbl&gt;, rnf &lt;dbl&gt;</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="exploratory-data-analysis" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Exploratory Data Analysis</h1>
+<p>After obtaining the cleansed dataset, we now try to visualise the relationship of each of the variables and attempt to obtain critical insights.</p>
+<section id="type-of-machine" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="type-of-machine"><span class="header-section-number">4.1</span> Type of machine</h2>
+<p>There are a total of 3 types machines in this dataset. These are encoded as:</p>
+<ol type="1">
+<li><strong>L (Light)</strong></li>
+<li><strong>M (Medium)</strong></li>
+<li><strong>H (Heavy)</strong></li>
+</ol>
+<p>Let us see the number of machine failures for each of the machine types.</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div id="fig-failtype" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="index_files/figure-html/fig-failtype-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption class="figure-caption">Figure&nbsp;3: Number of machine failures for each type</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Figure <a href="#fig-failtype">Figure&nbsp;3</a> illustrates the number of failures observed for each machine type. The failures constitute:<br>
+- <strong>1 %</strong> of the incidents for machine type “H”<br>
+- <strong>2 %</strong> of the incidents for machine type “L”<br>
+- <strong>1 %</strong> of the incidents for machine type “M”<br>
+</p>
+<div class="alert alert-info">
+<p>📵 <strong> Hence, we can observe that the number of failure cases are fairly evenly distributed among each of the machine types. </strong> 📵 .</p>
+</div>
+</section>
+<section id="sec-label2" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="sec-label2"><span class="header-section-number">4.2</span> Air and process temperatures</h2>
+<p>Temperatures can play a critical role in relation to machine health. In this dataset, we have air and process temperatures. The difference of these values could allow us to understand the overall heat dissipation of the machines. Analysing these variables may allow us when do the machines undergo overall failure as well as heat dissipation failure (HDF).</p>
+<p>Let us first study the distribution of the temperature values.</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div id="fig-temps" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="index_files/figure-html/fig-temps-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption class="figure-caption">Figure&nbsp;4: Temperature variation distribution</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>As we can observe from <a href="#fig-temps">Figure&nbsp;4</a>, majority of the heat dissipation failures have occurred <strong>at relatively higher values of air temperatures</strong>. These air temperatures are observed to be <strong>around 302.5 K</strong>. Higher air temperatures invariably leads to lower value of heat dissipation which may cause heat dissipation failure and subsequently, machine failure.</p>
+<p>Heat dissipation values are governed by the following heat transfer equation.</p>
+<p><span class="math display">\[ \boxed{\Delta H = mC_p(T_{process} - T_{air})}\]</span> Based on the above equation, let us now study how the difference between process and air temperatures vary for heat dissipation failures.</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div id="fig-tempdiff" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="index_files/figure-html/fig-tempdiff-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption class="figure-caption">Figure&nbsp;5: Heat dissipation failure based on temperature difference</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>As illustrated by figure <a href="#fig-tempdiff">Figure&nbsp;5</a> and based on the heat transfer equation, we can observe that</p>
+<div class="alert alert-info">
+<p><strong> ⚠️ the majority of the heat dissipation failures occur at low temperature differences between process and air temperatures. ⚠️ </strong> .</p>
+</div>
+</section>
+<section id="sec-label1" class="level2" data-number="4.3">
+<h2 data-number="4.3" class="anchored" data-anchor-id="sec-label1"><span class="header-section-number">4.3</span> Torque and Tool rotation speed</h2>
+<p>The torque of a machine can be defined as the amount of rotational energy required to perform mechanical work. As a result of torque applied, a machine element, such as the tool in this case rotates at a particular speed. This speed of rotation is measured by the tool rotation speed in revolutions per minute (RPM).</p>
+<p>In addition to the above definitions, the product of the torque and the tool rotation speeds give us the value of the power consumption of a machine. The equaiton for the same is as follows :</p>
+<p><span class="math display">\[ \boxed{P = \omega T} \]</span> Where,</p>
+<p><span class="math inline">\(P =\)</span> Power consumption of the machine in Watts<br>
+<span class="math inline">\(T =\)</span> Torque in Nm<br>
+<span class="math inline">\(\omega = 2\pi N/60\)</span>, with <span class="math inline">\(N\)</span> being the tool rotational speed (RPM)<br>
+</p>
+<p>Let us now visualise the torque and tool rotation speed values for each machine type.</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div id="fig-pwf" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="index_files/figure-html/fig-pwf-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption class="figure-caption">Figure&nbsp;6: Working window of Torque and Rotational speeds</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Based on the plot in figure <a href="#fig-pwf">Figure&nbsp;6</a>, we can observe</p>
+<div class="alert alert-info">
+<p><strong> ⚠️The ideal working window for torque lies between 25 Nm - 50 Nm while that for the rotational speed lies between 1250-2000 RPM . ⚠️ </strong> .</p>
+</div>
+<p>Let us now try to study how do the values for tool rotation speeds and torque vary based on power failure (PWF) faceted for each machine type.</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div id="fig-facetwindown" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="index_files/figure-html/fig-facetwindown-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption class="figure-caption">Figure&nbsp;7: Faceted hex plot of working windows for each machine type</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Based on the analysis of figure <a href="#fig-facetwindown">Figure&nbsp;7</a> we can conclude that</p>
+<div class="alert alert-info">
+<p>❌ Power failures (PWF) are observed to majorly occur outside the ideal working window. These failures are <strong> majorly concentrated in either the regions of high torque and low rotational speeds or low torque and high rotational speeds. The observation holds consistent for all three machine types ❌ </strong> .</p>
+</div>
+</section>
+<section id="power-consumption" class="level2" data-number="4.4">
+<h2 data-number="4.4" class="anchored" data-anchor-id="power-consumption"><span class="header-section-number">4.4</span> Power consumption</h2>
+<p>Based on the analysis in section <a href="#sec-label1">Section&nbsp;4.3</a>, let us study how does the power consumption differ for machines which have undergone power failure (PWF).</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div id="fig-power" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="index_files/figure-html/fig-power-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption class="figure-caption">Figure&nbsp;8: Probability density of power consumption for each PWF status</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Figure <a href="#fig-power">Figure&nbsp;8</a> illustrates the density distribution of power consumption for each power failure (PWF) status and faceted for each of the machine types. We can observe that:</p>
+<div class="alert alert-info">
+<p>⚡️the density plot for machines which have undergone power failure is bimodal in nature while the plot is unimodal for machines which did not undergo power failure. Based on the density plot, we can observe that the ideal working window for power consumption should be between 4000-10000 W. Machines reporting power consumption below or above this band are observed to be prone to undergo power failure.⚡️</p>
+</div>
+</section>
+<section id="toolwear" class="level2" data-number="4.5">
+<h2 data-number="4.5" class="anchored" data-anchor-id="toolwear"><span class="header-section-number">4.5</span> Toolwear</h2>
+<p>The toolwear can play a critical role in terms of overstrain failure (OSF) as <strong>it can lead to excess loads on various parts of the machine equipment.</strong> Hence, it is pertinent to study the importance of toolwear through visualisations.</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div id="fig-toolwear" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="index_files/figure-html/fig-toolwear-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption class="figure-caption">Figure&nbsp;9: Tool wear values for overstrain failure status (OSF) faceted for each machine type</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>After analysing figure <a href="#fig-toolwear">Figure&nbsp;9</a>, we observe that</p>
+<div class="alert alert-info">
+<p>🔩 Overstrain failures as a result of tool wear occurs <strong> majorly for tool wear values of 200 mm or above </strong>. While there are some overstrain failures at low toolwear values, however, OSF is majorly a result of higher toolwear as can be observed through the violin plots. This observation is fairly consistent for each of the three machine types. 🔩.</p>
+</div>
+</section>
+</section>
+<section id="feature-engineering" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Feature Engineering</h1>
+<p>We will majorly concentrate on two new features. These features have already been analysed in sections <a href="#sec-label1">Section&nbsp;4.3</a> and <a href="#sec-label2">Section&nbsp;4.2</a>. These <strong>features are namely temperature difference and power consumption.</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>df_train <span class="ot">&lt;-</span> df_train <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">temp_diff_k =</span> process_temperature_k <span class="sc">-</span> air_temperature_k) <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="sc">-</span><span class="fu">c</span>(process_temperature_k,air_temperature_k))</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>df_train <span class="ot">&lt;-</span> df_train <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">power_w =</span> torque_nm <span class="sc">*</span> <span class="dv">2</span><span class="sc">*</span> pi <span class="sc">*</span> rotational_speed_rpm<span class="sc">/</span><span class="dv">60</span>) <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="sc">-</span><span class="fu">c</span>(torque_nm,rotational_speed_rpm))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>In the next step, we will encode the character variable for machine type into machine readable format <strong>by one hot encoding the variable</strong> as shown below.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>df_train<span class="sc">$</span>type <span class="ot">&lt;-</span> <span class="fu">factor</span>(df_train<span class="sc">$</span>type)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>dt_train <span class="ot">&lt;-</span> <span class="fu">data.table</span>(df_train)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>dt_train <span class="ot">&lt;-</span> <span class="fu">one_hot</span>(dt_train,<span class="at">cols =</span> <span class="fu">as.factor</span>(<span class="st">"type"</span>))</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>df_train <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(dt_train)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="correlation-plot" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Correlation plot</h1>
+<p>After analysing the various variables and performing feature engineering, let us create a correlation plot.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-corrplot" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="index_files/figure-html/fig-corrplot-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption class="figure-caption">Figure&nbsp;10: Correlation plot for the various features in the data</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="alert alert-info">
+<p>💡 Based on the above correlation plot, we can observe that machine failure has <strong> high correlation with TWF,PSF,HDF,OSF and RNF </strong>. This indicates that a failure for any of these individual variables could lead to machine failure 💡.</p>
+</div>
+</section>
+<section id="classification-model" class="level1" data-number="7">
+<h1 data-number="7"><span class="header-section-number">7</span> Classification model</h1>
+<p>In order to create a classification, we must first segregate the dataset into train and test datasets.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">101</span>)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>sample<span class="ot">=</span><span class="fu">sample.split</span>(df_train<span class="sc">$</span>machine_failure,<span class="at">SplitRatio=</span><span class="fl">0.7</span>)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>train<span class="ot">=</span><span class="fu">subset</span>(df_train,sample<span class="sc">==</span>T)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>test<span class="ot">=</span><span class="fu">subset</span>(df_train,sample<span class="sc">==</span>F)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>After creating the required train and test dataframes, we now train the dataset by applying various classification algorithms. These have been delineated in the following sections.</p>
+<section id="logistic-regression" class="level2" data-number="7.1">
+<h2 data-number="7.1" class="anchored" data-anchor-id="logistic-regression"><span class="header-section-number">7.1</span> Logistic Regression</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>model_logit <span class="ot">&lt;-</span> <span class="fu">glm</span>(machine_failure<span class="sc">~</span>.,<span class="at">family=</span><span class="fu">binomial</span>(<span class="at">link=</span><span class="st">'logit'</span>),<span class="at">data=</span>train)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">pR2</span>(model_logit)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>fitting null model for pseudo-r2</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>          llh       llhNull            G2      McFadden          r2ML 
+-2224.7236061 -7735.2112184 11020.9752246     0.7123901     0.1089918 
+         r2CU 
+    0.7287878 </code></pre>
+</div>
+</div>
+<div class="alert alert-info">
+<p>💡 Upon studying the McFadden <span class="math inline">\(R^2\)</span> value, we observe that the <strong>model accuracy was approximately 71.2% </strong> 💡.</p>
+</div>
+<p>Let us now observe how well we can predict on the test dataset based on the logistic regression model.</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Accuracy of logistic regression: 0.996090695856138"</code></pre>
+</div>
+</div>
+<p>As we can observe, the logistic regression model was able to <strong>accurately predict 97.2% of the machine failures</strong>.</p>
+<p>Let us further study the performance of the logistic regression model through the Receiver Operating Curve (ROC) metric.</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div id="fig-roclogit" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="index_files/figure-html/fig-roclogit-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption class="figure-caption">Figure&nbsp;11: Receiver Operating Curve for Logistic Regression</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Based on the ROC as illustrated by figure <a href="#fig-roclogit">Figure&nbsp;11</a>, we can observe that a large section of the upper half of the plot has been covered by the operating curve.</p>
+<div class="alert alert-info">
+<p>💡 The Area Under Curve (AUC) score of 0.9261326 suggests that the model was able to <strong> predict the machine failures fairly well. </strong> 💡</p>
+</div>
+<p>Next, we try to obtain a more intuitive performance metric of the model by creating a confusion matrix.</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div id="fig-confmat" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="index_files/figure-html/fig-confmat-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption class="figure-caption">Figure&nbsp;12: Confusion matrix for Logistic Regression</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Figure <a href="#fig-confmat">Figure&nbsp;12</a> illustrates the confusion matrix for the logistic regression model along with its various performance metrics.</p>
+</section>
+<section id="random-forest" class="level2" data-number="7.2">
+<h2 data-number="7.2" class="anchored" data-anchor-id="random-forest"><span class="header-section-number">7.2</span> Random Forest</h2>
+<p>Let us use an ensemble algorithm to classify our results. We shall utilise the Random Forest technique which utilises multiple decision trees to predict results.</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div id="fig-errormod" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="index_files/figure-html/fig-errormod-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption class="figure-caption">Figure&nbsp;13: Error vs Number of trees for Random Forest</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>As we can observe from figure <a href="#fig-errormod">Figure&nbsp;13</a>,</p>
+<div class="alert alert-info">
+<p>💡 the error of the random forest model is observed to reduce <strong> as the number of trees cross 100 </strong>. 💡</p>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div id="fig-confmatrf" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="index_files/figure-html/fig-confmatrf-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption class="figure-caption">Figure&nbsp;14: Confusion matrix of the random forest model</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="xgboost" class="level2" data-number="7.3">
+<h2 data-number="7.3" class="anchored" data-anchor-id="xgboost"><span class="header-section-number">7.3</span> XGboost</h2>
+<p>Let us try to use an extra gradient boosted ensemble method commonly termed as the XGboost classifier.</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] train-logloss:0.144407 
+[2] train-logloss:0.059787 </code></pre>
+</div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="index_files/figure-html/conf-mat-xgb-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption class="figure-caption">Confusion matrix of the XGBoost model</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="light-gbm" class="level2" data-number="7.4">
+<h2 data-number="7.4" class="anchored" data-anchor-id="light-gbm"><span class="header-section-number">7.4</span> Light GBM</h2>
+<p>Let us utilise the LGBM algorithm and train it on the given dataset.</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="index_files/figure-html/cf-lgb-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption class="figure-caption">Confusion matrix of the Light GB model</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="catboost" class="level2" data-number="7.5">
+<h2 data-number="7.5" class="anchored" data-anchor-id="catboost"><span class="header-section-number">7.5</span> Catboost</h2>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="index_files/figure-html/catb-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption class="figure-caption">Feature importance using Catboost model</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="index_files/figure-html/cf-cat-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption class="figure-caption">Confusion matrix of the Catboost model</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="feature-transformation-and-model-implementation" class="level2" data-number="7.6">
+<h2 data-number="7.6" class="anchored" data-anchor-id="feature-transformation-and-model-implementation"><span class="header-section-number">7.6</span> Feature transformation and model implementation</h2>
+<p>Now that we have created all our baseline models, let us try our hand out with some feature transformation with standard scaling options.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>train<span class="sc">$</span>tool_wear_min <span class="ot">&lt;-</span> train<span class="sc">$</span>tool_wear_min <span class="sc">%&gt;%</span> <span class="fu">scale</span>(<span class="at">center=</span><span class="cn">TRUE</span>,<span class="at">scale=</span><span class="cn">TRUE</span>)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>train<span class="sc">$</span>power_w <span class="ot">&lt;-</span> train<span class="sc">$</span>power_w <span class="sc">%&gt;%</span> <span class="fu">scale</span>(<span class="at">center=</span><span class="cn">TRUE</span>,<span class="at">scale=</span><span class="cn">TRUE</span>)</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>train<span class="sc">$</span>temp_diff_k <span class="ot">&lt;-</span> train<span class="sc">$</span>temp_diff_k <span class="sc">%&gt;%</span> <span class="fu">scale</span>(<span class="at">center=</span><span class="cn">TRUE</span>,<span class="at">scale=</span><span class="cn">TRUE</span>)</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>test<span class="sc">$</span>tool_wear_min <span class="ot">&lt;-</span> test<span class="sc">$</span>tool_wear_min <span class="sc">%&gt;%</span> <span class="fu">scale</span>(<span class="at">center=</span><span class="cn">TRUE</span>,<span class="at">scale=</span><span class="cn">TRUE</span>)</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>test<span class="sc">$</span>power_w <span class="ot">&lt;-</span> test<span class="sc">$</span>power_w <span class="sc">%&gt;%</span> <span class="fu">scale</span>(<span class="at">center=</span><span class="cn">TRUE</span>,<span class="at">scale=</span><span class="cn">TRUE</span>)</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>test<span class="sc">$</span>temp_diff_k <span class="ot">&lt;-</span> test<span class="sc">$</span>temp_diff_k <span class="sc">%&gt;%</span> <span class="fu">scale</span>(<span class="at">center=</span><span class="cn">TRUE</span>,<span class="at">scale=</span><span class="cn">TRUE</span>)</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>cols <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"twf"</span>,<span class="st">"hdf"</span>,<span class="st">"pwf"</span>,<span class="st">"osf"</span>,<span class="st">"rnf"</span>)</span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>train <span class="sc">%&lt;&gt;%</span></span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>       <span class="fu">mutate_each_</span>(<span class="fu">funs</span>(<span class="fu">factor</span>(.)),cols)   <span class="co">#Converting  to factors</span></span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>test <span class="sc">%&lt;&gt;%</span></span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>       <span class="fu">mutate_each_</span>(<span class="fu">funs</span>(<span class="fu">factor</span>(.)),cols)</span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>df_test <span class="sc">%&lt;&gt;%</span></span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>       <span class="fu">mutate_each_</span>(<span class="fu">funs</span>(<span class="fu">factor</span>(.)),cols)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Now that we have standardised all the continuous numeric variables, let us attempt to train the model once again on the scaled dataset.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>model_logit <span class="ot">&lt;-</span> <span class="fu">glm</span>(machine_failure<span class="sc">~</span>.,<span class="at">family=</span><span class="fu">binomial</span>(<span class="at">link=</span><span class="st">'logit'</span>),<span class="at">data=</span>train)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">pR2</span>(model_logit)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>fitting null model for pseudo-r2</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>          llh       llhNull            G2      McFadden          r2ML 
+-2224.7236061 -7735.2112184 11020.9752246     0.7123901     0.1089918 
+         r2CU 
+    0.7287878 </code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Accuracy of logistic regression: 0.996090695856138"</code></pre>
+</div>
+</div>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

@@ -1,15 +1,23 @@
 [
   {
-    "listing": "/posts/index.html",
+    "listing": "/docs/plots/index.html",
     "items": [
-      "/posts/blogs/football_analysis/index.html",
-      "/posts/blogs/coastal_taipan_sightings/index.html",
-      "/posts/blogs/mdss_datathon/index.html",
-      "/posts/blogs/Bank_churn/index.html",
-      "/posts/blogs/gender_diversity/index.html",
-      "/posts/blogs/field_diversity/index.html",
-      "/posts/blogs/Mach_failure_preds/index.html",
-      "/posts/blogs/welcome/index.html"
+      "/docs/plots/visualisations/January/index.html",
+      "/docs/plots/visualisations/welcome/index.html"
+    ]
+  },
+  {
+    "listing": "/docs/posts/index.html",
+    "items": [
+      "/docs/posts/blogs/woylies_sightings/index.html",
+      "/docs/posts/blogs/football_analysis/index.html",
+      "/docs/posts/blogs/coastal_taipan_sightings/index.html",
+      "/docs/posts/blogs/mdss_datathon/index.html",
+      "/docs/posts/blogs/Bank_churn/index.html",
+      "/docs/posts/blogs/gender_diversity/index.html",
+      "/docs/posts/blogs/field_diversity/index.html",
+      "/docs/posts/blogs/Mach_failure_preds/index.html",
+      "/docs/posts/blogs/welcome/index.html"
     ]
   }
 ]

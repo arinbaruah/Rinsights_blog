@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.450">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Arindam Baruah, Aishwarya Anil Kumar">
+<meta name="dcterms.date" content="2024-01-20">
+
+<title>R-insights 📊📈🖥️ - Regional Variations in Waste Management Practices: A Case Study of Australia ♻️</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../../">
+<script src="../../../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+<script src="../../../../site_libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="../../../../site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+
+
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="../../../../index.html">
+    <span class="navbar-title">R-insights 📊📈🖥️</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../../../about.html" rel="" target="">
+ <span class="menu-text">About</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../../posts/index.qmd" rel="" target="">
+ <span class="menu-text">Blog</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/arinbaruah" rel="" target=""><i class="bi bi-github" role="img" aria-label="GitHub">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://www.linkedin.com/in/arindam-baruah/" rel="" target=""><i class="bi bi-linkedin" role="img" aria-label="LinkedIn">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+</ul>
+            <div class="quarto-navbar-tools">
+</div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Regional Variations in Waste Management Practices: A Case Study of Australia ♻️</h1>
+                                <div class="quarto-categories">
+                <div class="quarto-category">data cleaning</div>
+                <div class="quarto-category">choropleth</div>
+                <div class="quarto-category">exploratory data analysis</div>
+                <div class="quarto-category">visualisation</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Arindam Baruah, Aishwarya Anil Kumar </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">January 20, 2024</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="header-section-number">1</span> Introduction</a></li>
+  <li><a href="#how-does-our-data-look-like" id="toc-how-does-our-data-look-like" class="nav-link" data-scroll-target="#how-does-our-data-look-like"><span class="header-section-number">2</span> How does our data look like ?</a></li>
+  <li><a href="#how-do-we-clean-this-data" id="toc-how-do-we-clean-this-data" class="nav-link" data-scroll-target="#how-do-we-clean-this-data"><span class="header-section-number">3</span> How do we clean this data ?</a></li>
+  <li><a href="#let-us-now-explore-the-data-through-visualisations" id="toc-let-us-now-explore-the-data-through-visualisations" class="nav-link" data-scroll-target="#let-us-now-explore-the-data-through-visualisations"><span class="header-section-number">4</span> Let us now explore the data through visualisations</a>
+  <ul class="collapse">
+  <li><a href="#which-are-the-states-with-highest-producing-waste" id="toc-which-are-the-states-with-highest-producing-waste" class="nav-link" data-scroll-target="#which-are-the-states-with-highest-producing-waste"><span class="header-section-number">4.1</span> Which are the states with highest producing waste ?</a></li>
+  <li><a href="#what-are-the-dominating-waste-types-in-each-state" id="toc-what-are-the-dominating-waste-types-in-each-state" class="nav-link" data-scroll-target="#what-are-the-dominating-waste-types-in-each-state"><span class="header-section-number">4.2</span> What are the dominating waste types in each state ?</a></li>
+  <li><a href="#is-hazardous-waste-generation-on-the-rise-across-australia" id="toc-is-hazardous-waste-generation-on-the-rise-across-australia" class="nav-link" data-scroll-target="#is-hazardous-waste-generation-on-the-rise-across-australia"><span class="header-section-number">4.3</span> Is hazardous waste generation on the rise across Australia ?</a></li>
+  <li><a href="#what-are-the-waste-management-techniques-applied-in-the-top-3-hazardous-waste-generating-states" id="toc-what-are-the-waste-management-techniques-applied-in-the-top-3-hazardous-waste-generating-states" class="nav-link" data-scroll-target="#what-are-the-waste-management-techniques-applied-in-the-top-3-hazardous-waste-generating-states"><span class="header-section-number">4.4</span> What are the waste management techniques applied in the top 3 hazardous waste generating states ?</a></li>
+  </ul></li>
+  <li><a href="#what-is-the-composition-of-the-hazardous-waste-generated" id="toc-what-is-the-composition-of-the-hazardous-waste-generated" class="nav-link" data-scroll-target="#what-is-the-composition-of-the-hazardous-waste-generated"><span class="header-section-number">5</span> What is the composition of the hazardous waste generated ?</a></li>
+  <li><a href="#what-is-the-source-of-these-hazardous-wastes" id="toc-what-is-the-source-of-these-hazardous-wastes" class="nav-link" data-scroll-target="#what-is-the-source-of-these-hazardous-wastes"><span class="header-section-number">6</span> What is the source of these hazardous wastes ?</a></li>
+  <li><a href="#key-recommendations" id="toc-key-recommendations" class="nav-link" data-scroll-target="#key-recommendations"><span class="header-section-number">7</span> Key recommendations 💡</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="waste.jpg" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Source:Google images</figcaption>
+</figure>
+</div>
+<section id="introduction" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Introduction</h1>
+<p>Some of the critical factors when assessing the national waste generation problem of Australia can be delineated as follows:</p>
+<ul>
+<li>High per capita waste generation due to the consumer culture leading to the high usage of single use packaging.</li>
+<li>High dependence on landfills which result in soil, water and air pollution.</li>
+<li>Uneven waste management infrastructure across the country.</li>
+<li>Heavy polluting industries such as mining and the steel industry.</li>
+<li>Electronic waste (e-waste) is a growing problem in Australia, with the increasing use of electronic devices and appliances. Managing e-waste responsibly is a complex issue due to the - hazardous materials contained in electronic products.</li>
+</ul>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Disclaimer
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The following analysis is a reproducible code of the winning submission at the annual datathon 2023 organised by the Monash Data Science Society. Please find a copy of the final presentation <a href="https://arinbaruah.github.io/Rinsights_blog/links/Arindam_Aishwarya_mdss_presentation.pdf">here</a>.</p>
+</div>
+</div>
+</section>
+<section id="how-does-our-data-look-like" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> How does our data look like ?</h1>
+<p>Let us try to get a glimpse of the data we will be dealing with.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="tbl-data" class="anchored">
+<table class="lightable-paper table table-sm table-striped small" data-quarto-postprocess="true">
+<caption>Table&nbsp;1: Glimpse of the raw data</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th">Year</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Jurisdiction</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Category</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Type</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Classification</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Total type</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Stream</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Management</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Fate</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Tonnes</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Core or non-core</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Sub-stream</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Cat. order</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Cat. no.</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Type order</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Type no.</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">...17</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">2020-2021</td>
+<td style="text-align: left;">ACT</td>
+<td style="text-align: left;">Biosolids</td>
+<td style="text-align: left;">Biosolids</td>
+<td style="text-align: left;">Type</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">C&amp;I</td>
+<td style="text-align: left;">Other disposal</td>
+<td style="text-align: left;">Disposal</td>
+<td style="text-align: right;">20186</td>
+<td style="text-align: left;">Core waste</td>
+<td style="text-align: left;">03 C&amp;I core</td>
+<td style="text-align: left;">03 Organics</td>
+<td style="text-align: left;">C3</td>
+<td style="text-align: left;">14 Biosolids</td>
+<td style="text-align: left;">T14</td>
+<td style="text-align: left;">NA</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2020-2021</td>
+<td style="text-align: left;">ACT</td>
+<td style="text-align: left;">Biosolids</td>
+<td style="text-align: left;">Biosolids</td>
+<td style="text-align: left;">Type</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">C&amp;I</td>
+<td style="text-align: left;">Recycling</td>
+<td style="text-align: left;">Recycling</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">Core waste</td>
+<td style="text-align: left;">03 C&amp;I core</td>
+<td style="text-align: left;">03 Organics</td>
+<td style="text-align: left;">C3</td>
+<td style="text-align: left;">14 Biosolids</td>
+<td style="text-align: left;">T14</td>
+<td style="text-align: left;">NA</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2020-2021</td>
+<td style="text-align: left;">ACT</td>
+<td style="text-align: left;">Biosolids</td>
+<td style="text-align: left;">Biosolids</td>
+<td style="text-align: left;">Type</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">Total</td>
+<td style="text-align: left;">Other disposal</td>
+<td style="text-align: left;">Disposal</td>
+<td style="text-align: right;">20186</td>
+<td style="text-align: left;">Core waste</td>
+<td style="text-align: left;">09 Total</td>
+<td style="text-align: left;">03 Organics</td>
+<td style="text-align: left;">C3</td>
+<td style="text-align: left;">14 Biosolids</td>
+<td style="text-align: left;">T14</td>
+<td style="text-align: left;">NA</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2020-2021</td>
+<td style="text-align: left;">ACT</td>
+<td style="text-align: left;">Biosolids</td>
+<td style="text-align: left;">Biosolids</td>
+<td style="text-align: left;">Type</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">Total</td>
+<td style="text-align: left;">Recycling</td>
+<td style="text-align: left;">Recycling</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">Core waste</td>
+<td style="text-align: left;">09 Total</td>
+<td style="text-align: left;">03 Organics</td>
+<td style="text-align: left;">C3</td>
+<td style="text-align: left;">14 Biosolids</td>
+<td style="text-align: left;">T14</td>
+<td style="text-align: left;">NA</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2020-2021</td>
+<td style="text-align: left;">ACT</td>
+<td style="text-align: left;">Biosolids</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">Category</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">C&amp;I</td>
+<td style="text-align: left;">Other disposal</td>
+<td style="text-align: left;">Disposal</td>
+<td style="text-align: right;">20186</td>
+<td style="text-align: left;">Core waste</td>
+<td style="text-align: left;">03 C&amp;I core</td>
+<td style="text-align: left;">03 Organics</td>
+<td style="text-align: left;">C3</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2020-2021</td>
+<td style="text-align: left;">ACT</td>
+<td style="text-align: left;">Biosolids</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">Category</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">C&amp;I</td>
+<td style="text-align: left;">Recycling</td>
+<td style="text-align: left;">Recycling</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">Core waste</td>
+<td style="text-align: left;">03 C&amp;I core</td>
+<td style="text-align: left;">03 Organics</td>
+<td style="text-align: left;">C3</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+
+</div>
+</div>
+<p>As we can observe from <a href="#tbl-data">Table&nbsp;1</a>, our dataset contains a total of 17 variables and is fairly unclean. Hence, we will be cleaning the data and make it fit for exploratory data analysis.</p>
+</section>
+<section id="how-do-we-clean-this-data" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> How do we clean this data ?</h1>
+<p>Some of the areas which require cleaning are:</p>
+<ol type="1">
+<li>The variable names need to be cleaned such that they are of lower cases and with no special characters.</li>
+<li>Clean the “year” variable by separating it into start and end year. Eg: “2014-2020” as 2014 and 2020 in two separate columns.</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>df_waste <span class="ot">&lt;-</span> <span class="fu">clean_names</span>(df) <span class="co"># Clean the variable names</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>df_waste[<span class="fu">c</span>(<span class="st">"start_year"</span>,<span class="st">"end_year"</span>)] <span class="ot">&lt;-</span> (<span class="fu">str_split_fixed</span>(df_waste<span class="sc">$</span>year,<span class="st">"-"</span>,<span class="dv">2</span>)) <span class="co"># Separating the "-" in the years</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>df_waste<span class="sc">$</span>start_year <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(df_waste<span class="sc">$</span>start_year)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>df_waste<span class="sc">$</span>end_year <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(df_waste<span class="sc">$</span>end_year)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>df_waste<span class="ot">&lt;-</span> df_waste<span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="sc">-</span>year) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="let-us-now-explore-the-data-through-visualisations" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Let us now explore the data through visualisations</h1>
+<section id="which-are-the-states-with-highest-producing-waste" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="which-are-the-states-with-highest-producing-waste"><span class="header-section-number">4.1</span> Which are the states with highest producing waste ?</h2>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="index_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>We can observe that:</p>
+<ol type="1">
+<li>WA leads the way in waste generation followed by NSW and QLD.</li>
+<li>While this maybe counter intuitive as WA has a considerably smaller population (2.67 million) when compared to NSW (8.16 million) and QLD (5.185 million), however, due to the presence of heavy industries such as mining, petroleum and chemicals, a significant amount of waste is generated in WA.</li>
+<li>The most common form of waste generated from each state are observed to be ash and rubble.</li>
+</ol>
+</section>
+<section id="what-are-the-dominating-waste-types-in-each-state" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="what-are-the-dominating-waste-types-in-each-state"><span class="header-section-number">4.2</span> What are the dominating waste types in each state ?</h2>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="index_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<ol type="1">
+<li>Nearly 45 % of Australia’s waste is generated from the mining industry.</li>
+<li>WA is the leading producer of waste from the mining industry. These include iron, nickel, coal and lithium mines.</li>
+<li>Based on the Australian treasury, the mining industry adds about 270 billion $ every year, making it a significant addition to the Australian economy.</li>
+<li>WA’s reliance on the mining industry and the nature of its large-scale pollution could be the reason why despite a low population, the state is the highest contributor to the waste generation</li>
+</ol>
+</section>
+<section id="is-hazardous-waste-generation-on-the-rise-across-australia" class="level2" data-number="4.3">
+<h2 data-number="4.3" class="anchored" data-anchor-id="is-hazardous-waste-generation-on-the-rise-across-australia"><span class="header-section-number">4.3</span> Is hazardous waste generation on the rise across Australia ?</h2>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-time" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="index_files/figure-html/fig-time-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption class="figure-caption">Figure&nbsp;1: Time series plot of hazardous waste generation for each state</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Based on <a href="#fig-time">Figure&nbsp;1</a>, we can observe that:</p>
+<ol type="1">
+<li>NSW accounts for the highest hazardous waste in the whole of Australia with close to 8.5 MT. The hazardous wastes are on a rising trend.</li>
+<li>QLD is observed to record constant generation of hazardous waste each year with approximate 6 MT.</li>
+<li>VIC is observed to record a rising trend of hazardous waste in recent years with close to 5.75 MT in 2021.</li>
+</ol>
+</section>
+<section id="what-are-the-waste-management-techniques-applied-in-the-top-3-hazardous-waste-generating-states" class="level2" data-number="4.4">
+<h2 data-number="4.4" class="anchored" data-anchor-id="what-are-the-waste-management-techniques-applied-in-the-top-3-hazardous-waste-generating-states"><span class="header-section-number">4.4</span> What are the waste management techniques applied in the top 3 hazardous waste generating states ?</h2>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-haz" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="index_files/figure-html/fig-haz-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption class="figure-caption">Figure&nbsp;2: Hazardous waste management in top waste generating states in MT</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-hazperc" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="index_files/figure-html/fig-hazperc-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption class="figure-caption">Figure&nbsp;3: Hazardous waste management in top waste generating states in %age</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Based on types of waste management techniques as illustrated by <a href="#fig-haz">Figure&nbsp;2</a> and <a href="#fig-hazperc">Figure&nbsp;3</a>, we observe the following:</p>
+<ol type="1">
+<li>Majority of the hazardous waste is disposed in the landfills.</li>
+<li>This is concerning as these wastes end up polluting the water bodies and the underground potable water, consequently leading to loss of marine lives.</li>
+<li>There is still a technology gap to be able to effectively harness the hazardous waste for producing energy.</li>
+</ol>
+</section>
+</section>
+<section id="what-is-the-composition-of-the-hazardous-waste-generated" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> What is the composition of the hazardous waste generated ?</h1>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-comp" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="index_files/figure-html/fig-comp-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption class="figure-caption">Figure&nbsp;4: Composition of hazardous waste generated</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Upon diving deeper into what constitutes these hazardous wastes from <a href="#fig-comp">Figure&nbsp;4</a>, we could observe that <strong>contaminated soils are the largest source followed by asbestos.</strong></p>
+</section>
+<section id="what-is-the-source-of-these-hazardous-wastes" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> What is the source of these hazardous wastes ?</h1>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-source" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="index_files/figure-html/fig-source-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption class="figure-caption">Figure&nbsp;5: Sources contributing to the major hazardous waste</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Based on our understanding of <a href="#fig-source">Figure&nbsp;5</a>, Asbestos has been observed to be clearly the differentiating factor for NSW hazardous waste generation when compared to QLD and VIC with close to equal contribution from the commercial &amp; industrial and construction &amp; demolition.</p>
+<p>How is Asbestos handled ?</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-asb" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="index_files/figure-html/fig-asb-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption class="figure-caption">Figure&nbsp;6: Asbestos management in top 3 hazardous waste generating states</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p><a href="#fig-asb">Figure&nbsp;6</a> illustrates the type of waste management techniques employed in each of the 3 states. Our observations are as follows:</p>
+<ol type="1">
+<li>We observe that Asbestos is especially harmful for the environment since it is non-biodegradable in nature.</li>
+<li>This inevitable leads to bigger landfills and consequent rise in land, water and air pollution.</li>
+<li>Asbestos is additionally carcinogenic in nature, thereby causing direct health risks to lives.</li>
+</ol>
+</section>
+<section id="key-recommendations" class="level1" data-number="7">
+<h1 data-number="7"><span class="header-section-number">7</span> Key recommendations 💡</h1>
+<ul>
+<li>While adopting sustainable practices is the need of the hour, it is especially important to address the processing of hazardous wastes.</li>
+<li>Hazardous wastes are seldom bio-degradable and need innovative techniques to be converted into a usable form such as energy.</li>
+<li>Higher allocation of funds for R&amp;D to develop ways to harness energy from these wastes can be a big game changer for Australian states. Eg: Carbon Capture Utilisation in steel industries developed by <a href="https://doi.org/10.1007/978-3-319-66981-%206_33">ArcelorMittal Belgium</a>.</li>
+<li>Governments in each state should be wary of industries using hazardous materials such as Asbestos in construction or manufacturing which can only be dumped in landfills that lead to various types of pollution. Sanctions and penalties imposed can greatly motivate construction and industries to explore alternative and sustainable materials.</li>
+</ul>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

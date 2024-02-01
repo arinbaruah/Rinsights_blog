@@ -1,0 +1,30 @@
+---
+title: "All aboard the blog train !"
+author: "Arindam Baruah"
+date: "2023-06-13"
+categories: [news]
+theme: cyborg
+---
+
+![](image.gif)
+
+
+Hey you curious heads ! \
+Thankyou for choosing to spend some time on my blogsite. My work showcased on this blog is based on analysing and visualising thousands of rows of data, with the aim to decompress and make the study interesting as well as meaningful. A large part of this is possible as a result of the open-source software and packages of R programming. Please feel free to explore the various blogs which I have penned down (not literally 😅).
+
+
+
+
+<div class="warning" style='background-color:#8bd69f; color: #000301; border-left: solid #044716 4px; border-radius: 4px; padding:0.7em;'>
+<span>
+<p style='margin-top:1em; text-align:center'>
+<p style='margin-left:1em;'>
+
+
+<b> THE MIND THAT OPENS TO A NEW IDEA NEVER RETURNS TO ITS ORIGINAL SIZE !
+</p>
+<p style='margin-bottom:1em; margin-right:1em; text-align:right; font-family:Georgia'> </b> <i>- Albert Einstein</i>
+</p></span>
+</div>
+
+

@@ -14,6 +14,8 @@ website:
         text: About
       - href: posts/index.qmd
         text: Blog
+      - href: plots/index.qmd
+        text: Infographics
     right:
       - icon: github
         href: https://github.com/arinbaruah

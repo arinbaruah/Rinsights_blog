@@ -1,171 +1,38 @@
 ---
-title: "January_challenge"
+title: "Upset plots to analyse intersections and unions in data 📊💡"
 author: "Arindam Baruah"
+date: "2024-01-31"
 format: html
 ---
-# Libraries
 
-```{r, message=FALSE,echo=FALSE}
-# Load libraries
 
-# Not all are used for the plot
-library(galah)
-library(tidyverse)
-library(ggplot2)
-library(nullabor)
-library(leaflet)
-library(spatstat) 
-library(plotly)
-library(tsibble)
-library(sf)
-library(rmapshaper)
-library(lubridate)
-library(broom)
-library(GGally)
-library(forecast)
-library(ggalt)
-library(rnoaa)
-library(UpSetR)
-library(stringr)
-library(caret)
-library(DT)
-library(mltools)
-library(data.table)
-library(grid)
-library(gridExtra)
-```
+# Description
 
-# Data reading
+Imagine visualising data with multiple intersections and unions, making drawing insights from a traditional Venn diagram extremely complex! 🤔🤷
 
-```{r}
-df <- read_csv("data/goodreads_top100.csv")
+Introducing the __Upset Plots!__ 💡
 
-```
+In this month's visualisation challenge, I was implemented an "Upset plots". This utilitarian plot, while not the easiest to comprehend at the get-go, is incredibly useful for studying intersections within our data. 📈📊
 
-# Data cleaning and wrangling
+The plot works on a combination matrix and creates the bar plot by summing the frequencies of the observations for every respective combination of observations. ⚙️
 
-```{r}
-df$Genres <- str_replace_all(df$Genres,"[\\[\\]]","")
+Here is my attempt at visualising data on the popular book reads between 1980-2023 where we can observe a trend of book choices with inter-genre content. The visualisation was created using the UpSetR package on R studio. 
 
+![An upset plot depicting the intersections and total observations](Jan_challenge.png)
 
+:::{.callout-note}
+# Important sources
 
-split_data <- str_split(df$Genres, ",")
+Data source: https://www.kaggle.com/datasets/cristaliss/ultimate-book-collection-top-100-books-up-to-2023
 
-# Convert the result to a matrix
-result_matrix <- do.call(rbind, split_data)
+If you're interested in the code which went behind the creation of the above plot, please refer to the link [here](https://github.com/arinbaruah/Rinsights_blog/tree/main/docs/plots/visualisations/January).
 
-# Convert the matrix to a data frame
-result_df <- as.data.frame(result_matrix)
+:::
 
-# Set column names
-colnames(result_df) <- paste0("V", seq_len(ncol(result_df)))
+# References
 
-# Print the resulting data frame
-print(result_df)
 
-
-```
-
-
-
-```{r}
-
-
-
-DF <- as.data.frame(unclass(result_df),stringsAsFactors=TRUE)
-df <- cbind(df,DF)
-
-df <- df %>% select(-c(Genres,Description,Series,`Release number`,Author,`Num Pages`,`Publication Date`,Rating,...1))
-```
-
-```{r}
-
-col_name <- c("Book","V1","V2","V3","V4","V5","V6","V7")
-categorical_columns <- c("V1","V2","V3","V4","V5","V6","V7")
-df_compact <- df %>% select(all_of(col_name))
-
-df_long <- df_compact %>% pivot_longer(cols = c("V1","V2","V3","V4","V5","V6","V7"),values_to = "Genre")
-
-```
-
-
-
-
-
-
-
-# EDA
-
-
-```{r}
-
-df_long_vals <- df_long %>% group_by(Genre) %>% summarise(Total = n()) %>% arrange(-Total) %>% head(10) %>% as.data.frame()
-
-top_10 <- df_long_vals$Genre
-pl1 <- ggplot(data = df_long_vals,aes(x = reorder(Genre,Total),y = Total)) + geom_col() + geom_label(aes(label = Total)) + coord_flip() + ggtitle("Top most books by genre")
-pl1
-```
-
-
-
-```{r}
-df_long$Genre <- str_replace(df_long$Genre,"'","")
-df_long$Genre <- str_replace(df_long$Genre,"'","")
-
-
-
-text_scale_options1 <- c(1.2, 1, 1, 1, 0.8, 1)
-text_scale_options2 <- c(1.3, 1.3, 1, 1, 2, 0.75)
-text_scale_options3 <- c(1.5, 1.25, 1.25, 1, 2, 1.5)
-
-
-main_bar_col <- c("darkred")
-sets_bar_col <- c("turquoise4")
-matrix_col <- c("slateblue4")
-shade_col <- c("wheat4")
-
-#I called it "1" because I anticipated others
-#but never needed them
-mb_ratio1 <- c(0.55,0.45)
-
-
-genre_matrix <- table(df_long$Book, df_long$Genre) > 0
-
-df_matrix <- as.data.frame(genre_matrix)
-set_vars <- unique(colnames(df_matrix))
-
-df_matrix <- df_matrix %>% rownames_to_column(var = "Book")
-
-
-
-df_matrix <- df_matrix %>% 
-  mutate(across(everything(), ~+as.logical(.x)))
-
-df_matrix <- df_matrix %>% select(-Book)
-
-
-upset(df_matrix,
-        sets = top_10,
-      	mainbar.y.label = "Cross-genre collections", 
-	sets.x.label = "Count of book collections by genre",
-	order.by = "freq",
-	show.numbers = "yes",
-	point.size = 2, 
-	line.size = 1,
-	text.scale=text_scale_options1,
-	main.bar.color = main_bar_col,
-	sets.bar.color = sets_bar_col,
-	matrix.color = matrix_col,
-	shade.color = shade_col,
-	att.pos = "top")
-
-
-```
-
-
-
-
-
-
-
-
+1. R studio: RStudio Team (2020). RStudio: Integrated Development for R. RStudio, PBC, Boston, MA URL http://www.rstudio.com/.
+2. ggplot2: H. Wickham. ggplot2: Elegant Graphics for Data Analysis. Springer-Verlag New York, 2016.
+3. UpsetR: Gehlenborg N (2019). _UpSetR: A More Scalable Alternative to Venn and Euler Diagrams for Visualizing Intersecting Sets_. R package version 1.4.0,
+  <https://CRAN.R-project.org/package=UpSetR>.

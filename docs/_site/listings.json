@@ -12,5 +12,13 @@
       "/posts/blogs/Mach_failure_preds/index.html",
       "/posts/blogs/welcome/index.html"
     ]
+  },
+  {
+    "listing": "/plots/index.html",
+    "items": [
+      "/plots/visualisations/January/January_challenge.html",
+      "/plots/visualisations/field_diversity/index.html",
+      "/plots/visualisations/welcome/index.html"
+    ]
   }
 ]

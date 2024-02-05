@@ -22,40 +22,6 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
 </style>
 
 
@@ -98,15 +64,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <script src="../../../site_libs/kePrint-0.0.1/kePrint.js"></script>
 <link href="../../../site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
-<script src="../../../site_libs/htmlwidgets-1.6.2/htmlwidgets.js"></script>
-<link href="../../../site_libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet">
-<script src="../../../site_libs/datatables-binding-0.28/datatables.js"></script>
-<script src="../../../site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
-<link href="../../../site_libs/dt-core-1.13.4/css/jquery.dataTables.min.css" rel="stylesheet">
-<link href="../../../site_libs/dt-core-1.13.4/css/jquery.dataTables.extra.css" rel="stylesheet">
-<script src="../../../site_libs/dt-core-1.13.4/js/jquery.dataTables.min.js"></script>
-<link href="../../../site_libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet">
-<script src="../../../site_libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
 
   <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
@@ -201,9 +158,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="header-section-number">1</span> Introduction</a></li>
   <li><a href="#what-are-we-looking-to-answer" id="toc-what-are-we-looking-to-answer" class="nav-link" data-scroll-target="#what-are-we-looking-to-answer"><span class="header-section-number">2</span> What are we looking to answer?</a></li>
   <li><a href="#what-is-this-dataset-all-about" id="toc-what-is-this-dataset-all-about" class="nav-link" data-scroll-target="#what-is-this-dataset-all-about"><span class="header-section-number">3</span> What is this dataset all about?</a></li>
-  <li><a href="#what-does-our-data-contain" id="toc-what-does-our-data-contain" class="nav-link" data-scroll-target="#what-does-our-data-contain"><span class="header-section-number">4</span> What does our data contain ?</a></li>
-  <li><a href="#what-can-we-infer-from-the-data" id="toc-what-can-we-infer-from-the-data" class="nav-link" data-scroll-target="#what-can-we-infer-from-the-data"><span class="header-section-number">5</span> What can we infer from the data ?</a></li>
-  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion"><span class="header-section-number">6</span> Conclusion</a></li>
+  <li><a href="#what-can-we-infer-from-the-data" id="toc-what-can-we-infer-from-the-data" class="nav-link" data-scroll-target="#what-can-we-infer-from-the-data"><span class="header-section-number">4</span> What can we infer from the data ?</a></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion"><span class="header-section-number">5</span> Conclusion</a></li>
   </ul>
 </nav>
     </div>
@@ -216,16 +172,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="introduction" class="level1" data-number="1">
 <h1 data-number="1"><span class="header-section-number">1</span> Introduction</h1>
 <p>The current dataset contains the <strong>annual working hours per worker along with the population estimates of all the reporting countries</strong> dating from the start of the calendar year to 2021. The data source has been detailed on the <strong>Our World In Data</strong> <a href="https://ourworldindata.org">website</a>.</p>
-<div class="cell">
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/image_1.png" width="800" height="300" class="figure-img"></p>
-<figcaption class="figure-caption">Source: www.ondeck.com</figcaption>
-</figure>
-</div>
-</div>
-</div>
 <p>This is an important metric to track as the number of annual working hours is a strong indicator of the labor laws prevalent in the country along with the work-life balance for the various employees. High working hours invariably lead to higher health issues such as stress, anxiety, and depression. With the advent of strict labor laws for the welfare of employees, the current study will dive deeper into how long are employees from various countries and continents working as years have passed on and whether the long hours are indicating strong growth in the economy.</p>
 </section>
 <section id="what-are-we-looking-to-answer" class="level1" data-number="2">
@@ -241,14 +187,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h1 data-number="3"><span class="header-section-number">3</span> What is this dataset all about?</h1>
 <p>The current dataset which has been sourced from the <strong>Our World In Data</strong> website records the average annual working hours, state of economy (in terms of GDP), and population for a particular country over the years. In addition to these variables, the current dataset is merged with another dataset which contains important data on the <span class="math inline">\({productivity}/{hour}\)</span> for the reporting countries. This measure in effect, tells us about the economic productivity of the country for every hour of work done by an employee <strong>(in $/hour)</strong>.</p>
 <p>The above-mentioned dataset can be obtained from the “Our World in Data” website through this <a href="https://ourworldindata.org/rich-poor-working-hours">link</a>.</p>
-<p>Table @ref(tab:variable) below shows the various variables present in our dataset.</p>
-<div class="cell" data-hash="work_hours_cache/html/variable_64cf4cf1335ee1410102de8a2fbf48b9">
+<p><a href="#tbl-variable">Table&nbsp;1</a> below shows the various variables present in our dataset.</p>
+<div class="cell" data-hash="work_hours_cache/html/tbl-variable_8f637133a3ede5783fbdad9418ab8b63">
 <div class="cell-output-display">
+<div id="tbl-variable" class="anchored">
 <table class="table table-bordered table-hover table-sm table-striped small" data-quarto-postprocess="true">
-<caption>This table contains the various variables present in this dataset which will allow us to analyse the annual working hours of the countries under consideration. Additionally, the variables in this table will allow us to understand the productivity towards the economy for each nation</caption>
+<caption>Table&nbsp;1: Data description</caption>
 <thead>
 <tr class="header">
-<th style="text-align: left;" data-quarto-table-cell-role="th">Variable_names</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Variavke</th>
 </tr>
 </thead>
 <tbody>
@@ -278,68 +225,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 </tbody>
 </table>
+</div>
 
 
 </div>
 </div>
 </section>
-<section id="what-does-our-data-contain" class="level1" data-number="4">
-<h1 data-number="4"><span class="header-section-number">4</span> What does our data contain ?</h1>
-<ol type="1">
-<li>Here are some of the important descriptions of the dataset:</li>
-</ol>
-<ul>
-<li>The current dataset contains a total of <strong>8</strong> variables.</li>
-<li>A total of <strong>55873</strong> observations were recorded in the dataset.</li>
-</ul>
-<ol start="2" type="1">
-<li>The image @ref(fig:inline) shows the inline r codes that were used to obtain the above results.</li>
-</ol>
-<div class="cell">
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/inline_r.png" width="1000" height="50" class="figure-img"></p>
-<figcaption class="figure-caption">Inline R codes</figcaption>
-</figure>
-</div>
-</div>
-</div>
-<ol start="3" type="1">
-<li>After applying the head function to display the first two rows of the clean data, we find the following results.</li>
-</ol>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>df_clean <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(df_final)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(df_clean) <span class="sc">%&gt;%</span> </span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  DT<span class="sc">::</span><span class="fu">datatable</span>(<span class="at">width =</span> <span class="dv">1000</span>, <span class="at">height =</span> <span class="dv">450</span>, <span class="at">options =</span> <span class="fu">list</span>(<span class="at">pageLength =</span> <span class="dv">5</span>)) <span class="co">#Transforms a dataframe to an intuitive datatable.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-
-<div id="htmlwidget-e0464c078459cf1e6c7d" style="width:1000px;height:450px;" class="datatables html-widget "></div>
-<script type="application/json" data-for="htmlwidget-e0464c078459cf1e6c7d">{"x":{"filter":"none","vertical":false,"data":[["2290","3219","3468","4466","5214","7118"],["Argentina","Australia","Austria","Bangladesh","Belgium","Brazil"],["ARG","AUS","AUT","BGD","BEL","BRA"],[2015,2015,2015,2015,2015,2015],[1703.4685,1746.4835,1605.2805,2418.7507,1575.4569,1722.8759],[21197.787,48712.19,49618.703,3714.8008,42891.355,15077.577],[43257064,23820240,8642422,157830000,11248306,205188208],["South America","Oceania","Europe","Asia","Europe","South America"],[26.997778,56.053726,62.702095,4.0340605,66.488235,19.356064]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Entity<\/th>\n      <th>Code<\/th>\n      <th>Year<\/th>\n      <th>Annual working hours per worker<\/th>\n      <th>GDP per capita (output, multiple price benchmarks)<\/th>\n      <th>Population (historical estimates)<\/th>\n      <th>Continent<\/th>\n      <th>Productivity: output per hour worked<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"columnDefs":[{"className":"dt-right","targets":[3,4,5,6,8]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
-</div>
-</div>
-<ol start="4" type="1">
-<li>The datatypes of the variables in the dataset can be observed through the results of the following R code chunk.</li>
-</ol>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(df_clean) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>'data.frame':   65 obs. of  8 variables:
- $ Entity                                            : chr  "Argentina" "Australia" "Austria" "Bangladesh" ...
- $ Code                                              : chr  "ARG" "AUS" "AUT" "BGD" ...
- $ Year                                              : num  2015 2015 2015 2015 2015 ...
- $ Annual working hours per worker                   : num  1703 1746 1605 2419 1575 ...
- $ GDP per capita (output, multiple price benchmarks): num  21198 48712 49619 3715 42891 ...
- $ Population (historical estimates)                 : num  4.33e+07 2.38e+07 8.64e+06 1.58e+08 1.12e+07 ...
- $ Continent                                         : chr  "South America" "Oceania" "Europe" "Asia" ...
- $ Productivity: output per hour worked              : num  27 56.05 62.7 4.03 66.49 ...
- - attr(*, "na.action")= 'omit' Named int [1:55808] 1 2 3 4 5 6 7 8 9 10 ...
-  ..- attr(*, "names")= chr [1:55808] "1" "2" "3" "4" ...</code></pre>
-</div>
-</div>
-</section>
-<section id="what-can-we-infer-from-the-data" class="level1" data-number="5">
-<h1 data-number="5"><span class="header-section-number">5</span> What can we infer from the data ?</h1>
+<section id="what-can-we-infer-from-the-data" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> What can we infer from the data ?</h1>
 <p>In order to answer some of the pertinent research questions, we will need to create visualizations that can help us understand the data better and allow us to draw inferences. The intuitive visualizations are created using the <strong>ggplot2</strong> library which is based on the grammar of graphics. The documentation for the ggplot2 library can be referred to in greater detail through this <a href="https://ggplot2.tidyverse.org">link</a>.</p>
 <p>Figure @ref(fig:plot1) is a scatter plot between the annual working hours and the GDP per capita of some of the nations of concern in the current study.</p>
 <div class="cell">
@@ -373,8 +266,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><p><em>In figure @ref(fig:plot1), it was established that <strong>Singapore, China, and India</strong> were the countries with the highest annual working hours. While intuitively, it may be hypothesized that higher working hours would mean greater productivity, however as per figure @ref(fig:plot2) , it can be observed that <strong>the productivity of the economy for these three countries were found to be lower than that of the other economies</strong>. Therefore, longer working hours per employee does not necessarily contribute to higher productivity of the economy.</em></p></li>
 </ul>
 </section>
-<section id="conclusion" class="level1" data-number="6">
-<h1 data-number="6"><span class="header-section-number">6</span> Conclusion</h1>
+<section id="conclusion" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Conclusion</h1>
 <p>The above study explored the various relations between the annual working hours of each country’s economy, its GDP per capita and the contribution towards the productivity of its economy. In order to create a condensed analysis of the major economies, a specific list of countries was curated and its results were visualised through figures @ref(fig:plot1) and @ref(fig:plot2) for inference. The study was observed to draw the following inferences delineated as follows :</p>
 <ol type="1">
 <li><p>Emerging economies based on GDP per capita with similar populations such as China and India which are heavily dependent on their manufacturing industries were observed to have considerably higher annual working hours when compared to developed economies.This could be a result of the leaner labor codes enforced in these countries when compared to the developed economies.</p></li>

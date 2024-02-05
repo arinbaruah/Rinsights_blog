@@ -20,7 +20,6 @@ library(ggplot2)
 library(rmarkdown)
 library(knitr)
 library(kableExtra)
-library(bookdown)
 library(tidyverse)
 library(plotly)
 library(ggthemes)
@@ -47,10 +46,6 @@ The current dataset contains the __annual working hours per worker along with th
 
 
 
-```{r image, out.height = '300px', out.width= '800px', echo = FALSE,fig.cap='Source: www.ondeck.com'}
- knitr::include_graphics("images/image_1.png")
-```
-
 
 This is an important metric to track as the number of annual working hours is a strong indicator of the labor laws prevalent in the country along with the work-life balance for the various employees. High working hours invariably lead to higher health issues such as stress, anxiety, and depression. With the advent of strict labor laws for the welfare of employees, the current study will dive deeper into how long are employees from various countries and continents working as years have passed on and whether the long hours are indicating strong growth in the economy.
 
@@ -68,59 +63,32 @@ The current dataset which has been sourced from the __Our World In Data__ websit
 
 The above-mentioned dataset can be obtained from the "Our World in Data" website through this [link](https://ourworldindata.org/rich-poor-working-hours).
 
- Table \@ref(tab:variable) below shows the various variables present in our dataset.
+ @tbl-variable below shows the various variables present in our dataset.
 
 ```{r variable,cache = TRUE}
+#| label: tbl-variable
+#| tbl-cap: "Data description"
 
-var <- data.frame(Variable_names = c(names(df_final))) #A dataframe for variables
+var <- data.frame(Variable = c(names(df_final))) #A dataframe for variables
 
-var %>% kable(caption = 'This table contains the various variables present in this dataset which will allow us to analyse the annual working hours of the countries under consideration. Additionally, the variables in this table will allow us to understand the productivity towards the economy for each nation',booktabs = TRUE) %>% 
+var %>% kable() %>% 
 kable_styling(bootstrap_options = c("bordered","hover")) #Creating a table
 
 ```
 
 
- 
-# What does our data contain ?
 
- 1. Here are some of the important descriptions of the dataset:
-
-- The current dataset contains a total of __`r length(names(df_final))`__ variables.
-- A total of __`r dim(df_final)[1]`__ observations were recorded in the dataset.
-
- 2. The image \@ref(fig:inline) shows the inline r codes that were used to obtain the above results.
-
-```{r inline, out.height = '50px', out.width= '1000px', echo = FALSE,fig.cap="Inline R codes"}
-
- knitr::include_graphics("images/inline_r.png")
-
-```
-
- 3. After applying the head function to display the first two rows of the clean data, we find the following results.
-
-```{r showdata, echo=TRUE}
-df_clean <- na.omit(df_final)
-head(df_clean) %>% 
-  DT::datatable(width = 1000, height = 450, options = list(pageLength = 5)) #Transforms a dataframe to an intuitive datatable.
-
-```
-
-
-
- 4. The datatypes of the variables in the dataset can be observed through the results of the following R code chunk.
-
-```{r datatypes,echo=TRUE}
-str(df_clean) 
-```
 
 # What can we infer from the data ?
 
 In order to answer some of the pertinent research questions, we will need to create visualizations that can help us understand the data better and allow us to draw inferences. The intuitive visualizations are created using the __ggplot2__ library which is based on the grammar of graphics. The documentation for the ggplot2 library can be  referred to in greater detail through this [link](https://ggplot2.tidyverse.org).
 
-Figure \@ref(fig:plot1) is a scatter plot between the annual working hours and the GDP per capita of some of the nations of concern in the current study.
+Figure @fig-plot1 is a scatter plot between the annual working hours and the GDP per capita of some of the nations of concern in the current study.
 
 
-```{r plot1, fig.cap='Relation between annual working hours and GDP per capita'}
+```{r plot1}
+#| label: fig-plot1
+#| fig-cap: "Relation between annual working hours and GDP per capita"
 
 countries <- c('India','China','Switzerland','Australia','United States','Germany','France','United Kindgom','Luxembourg','Canada','Singapore') #Countries under consideration
 
@@ -180,6 +148,16 @@ print(pl1)
 
 
 ```
+
+The annotations in @fig-plot1 provides us the relevant information, thereby allowing us to obtain important insights while analysing the data.
+
+However, when creating a visualisation for a presentation, we are interested to only show the interesting bits to the audience. This not only allows us to concentrate our analysis on the salient data points, but also reduces cognitive load on the part of the audience, as a result of which, they're able to gauge the information easily, and are constantly following the presenter.
+
+Let us try to tweak our plot to make it more engaging for an audience.
+
+
+
+
 Figure \@ref(fig:plot1) titled __"Annual working hour vs GDP per capita"__ represents a scatter plot with the X-axis containing the variable of __GDP Per capita (in $)__ and the Y-axis containing the variable of __Annual working hours per worker__. The plot has been created for a list of countries with well-established economies along with some of the manufacturing-based economies like China and India. Below are some of the key points observed that can provide answers to the research questions posed in section 3 :
 
 - _The scatterplot has been divided into 4 quadrants to facilitate the clustering of the various economies and the quadrants have been explained through the plot annotation. We can observe that the emerging developing nations with comparable populations such as **India and China** are reporting considerably higher annual working hours than the other major developed economies. This could be a result of the **lack of strict labor codes** prevalent in these countries leading to highly overworked employees._

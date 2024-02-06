@@ -1,5 +1,13 @@
 [
   {
+    "listing": "/plots/index.html",
+    "items": [
+      "/plots/visualisations/Work_hours/index.html",
+      "/plots/visualisations/January/index.html",
+      "/plots/visualisations/welcome/index.html"
+    ]
+  },
+  {
     "listing": "/posts/index.html",
     "items": [
       "/posts/blogs/woylies_sightings/index.html",
@@ -11,13 +19,6 @@
       "/posts/blogs/field_diversity/index.html",
       "/posts/blogs/Mach_failure_preds/index.html",
       "/posts/blogs/welcome/index.html"
-    ]
-  },
-  {
-    "listing": "/plots/index.html",
-    "items": [
-      "/plots/visualisations/January/index.html",
-      "/plots/visualisations/welcome/index.html"
     ]
   }
 ]

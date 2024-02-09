@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>htt/plots/index.html</loc>
-    <lastmod>2024-02-06T06:42:06.451Z</lastmod>
+    <lastmod>2024-02-09T11:15:54.787Z</lastmod>
   </url>
   <url>
     <loc>htt/plots/visualisations/Work_hours/index.html</loc>
@@ -14,7 +14,7 @@
   </url>
   <url>
     <loc>htt/posts/index.html</loc>
-    <lastmod>2024-02-06T06:42:02.271Z</lastmod>
+    <lastmod>2024-02-09T11:13:08.645Z</lastmod>
   </url>
   <url>
     <loc>htt/posts/blogs/field_diversity/index.html</loc>
@@ -54,7 +54,7 @@
   </url>
   <url>
     <loc>htt/index.html</loc>
-    <lastmod>2024-02-06T06:42:03.593Z</lastmod>
+    <lastmod>2024-02-09T11:13:02.764Z</lastmod>
   </url>
   <url>
     <loc>htt/plots/visualisations/welcome/index.html</loc>
@@ -63,5 +63,13 @@
   <url>
     <loc>htt/plots/visualisations/January/index.html</loc>
     <lastmod>2024-02-06T06:42:05.878Z</lastmod>
+  </url>
+  <url>
+    <loc>htt/posts/blogs/Enzyme_classifier/index.html</loc>
+    <lastmod>2024-02-09T11:05:15.013Z</lastmod>
+  </url>
+  <url>
+    <loc>htt/plots/visualisations/Enzyme_classifier/index.html</loc>
+    <lastmod>2024-02-09T11:15:53.760Z</lastmod>
   </url>
 </urlset>

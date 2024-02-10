@@ -202,23 +202,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 
-<section id="introduction" class="level1" data-number="1">
-<h1 data-number="1"><span class="header-section-number">1</span> Introduction</h1>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="https://y9s5q4c4.stackpathcdn.com/wp-content/uploads/2021/07/enzymology-1.png" style="width:40.0%;height:30.0%" class="figure-img"></p>
 <figcaption class="figure-caption">“Source: Google images”</figcaption>
 </figure>
 </div>
+<section id="introduction" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Introduction</h1>
+<p>The Enzyme Commission (EC) system is a widely accepted classification system used to categorize enzymes based on their catalytic activities. Enzymes play crucial roles in biological processes by accelerating chemical reactions and facilitating various metabolic pathways within living organisms. The EC system assigns a unique EC number to each enzyme, which provides valuable information about its function and specificity.</p>
 <div class="warning" style="background-color:#E9D8FD; color: #69337A; border-left: solid #805AD5 4px; border-radius: 4px; padding:0.7em;">
 <span>
 <p style="margin-top:1em; text-align:center">
 <b>What are we trying to study ?</b>
 </p>
 <p style="margin-left:1em;">
-</p><p>The Enzyme Commission (EC) system is a widely accepted classification system used to categorize enzymes based on their catalytic activities. Enzymes play crucial roles in biological processes by accelerating chemical reactions and facilitating various metabolic pathways within living organisms. The EC system assigns a unique EC number to each enzyme, which provides valuable information about its function and specificity.</p>
 EC1 represents the class of enzymes known as oxidoreductases. These enzymes catalyze oxidation-reduction reactions, which involve the transfer of electrons between molecules. Oxidoreductases are involved in a wide range of biological processes, including energy production, biosynthesis, and detoxification. Examples of oxidoreductases include dehydrogenases, oxidases, reductases, and peroxidases.<br> <br> The <b> Enzyme Commission (EC) </b> system provides a systematic and standardized approach for classifying enzymes based on their catalytic activities. EC1 represents the class of oxidoreductases, which participate in oxidation-reduction reactions, while the second digit in the EC number provides more specific information about the enzyme’s function. This classification system facilitates the study of enzymes and helps researchers gain insights into their structure, function, and potential applications in various fields, including medicine, biotechnology, and industrial processes.
-<p></p>
+</p>
 <p style="margin-bottom:1em; margin-right:1em; text-align:right; font-family:Georgia">
 <b> - The internet </b> <i></i>
 </p>
@@ -226,7 +226,6 @@ EC1 represents the class of enzymes known as oxidoreductases. These enzymes cata
 </span></div>
 <p>Great ! We have all the libraries loaded. Next, we are gonna load the required dataset for conducting the enzyme classification analysis.</p>
 <p>We will use one dataset for the purpose of exploratory data analysis and training the classification model while the test dataset for testing the classification model on a completely new dataset.</p>
-<p>After reading the data, let us see how the train dataset looks like.</p>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6 × 38
@@ -343,8 +342,8 @@ EC1 represents the class of enzymes known as oxidoreductases. These enzymes cata
 <div class="cell">
 <div class="cell-output-display">
 
-<div id="htmlwidget-42cf7e31bfca9807c85b" style="width:500px;height:500px;" class="datatables html-widget "></div>
-<script type="application/json" data-for="htmlwidget-42cf7e31bfca9807c85b">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4","5","6"],[11.93829424,0,6.606881965,0,12.84164325,0],[1.181818182,1.346153846,1.085714286,1.162790698,1.444444444,1.083333333],[-0.24,-0.09,-0.78,-1.3,-1.1,-0.98],[8.17,3.201490511,15.03388953,6.724301321,3.931271989,3.015404674],[11.92250394,10.93233796,11.2380483,11.17117021,9.855740741,10.08746929],[0.171585412,-4.830449539,-5.066255336,-5.276575465,-1.676296296,-1.669305556],[0,24.41586555,0,42.72776471,6.041840829,0],[91.53649165,7.822697123,15.64539425,21.33513764,11.93861058,5.969305288],[0,0,0,0,6.9237372,0],[0,0,53.37823529,0,19.38639965,0],[0,0,0,6.420821623,0,0],[17.74406608,7.822697123,15.64539425,15.64539425,11.93861058,11.75255023],[0,30.70589228,73.14361574,62.10730426,18.88348408,24.41586555],[0,0,0,0,2,1],[1,0,1,1,1,1],[1,1,1,1,0,0]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>EState_VSA2<\/th>\n      <th>FpDensityMorgan1<\/th>\n      <th>HallKierAlpha<\/th>\n      <th>Kappa3<\/th>\n      <th>MaxAbsEStateIndex<\/th>\n      <th>MinEStateIndex<\/th>\n      <th>PEOE_VSA10<\/th>\n      <th>PEOE_VSA14<\/th>\n      <th>PEOE_VSA6<\/th>\n      <th>PEOE_VSA7<\/th>\n      <th>PEOE_VSA8<\/th>\n      <th>SMR_VSA10<\/th>\n      <th>SMR_VSA5<\/th>\n      <th>fr_COO2<\/th>\n      <th>EC1<\/th>\n      <th>EC2<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":6,"columnDefs":[{"className":"dt-right","targets":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[6,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-307443e70f91be0c7ff1" style="width:500px;height:500px;" class="datatables html-widget "></div>
+<script type="application/json" data-for="htmlwidget-307443e70f91be0c7ff1">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4","5","6"],[11.93829424,0,6.606881965,0,12.84164325,0],[1.181818182,1.346153846,1.085714286,1.162790698,1.444444444,1.083333333],[-0.24,-0.09,-0.78,-1.3,-1.1,-0.98],[8.17,3.201490511,15.03388953,6.724301321,3.931271989,3.015404674],[11.92250394,10.93233796,11.2380483,11.17117021,9.855740741,10.08746929],[0.171585412,-4.830449539,-5.066255336,-5.276575465,-1.676296296,-1.669305556],[0,24.41586555,0,42.72776471,6.041840829,0],[91.53649165,7.822697123,15.64539425,21.33513764,11.93861058,5.969305288],[0,0,0,0,6.9237372,0],[0,0,53.37823529,0,19.38639965,0],[0,0,0,6.420821623,0,0],[17.74406608,7.822697123,15.64539425,15.64539425,11.93861058,11.75255023],[0,30.70589228,73.14361574,62.10730426,18.88348408,24.41586555],[0,0,0,0,2,1],[1,0,1,1,1,1],[1,1,1,1,0,0]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>EState_VSA2<\/th>\n      <th>FpDensityMorgan1<\/th>\n      <th>HallKierAlpha<\/th>\n      <th>Kappa3<\/th>\n      <th>MaxAbsEStateIndex<\/th>\n      <th>MinEStateIndex<\/th>\n      <th>PEOE_VSA10<\/th>\n      <th>PEOE_VSA14<\/th>\n      <th>PEOE_VSA6<\/th>\n      <th>PEOE_VSA7<\/th>\n      <th>PEOE_VSA8<\/th>\n      <th>SMR_VSA10<\/th>\n      <th>SMR_VSA5<\/th>\n      <th>fr_COO2<\/th>\n      <th>EC1<\/th>\n      <th>EC2<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":6,"columnDefs":[{"className":"dt-right","targets":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[6,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <p>Let us now create the correlation plot of the revised dataset.</p>

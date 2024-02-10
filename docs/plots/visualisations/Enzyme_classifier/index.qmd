@@ -12,16 +12,18 @@ execute:
   message: false
 ---
 
+!["Source: Google images"](https://y9s5q4c4.stackpathcdn.com/wp-content/uploads/2021/07/enzymology-1.png){width="40%" height="30%"}
+
 # Introduction
 
-!["Source: Google images"](https://y9s5q4c4.stackpathcdn.com/wp-content/uploads/2021/07/enzymology-1.png){width="40%" height="30%"}
+The Enzyme Commission (EC) system is a widely accepted classification system used to categorize enzymes based on their catalytic activities. Enzymes play crucial roles in biological processes by accelerating chemical reactions and facilitating various metabolic pathways within living organisms. The EC system assigns a unique EC number to each enzyme, which provides valuable information about its function and specificity.
+
 
 <div class="warning" style='background-color:#E9D8FD; color: #69337A; border-left: solid #805AD5 4px; border-radius: 4px; padding:0.7em;'>
 <span>
 <p style='margin-top:1em; text-align:center'>
 <b>What are we trying to study ?</b></p>
 <p style='margin-left:1em;'>
-The Enzyme Commission (EC) system is a widely accepted classification system used to categorize enzymes based on their catalytic activities. Enzymes play crucial roles in biological processes by accelerating chemical reactions and facilitating various metabolic pathways within living organisms. The EC system assigns a unique EC number to each enzyme, which provides valuable information about its function and specificity.
 
 EC1 represents the class of enzymes known as oxidoreductases. These enzymes catalyze oxidation-reduction reactions, which involve the transfer of electrons between molecules. Oxidoreductases are involved in a wide range of biological processes, including energy production, biosynthesis, and detoxification. Examples of oxidoreductases include dehydrogenases, oxidases, reductases, and peroxidases.<br> </br>
     The <b> Enzyme Commission (EC) </b> system provides a systematic and standardized approach for classifying enzymes based on their catalytic activities. EC1 represents the class of oxidoreductases, which participate in oxidation-reduction reactions, while the second digit in the EC number provides more specific information about the enzyme's function. This classification system facilitates the study of enzymes and helps researchers gain insights into their structure, function, and potential applications in various fields, including medicine, biotechnology, and industrial processes.
@@ -67,8 +69,6 @@ Great ! We have all the libraries loaded. Next, we are gonna load the required d
 
 We will use one dataset for the purpose of exploratory data analysis and training the classification model while the test dataset for testing the classification model on a completely new dataset.
 
-
-After reading the data, let us see how the train dataset looks like.
 
 ```{r read-data}
 

@@ -6,9 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="dcterms.date" content="2024-02-09">
+<meta name="author" content="Arindam Baruah">
+<meta name="dcterms.date" content="2024-02-10">
 
-<title>R-insights 📊📈🖥️ - Utilisation of layered radar plots to understand how two entities differ from one another</title>
+<title>R-insights 📊📈🖥️ - Utilisation of layered radar plots to understand how two entities differ from one another 🕸️🕵️‍♂️</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -160,7 +161,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">Utilisation of layered radar plots to understand how two entities differ from one another</h1>
+      <h1 class="title">Utilisation of layered radar plots to understand how two entities differ from one another 🕸️🕵️‍♂️</h1>
                                 <div class="quarto-categories">
                 <div class="quarto-category">data cleaning</div>
                 <div class="quarto-category">exploratory data analysis</div>
@@ -173,11 +174,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   
   <div class="quarto-title-meta">
 
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Arindam Baruah </p>
+            </div>
+    </div>
       
       <div>
       <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">February 9, 2024</p>
+        <p class="date">February 10, 2024</p>
       </div>
     </div>
     
@@ -199,7 +206,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h1 data-number="1"><span class="header-section-number">1</span> Introduction</h1>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://y9s5q4c4.stackpathcdn.com/wp-content/uploads/2021/07/enzymology-1.png" class="img-fluid figure-img"></p>
+<p><img src="https://y9s5q4c4.stackpathcdn.com/wp-content/uploads/2021/07/enzymology-1.png" style="width:40.0%;height:30.0%" class="figure-img"></p>
 <figcaption class="figure-caption">“Source: Google images”</figcaption>
 </figure>
 </div>
@@ -240,7 +247,7 @@ EC1 represents the class of enzymes known as oxidoreductases. These enzymes cata
 #   VSA_EState9 &lt;dbl&gt;, fr_COO &lt;dbl&gt;, fr_COO2 &lt;dbl&gt;, EC1 &lt;dbl&gt;, EC2 &lt;dbl&gt;, …</code></pre>
 </div>
 </div>
-<p>We can observe that there are multiple process parameters present in the dataset which can help us analyse and predict the values of <strong>EC1 and EC2</strong>. But what do all these variables tell us ? Based on the information from <a href="https://www.kaggle.com/code/tumpanjawat/s3e18-eda-cluster-ensemble-ada-cat-gb/notebook">Panmie’s Kaggle notebook</a>, following are the explanations of each of these variables.</p>
+<p>We can observe that there are multiple process parameters present in the dataset which can help us analyse and predict the values of <strong>EC1 and EC2</strong>. But what do all these variables tell us ? Following are the explanations of each of these variables.</p>
 <ol type="1">
 <li><p><strong>Id</strong>: This feature represents the identifier or unique identification number of a molecule. It serves as a reference but doesn’t directly contribute to the predictive model.</p></li>
 <li><p><strong>BertzCT</strong>: This feature corresponds to the Bertz complexity index, which measures the structural complexity of a molecule. It can provide insights into the intricacy of molecular structures.</p></li>
@@ -336,8 +343,8 @@ EC1 represents the class of enzymes known as oxidoreductases. These enzymes cata
 <div class="cell">
 <div class="cell-output-display">
 
-<div id="htmlwidget-277d78160d71ee068229" style="width:500px;height:500px;" class="datatables html-widget "></div>
-<script type="application/json" data-for="htmlwidget-277d78160d71ee068229">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4","5","6"],[11.93829424,0,6.606881965,0,12.84164325,0],[1.181818182,1.346153846,1.085714286,1.162790698,1.444444444,1.083333333],[-0.24,-0.09,-0.78,-1.3,-1.1,-0.98],[8.17,3.201490511,15.03388953,6.724301321,3.931271989,3.015404674],[11.92250394,10.93233796,11.2380483,11.17117021,9.855740741,10.08746929],[0.171585412,-4.830449539,-5.066255336,-5.276575465,-1.676296296,-1.669305556],[0,24.41586555,0,42.72776471,6.041840829,0],[91.53649165,7.822697123,15.64539425,21.33513764,11.93861058,5.969305288],[0,0,0,0,6.9237372,0],[0,0,53.37823529,0,19.38639965,0],[0,0,0,6.420821623,0,0],[17.74406608,7.822697123,15.64539425,15.64539425,11.93861058,11.75255023],[0,30.70589228,73.14361574,62.10730426,18.88348408,24.41586555],[0,0,0,0,2,1],[1,0,1,1,1,1],[1,1,1,1,0,0]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>EState_VSA2<\/th>\n      <th>FpDensityMorgan1<\/th>\n      <th>HallKierAlpha<\/th>\n      <th>Kappa3<\/th>\n      <th>MaxAbsEStateIndex<\/th>\n      <th>MinEStateIndex<\/th>\n      <th>PEOE_VSA10<\/th>\n      <th>PEOE_VSA14<\/th>\n      <th>PEOE_VSA6<\/th>\n      <th>PEOE_VSA7<\/th>\n      <th>PEOE_VSA8<\/th>\n      <th>SMR_VSA10<\/th>\n      <th>SMR_VSA5<\/th>\n      <th>fr_COO2<\/th>\n      <th>EC1<\/th>\n      <th>EC2<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":6,"columnDefs":[{"className":"dt-right","targets":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[6,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-42cf7e31bfca9807c85b" style="width:500px;height:500px;" class="datatables html-widget "></div>
+<script type="application/json" data-for="htmlwidget-42cf7e31bfca9807c85b">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4","5","6"],[11.93829424,0,6.606881965,0,12.84164325,0],[1.181818182,1.346153846,1.085714286,1.162790698,1.444444444,1.083333333],[-0.24,-0.09,-0.78,-1.3,-1.1,-0.98],[8.17,3.201490511,15.03388953,6.724301321,3.931271989,3.015404674],[11.92250394,10.93233796,11.2380483,11.17117021,9.855740741,10.08746929],[0.171585412,-4.830449539,-5.066255336,-5.276575465,-1.676296296,-1.669305556],[0,24.41586555,0,42.72776471,6.041840829,0],[91.53649165,7.822697123,15.64539425,21.33513764,11.93861058,5.969305288],[0,0,0,0,6.9237372,0],[0,0,53.37823529,0,19.38639965,0],[0,0,0,6.420821623,0,0],[17.74406608,7.822697123,15.64539425,15.64539425,11.93861058,11.75255023],[0,30.70589228,73.14361574,62.10730426,18.88348408,24.41586555],[0,0,0,0,2,1],[1,0,1,1,1,1],[1,1,1,1,0,0]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>EState_VSA2<\/th>\n      <th>FpDensityMorgan1<\/th>\n      <th>HallKierAlpha<\/th>\n      <th>Kappa3<\/th>\n      <th>MaxAbsEStateIndex<\/th>\n      <th>MinEStateIndex<\/th>\n      <th>PEOE_VSA10<\/th>\n      <th>PEOE_VSA14<\/th>\n      <th>PEOE_VSA6<\/th>\n      <th>PEOE_VSA7<\/th>\n      <th>PEOE_VSA8<\/th>\n      <th>SMR_VSA10<\/th>\n      <th>SMR_VSA5<\/th>\n      <th>fr_COO2<\/th>\n      <th>EC1<\/th>\n      <th>EC2<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":6,"columnDefs":[{"className":"dt-right","targets":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[6,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <p>Let us now create the correlation plot of the revised dataset.</p>
@@ -356,30 +363,26 @@ EC1 represents the class of enzymes known as oxidoreductases. These enzymes cata
 <section id="sec-label1" class="level2" data-number="3.2">
 <h2 data-number="3.2" class="anchored" data-anchor-id="sec-label1"><span class="header-section-number">3.2</span> Univariate analysis</h2>
 <p>Now that we have figured out the variables of interest, we will perform a univariate analysis of the revised dataset. One of the best ways to study the overall distribution of the variables is through a faceted histogram. Let us dive deeper.</p>
-<p>Based on our analysis of figure <strong>?@fig-facehist</strong>, we can observe that</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div id="fig-facehist" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="index_files/figure-html/fig-facehist-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption class="figure-caption">Figure&nbsp;4: Univariate analysis of variables</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Based on our analysis of figure <a href="#fig-facehist">Figure&nbsp;4</a>, we can observe that</p>
 <div class="alert alert-block alert-warning">
 <p>while most variables range over a large scale in the X-axis, certain variables, namely <b> FpDensityMorgan1 </b> and <b> Kappa3 </b> range over a very small scale on the X-axis. This indicates that there is a large scale difference among the various variables. Hence, the dataset could benefit from <b>standardisation technique</b> at a later point of the analysis.</p>
 </div>
 </section>
 <section id="multi-variate-analysis" class="level2" data-number="3.3">
 <h2 data-number="3.3" class="anchored" data-anchor-id="multi-variate-analysis"><span class="header-section-number">3.3</span> Multi-variate analysis</h2>
-<p>Now that we have performed a univariate analysis, it is now time to perform a multi-variate analysis to understand our variables better.</p>
-<p>Based on the analysis from figures <strong>?@fig-KappVMorgEC1</strong> and <strong>?@fig-KappVMorgEC2</strong>, we can observe that</p>
-<div class="alert alert-block alert-warning">
-<p>💡Most values of Kappa3 lie around 0 for both EC1 and EC2. There are very few datapoints which are higher than 0. Hence, majority of the datapoints can be clustered into one group.💡</p>
-</div>
-</section>
-<section id="estate_vsa2-and-peoe_vsa8" class="level2" data-number="3.4">
-<h2 data-number="3.4" class="anchored" data-anchor-id="estate_vsa2-and-peoe_vsa8"><span class="header-section-number">3.4</span> EState_VSA2 and PEOE_VSA8</h2>
-<p>These variables were observed to have a fair amount of correlation to each other. Let us try to visualise these parameters.</p>
-<p>Based on figures <strong>?@fig-EStateVSA8EC1</strong> and <strong>?@fig-EStateVSA8EC2</strong>, we can observe that</p>
-<div class="alert alert-block alert-warning">
-<p>💡there is no strong relationship for the two variables in each of the indicators.💡</p>
-</div>
-<p>While we have reduced the number of variables for analysis, we still have a sizable number of variables to analyse. Let us instead plot the variable importance and choose the top 5 variables to study.</p>
-</section>
-<section id="feature-importance" class="level2" data-number="3.5">
-<h2 data-number="3.5" class="anchored" data-anchor-id="feature-importance"><span class="header-section-number">3.5</span> Feature importance</h2>
+<p>Now that we have performed a univariate analysis, it is now time to perform a multi-variate analysis to understand our variables better. For this, we need to first zone in on the most important variables which we will be studying. We can utilised the XGBoost algorithm which rates the variables based on a boosted score.</p>
+<section id="feature-importance" class="level3" data-number="3.3.1">
+<h3 data-number="3.3.1" class="anchored" data-anchor-id="feature-importance"><span class="header-section-number">3.3.1</span> Feature importance</h3>
 <p>To study feature importance, let us use the XGBoost algorithm.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">101</span>)</span>
@@ -394,25 +397,77 @@ EC1 represents the class of enzymes known as oxidoreductases. These enzymes cata
 <span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>train_EC2<span class="ot">=</span><span class="fu">subset</span>(df_train_new_EC2,sample_EC2<span class="sc">==</span>T)</span>
 <span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>test_EC2<span class="ot">=</span><span class="fu">subset</span>(df_train_new_EC2,sample_EC2<span class="sc">==</span>F)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] train-logloss:0.604235 
+[2] train-logloss:0.592298 </code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] train-logloss:0.499218 
+[2] train-logloss:0.494251 </code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>xgb_EC1_importance <span class="ot">&lt;-</span> <span class="fu">xgb.importance</span>(<span class="fu">colnames</span>(train_EC1 <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="sc">-</span>EC1)), <span class="at">model =</span> xgb_model_EC1, </span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>               <span class="at">data =</span> <span class="fu">as.matrix</span>(train_EC1 <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="sc">-</span>EC1)), <span class="at">label =</span> train_EC1<span class="sc">$</span>EC1)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>xgb_EC2_importance <span class="ot">&lt;-</span> <span class="fu">xgb.importance</span>(<span class="fu">colnames</span>(train_EC2 <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="sc">-</span>EC2)), <span class="at">model =</span> xgb_model_EC2, </span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>               <span class="at">data =</span> <span class="fu">as.matrix</span>(train_EC2 <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="sc">-</span>EC2)), <span class="at">label =</span> train_EC2<span class="sc">$</span>EC2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div id="fig-featplotEC1" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="index_files/figure-html/fig-featplotEC1-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption class="figure-caption">Figure&nbsp;5: Feature importances for EC1 using XGBoost</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div id="fig-featplotEC2" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="index_files/figure-html/fig-featplotEC2-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption class="figure-caption">Figure&nbsp;6: Feature importances for EC2 using XGBoost</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Based on <a href="#fig-featplotEC1">Figure&nbsp;5</a> and <a href="#fig-featplotEC2">Figure&nbsp;6</a>,</p>
 <div class="alert alert-block alert-warning">
 <p>💡 we have obtained the top 5 features using the XGBoost model for each of the EC1 and EC2 indicators. This will help us concentrate our EDA efforts only on the most important features.💡</p>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>However, we need to think of an appropriate plot for us to visualise and understand the differences in the variables when it comes to EC1 and EC2 indicators. One such plot which can be used is the radar plot. The radar plot allows us to compare the standardised median or mean values for each variable while assessing the values for the EC1 and EC2 enzymes. Additionally, the radar plot is layered one over the other which gives us a better idea on the difference of the median standardised values and aids us to quickly understand any differences in the plot.</p>
+</div>
 </div>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div id="fig-radplot" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="index_files/figure-html/fig-radplot-1.png" class="img-fluid figure-img" width="672"></p>
-<figcaption class="figure-caption">Figure&nbsp;4: Median standaridised values for EC1 and EC2 indicators</figcaption>
+<figcaption class="figure-caption">Figure&nbsp;7: Median standaridised values for EC1 and EC2 indicators</figcaption>
 </figure>
 </div>
 </div>
 </div>
-<p>After analysing <a href="#fig-radplot">Figure&nbsp;4</a>, we observe that</p>
+<p>After analysing <a href="#fig-radplot">Figure&nbsp;7</a>, we observe that</p>
 <div class="alert alert-block alert-warning">
 <p>💡 The median standardised values for both EC1 and EC2 indicators are very similar. The major difference however can be observed for the variable PEOE_VSA7. EC2 is observed to demonstrate a relatively lower scaled value when compared to EC1.💡</p>
 </div>
 
 
+</section>
 </section>
 </section>
 

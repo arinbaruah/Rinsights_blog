@@ -1,7 +1,9 @@
 ---
-title: "Utilisation of layered radar plots to understand how two entities differ from one another"
+title: "Utilisation of layered radar plots to understand how two entities differ from one another 🕸️🕵️‍♂️"
 categories: [data cleaning,exploratory data analysis,visualisation,radar plot]
-date: "2024-02-09"
+author: "Arindam Baruah"
+date: "2024-02-10"
+image: "radplot.png"
 format: html
 number-sections: true
 execute: 
@@ -12,7 +14,7 @@ execute:
 
 # Introduction
 
-!["Source: Google images"](https://y9s5q4c4.stackpathcdn.com/wp-content/uploads/2021/07/enzymology-1.png)
+!["Source: Google images"](https://y9s5q4c4.stackpathcdn.com/wp-content/uploads/2021/07/enzymology-1.png){width="40%" height="30%"}
 
 <div class="warning" style='background-color:#E9D8FD; color: #69337A; border-left: solid #805AD5 4px; border-radius: 4px; padding:0.7em;'>
 <span>
@@ -75,7 +77,7 @@ df_test <-  read_csv("data/test.csv")
 head(df_train)
 ```
 
-We can observe that there are multiple process parameters present in the dataset which can help us analyse and predict the values of __EC1 and EC2__. But what do all these variables tell us ? Based on the information from [Panmie's Kaggle notebook](https://www.kaggle.com/code/tumpanjawat/s3e18-eda-cluster-ensemble-ada-cat-gb/notebook), following are the explanations of each of these variables.
+We can observe that there are multiple process parameters present in the dataset which can help us analyse and predict the values of __EC1 and EC2__. But what do all these variables tell us ? Following are the explanations of each of these variables.
 
 1. __Id__: This feature represents the identifier or unique identification number of a molecule. It serves as a reference but doesn't directly contribute to the predictive model.
 
@@ -244,6 +246,15 @@ Figure @fig-corrplotnew depicts the correlation values of all the variables whic
 
 Now that we have figured out the variables of interest, we will perform a univariate analysis of the revised dataset. One of the best ways to study the overall distribution of the variables is through a faceted histogram. Let us dive deeper.
 
+```{r facethist,fig.cap="Univariate analysis of variables",fig.align='center'}
+#| label: fig-facehist
+#| fig-cap: "Univariate analysis of variables" 
+
+pl1 <- ggplot(data = gather(df_train_new), aes(x = value,fill = factor(key))) + geom_histogram() + facet_wrap(~key,scales ="free_x") + theme_classic() + ggtitle("Univariate analysis of variables") + theme(legend.position = "none",plot.title = element_text(hjust = 0.5)) + labs(y="Number of instances",x = "Value of variable")
+pl1
+
+```
+
 
 
 Based on our analysis of figure @fig-facehist, we can observe that 
@@ -254,35 +265,10 @@ while most variables range over a large scale in the X-axis, certain variables, 
 
 ## Multi-variate analysis
 
-Now that we have performed a univariate analysis, it is now time to perform a multi-variate analysis to understand our variables better.
+Now that we have performed a univariate analysis, it is now time to perform a multi-variate analysis to understand our variables better. For this, we need to first zone in on the most important variables which we will be studying. We can utilised the XGBoost algorithm which rates the variables based on a boosted score.
 
 
-
-
-
-
-Based on the analysis from figures @fig-KappVMorgEC1 and @fig-KappVMorgEC2, we can observe that 
-
-<div class="alert alert-block alert-warning">
-💡Most values of Kappa3 lie around 0 for both EC1 and EC2. There are very few datapoints which are higher than 0. Hence, majority of the datapoints can be clustered into one group.💡
-</div>
-
-## EState_VSA2 and PEOE_VSA8
-
-These variables were observed to have a fair amount of correlation to each other. Let us try to visualise these parameters.
-
-
-
-Based on figures @fig-EStateVSA8EC1 and @fig-EStateVSA8EC2, we can observe that
-
-<div class="alert alert-block alert-warning">
-💡there is no strong relationship for the two variables in each of the indicators.💡
-</div>
-
-While we have reduced the number of variables for analysis, we still have a sizable number of variables to analyse. Let us instead plot the variable importance and choose the top 5 variables to study.
-
-
-## Feature importance
+### Feature importance
 
 To study feature importance, let us use the XGBoost algorithm.
 
@@ -303,11 +289,49 @@ test_EC2=subset(df_train_new_EC2,sample_EC2==F)
 ```
 
 
+```{r}
+xgb_model_EC1 <- xgboost(data = as.matrix(train_EC1 %>% select(-EC1)), label = as.matrix(train_EC1$EC1), 
+                     max.depth = 2, eta = 1, nthread = 2, nrounds = 2, objective = "binary:logistic")
+
+xgb_model_EC2 <- xgboost(data = as.matrix(train_EC2 %>% select(-EC2)), label = as.matrix(train_EC2$EC2), 
+                     max.depth = 2, eta = 1, nthread = 2, nrounds = 2, objective = "binary:logistic")
+```
+
+```{r feature-importance,echo=TRUE}
+xgb_EC1_importance <- xgb.importance(colnames(train_EC1 %>% select(-EC1)), model = xgb_model_EC1, 
+               data = as.matrix(train_EC1 %>% select(-EC1)), label = train_EC1$EC1)
+
+xgb_EC2_importance <- xgb.importance(colnames(train_EC2 %>% select(-EC2)), model = xgb_model_EC2, 
+               data = as.matrix(train_EC2 %>% select(-EC2)), label = train_EC2$EC2)
+```
+
+```{r featplotEC1,fig.cap="Feature importances for EC1 \n using XGBoost",fig.align='center'}
+#| label: fig-featplotEC1
+#| fig-cap: "Feature importances for EC1 using XGBoost"
+pl5 <- ggplot(data =xgb_EC1_importance,aes(x = reorder(Feature,-Gain),y = round(Gain,2),fill=Feature)) + geom_col(color='black') + geom_label(aes(label = round(Gain,2))) + theme_classic() + ggtitle("Top 5 feature importances for EC1 \n using XGBoost") + labs(x = "Feature name",y = "Feature importance") + theme(plot.title = element_text(hjust = 0.5),legend.position = 'none',axis.title = element_text(face = 'bold'))
+pl5
+
+```
+
+```{r featplotEC2,fig.cap="Feature importances for EC2 \n using XGBoost",fig.align='center'}
+#| label: fig-featplotEC2
+#| fig-cap: "Feature importances for EC2 using XGBoost"
+pl6 <- ggplot(data =xgb_EC2_importance,aes(x = reorder(Feature,-Gain),y = round(Gain,2),fill=Feature)) + geom_col(color='black') + geom_label(aes(label = round(Gain,2))) + theme_classic() + ggtitle("Top 5 feature importances for EC2 \n using XGBoost") + labs(x = "Feature name",y = "Feature importance") + theme(plot.title = element_text(hjust = 0.5),legend.position = 'none',axis.title = element_text(face = 'bold')) + scale_fill_brewer(palette = 'Accent')
+pl6
+
+```
+
+Based on @fig-featplotEC1 and @fig-featplotEC2, 
 
 <div class="alert alert-block alert-warning">
 💡 we have obtained the top 5 features using the XGBoost model for each of the EC1 and EC2 indicators. This will help us concentrate our EDA efforts only on the most important features.💡
 </div>
 
+
+:::{.callout-note}
+
+However, we need to think of an appropriate plot for us to visualise and understand the differences in the variables when it comes to EC1 and EC2 indicators. One such plot which can be used is the radar plot. The radar plot allows us to compare the standardised median or mean values for each variable while assessing the values for the EC1 and EC2 enzymes. Additionally, the radar plot is layered one over the other which gives us a better idea on the difference of the median standardised values and aids us to quickly understand any differences in the plot.
+:::
 
 ```{r radwrang}
 

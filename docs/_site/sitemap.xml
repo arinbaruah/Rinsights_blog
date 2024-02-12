@@ -2,78 +2,74 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>htt/plots/index.html</loc>
-    <lastmod>2024-02-12T11:11:51.065Z</lastmod>
+    <lastmod>2024-02-12T20:55:45.223Z</lastmod>
   </url>
   <url>
     <loc>htt/plots/visualisations/Work_hours/index.html</loc>
-    <lastmod>2024-02-10T20:06:44.728Z</lastmod>
+    <lastmod>2024-02-12T20:55:44.166Z</lastmod>
   </url>
   <url>
     <loc>htt/plots/visualisations/Enzyme_classifier/index.html</loc>
-    <lastmod>2024-02-10T20:06:43.710Z</lastmod>
+    <lastmod>2024-02-12T20:55:42.955Z</lastmod>
   </url>
   <url>
     <loc>htt/index.html</loc>
-    <lastmod>2024-02-12T11:09:57.142Z</lastmod>
+    <lastmod>2024-02-12T20:55:41.262Z</lastmod>
   </url>
   <url>
     <loc>htt/posts/blogs/Mach_failure_preds/index.html</loc>
-    <lastmod>2024-02-10T20:06:38.175Z</lastmod>
+    <lastmod>2024-02-12T20:55:38.452Z</lastmod>
   </url>
   <url>
     <loc>htt/posts/blogs/football_analysis/index.html</loc>
-    <lastmod>2024-02-10T20:06:35.960Z</lastmod>
+    <lastmod>2024-02-12T20:55:36.006Z</lastmod>
   </url>
   <url>
     <loc>htt/posts/blogs/woylies_sightings/index.html</loc>
-    <lastmod>2024-02-10T20:06:34.219Z</lastmod>
-  </url>
-  <url>
-    <loc>htt/posts/blogs/welcome/index.html</loc>
-    <lastmod>2024-02-10T20:06:31.499Z</lastmod>
-  </url>
-  <url>
-    <loc>htt/posts/blogs/coastal_taipan_sightings/index.html</loc>
-    <lastmod>2024-02-12T11:11:15.837Z</lastmod>
-  </url>
-  <url>
-    <loc>htt/posts/blogs/Bank_churn/index.html</loc>
-    <lastmod>2024-02-10T20:06:31.171Z</lastmod>
+    <lastmod>2024-02-12T20:55:34.085Z</lastmod>
   </url>
   <url>
     <loc>htt/posts/blogs/gender_diversity/index.html</loc>
-    <lastmod>2024-02-10T20:06:32.356Z</lastmod>
+    <lastmod>2024-02-12T20:55:29.628Z</lastmod>
+  </url>
+  <url>
+    <loc>htt/posts/blogs/Bank_churn/index.html</loc>
+    <lastmod>2024-02-12T20:55:28.336Z</lastmod>
+  </url>
+  <url>
+    <loc>htt/posts/blogs/coastal_taipan_sightings/index.html</loc>
+    <lastmod>2024-02-12T20:55:26.723Z</lastmod>
+  </url>
+  <url>
+    <loc>htt/posts/blogs/welcome/index.html</loc>
+    <lastmod>2024-02-12T20:55:28.688Z</lastmod>
+  </url>
+  <url>
+    <loc>htt/posts/blogs/Women_Chess_players/index.html</loc>
+    <lastmod>2024-02-12T20:55:32.000Z</lastmod>
   </url>
   <url>
     <loc>htt/posts/blogs/mdss_datathon/index.html</loc>
-    <lastmod>2024-02-10T20:06:35.258Z</lastmod>
+    <lastmod>2024-02-12T20:55:35.233Z</lastmod>
   </url>
   <url>
     <loc>htt/posts/blogs/field_diversity/index.html</loc>
-    <lastmod>2024-02-10T20:06:36.824Z</lastmod>
+    <lastmod>2024-02-12T20:55:36.961Z</lastmod>
   </url>
   <url>
     <loc>htt/posts/index.html</loc>
-    <lastmod>2024-02-12T11:11:17.608Z</lastmod>
+    <lastmod>2024-02-12T20:55:39.936Z</lastmod>
   </url>
   <url>
     <loc>htt/about.html</loc>
-    <lastmod>2024-02-10T20:06:42.681Z</lastmod>
+    <lastmod>2024-02-12T20:55:41.865Z</lastmod>
   </url>
   <url>
     <loc>htt/plots/visualisations/welcome/index.html</loc>
-    <lastmod>2024-02-10T20:06:44.036Z</lastmod>
+    <lastmod>2024-02-12T20:55:43.319Z</lastmod>
   </url>
   <url>
     <loc>htt/plots/visualisations/January/index.html</loc>
-    <lastmod>2024-02-10T20:06:45.099Z</lastmod>
-  </url>
-  <url>
-    <loc>htt/posts/blogs/Women's Chess players/Chess_players_v1.html</loc>
-    <lastmod>2024-02-12T08:41:24.180Z</lastmod>
-  </url>
-  <url>
-    <loc>htt/posts/blogs/Women_Chess_players/Chess_players_v1.html</loc>
-    <lastmod>2024-02-12T11:07:38.548Z</lastmod>
+    <lastmod>2024-02-12T20:55:44.572Z</lastmod>
   </url>
 </urlset>

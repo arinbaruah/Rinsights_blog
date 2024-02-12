@@ -3,7 +3,7 @@ title: "Analysing the ranking system of the leading World Chess players ♟️�
 author: "Arindam Baruah"
 categories: [python,data cleaning,exploratory data analysis,visualisation,choropleth,]
 date: "2024-02-12"
-image: "chess.jpg"
+image: "chess.png"
 jupyter: python3
 number-sections: true
 format: 

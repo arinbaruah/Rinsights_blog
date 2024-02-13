@@ -413,11 +413,11 @@
     "text": "3.3 Ratings\nWe see that there are null values in rapid and blitz rating. Let us fill the null values with 0 instead since it probably indicates that the player hasn’t taken part in that particular format of chess.\n\n\nCode\ndf['Rapid_rating']=df['Rapid_rating'].fillna(0)\ndf['Blitz_rating']=df['Blitz_rating'].fillna(0)"
   },
   {
-    "objectID": "posts/blogs/Women_Chess_players/index.html#inactive_flag",
-    "href": "posts/blogs/Women_Chess_players/index.html#inactive_flag",
+    "objectID": "posts/blogs/Women_Chess_players/index.html#inactive-flag",
+    "href": "posts/blogs/Women_Chess_players/index.html#inactive-flag",
     "title": "Analysing the ranking system of the leading World Chess players ♟️♟",
-    "section": "3.4 Inactive_flag",
-    "text": "3.4 Inactive_flag\nThis flag indicates if the players are currently inactive for a fixed duration or longer. This could be for various reasons such as retirement or any other personal reasons. The null values indicate Active while WI indicates Inactive. We shall align the data into more readable form.\n\n\nCode\ndf['Inactive_flag']=df['Inactive_flag'].fillna('Active')\ndf['Inactive_flag']=df['Inactive_flag'].replace('wi','Inactive')"
+    "section": "3.4 Inactive flag",
+    "text": "3.4 Inactive flag\nThis flag indicates if the players are currently inactive for a fixed duration or longer. This could be for various reasons such as retirement or any other personal reasons. The null values indicate Active while WI indicates Inactive. We shall align the data into more readable form.\n\n\nCode\ndf['Inactive_flag']=df['Inactive_flag'].fillna('Active')\ndf['Inactive_flag']=df['Inactive_flag'].replace('wi','Inactive')"
   },
   {
     "objectID": "posts/blogs/Women_Chess_players/index.html#federation",
@@ -551,12 +551,5 @@
     "title": "Upset plots to analyse intersections and unions in data 📊💡",
     "section": "",
     "text": "Description\nImagine visualising data with multiple intersections and unions, making drawing insights from a traditional Venn diagram extremely complex! 🤔🤷\nIntroducing the Upset Plots! 💡\nIn this month’s visualisation challenge, I was implemented an “Upset plots”. This utilitarian plot, while not the easiest to comprehend at the get-go, is incredibly useful for studying intersections within our data. 📈📊\nThe plot works on a combination matrix and creates the bar plot by summing the frequencies of the observations for every respective combination of observations. ⚙️\nHere is my attempt at visualising data on the popular book reads between 1980-2023 where we can observe a trend of book choices with inter-genre content. The visualisation was created using the UpSetR package on R studio.\n\n\n\nAn upset plot depicting the intersections and total observations\n\n\n\n\n\n\n\n\nImportant sources\n\n\n\nData source: https://www.kaggle.com/datasets/cristaliss/ultimate-book-collection-top-100-books-up-to-2023\nIf you’re interested in the code which went behind the creation of the above plot, please refer to the link here.\n\n\n\n\nReferences\n\nR studio: RStudio Team (2020). RStudio: Integrated Development for R. RStudio, PBC, Boston, MA URL http://www.rstudio.com/.\nggplot2: H. Wickham. ggplot2: Elegant Graphics for Data Analysis. Springer-Verlag New York, 2016.\nUpsetR: Gehlenborg N (2019). UpSetR: A More Scalable Alternative to Venn and Euler Diagrams for Visualizing Intersecting Sets. R package version 1.4.0, https://CRAN.R-project.org/package=UpSetR."
-  },
-  {
-    "objectID": "posts/blogs/Women_Chess_players/index.html#inactive-flag",
-    "href": "posts/blogs/Women_Chess_players/index.html#inactive-flag",
-    "title": "Analysing the ranking system of the leading World Chess players ♟️♟",
-    "section": "3.4 Inactive flag",
-    "text": "3.4 Inactive flag\nThis flag indicates if the players are currently inactive for a fixed duration or longer. This could be for various reasons such as retirement or any other personal reasons. The null values indicate Active while WI indicates Inactive. We shall align the data into more readable form.\n\n\nCode\ndf['Inactive_flag']=df['Inactive_flag'].fillna('Active')\ndf['Inactive_flag']=df['Inactive_flag'].replace('wi','Inactive')"
   }
 ]

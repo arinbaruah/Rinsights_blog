@@ -2,6 +2,8 @@
   {
     "listing": "/docs/plots/index.html",
     "items": [
+      "/docs/plots/visualisations/Enzyme_classifier/index.html",
+      "/docs/plots/visualisations/Work_hours/index.html",
       "/docs/plots/visualisations/January/index.html",
       "/docs/plots/visualisations/welcome/index.html"
     ]
@@ -9,6 +11,7 @@
   {
     "listing": "/docs/posts/index.html",
     "items": [
+      "/docs/posts/blogs/Women_Chess_players/index.html",
       "/docs/posts/blogs/woylies_sightings/index.html",
       "/docs/posts/blogs/football_analysis/index.html",
       "/docs/posts/blogs/coastal_taipan_sightings/index.html",

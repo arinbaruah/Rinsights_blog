@@ -353,9 +353,9 @@ EC2_imp <- rbind(rep(1,ncol(df_train_new_EC2_scaled -1)) , rep(-1,ncol(df_train_
 
 
 
-```{r radplot,fig.cap="Median standaridised values for EC1 and EC2 indicators",fig.align='center',eval=TRUE}
+```{r radplot,fig.cap="Median standardised values for EC1 and EC2 indicators",fig.align='center',eval=TRUE}
 #| label: fig-radplot
-#| fig-cap: "Median standaridised values for EC1 and EC2 indicators" 
+#| fig-cap: "Median standardised values for EC1 and EC2 indicators" 
 EC_imp <- EC1_imp
 EC_imp <- rbind(EC1_imp,EC2_imp[3,])
 rownames(EC_imp) <- 1:nrow(EC_imp)
@@ -372,7 +372,7 @@ radarchart(EC_imp,
            plty = 1,        # Line type for each line
            pfcol = areas,   # Color of the areas
            vlcex=0.5,      # Size of label
-           title=paste("Median standaridised values for EC1 and EC2 indicators")
+           title=paste("Median standardised values for EC1 and EC2 indicators")
            
            )   
 

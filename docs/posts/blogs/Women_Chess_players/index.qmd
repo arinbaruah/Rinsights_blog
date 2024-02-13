@@ -4,13 +4,16 @@ author: "Arindam Baruah"
 categories: [python,data cleaning,exploratory data analysis,visualisation,choropleth,]
 date: "2024-02-12"
 image: "chess.png"
-jupyter: python3
 number-sections: true
 format: 
   html:
     code-fold: true
-
+execute: 
+  warning: false
+  message: false
 ---
+
+
 # Introduction
 
 Chess has been one of the most famous games to have originated from the ancient civilisations. The game is said to be about 1500 years old. It is hard to ascertain who came up with the game for the first time as different versions with identical rules were being followed at different continents and civilisations.
@@ -52,7 +55,8 @@ First, we will try to visualise the number of missing values in each column.
 ```{python}
 #| label: fig-miss
 #| fig-cap: "Missingness observed in the data"
-sns.heatmap(df.isna(),cmap='gnuplot')
+heatmap = sns.heatmap(df.isna(),cmap='gnuplot')
+
 ```
 
 From the above figure, we can see that Year of birth, title,Rapid rating, Blitz rating and inactive_flag have a lot of null values. 
@@ -97,7 +101,7 @@ df['Rapid_rating']=df['Rapid_rating'].fillna(0)
 df['Blitz_rating']=df['Blitz_rating'].fillna(0)
 ```
 
-## Inactive_flag
+## Inactive flag
 
 This flag indicates if the players are currently inactive for a fixed duration or longer. This could be for various reasons such as retirement or any other personal reasons. The null values indicate Active while WI indicates Inactive. We shall align the data into more readable form.
 
@@ -173,6 +177,7 @@ df_title=df.groupby('Title')['Count'].sum().reset_index().sort_values(by='Count'
 fig2=px.pie(df_title,values='Count',names='Title',hole=0.4)
 fig2.update_layout(title='Title distribution of women chess players',title_x=.5,annotations=[dict(text='Title',font_size=20, 
                                                                            showarrow=False,height=800,width=700)])
+fig2.show()                                                                          
 ```
 
 As expecred, majority of the players (about 63.5%) are still unrated. This means there are a lot of players who are yet to receive an official title from FIDE. There are only 37 women Grand masters in the world. Hence, receiving a GM title is an achievement on it's own.

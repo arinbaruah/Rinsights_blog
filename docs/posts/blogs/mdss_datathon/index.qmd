@@ -1,7 +1,7 @@
 ---
 title: "Regional Variations in Waste Management Practices: A Case Study of Australia ♻️ "
 author: "Arindam Baruah, Aishwarya Anil Kumar"
-categories: [data cleaning,choropleth,exploratory data analysis,visualisation]
+categories: [R,data cleaning,choropleth,exploratory data analysis,visualisation]
 date: "2024-01-20"
 image: "waste.jpg"
 number-sections: true

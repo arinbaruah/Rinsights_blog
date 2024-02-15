@@ -2,7 +2,7 @@
 title: "The Enigmatic Coastal Taipan: Australia's Deadly Serpent 🐍"
 author: "Arindam Baruah,Aishwarya Anil Kumar"
 image: "taipan.jpg"
-categories: [data cleaning,exploratory data analysis,visualisation,null plots,choropleth,spatial analysis,temporal analysis]
+categories: [R,data cleaning,exploratory data analysis,visualisation,null plots,choropleth,spatial analysis,temporal analysis]
 date: "2024-01-21"
 format: html
 bibliography: references.bib

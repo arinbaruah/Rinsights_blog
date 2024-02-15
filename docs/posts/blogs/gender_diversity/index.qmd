@@ -2,7 +2,7 @@
 title: "Equity in Academia: A New Era of Gender Diversity in US PhD Programs 🧑‍🎓👩‍🎓"
 author: "Arindam Baruah"
 date: "2023-08-31"
-categories: [analysis,exploratory data analysis,visualisation,statistics,R-Shiny app]
+categories: [R,analysis,exploratory data analysis,visualisation,statistics,R-Shiny app]
 image: "equality.jpeg"
 number-sections: true
 toc: true

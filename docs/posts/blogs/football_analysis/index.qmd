@@ -2,7 +2,7 @@
 title: "A brief football match analysis using StatsBombR ⚽️"
 author: "Arindam Baruah"
 image: "football.png"
-categories: [match analysis,data cleaning,exploratory data analysis,visualisation,null plots,hypothesis test]
+categories: [R,match analysis,data cleaning,exploratory data analysis,visualisation,null plots,hypothesis test]
 date: "2024-01-24"
 format: html
 number-sections: true

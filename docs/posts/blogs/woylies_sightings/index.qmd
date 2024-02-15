@@ -2,7 +2,7 @@
 title: "Woylies Unveiled: A Peek into the World of Australia's Mysterious Marsupials"
 author: "Arindam Baruah, Tanish Johar, Ashvin Ranatunga, Kelly Nguyen, Yashika Taneja"
 image: "woylie.png"
-categories: [data cleaning,exploratory data analysis,visualisation,null plots,choropleth,spatial analysis,temporal analysis]
+categories: [R,data cleaning,exploratory data analysis,visualisation,null plots,choropleth,spatial analysis,temporal analysis]
 date: "2024-01-29"
 format: html
 number-sections: true

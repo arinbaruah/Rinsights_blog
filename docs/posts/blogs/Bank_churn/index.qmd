@@ -2,7 +2,7 @@
 title: "Detecting a possible event of bank churn using machine learning classification models 💸🏦"
 author: "Arindam Baruah"
 date: "2024-01-18"
-categories: [analysis,exploratory data analysis,visualisation,statistics,machine learning,classification model]
+categories: [R,analysis,exploratory data analysis,visualisation,statistics,machine learning,classification model]
 image: "figure/fig1.png"
 number-sections: true
 toc: true

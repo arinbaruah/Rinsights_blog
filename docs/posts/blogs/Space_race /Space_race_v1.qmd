@@ -1,18 +1,27 @@
 ---
-title: Introduction
-jupyter: python3
+title: "How has the space race among countries panned out ? 🚀"
+author: "Arindam Baruah"
+categories: [python,data cleaning,exploratory data analysis,visualisation,choropleth]
+date: "2024-02-18"
+image: "space_race.png"
+number-sections: true
+format: 
+  html:
+    code-fold: true
+execute: 
+  warning: false
+  message: false
 ---
 
 
-Ever since the start of world war when the USSR launched the first ever manmade sattelite into the space called the Sputnik, the world has taken great interests in trying to explore beyond the planet. Rocket science, Cosmology, Astronomy are the epitome of engineering and science that require extreme levels of theoretical as well as experimental work.
+Ever since the start of world war when the USSR launched the first ever man-made satellite into the space called the Sputnik, the world has taken great interests in trying to explore beyond the realms of our planet. Rocket science, Cosmology, Astronomy are the epitome of engineering and science that require extreme levels of theoretical as well as experimental work.
 
-A lot of mathematics goes behind when and where should a space launch take place for reaching it's destination at least possible resistance and with highest probability of success. At the same time, extreme levels of engineering is done to simulate the similar space conditions back on earth and test the launch vehicles for any possible failures. All these space missions require years of hard work, research and tests for success. 
+A lot of research goes behind when and where should a space launch take place for reaching it's destination at least possible resistance and with highest probability of success. At the same time, extreme levels of engineering is done to simulate the similar space conditions back on earth and test the launch vehicles for any possible failures. All these space missions require years of hard work, research and tests for success. 
 
-It provides immense national pride when launches are successful. However, it is also incredibly disheartening when the missions don't succeed and millions of dollars and national dreams burst into flames. However, as peculiar as science is, no experiment is ever famous without it's fair share of failures.
+It provides immense national pride when launches are successful. However, it is also incredibly disheartening when the missions don't succeed and millions of dollars alongwith national dreams burst into flames. However, as peculiar as science is, no experiment is ever famous without it's fair share of failures.
 
-I would love to thank the dataset contributor who has taken the effort to provide us with a great dataset that can help us analyse the various successes and failures of the space organisations world wide.
 
-![GSLV-F11-GSAT-7A-ISRO-1849642898-1545803401.jpg](attachment:GSLV-F11-GSAT-7A-ISRO-1849642898-1545803401.jpg)
+![Source: ISRO](space_race.png)
 
 # Importing the relevant libraries and dataset
 

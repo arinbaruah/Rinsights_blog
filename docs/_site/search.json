@@ -578,7 +578,7 @@
     "href": "posts/blogs/Space_race /Space_race_v1.html#rocket-status",
     "title": "How has the space race among countries panned out so far ? 🚀",
     "section": "4.2 Rocket status",
-    "text": "4.2 Rocket status\nLet us check how many rockets are currently active.\n\n\nCode\nsns.catplot(x = 'Status Rocket',kind='count',data=df,aspect=2,height=5,palette='viridis');\nplt.title('Current status of rockets',size=25)\nplt.xlabel('Rocket status',size=15)\n\n\nText(0.5, 9.066666666666652, 'Rocket status')\n\n\n\n\n\nAs we can see, about 800 rockets are still active while a majority of them have retired after completion of their mission."
+    "text": "4.2 Rocket status\nLet us check how many rockets are currently active.\n\n\nCode\nsns.catplot(x = 'Status Rocket',kind='count',data=df,aspect=2,height=5,palette='viridis');\nplt.title('Current status of rockets',size=25);\nplt.xlabel('Rocket status',size=15);\n\n\n\n\n\nAs we can see, about 800 rockets are still active while a majority of them have retired after completion of their mission."
   },
   {
     "objectID": "posts/blogs/Space_race /Space_race_v1.html#company-name",

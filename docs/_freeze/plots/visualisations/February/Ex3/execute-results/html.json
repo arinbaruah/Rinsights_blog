@@ -1,0 +1,16 @@
+{
+  "hash": "9c201d49675b2fbb57a0de0e4e345c57",
+  "result": {
+    "markdown": "---\ntitle: \"Simplifying the Scene: Streamlining Visualization Plots for Clarity\"\ncategories: [data cleaning,exploratory data analysis,visualisation,line plots,annotations]\nauthor: \"Arindam Baruah\"\ndate: \"2024-02-29\"\nimage: \"radplot.png\"\nformat: html\nnumber-sections: true\nexecute: \n  warning: false\n  echo: false\n  message: false\n---\n\n::: {.cell}\n\n:::\n\n::: {.cell}\n\n:::\n\n::: {.cell}\n\n:::\n\n::: {.cell}\n::: {.cell-output-display}\n![](Ex3_files/figure-html/unnamed-chunk-4-1.png){width=672}\n:::\n:::\n\n::: {.cell}\n\n:::\n",
+    "supporting": [
+      "Ex3_files"
+    ],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

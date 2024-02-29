@@ -1,8 +1,15 @@
 ---
-title: "Exercise 3"
+title: "Simplifying the Scene: Streamlining Visualization Plots for Clarity"
+categories: [data cleaning,exploratory data analysis,visualisation,line plots,annotations]
 author: "Arindam Baruah"
+date: "2024-02-29"
+image: "radplot.png"
 format: html
-editor: visual
+number-sections: true
+execute: 
+  warning: false
+  echo: false
+  message: false
 ---
 
 ```{r}
@@ -10,7 +17,6 @@ library(tidyverse)
 library(ggplot2)
 library(ggthemes)
 ```
-
 
 ```{r}
 df <- read_csv("data.csv",skip = 1)
@@ -22,7 +28,6 @@ df_clean <- df %>% select(2:dim(df)[2]) %>% rename("Type" = "...2")
 df_long <- df_clean %>% pivot_longer(names_to = "Year",
                                      values_to = "Percentage",cols = 2:5) %>% filter(Type != "Total")
 ```
-
 
 ```{r}
 pl1 <-
@@ -65,4 +70,3 @@ pl1 + guides(color = guide_legend(override.aes = list(label = c(""))))
 ```{r}
 
 ```
-

@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>htt/plots/index.html</loc>
-    <lastmod>2024-03-01T00:47:52.965Z</lastmod>
+    <lastmod>2024-03-01T00:50:33.294Z</lastmod>
   </url>
   <url>
     <loc>htt/plots/visualisations/Work_hours/index.html</loc>
@@ -14,7 +14,7 @@
   </url>
   <url>
     <loc>htt/index.html</loc>
-    <lastmod>2024-02-29T23:57:33.943Z</lastmod>
+    <lastmod>2024-03-01T00:50:34.846Z</lastmod>
   </url>
   <url>
     <loc>htt/posts/blogs/Mach_failure_preds/index.html</loc>
@@ -79,5 +79,9 @@
   <url>
     <loc>htt/plots/visualisations/February/Ex3.html</loc>
     <lastmod>2024-03-01T00:47:52.505Z</lastmod>
+  </url>
+  <url>
+    <loc>htt/plots/visualisations/February/index.html</loc>
+    <lastmod>2024-03-01T00:50:32.779Z</lastmod>
   </url>
 </urlset>

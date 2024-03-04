@@ -1,5 +1,5 @@
 ---
-title: Introduction
+title: "What's hot to listen to on Spotify in 2019"
 jupyter: python3
 ---
 
@@ -12,7 +12,7 @@ Hence, we can say Spotify is the leading music service by quite a distance. Thes
 
 Through this kernel, we would like to analyse the top 50 songs published by Spotify in 2019. We will check the various genres, popularity and some other features that made the songs to famous amongst the users.
 
-![34173-original.jpg](attachment:34173-original.jpg)
+![Source: Google images](spotify.png)
 
 # Importing the relevant libraries and dataset
 

@@ -1,6 +1,18 @@
 ---
 title: "What's hot to listen to on Spotify in 2019"
+author: "Arindam Baruah"
+categories: [python,data cleaning,exploratory data analysis,visualisation]
+date: "2020-07-18"
+image: "Spotify.png"
+number-sections: true
+format: 
+  html:
+    code-fold: true
+execute: 
+  warning: false
+  message: false
 jupyter: python3
+
 ---
 
 

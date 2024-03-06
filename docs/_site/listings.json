@@ -12,7 +12,6 @@
   {
     "listing": "/posts/index.html",
     "items": [
-      "/posts/blogs/Spotify top 50/Spotify_v1.html",
       "/posts/blogs/Women_Chess_players/index.html",
       "/posts/blogs/woylies_sightings/index.html",
       "/posts/blogs/football_analysis/index.html",
@@ -23,6 +22,7 @@
       "/posts/blogs/gender_diversity/index.html",
       "/posts/blogs/field_diversity/index.html",
       "/posts/blogs/Mach_failure_preds/index.html",
+      "/posts/blogs/Spotify top 50/Spotify_v1.html",
       "/posts/blogs/welcome/index.html"
     ]
   }

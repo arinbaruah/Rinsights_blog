@@ -1,5 +1,5 @@
 ---
-title: "About"
+title: "About my journey"
 author: "Arindam Baruah <br> Monash University <br> abar0090@student.monash.edu"
 about:
   template: solana
@@ -20,7 +20,25 @@ Hi ! I am Arindam Baruah, a graduate student of Business Analytics at [Monash Bu
 My studies generally span over various fields and I am constantly in the hunt to uncover more scenarios which would let me harness the power of analytics to automate various tasks and allow me to gain meaningful insights post analysis.
 
 # My journey so far...
+
 :::panel-tabset
+## Melbourne Water Corporation
+
+### Capital Delivery Model intern (2024-Present)
+
+:::{.callout-note}
+# Skills
+__Project Management,Forecasting,Data Analysis, MS Office,MS Teams, Data Visualisation,Team Work, MS PowerBI, Communication Skills, Root Cause Analysis.__
+:::
+
+- Deployed as a Business Analyst intern in the Service Assets and Lifecycle division of the organization, primarily tasked with assisting in providing a data-based decision-making approach to formulate the upcoming Capital Delivery Model.
+- Successfully implemented a risk analysis component based on safety key performance indicators in the current Capital Delivery Model which allowed for streamlining the selection of service providers to carry out the project activities in the intended project time frame.
+- Provided detailed insights from project data by implementing text analysis scripts on MS Excel as well as R, and subsequently reported the data to the Major Capital Delivery team to obtain the current capital expenditure on outsourced project activities.
+- Maintained a stakeholder communication management plan and effectively organized the project schedule to complete the delegated tasks in specified number of sprints.
+- Created a dashboard on PowerBI for obtaining the split of project sizes based on historical capital invested and effectively forecasted the allocation of future projects as per the latest pricing regulations set by the government.
+
+
+
 ## ArcelorMittal Nippon steel
 
 ### Technical Data Analyst (2021-23)

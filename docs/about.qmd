@@ -24,7 +24,9 @@ My studies generally span over various fields and I am constantly in the hunt to
 :::panel-tabset
 ## Melbourne Water Corporation
 
-### Capital Delivery Model intern (2024-Present)
+### Business Analyst intern (2024-Present)
+
+##### Major Capital Delivery, Service Assets and Lifecycle department
 
 :::{.callout-note}
 # Skills
@@ -43,9 +45,10 @@ Some of my key responsibilities during my time at the organisation are delineate
 
 
 
-## ArcelorMittal Nippon steel
+## ArcelorMittal Nippon Steel
 
 ### Technical Data Analyst (2021-23)
+##### Compact Strip Production rolling mill department
 
 :::{.callout-note}
 # Skills
@@ -74,6 +77,7 @@ As part of my deployment, I was posted as a technical data analyst in the compac
 
 ### Graduate student at Monash Business School (2023-24)
 
+##### Master's of Business Analytics (MBAT) cohort
 :::{.callout-note}
 # Skills
 __Data Analysis,Statistical thinking, High-dimesional data analysis, MS Office, Data Visualisation, R-programming, Project Management, Team Work, MS Teams, Communication Skills, Exploratory Data Analysis, Forecasting.__
@@ -97,6 +101,8 @@ With close to 2 years of hands-on experience after working as a technical data a
 ## Indian Institute of Technology
 
 ### Teaching Assistant (2019-21)
+
+##### Metallurgy and Materials Science 
 
 :::{.callout-note}
 # Skills

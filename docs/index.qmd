@@ -45,7 +45,7 @@ __Please feel free to go through the links below to learn more about my experien
 
 :::{.callout-note}
 # Interested in analytics content ?
-For those interested in uncovering data and what is expected when studying a graduate course in the field of Business Analytics, I post informative content on my blog, [R-insights](posts/index.qmd). Be sure to check it out !
+For those interested in uncovering data and what is expected when studying a graduate course in the field of Business Analytics, I post informative content on my blog [R-insights](posts/index.qmd). Be sure to check it out !
 :::
 
 

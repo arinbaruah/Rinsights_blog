@@ -113,6 +113,8 @@ plt.xlabel('Track number')
 
 The track number matches with the dataframe shown above for top 10 songs.
 
+:::{.callout-note}
+# Key takeaway
 We can conclude that the :
 
 * Loudness variation was low
@@ -122,7 +124,7 @@ We can conclude that the :
 * Valence variation was high
 * Acousticeness variation was high
 * Speechiness variation was high
-
+:::
 
 Let us try to visualise the distribution of some of the features using plots.
 

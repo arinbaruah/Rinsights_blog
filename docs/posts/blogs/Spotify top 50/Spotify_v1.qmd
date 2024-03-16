@@ -163,12 +163,15 @@ sns.heatmap(corr_songs, annot=True, fmt='.2f', cmap='rocket')
 plt.show()
 ```
 
+
+:::{.callout-note}
+# Key takeaway
 From the heatmap above, following conclusions maybe drawn:
 
 * Speechiness and Beats per min have a good correlation.
 * Loudness and energy of the song have a high correlation.
 * Valence and energy also seem to have a good correlation.
-
+:::
 
 ## e) Track length
 
@@ -184,7 +187,7 @@ fig3.show()
 
 ## f) Correlation between energy and loudness
 
-Let us check the correlation using a kdeplot.
+Let us check the correlation using a kernel density estimation plot.
 
 ```{python}
 sns.jointplot(x='Loudness..dB..',y='Energy',data=df,kind='kde',color='green')

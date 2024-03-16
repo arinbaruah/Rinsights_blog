@@ -214,7 +214,7 @@
     "href": "posts/blogs/Spotify top 50/Spotify_v1.html#d-correlation-heatmap-with-popularity",
     "title": "What’s hot to listen to on Spotify in 2019",
     "section": "2.4 d) Correlation heatmap with popularity",
-    "text": "2.4 d) Correlation heatmap with popularity\nLet us check how the various features are correlated with each other using a heatmap.\n\n\nCode\nplt.figure(figsize=(10, 8))\nnumeric_columns = df.select_dtypes(include=['float64', 'int64'])\ncorr_songs = numeric_columns.corr()\nsns.heatmap(corr_songs, annot=True, fmt='.2f', cmap='rocket')\nplt.show()\n\n\n\n\n\nFrom the heatmap above, following conclusions maybe drawn:\n\nSpeechiness and Beats per min have a good correlation.\nLoudness and energy of the song have a high correlation.\nValence and energy also seem to have a good correlation."
+    "text": "2.4 d) Correlation heatmap with popularity\nLet us check how the various features are correlated with each other using a heatmap.\n\n\nCode\nplt.figure(figsize=(10, 8))\nnumeric_columns = df.select_dtypes(include=['float64', 'int64'])\ncorr_songs = numeric_columns.corr()\nsns.heatmap(corr_songs, annot=True, fmt='.2f', cmap='rocket')\nplt.show()\n\n\n\n\n\n\n\n\n\n\n\nKey takeaway\n\n\n\nFrom the heatmap above, following conclusions maybe drawn:\n\nSpeechiness and Beats per min have a good correlation.\nLoudness and energy of the song have a high correlation.\nValence and energy also seem to have a good correlation."
   },
   {
     "objectID": "posts/blogs/Spotify top 50/Spotify_v1.html#e-track-length",
@@ -228,7 +228,7 @@
     "href": "posts/blogs/Spotify top 50/Spotify_v1.html#f-correlation-between-energy-and-loudness",
     "title": "What’s hot to listen to on Spotify in 2019",
     "section": "2.6 f) Correlation between energy and loudness",
-    "text": "2.6 f) Correlation between energy and loudness\nLet us check the correlation using a kdeplot.\n\n\nCode\nsns.jointplot(x='Loudness..dB..',y='Energy',data=df,kind='kde',color='green')"
+    "text": "2.6 f) Correlation between energy and loudness\nLet us check the correlation using a kernel density estimation plot.\n\n\nCode\nsns.jointplot(x='Loudness..dB..',y='Energy',data=df,kind='kde',color='green')"
   },
   {
     "objectID": "posts/blogs/Spotify top 50/Spotify_v1.html#g-correlation-between-bpm-and-speechiness",

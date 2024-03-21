@@ -1,0 +1,740 @@
+---
+title: "ETC3250/5250 Assignment 1"
+author: "Arindom Baruah (32779267)"
+date: "2024-03-22"
+quarto-required: ">=1.3.0"
+format:
+    html:
+        output-file: assign01-submission.html
+        css: "assignment.css"
+execute: 
+  echo: false
+  message: false
+  warning: false
+number-sections: true
+---
+
+```{r}
+
+draw_confusion_matrix <- function(cm) {
+
+  layout(matrix(c(1,1,2)))
+  par(mar=c(2,2,2,2))
+  plot(c(100, 345), c(300, 450), type = "n", xlab="", ylab="", xaxt='n', yaxt='n')
+  title('CONFUSION MATRIX', cex.main=2)
+
+
+  rect(150, 430, 240, 370, col='#67A069')
+  text(195, 435, 'Bilby', cex=1.2)
+  rect(250, 430, 340, 370, col='#CB6E4F')
+  text(295, 435, 'Quokka', cex=1.2)
+  text(125, 370, 'Predicted', cex=1.3, srt=90, font=2)
+  text(245, 450, 'Actual', cex=1.3, font=2)
+  rect(150, 305, 240, 365, col='#CB6E4F')
+  rect(250, 305, 340, 365, col='#67A069')
+  text(140, 400, 'Bilby', cex=1.2, srt=90)
+  text(140, 335, 'Quokka', cex=1.2, srt=90)
+
+
+  res <- as.numeric(cm$table)
+  text(195, 400, res[1], cex=1.6, font=2, col='white')
+  text(195, 335, res[2], cex=1.6, font=2, col='white')
+  text(295, 400, res[3], cex=1.6, font=2, col='white')
+  text(295, 335, res[4], cex=1.6, font=2, col='white')
+
+
+  plot(c(100, 0), c(100, 0), type = "n", xlab="", ylab="", main = "MODEL PERFORMANCE METRICS", xaxt='n', yaxt='n')
+  text(10, 85, names(cm$byClass[1]), cex=1.2, font=2)
+  text(10, 70, round(as.numeric(cm$byClass[1]), 3), cex=1.2)
+  text(30, 85, names(cm$byClass[2]), cex=1.2, font=2)
+  text(30, 70, round(as.numeric(cm$byClass[2]), 3), cex=1.2)
+  text(50, 85, names(cm$byClass[5]), cex=1.2, font=2)
+  text(50, 70, round(as.numeric(cm$byClass[5]), 3), cex=1.2)
+  text(70, 85, names(cm$byClass[6]), cex=1.2, font=2)
+  text(70, 70, round(as.numeric(cm$byClass[6]), 3), cex=1.2)
+  text(90, 85, names(cm$byClass[8]), cex=1.2, font=2)
+  text(90, 70, round(as.numeric(cm$byClass[8]), 3), cex=1.2)
+
+
+  text(30, 35, names(cm$overall[1]), cex=1.5, font=2)
+  text(30, 20, round(as.numeric(cm$overall[1]), 3), cex=1.4)
+  text(70, 35, names(cm$byClass[11]), cex=1.5, font=2)
+  text(70, 20, round(as.numeric(cm$byClass[11]), 3), cex=1.4)
+}  
+```
+
+
+
+```{r}
+library(tidyverse)
+library(tidymodels)
+library(ggplot2)
+library(kableExtra)
+library(caret)
+library(plotROC)
+library(mulgar)
+library(tourr)
+library(GGally)
+library(uwot)
+library(animation)
+library(magick)
+library(ggfortify)
+library(plotly)
+```
+
+
+# Basic math and computing 
+
+## Hand calculation
+
+In order to perform the hand calculations so as to compute the expression $(X-A)^T S^{-1}(X-A)$, we perform the following steps:
+
+:::panel-tabset
+
+### Step 1
+
+- Step 1: We perform the matrix subtraction operation $(X-A)$ as it can be easily calculated. Matrix addition and multiplications are similar to regular operations. The corresponding element in each matrix will undergo the operation. @fig-step1 illustrates this step.
+
+![Perform matrix subtractions](figures/Step_1.jpeg){#fig-step1}
+
+### Step 2
+
+- Step 2: In this step, we compute the value of $S^{-1}$. An inverse of a matrix is calculated by the equation below:
+
+$$\boxed{S^{-1} = \dfrac{adj(S)}{det(S)}}$$
+
+Where, $adj(S)$ is the adjoint of the matrix S and $det(S)$ is the determinant of the matrix.
+
+@fig-step2 illustrates the steps to calculate the matrix inverse.
+
+![Compute inverse matrix](figures/Step_2.jpeg){#fig-step2}
+
+### Step 3
+
+- Step 3: Once the inverse matrix has been calculated, we perform the matrix multiplication between $S^{-1}$ and $(X-A)$. @fig-step3 illustrates the calculated value after the calculation of the matrix product.
+
+![Perform first set of matrix multiplication](figures/Step_3.jpeg){#fig-step3}
+
+### Step 4
+
+- Step 4: In the final step, we perform the second set of matrix multiplication by calculating the product between the obtained matrix in step 3 with the transverse matrix $(X-A)^T$. @fig-step4 illustrates this final step with an obtained final result of 5.4.
+
+![Perform second set of matrix multiplication](figures/Step_4.jpeg){#fig-step4}
+:::
+
+## Matrix calculation on R
+
+```{r echo=TRUE}
+
+S <- rbind(c(3,1),c(1,2)) # 2 X 2 Matrix creation
+X <- rbind(4,2) # 2 X 1 Matrix creation
+A <- rbind(1,-1) # 2 X 1 Matrix creation
+
+
+Matrix_calculation <- t(X-A) %*% solve(S) %*% (X-A) #Matrix multiplication
+
+```
+The matrix calculation for computing $(X-A)^T S^{-1}(X-A)$ yields the result __`r Matrix_calculation[1,1]`__.
+
+
+# ML concepts
+
+## a) Model accuracy
+
+
+
+```{r}
+#| label: tbl-data
+#| tbl-cap: "Sample rows of the current data"
+d_pred <- read_csv("https://raw.githubusercontent.com/numbats/iml/master/data/pred_data.csv")
+d_pred |> slice_head(n=3) %>% kbl()
+```
+The computations to assess the model metrics are delineated in the panel tabsets below.
+
+:::panel-tabset
+
+### Model 1 
+
+```{r}
+model_1 <- d_pred %>% dplyr::select(c("y","pred1","bilby1","quokka1"))
+
+model_1$y <- as.factor(model_1$y)
+model_1$pred1 <- as.factor(model_1$pred1)
+model_2 <- d_pred %>% dplyr::select(c("y","pred2","bilby2","quokka2"))
+model_2$y <- as.factor(model_2$y)
+model_2$pred2 <- as.factor(model_2$pred2)
+```
+
+```{r}
+cm_1 <- model_1 %>% count(y,pred1) %>% group_by(y) %>%
+  mutate(cl_acc = n[pred1==y]/sum(n)) %>% pivot_wider(names_from = pred1,
+                                                      values_from = n) %>%
+  dplyr::select(y,bilby,quokka,cl_acc)
+```
+
+The accuracy for `model 1` which is calculated based on the number of true positives and the true negatives is observed to be __`r accuracy(model_1,y,pred1) %>% pull(.estimate) %>% round(3)`__.
+
+However, the accuracy parameter for a model may not always be the best indicator. This is especially true when the data may contain unbalanced class distribution. In this case, we will rely on balanced accuracy which is based on the true positive and the true negative rate of prediction for the model.
+
+The balanced accuracy for `model 1` is found to be __`r bal_accuracy(model_1,y,pred1) %>% pull(.estimate) %>% round(3)`__.
+
+@fig-confmat1 illustrates the detailed confusion matrix for `model 1` with the critical model parameters which are useful indicators of model performance.
+
+```{r}
+#| label: fig-confmat1
+#| fig-cap: "Confusion matrix with key performance metrics of model 1"
+model_1_cm <- confusionMatrix(model_1$pred1,model_1$y)
+
+draw_confusion_matrix(model_1_cm)
+```
+
+### Model 2 
+
+
+
+```{r}
+cm_2 <- model_2 %>% count(y,pred2) %>% group_by(y) %>%
+  mutate(cl_acc = n[pred2==y]/sum(n)) %>% pivot_wider(names_from = pred2,
+                                                      values_from = n) %>%
+  dplyr::select(y,bilby,quokka,cl_acc)
+```
+
+The accuracy for `model 2` which is calculated based on the number of true positives and the true negatives is observed to be __`r accuracy(model_2,y,pred2) %>% pull(.estimate) %>% round(3)`__. The balanced accuracy for the same model which is based on the true positive and the true negative rates are  __`r bal_accuracy(model_2,y,pred2) %>% pull(.estimate) %>% round(3)`__.
+
+@fig-confmat2 illustrates the detailed confusion matrix for `model 2`. 
+
+```{r}
+#| label: fig-confmat2
+#| fig-cap: "Confusion matrix with key performance metrics of model 2"
+model_2_cm <- confusionMatrix(model_2$pred2,model_2$y)
+
+draw_confusion_matrix(model_2_cm)
+```
+
+
+
+:::
+
+:::{.callout-note}
+# Key takeaway
+
+As we can observe from the model metrics in @fig-confmat1 and @fig-confmat2, the model 1 was observed to classify the labelled data more accurately than model 2.
+:::
+## b) Sensitivity and Specificity with revised threshold values
+
+
+:::panel-tabset
+
+### Classification threshold of 0.3
+
+__1) When the threshold value for classification in model 1 is 0.3__
+
+```{r}
+model_new_1a <- model_1
+model_new_1a <- model_new_1a %>% mutate(pred1 = if_else(bilby1 >= 0.3,"bilby","quokka")) 
+model_new_1a$y <- as.factor(model_new_1a$y)
+model_new_1a$pred1 <- as.factor(model_new_1a$pred1)
+
+
+
+cm_new_1a <- model_new_1a %>% count(y,pred1) %>% group_by(y) %>%
+  mutate(cl_acc = n[pred1==y]/sum(n)) %>% pivot_wider(names_from = pred1,
+                                                      values_from = n) %>%
+  dplyr::select(y,bilby,quokka,cl_acc)
+
+
+```
+
+
+
+
+
+```{r}
+#| label: fig-confmat_new_1a
+#| fig-cap: "Confusion matrix with key performance metrics of model 1 when considering 0.3 as the threshold value for positive Bilby classification"
+model_new_1a_cm <- confusionMatrix(model_new_1a$pred1,model_new_1a$y)
+
+draw_confusion_matrix(model_new_1a_cm)
+
+```
+
+The sensitivity for `model 1` when the threshold value for positive Bilby classification is 0.3 and above is __`r sens(model_new_1a,y,pred1) %>% pull(.estimate) %>% round(3)`__. The value for __1-Specificity__ for the same model which is based on the true positive and the true negative rates is  __`r 1-spec(model_new_1a,y,pred1) %>% pull(.estimate) %>% round(3)`__.
+
+__2) When the threshold value for classification in model 2 is 0.3__
+
+```{r}
+model_new_2a <- model_2
+model_new_2a <- model_new_2a %>% mutate(pred2 = if_else(bilby2 >= 0.3,"bilby","quokka")) 
+model_new_2a$y <- as.factor(model_new_2a$y)
+model_new_2a$pred2 <- as.factor(model_new_2a$pred2)
+
+
+
+model_new_2a_cm <- model_new_2a %>% count(y,pred2) %>% group_by(y) %>%
+  mutate(cl_acc = n[pred2==y]/sum(n)) %>% pivot_wider(names_from = pred2,
+                                                      values_from = n) %>%
+  dplyr::select(y,bilby,quokka,cl_acc)
+
+
+```
+
+```{r}
+#| label: fig-confmat_new_2a
+#| fig-cap: "Confusion matrix with key performance metrics of model 2 when considering 0.3 as the threshold value for positive Bilby classification"
+model_new_2a_cm <- confusionMatrix(model_new_2a$pred2,model_new_2a$y)
+
+draw_confusion_matrix(model_new_2a_cm)
+
+```
+The sensitivity for `model 2` when the threshold value for positive Bilby classification is 0.3 and above is __`r sens(model_new_2a,y,pred2) %>% pull(.estimate) %>% round(3)`__. The value for __1-Specificity__ for the same model which is based on the true positive and the true negative rates is  __`r 1-spec(model_new_2a,y,pred2) %>% pull(.estimate) %>% round(3)`__. Other detailed model performance metrics for model 2 with a threshold value of 0.3 can be referred to in @fig-confmat_new_2a.
+
+### Classification threshold of 0.4
+
+__1) When the threshold value for classification in model 1 is 0.4__
+
+```{r}
+model_new_1b <- model_1
+model_new_1b <- model_new_1b %>% mutate(pred1 = if_else(bilby1 >= 0.4,"bilby","quokka")) 
+model_new_1b$y <- as.factor(model_new_1b$y)
+model_new_1b$pred1 <- as.factor(model_new_1b$pred1)
+
+
+
+cm_new_1b <- model_new_1b %>% count(y,pred1) %>% group_by(y) %>%
+  mutate(cl_acc = n[pred1==y]/sum(n)) %>% pivot_wider(names_from = pred1,
+                                                      values_from = n) %>%
+  dplyr::select(y,bilby,quokka,cl_acc)
+
+
+```
+
+```{r}
+#| label: fig-confmat_new_1b
+#| fig-cap: "Confusion matrix with key performance metrics of model 1 when considering 0.4 as the threshold value for positive Bilby classification"
+model_new_1b_cm <- confusionMatrix(model_new_1b$pred1,model_new_1b$y)
+
+draw_confusion_matrix(model_new_1b_cm)
+
+```
+
+The sensitivity for `model 1` when the threshold value for positive Bilby classification is 0.4 and above is __`r sens(model_new_1b,y,pred1) %>% pull(.estimate) %>% round(3)`__. The value for __1-Specificity__ for the same model which is based on the true positive and the true negative rates is  __`r 1-spec(model_new_1b,y,pred1) %>% pull(.estimate) %>% round(3)`__. Other detailed model performance metrics for model 1 with a threshold value of 0.4 can be referred to in @fig-confmat_new_1b.
+
+
+__2) When the threshold value for classification in model 2 is 0.4__
+
+
+
+```{r}
+model_new_2b <- model_2
+model_new_2b <- model_new_2b %>% mutate(pred2 = if_else(bilby2 >= 0.4,"bilby","quokka")) 
+model_new_2b$y <- as.factor(model_new_2b$y)
+model_new_2b$pred2 <- as.factor(model_new_2b$pred2)
+
+
+
+model_new_2b_cm <- model_new_2b %>% count(y,pred2) %>% group_by(y) %>%
+  mutate(cl_acc = n[pred2==y]/sum(n)) %>% pivot_wider(names_from = pred2,
+                                                      values_from = n) %>%
+  dplyr::select(y,bilby,quokka,cl_acc)
+
+
+```
+
+
+
+```{r}
+#| label: fig-confmat_new_2b
+#| fig-cap: "Confusion matrix with key performance metrics of model 2 when considering 0.4 as the threshold value for positive Bilby classification"
+model_new_2b_cm <- confusionMatrix(model_new_2b$pred2,model_new_2b$y)
+
+draw_confusion_matrix(model_new_2b_cm)
+
+```
+
+The sensitivity for `model 2` when the threshold value for positive Bilby classification is 0.4 and above is __`r sens(model_new_2b,y,pred2) %>% pull(.estimate) %>% round(3)`__. The value for __1-Specificity__ for the same model which is based on the true positive and the true negative rates is  __`r 1-spec(model_new_2b,y,pred2) %>% pull(.estimate) %>% round(3)`__. Other detailed model performance metrics for model 2 with a threshold value of 0.4 can be referred to in @fig-confmat_new_2b.
+
+
+:::
+
+## c) Receiver Operative Curve (ROC) visualisation for model output
+
+```{r }
+#| label: fig-roc
+#| fig-cap: "Receiver Operative Curve visualisation for comparison of model performance based on Sensitivty and 1-Specificity"
+
+roc_curve_1 <- roc_curve(model_new_1b,y,bilby1) 
+roc_curve_2 <- roc_curve(model_new_2a,y,bilby2)
+
+pl1 <- ggplot() +
+  geom_path(data = roc_curve_1, aes(x = 1 - specificity, y = sensitivity, color = "Model 1"),size = 1.5) + 
+  geom_path(data = roc_curve_2, aes(x = 1 - specificity, y = sensitivity, color = "Model 2"),size = 1.5) + 
+  geom_abline(slope = 1,linetype = 2,alpha = 0.5) +
+  scale_color_manual(values = c("Model 1" = "blue", "Model 2" = "red")) +
+  ggtitle("Receiver Operating Curve for model comparison") + labs(colour = "Model type") + theme_minimal() + theme(plot.title = element_text(hjust = 0.5))
+pl1
+
+```
+
+:::{.callout-note}
+# Key takeaway
+
+As we can observe from @fig-roc, the area under the curve (AUC) covered by the ROC of __model 1 is larger when in comparison to model 2__. This indicates that the __model 1 is performing better than the results obtained through model 2__.
+
+The higher the curve is to the top left point of the plot, the higher the true positive rate of the model (measured through sensitivity) as well as the least false positive rate (measured through 1-specificity).
+
+We can additionally obtain a metric of the ROC by computing the area covered under each of these plotted curves. This is termed as the AUC and are as follows:
+
+AUC for model 1 is __`r roc_auc(model_new_1b,y,bilby1) %>% pull(.estimate) %>% round(3)`.__ \
+AUC for model 2 is __`r roc_auc(model_new_2b,y,bilby2) %>% pull(.estimate) %>% round(3)`.__
+
+Based on the AUC values, we can clearly observe __that model 1 performs better than model 2.__
+:::
+
+# Visualisation 
+
+Here, we are required to visualise a high-dimensional data which contains 6 different variables. Due to the complexity of the data in hand and the multiple dimensions we are looking to study, it is often not possible to understand the correlation of each dimension through simple 2-dimensional plots such as scatter plots. Hence, we will be primarily studying the data through various high dimensional visualisation techniques, namely scatter plot matrix, UMAP and the grand tour.
+
+## a) 2D Scatter plot matrix
+
+```{r}
+#| label: fig-scatmat
+#| fig-cap: "2D scatter plot matrix"
+ggscatmat(c7)
+```
+:::{.callout-note}
+# Key takeaway
+
+Based on the scatter plot matrix as illustrated by @fig-scatmat, it is __difficult to ascertain any particular pattern__ when evaluating each of the pair of variables against one another. While there appears to be a very weak relationship between X1 and X2 owing to a correlation of 0.45, however, it is difficult to obtain any insight as the scatter points are randomly spread out on the 2D space. The remaining pair of variables show even weaker correlation, __thereby indicating that each of the pair of variables are non-linearly related to one another.__
+:::
+
+## b) Non-linear dimension reduction using UMAP
+
+The uniform manifold approximation and projection (UMAP) compares the interpoint distances with what might be expected if the data was uniformly distributed in the high dimensional shapes.
+```{r}
+#| label: fig-umap
+#| fig-cap: "UMAP representation of the data"
+
+
+
+set.seed(253)
+c7_tidy_umap <- umap(c7, init = "spca")
+
+c7_tidy_umap_df <- c7_tidy_umap |>
+  as_tibble() |>
+  rename(UMAP1 = V1, UMAP2 = V2) 
+ggplot(c7_tidy_umap_df, aes(x = UMAP1, 
+                           y = UMAP2)) +
+  geom_point(colour = "#EC5C00") + theme_minimal()
+```
+
+:::{.callout-note}
+# Key takeaway
+
+Based on the UMAP representation of the data on a 2D space upon reducing the dimensions into UMAP1 and UMAP2, we can observe that the data points have segregated into two regions of the plane, thereby creating __two clusters__. 
+
+In @fig-umap, we observe that one of these clusters is easy to detect as most of the datapoints in this cluster are closely aggregated. However, for the other cluster, we can observe a wide variance in the data. This indicates that __not all the points are as closely aggregated for the second cluster, making it less well defined__. Additionally, the variance in the datapoints of the cluster could also indicate the __presence of outliers which will need to be investigated further.__  
+
+:::
+
+
+## c) High-dimensional data visualisation using the grand tour
+
+While we have already visualised the data on the 2D space by looking at the correlation among the variables, we now attempt to visualise the high-dimensional data in its true form by creating a tour which is an animation of the data points in the multi-dimensional space. The main advantage of this technique is that there is no information lost when drawing insights as we are effectively looking at all the data points in its original dimensions.
+
+
+
+```{r eval=FALSE}
+gif_file <- "animated_xy.gif"
+ani.options(interval = 0.1, ani.width = 500, ani.height = 400)
+
+saveGIF({
+  animate_xy(c7)
+}, movie.name = gif_file, interval = 0.1, ani.width = 500, ani.height = 400)
+
+```
+
+```{r}
+#| label: fig-c7gif
+#| fig-cap: "High-dimesional tour for the C7 dataset in the Mulgar package"
+image <- image_read("animated_xy.gif")
+image_animate(image)
+```
+
+:::{.callout-note}
+# Key takeaway
+
+- While analysing the tour as illustrated by @fig-c7gif, we can observe __the presence of a particular cluster of points which are concentrated close to one another.__ This was previously detected in @fig-umap aswell.
+
+- In addition to the above finding, we can also observe that the __points other than those in the identified cluster appear to be entirely on the plane generated by the axes X1 and X2 with high dispersion and variance__.This information was not possible to obtain from @fig-umap due to its inherent functionality of reducing all the dimensions to two dimensions. Hence, the cluster on the top right of @fig-umap during the UMAP dimension reduction does not provide the complete information and needs to be investigated further through a high-dimensional tour.
+
+- The set of data points in the second cluster __aggregate together to form a U-shaped group.__ However, the __variance in these points are high and scattered across the plane.__ This indicates that while __most points tend to group as the U-shaped cluster, there are multiple outliers to be considered too.__
+
+- There also appears to be a particular orientation of the dimensions when the scatter points __are linearly arranged__. This was observed __through a combination of the dimensions X3,X5 and X6__.
+
+:::
+
+
+
+# Dimension reduction 
+
+In this exercise, we are required to analyse a dataset which contains multiple number of variables as illustrated by @tbl-cricket. 
+
+```{r}
+#| label: tbl-cricket
+#| tbl-cap: "A sample of the high-dimensional data containing statistics of Women's Cricket"
+
+df_cricket <- read_csv("auswt20.csv")
+
+df_cricket %>% head() %>% kbl() 
+```
+
+In order to obtain insights from the data, we need to study the various variables in the current dataset. However, with the high number of variables present, it makes it extremely complicated to individually study each pair of variables.
+
+In this exercise, we will apply a dimensionality reduction technique called the Principal Componenent Analysis (PCA). This technique is based on creating a linear combination of the variables such that the variance in the data is maximised, and are mutually uncorrelated. 
+
+## Implementation of PCA in the current dataset
+
+The chunk below provides the code required to compute the PCA for the current data.
+
+```{r}
+#| echo: TRUE
+cricket_pca <- prcomp(df_cricket[,2:dim(df_cricket)[2]],scale=TRUE)
+```
+
+:::{.callout-note}
+We scale the dataset as show in the above code chunk by setting the `scale=TRUE` parameter. This is done in order to account for the varying scales present in the full dataset and prevent the variables with larger scales to dominate the variance in the data. By bringing all the variables to a common scale, we are able to ensure that each variable is equally contributing to the PCA transformation.
+
+:::
+
+### a) Summary of the PCA
+```{r}
+#| label: tbl-summary
+#| tbl-cap: "Summary of the PCA computation for Women's cricket data"
+
+cricket_pca_smry <- tibble(evl=cricket_pca$sdev^2) %>%
+  mutate(p = evl/sum(evl), cum_p = cumsum(evl/sum(evl))) %>% t() 
+colnames(cricket_pca_smry) <- colnames(cricket_pca$rotation)
+rownames(cricket_pca_smry) <- c("Variance", "Proportion", "Cum. prop")
+kable(cricket_pca_smry, digits=2, align="r") %>% 
+  kable_styling(full_width = T) %>%
+  row_spec(0, color="white", background = "#7570b3") %>%
+  column_spec(1, width = "2.5em", color="white", background = "#7570b3") %>%
+  column_spec(1:8, width = "2.5em") %>%
+  row_spec(3, color="white", background = "#CA6627")
+```
+
+@tbl-summary provides a succinct summary of the variance of each principal component and the proportion of variance explained by that particular principal component (PC).
+
+:::{.callout-note}
+# Key takeaway
+@tbl-summary would allow us to obtain the ideal number of PCs which would capture the most amount of variance in the data, at the same time, being able to discard some of the PCs which do not contribute much to explain the variance. In this manner, we not only obtain the important PCs, but also reduce the overall complexity of the model by reducing the overall dimension of the data.
+:::
+### b) Biplot generation for PC1 and PC2
+
+```{r}
+#| label: fig-biplot
+#| fig-cap: "Biplot illustration of PC1 and PC2"
+ggplotly(autoplot(cricket_pca, loadings = TRUE, 
+         loadings.label = TRUE) + theme_minimal())
+```
+@fig-biplot illustrates the biplot distribution for the first two PCs of the data. 
+
+:::{.callout-note}
+# Key takeaway
+
+Based on @fig-biplot, some of the key observations are as follows:
+
+
+- We can observe that there are variables such as __"wickets","four wickets" and "five wickets"__ which are pointing in the vertically downward direction and are also nearly parallel to one another. __This indicates that these set of variables influence the PC2 variable strongly and are highly correlated to one another__.
+
+- On the other hand, variables such as __"Innings","Not outs", "Strike rate","Sixes","Ducks","High score","Balls faced","Hundreds","Fifties__ etc, points towards approximately in the orthogonal direction to the set of variables mentioned in the previous bullet point. This means that these set of variables contribute __towards the PC1 variable and are also correlated as they are observed to be pointing generally in a similar direction.__
+
+:::
+
+
+### c) Choosing the appropriate number of PCs
+
+
+```{r}
+#| label: fig-scree
+#| fig-cap: "Scree plot for plotting the variance explained by each addition of PC"
+
+x_scale <- 1:21
+ggscree(cricket_pca, q=21) + labs(x = "Number of PCs",y = "Variance explained",title = "Scree plot for the number of PC determination") + geom_vline(xintercept = 4,linetype = 3,color = "red",size = 1.5) + geom_vline(xintercept = 3,linetype = 3,color = "darkgreen",size = 1.5) + theme_classic() + theme(plot.title = element_text(hjust = 0.5)) +
+  scale_x_continuous(breaks = x_scale)
+
+
+```
+The scree plot as illustrated by @fig-scree indicates the variance explained with the addition of each PC. Based on this plot and @tbl-summary, we can clearly observe that the first __3 to 4 PCs are able to explain nearly 81% of variance in the data.__ An addition of the another PC is observed explain further variance, but to a lower degree.This indicates that adding more PCs isn't necessarily explaining much variance in the data but making the model complex and difficult to interpret.
+
+The guide line shaded in gray color is computed by performing PCA on 100 samples from a standard P-dimensional normal distribution. A deviation of the black line from the gray line indicates that the variance explained by the PCAs are indeed significant and need to be considered in our analysis.
+
+Additionally, we observe that the PCAs from the 5th PCA and there on follow the guideline very closely. This indicates that the variance explained by these PCAs do not explain any significant variation of the data.
+
+:::{.callout-note}
+# Key takeaway
+
+Upon analysing the Scree plot, we can choose the first __3 or 4 PCs__ as our desired choice of PCs after successful dimensional reduction.
+
+Usage of __first 3 PCs would help us explain 75% of the variance but also make the model less complex than a model with 4 PCs.__
+
+Choosing the __first 4 PCs would allow us to explain 81% of the variance at the cost of higher complexity.__
+
+Hence, the final choice of the number of PCs to be selected would depend on either if we want to prioritise low complexity in the model or prioritise the maximum variance to be explained.
+
+:::
+
+
+While we have already studied the model using 2 PCs through @fig-biplot, we can additionally visualise the first 3 PCs using an interactive 3D scatter plot as shown in @fig-scatter3d
+
+
+```{r}
+#| label: fig-scatter3d
+#| fig-cap: '3D Scatter plot matrix for PC distribution of each player'
+
+df_cricket_new <- read_csv("cricket_pca.csv")
+df_cricket_new$Total_PCA <- abs(df_cricket_new$PC1) + abs(df_cricket_new$PC2) + abs(df_cricket_new$PC3)
+
+pl2 <- plot_ly(df_cricket_new, x = ~PC1, y = ~PC2, z = ~PC3,
+               opacity = 1, hoverinfo = "text",
+               color = df_cricket_new$Total_PCA,colors = "viridis",
+               text = ~paste("Player: ", Player, "<br>",
+                             "PC1: ", round(PC1,3), "<br>",
+                             "PC2: ", round(PC2,3), "<br>",
+                             "PC3: ", round(PC3,3), "<br>")) %>%
+  layout(scene = list(xaxis = list(title = "PC1"),
+                      yaxis = list(title = "PC2"),
+                      zaxis = list(title = "PC3")),
+         margin = list(l = 0, r = 0, b = 0.5, t = 0),
+         showlegend = FALSE)
+
+pl2
+```
+
+:::{.callout-note}
+# Key takeaway
+
+Based on our analysis of the 3 PCs in @fig-scatter3d, we can observe that while most players cluster into one region as shown by the dark blue shaded points, there are however some outliers in the data which suggest that these players have better cricketing statistics in certain domains than the rest of the set of players.
+
+These players are highlighted through the light colored data points in the plot and are analysed further in @sec-interpretation.
+:::
+
+
+### d) Interpretation of the PCs 
+
+The biplot which has been illustrated through @fig-biplot allows us to understand the magnitude of contribution through the length of the loading vectors and the correlation among the variables by observing the angle made by each of the loading vectors to one another. Upon closely examining these loading vectors, we can obtain a few key interpretations of the PCs listed below.
+
+:::{.callout-note}
+# Key takeaway
+
+- Based on the understanding of the cricketing terminologies, it can be inferred that __PC2__ is heavily influenced by the variables that __relate to bowling in a game of cricket__.
+
+- On the other hand, __PC1__ is primarily influenced by variables which __relate to batting in the game__.
+
+- There are variables such as __"Start","Economy" and "Average"__ whose loading vector lengths are __considerably smaller__ than the other variables. This indicates that the effect of these variables are much __lower than some of the other variables mentioned in the plot.__
+
+- There also appears to be __lower correlation among each variable in the direction of PC1__ as the loading directions of the variables (shown by the <span style=color:red>red arrows</span>) are __much more spread out than the case for variables in the PC2 direction.__ This additionally reinforces the fact that PC1 accounts for majority of the variance in the data (nearly 45 %).
+
+:::
+
+### e) Main patterns observed during PCA {#sec-interpretation}
+
+```{r}
+#| label: fig-pcaplayer
+#| fig-cap: "PC distribution of each player"
+df_cricket_pca <- cbind(df_cricket,cricket_pca$x[,1:2])
+
+pl <- ggplot(data = df_cricket_pca,aes(x = PC1,y =PC2,text = Player)) + geom_point() + 
+  labs(x = "PC1 (44.69%)",y = "PC2 (21.2 %)",title = "PC distribution of cricket players") + 
+  geom_vline(xintercept = -7.5, linetype = 3,color = "red",size = 1,alpha = 0.4) + 
+  geom_hline(yintercept = - 5,linetype = 3,color = "red",size = 1,alpha = 0.4) + 
+  annotate("text", x = -9, y= 0, 
+           colour = "darkred",
+           alpha=0.6,
+           label='Top batters',
+           size = unit(5, "pt")) +
+    annotate("text", x = -5, y= -8, 
+           colour = "darkblue",
+           alpha=0.6,
+           label='Top bowlers',
+           size = unit(5, "pt")) +
+  annotate("text", x = -9, y= -8, 
+           colour = "darkgreen",
+           alpha=0.6,
+           label='Top all-rounders',
+           size = unit(5, "pt")) +
+   annotate("text", x = -5, y= 0, 
+           colour = "black",
+           alpha=0.6,
+           label='General ability players',
+           size = unit(5, "pt")) +
+  theme_minimal() 
+
+ggplotly(pl,tooltip = c("Player","PC1","PC2"))
+
+
+```
+
+:::{.callout-note}
+# Key takeaway
+The distribution of data points as observed in the interactive illustration @fig-pcaplayer provides us with an understanding of the abilities of each player. Some of the key observations from the plot are as follows:
+
+- Majority of the data points cluster towards the top right of the plot, __indicating the general abilities of the players lie in this region.__ Based on this, we can conclude that the PC1 and PC2 attributes of most players would list close to the origin point (0,0).
+
+- However, when observing the players on the X-axis (along the PC1 axis), we can observe that there are about three players to the left of the <span style=color:red>red line</span>. These players are namely __[BL Mooney](https://www.espncricinfo.com/cricketers/beth-mooney-381258), [MM Lanning](https://en.wikipedia.org/wiki/Meg_Lanning) and [AJ Healy](https://www.espncricinfo.com/cricketers/alyssa-healy-275486).__ As already explained in @sec-interpretation, a higher magnitude of value in PC1 relates to batting attributes. __Based on the PC1 magnitude and the loading vectors of these players, this indicates that these players would generally feature as the top batters in the team.__
+
+- When observing the players on the Y-axis (along the PC2 axis) and particularly at the points above the threshold <span style=color:red>red line</span>, we observe the players __[M Schutt](https://www.espncricinfo.com/cricketers/megan-schutt-420314)__ and __[JL Jonassen](https://www.espncricinfo.com/cricketers/jess-jonassen-374936)__ have a high PC2 magnitude while the PC1 magnitude is much lower in comparison. As discussed in @sec-interpretation, PC2 is heavily influenced by variables which are related to bowling. __This indicates that M Schutt's attributes would most likely make her one of the top bowlers in the team.__
+
+- There are however players who may have __balanced attributes, indicating they're equally able to contribute to the batting and bowling__. These players are generally termed as "All-rounders". While looking at the data, we can clearly point out __the player [EA Perry](https://en.wikipedia.org/wiki/Ellyse_Perry) who has a high PC1 and a PC2 score.__ This indicates that she is expected to be the top most __all-rounder in the Australian Women's Cricket team.__
+
+:::
+## References
+
+1. __tourr__: Hadley Wickham, Dianne Cook, Heike Hofmann, Andreas Buja
+  (2011). tourr: An R Package for Exploring Multivariate
+  Data with Projections. Journal of Statistical Software,
+  40(2), 1-18. URL http://www.jstatsoft.org/v40/i02/.
+  
+2. __tidymodels__:  Kuhn et al., (2020). Tidymodels: a collection of packages for modeling and machine learning using
+  tidyverse principles. https://www.tidymodels.org.  
+  
+3. __tidyverse__: Wickham H, Averick M, Bryan J, Chang W, McGowan LD, François R, Grolemund G, Hayes A, Henry L, Hester J, Kuhn M,
+  Pedersen TL, Miller E, Bache SM, Müller K, Ooms J, Robinson D, Seidel DP, Spinu V, Takahashi K, Vaughan D, Wilke C,
+  Woo K, Yutani H (2019). “Welcome to the tidyverse.” _Journal of Open Source Software_, *4*(43), 1686.
+  doi:10.21105/joss.01686 <https://doi.org/10.21105/joss.01686>.
+  
+4. __kableExtra__: Zhu H (2024). _kableExtra: Construct Complex Table with 'kable' and Pipe Syntax_. R package version 1.4.0,
+  <https://CRAN.R-project.org/package=kableExtra>.
+  
+5. __caret__: Kuhn, M. (2008). Building Predictive Models in R Using the caret Package. Journal of Statistical Software, 28(5),
+  1–26. https://doi.org/10.18637/jss.v028.i05.
+
+6. __plotROC__: Michael C. Sachs (2017). plotROC: A Tool for Plotting ROC Curves. Journal of Statistical Software, Code Snippets,
+  79(2), 1-19. doi:10.18637/jss.v079.c02.
+
+7. __mulgar__: Cook D, Laa U (2023). _mulgar: Functions for Pre-Processing Data for Multivariate Data Visualisation using Tours_. R
+  package version 1.0.2, <https://CRAN.R-project.org/package=mulgar>.
+  
+8. __uwot__: Melville J (2023). _uwot: The Uniform Manifold Approximation and Projection (UMAP) Method for Dimensionality
+  Reduction_. R package version 0.1.16, <https://CRAN.R-project.org/package=uwot>.
+  
+9. __GGally__: Schloerke B, Cook D, Larmarange J, Briatte F, Marbach M, Thoen E, Elberg A, Crowley J (2024). _GGally: Extension to
+  'ggplot2'_. R package version 2.2.1, <https://CRAN.R-project.org/package=GGally>.
+
+10. __animation__: Yihui Xie (2013). animation: An R Package for Creating Animations and Demonstrating Statistical Methods. Journal of
+  Statistical Software, 53(1), 1-27. URL https://doi.org/10.18637/jss.v053.i01.
+  
+11. __magick__: Ooms J (2024). _magick: Advanced Graphics and Image-Processing in R_. R package version 2.8.3,
+  <https://CRAN.R-project.org/package=magick>.
+
+12. __plotly__: C. Sievert. Interactive Web-Based Data Visualization with R, plotly, and shiny. Chapman and Hall/CRC Florida, 2020.
+
+13. __ggfortify__: Yuan Tang, Masaaki Horikoshi, and Wenxuan Li. "ggfortify: Unified Interface to Visualize Statistical Result of Popular R Packages." The R Journal 8.2 (2016): 478-489.
+
+14. OpenAI (2023). ChatGPT (version 3.5) [Large language model]. https://chat.openai.com/chat, full script of conversation [here](https://chat.openai.com/share/34c580ef-3332-4db5-8de3-7ff6b80a4a09)
+
+
+
+
+
+

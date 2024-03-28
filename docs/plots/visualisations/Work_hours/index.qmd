@@ -72,7 +72,7 @@ The above-mentioned dataset can be obtained from the "Our World in Data" website
 
 var <- data.frame(Variable = c(names(df_final))) #A dataframe for variables
 
-var %>% kable() %>% 
+var %>% kbl() %>% 
 kable_styling(bootstrap_options = c("bordered","hover")) #Creating a table
 
 ```
@@ -287,7 +287,7 @@ pl2 <- ggplot(df_productivity %>% filter(Entity != "India" & Entity != "China" &
   geom_line(size = 2, color = "lightgray", alpha = 0.4) + 
   geom_point(size = 3, color = "lightgray", alpha = 0.4) + 
   theme_economist() + 
-  ggtitle("Are we observing a rise in productivity over time ?") + 
+  ggtitle("Countries with high annual working hours \n show a sluggish GDP productivity over time") + 
   ylab("Productivity: in GDP $/Hour") + 
   geom_point(data = filter(df_productivity, Entity %in% c("India", "China", "Singapore")), aes(color = Entity), size = 2) +
   geom_line(data = filter(df_productivity, Entity %in% c("India", "China", "Singapore")), aes(color = Entity), size = 1) +
@@ -297,7 +297,7 @@ pl2 <- ggplot(df_productivity %>% filter(Entity != "India" & Entity != "China" &
   ) +
   labs(colour = "Country") +
   theme(panel.background = element_rect(fill = '#CCFFFF'),
-        plot.title = element_text(size = 15,
+        plot.title = element_text(size = 12,
         face = "bold",hjust=0.5),
         legend.key.size = unit(0.25, 'cm'),
         panel.border = element_rect(colour = "black",size=3),

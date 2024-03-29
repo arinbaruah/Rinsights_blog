@@ -1,0 +1,392 @@
+---
+title: "Performing a high-dimensional data analysis and what does it mean for us ?"
+author: "Arindom Baruah"
+date: "2024-03-25"
+quarto-required: ">=1.3.0"
+format:
+    html:
+        output-file: post.html
+execute: 
+  echo: false
+  message: false
+  warning: false
+number-sections: true
+---
+
+```{r}
+
+draw_confusion_matrix <- function(cm) {
+
+  layout(matrix(c(1,1,2)))
+  par(mar=c(2,2,2,2))
+  plot(c(100, 345), c(300, 450), type = "n", xlab="", ylab="", xaxt='n', yaxt='n')
+  title('CONFUSION MATRIX', cex.main=2)
+
+
+  rect(150, 430, 240, 370, col='#67A069')
+  text(195, 435, 'Bilby', cex=1.2)
+  rect(250, 430, 340, 370, col='#CB6E4F')
+  text(295, 435, 'Quokka', cex=1.2)
+  text(125, 370, 'Predicted', cex=1.3, srt=90, font=2)
+  text(245, 450, 'Actual', cex=1.3, font=2)
+  rect(150, 305, 240, 365, col='#CB6E4F')
+  rect(250, 305, 340, 365, col='#67A069')
+  text(140, 400, 'Bilby', cex=1.2, srt=90)
+  text(140, 335, 'Quokka', cex=1.2, srt=90)
+
+
+  res <- as.numeric(cm$table)
+  text(195, 400, res[1], cex=1.6, font=2, col='white')
+  text(195, 335, res[2], cex=1.6, font=2, col='white')
+  text(295, 400, res[3], cex=1.6, font=2, col='white')
+  text(295, 335, res[4], cex=1.6, font=2, col='white')
+
+
+  plot(c(100, 0), c(100, 0), type = "n", xlab="", ylab="", main = "MODEL PERFORMANCE METRICS", xaxt='n', yaxt='n')
+  text(10, 85, names(cm$byClass[1]), cex=1.2, font=2)
+  text(10, 70, round(as.numeric(cm$byClass[1]), 3), cex=1.2)
+  text(30, 85, names(cm$byClass[2]), cex=1.2, font=2)
+  text(30, 70, round(as.numeric(cm$byClass[2]), 3), cex=1.2)
+  text(50, 85, names(cm$byClass[5]), cex=1.2, font=2)
+  text(50, 70, round(as.numeric(cm$byClass[5]), 3), cex=1.2)
+  text(70, 85, names(cm$byClass[6]), cex=1.2, font=2)
+  text(70, 70, round(as.numeric(cm$byClass[6]), 3), cex=1.2)
+  text(90, 85, names(cm$byClass[8]), cex=1.2, font=2)
+  text(90, 70, round(as.numeric(cm$byClass[8]), 3), cex=1.2)
+
+
+  text(30, 35, names(cm$overall[1]), cex=1.5, font=2)
+  text(30, 20, round(as.numeric(cm$overall[1]), 3), cex=1.4)
+  text(70, 35, names(cm$byClass[11]), cex=1.5, font=2)
+  text(70, 20, round(as.numeric(cm$byClass[11]), 3), cex=1.4)
+}  
+```
+
+
+```{r}
+
+library(tidyverse)
+library(tidymodels)
+library(ggplot2)
+library(kableExtra)
+library(caret)
+library(plotROC)
+library(mulgar)
+library(tourr)
+library(GGally)
+library(uwot)
+library(animation)
+library(magick)
+library(ggfortify)
+library(plotly)
+```
+
+
+
+
+# Introduction
+
+## a) Model accuracy
+
+
+```{r}
+#| label: tbl-data
+#| tbl-cap: "Sample rows of the current data"
+d_pred <- read_csv("https://raw.githubusercontent.com/numbats/iml/master/data/pred_data.csv")
+d_pred |> slice_head(n=3) %>% kbl()
+```
+The computations to assess the model metrics are delineated in the panel tabsets below.
+
+:::panel-tabset
+
+### Model 1 
+
+```{r}
+model_1 <- d_pred %>% dplyr::select(c("y","pred1","bilby1","quokka1"))
+
+model_1$y <- as.factor(model_1$y)
+model_1$pred1 <- as.factor(model_1$pred1)
+model_2 <- d_pred %>% dplyr::select(c("y","pred2","bilby2","quokka2"))
+model_2$y <- as.factor(model_2$y)
+model_2$pred2 <- as.factor(model_2$pred2)
+```
+
+```{r}
+cm_1 <- model_1 %>% count(y,pred1) %>% group_by(y) %>%
+  mutate(cl_acc = n[pred1==y]/sum(n)) %>% pivot_wider(names_from = pred1,
+                                                      values_from = n) %>%
+  dplyr::select(y,bilby,quokka,cl_acc)
+```
+
+The accuracy for `model 1` which is calculated based on the number of true positives and the true negatives is observed to be __`r accuracy(model_1,y,pred1) %>% pull(.estimate) %>% round(3)`__.
+
+However, the accuracy parameter for a model may not always be the best indicator. This is especially true when the data may contain unbalanced class distribution. In this case, we will rely on balanced accuracy which is based on the true positive and the true negative rate of prediction for the model.
+
+The balanced accuracy for `model 1` is found to be __`r bal_accuracy(model_1,y,pred1) %>% pull(.estimate) %>% round(3)`__.
+
+@fig-confmat1 illustrates the detailed confusion matrix for `model 1` with the critical model parameters which are useful indicators of model performance.
+
+```{r}
+#| label: fig-confmat1
+#| fig-cap: "Confusion matrix with key performance metrics of model 1"
+model_1_cm <- confusionMatrix(model_1$pred1,model_1$y)
+
+draw_confusion_matrix(model_1_cm)
+```
+
+### Model 2 
+
+
+
+```{r}
+cm_2 <- model_2 %>% count(y,pred2) %>% group_by(y) %>%
+  mutate(cl_acc = n[pred2==y]/sum(n)) %>% pivot_wider(names_from = pred2,
+                                                      values_from = n) %>%
+  dplyr::select(y,bilby,quokka,cl_acc)
+```
+
+The accuracy for `model 2` which is calculated based on the number of true positives and the true negatives is observed to be __`r accuracy(model_2,y,pred2) %>% pull(.estimate) %>% round(3)`__. The balanced accuracy for the same model which is based on the true positive and the true negative rates are  __`r bal_accuracy(model_2,y,pred2) %>% pull(.estimate) %>% round(3)`__.
+
+@fig-confmat2 illustrates the detailed confusion matrix for `model 2`. 
+
+```{r}
+#| label: fig-confmat2
+#| fig-cap: "Confusion matrix with key performance metrics of model 2"
+model_2_cm <- confusionMatrix(model_2$pred2,model_2$y)
+
+draw_confusion_matrix(model_2_cm)
+```
+
+
+
+:::
+
+:::{.callout-note}
+# Key takeaway
+
+As we can observe from the model metrics in @fig-confmat1 and @fig-confmat2, the model 1 was observed to classify the labelled data more accurately than model 2.
+:::
+## b) Sensitivity and Specificity with revised threshold values
+
+
+:::panel-tabset
+
+### Classification threshold of 0.3
+
+__1) When the threshold value for classification in model 1 is 0.3__
+
+```{r}
+model_new_1a <- model_1
+model_new_1a <- model_new_1a %>% mutate(pred1 = if_else(bilby1 >= 0.3,"bilby","quokka")) 
+model_new_1a$y <- as.factor(model_new_1a$y)
+model_new_1a$pred1 <- as.factor(model_new_1a$pred1)
+
+
+
+cm_new_1a <- model_new_1a %>% count(y,pred1) %>% group_by(y) %>%
+  mutate(cl_acc = n[pred1==y]/sum(n)) %>% pivot_wider(names_from = pred1,
+                                                      values_from = n) %>%
+  dplyr::select(y,bilby,quokka,cl_acc)
+
+
+```
+
+
+
+
+
+```{r}
+#| label: fig-confmat_new_1a
+#| fig-cap: "Confusion matrix with key performance metrics of model 1 when considering 0.3 as the threshold value for positive Bilby classification"
+model_new_1a_cm <- confusionMatrix(model_new_1a$pred1,model_new_1a$y)
+
+draw_confusion_matrix(model_new_1a_cm)
+
+```
+
+The sensitivity for `model 1` when the threshold value for positive Bilby classification is 0.3 and above is __`r sens(model_new_1a,y,pred1) %>% pull(.estimate) %>% round(3)`__. The value for __1-Specificity__ for the same model which is based on the true positive and the true negative rates is  __`r 1-spec(model_new_1a,y,pred1) %>% pull(.estimate) %>% round(3)`__.
+
+__2) When the threshold value for classification in model 2 is 0.3__
+
+```{r}
+model_new_2a <- model_2
+model_new_2a <- model_new_2a %>% mutate(pred2 = if_else(bilby2 >= 0.3,"bilby","quokka")) 
+model_new_2a$y <- as.factor(model_new_2a$y)
+model_new_2a$pred2 <- as.factor(model_new_2a$pred2)
+
+
+
+model_new_2a_cm <- model_new_2a %>% count(y,pred2) %>% group_by(y) %>%
+  mutate(cl_acc = n[pred2==y]/sum(n)) %>% pivot_wider(names_from = pred2,
+                                                      values_from = n) %>%
+  dplyr::select(y,bilby,quokka,cl_acc)
+
+
+```
+
+```{r}
+#| label: fig-confmat_new_2a
+#| fig-cap: "Confusion matrix with key performance metrics of model 2 when considering 0.3 as the threshold value for positive Bilby classification"
+model_new_2a_cm <- confusionMatrix(model_new_2a$pred2,model_new_2a$y)
+
+draw_confusion_matrix(model_new_2a_cm)
+
+```
+The sensitivity for `model 2` when the threshold value for positive Bilby classification is 0.3 and above is __`r sens(model_new_2a,y,pred2) %>% pull(.estimate) %>% round(3)`__. The value for __1-Specificity__ for the same model which is based on the true positive and the true negative rates is  __`r 1-spec(model_new_2a,y,pred2) %>% pull(.estimate) %>% round(3)`__. Other detailed model performance metrics for model 2 with a threshold value of 0.3 can be referred to in @fig-confmat_new_2a.
+
+### Classification threshold of 0.4
+
+__1) When the threshold value for classification in model 1 is 0.4__
+
+```{r}
+model_new_1b <- model_1
+model_new_1b <- model_new_1b %>% mutate(pred1 = if_else(bilby1 >= 0.4,"bilby","quokka")) 
+model_new_1b$y <- as.factor(model_new_1b$y)
+model_new_1b$pred1 <- as.factor(model_new_1b$pred1)
+
+
+
+cm_new_1b <- model_new_1b %>% count(y,pred1) %>% group_by(y) %>%
+  mutate(cl_acc = n[pred1==y]/sum(n)) %>% pivot_wider(names_from = pred1,
+                                                      values_from = n) %>%
+  dplyr::select(y,bilby,quokka,cl_acc)
+
+
+```
+
+```{r}
+#| label: fig-confmat_new_1b
+#| fig-cap: "Confusion matrix with key performance metrics of model 1 when considering 0.4 as the threshold value for positive Bilby classification"
+model_new_1b_cm <- confusionMatrix(model_new_1b$pred1,model_new_1b$y)
+
+draw_confusion_matrix(model_new_1b_cm)
+
+```
+
+The sensitivity for `model 1` when the threshold value for positive Bilby classification is 0.4 and above is __`r sens(model_new_1b,y,pred1) %>% pull(.estimate) %>% round(3)`__. The value for __1-Specificity__ for the same model which is based on the true positive and the true negative rates is  __`r 1-spec(model_new_1b,y,pred1) %>% pull(.estimate) %>% round(3)`__. Other detailed model performance metrics for model 1 with a threshold value of 0.4 can be referred to in @fig-confmat_new_1b.
+
+
+__2) When the threshold value for classification in model 2 is 0.4__
+
+
+
+```{r}
+model_new_2b <- model_2
+model_new_2b <- model_new_2b %>% mutate(pred2 = if_else(bilby2 >= 0.4,"bilby","quokka")) 
+model_new_2b$y <- as.factor(model_new_2b$y)
+model_new_2b$pred2 <- as.factor(model_new_2b$pred2)
+
+
+
+model_new_2b_cm <- model_new_2b %>% count(y,pred2) %>% group_by(y) %>%
+  mutate(cl_acc = n[pred2==y]/sum(n)) %>% pivot_wider(names_from = pred2,
+                                                      values_from = n) %>%
+  dplyr::select(y,bilby,quokka,cl_acc)
+
+
+```
+
+
+
+```{r}
+#| label: fig-confmat_new_2b
+#| fig-cap: "Confusion matrix with key performance metrics of model 2 when considering 0.4 as the threshold value for positive Bilby classification"
+model_new_2b_cm <- confusionMatrix(model_new_2b$pred2,model_new_2b$y)
+
+draw_confusion_matrix(model_new_2b_cm)
+
+```
+
+The sensitivity for `model 2` when the threshold value for positive Bilby classification is 0.4 and above is __`r sens(model_new_2b,y,pred2) %>% pull(.estimate) %>% round(3)`__. The value for __1-Specificity__ for the same model which is based on the true positive and the true negative rates is  __`r 1-spec(model_new_2b,y,pred2) %>% pull(.estimate) %>% round(3)`__. Other detailed model performance metrics for model 2 with a threshold value of 0.4 can be referred to in @fig-confmat_new_2b.
+
+
+:::
+
+## c) Receiver Operative Curve (ROC) visualisation for model output
+
+```{r }
+#| label: fig-roc
+#| fig-cap: "Receiver Operative Curve visualisation for comparison of model performance based on Sensitivty and 1-Specificity"
+
+roc_curve_1 <- roc_curve(model_new_1b,y,bilby1) 
+roc_curve_2 <- roc_curve(model_new_2a,y,bilby2)
+roc_ideal <- tibble(x = c(0,0,1),y = c(0,1,1))
+
+pl1 <- ggplot() +
+  geom_path(data = roc_curve_1, aes(x = 1 - specificity, y = sensitivity, color = "Model 1"),size = 1.5) + 
+  geom_path(data = roc_curve_2, aes(x = 1 - specificity, y = sensitivity, color = "Model 2"),size = 1.5) + 
+  geom_path(data = roc_ideal, aes(x = x, y = y, color = "Ideal Model"),size = 0.5) +
+  
+  geom_abline(slope = 1,linetype = 2,alpha = 0.5) +
+  scale_color_manual(values = c("Model 1" = "blue", "Model 2" = "red","Ideal Model" = "darkgreen")) +
+  ggtitle("Receiver Operating Curve for model comparison") + labs(colour = "Model type") + theme_minimal() + theme(plot.title = element_text(hjust = 0.5))
+
+pl1
+
+```
+
+:::{.callout-note}
+# Key takeaway
+
+The __higher the curve is to the top left point of the plot, the higher the true positive rate of the model (measured through sensitivity) as well as the least false positive rate (measured through 1-specificity)__. This is often termed as the most ideal model as shown in @fig-roc by the <span style=color:darkgreen>darkgreen line</span>.
+
+As we can also observe in the plot, the area covered by the ROC of __model 1 is larger when in comparison to model 2__. This indicates that the __model 1 is performing better than the results obtained through model 2__.
+
+We can additionally obtain a metric of the ROC by computing the area covered under each of these plotted curves. This is termed as the Area Under Curve (AUC) and are as follows:
+
+AUC for model 1 is __`r roc_auc(model_new_1b,y,bilby1) %>% pull(.estimate) %>% round(3)`.__ \
+AUC for model 2 is __`r roc_auc(model_new_2b,y,bilby2) %>% pull(.estimate) %>% round(3)`.__
+
+Based on the AUC values, we can clearly observe __that model 1 performs better than model 2.__
+:::
+
+## References
+
+1. __tourr__: Hadley Wickham, Dianne Cook, Heike Hofmann, Andreas Buja
+  (2011). tourr: An R Package for Exploring Multivariate
+  Data with Projections. Journal of Statistical Software,
+  40(2), 1-18. URL http://www.jstatsoft.org/v40/i02/.
+  
+2. __tidymodels__:  Kuhn et al., (2020). Tidymodels: a collection of packages for modeling and machine learning using
+  tidyverse principles. https://www.tidymodels.org.  
+  
+3. __tidyverse__: Wickham H, Averick M, Bryan J, Chang W, McGowan LD, François R, Grolemund G, Hayes A, Henry L, Hester J, Kuhn M,
+  Pedersen TL, Miller E, Bache SM, Müller K, Ooms J, Robinson D, Seidel DP, Spinu V, Takahashi K, Vaughan D, Wilke C,
+  Woo K, Yutani H (2019). “Welcome to the tidyverse.” _Journal of Open Source Software_, *4*(43), 1686.
+  doi:10.21105/joss.01686 <https://doi.org/10.21105/joss.01686>.
+  
+4. __kableExtra__: Zhu H (2024). _kableExtra: Construct Complex Table with 'kable' and Pipe Syntax_. R package version 1.4.0,
+  <https://CRAN.R-project.org/package=kableExtra>.
+  
+5. __caret__: Kuhn, M. (2008). Building Predictive Models in R Using the caret Package. Journal of Statistical Software, 28(5),
+  1–26. https://doi.org/10.18637/jss.v028.i05.
+
+6. __plotROC__: Michael C. Sachs (2017). plotROC: A Tool for Plotting ROC Curves. Journal of Statistical Software, Code Snippets,
+  79(2), 1-19. doi:10.18637/jss.v079.c02.
+
+7. __mulgar__: Cook D, Laa U (2023). _mulgar: Functions for Pre-Processing Data for Multivariate Data Visualisation using Tours_. R
+  package version 1.0.2, <https://CRAN.R-project.org/package=mulgar>.
+  
+8. __uwot__: Melville J (2023). _uwot: The Uniform Manifold Approximation and Projection (UMAP) Method for Dimensionality
+  Reduction_. R package version 0.1.16, <https://CRAN.R-project.org/package=uwot>.
+  
+9. __GGally__: Schloerke B, Cook D, Larmarange J, Briatte F, Marbach M, Thoen E, Elberg A, Crowley J (2024). _GGally: Extension to
+  'ggplot2'_. R package version 2.2.1, <https://CRAN.R-project.org/package=GGally>.
+
+10. __animation__: Yihui Xie (2013). animation: An R Package for Creating Animations and Demonstrating Statistical Methods. Journal of
+  Statistical Software, 53(1), 1-27. URL https://doi.org/10.18637/jss.v053.i01.
+  
+11. __magick__: Ooms J (2024). _magick: Advanced Graphics and Image-Processing in R_. R package version 2.8.3,
+  <https://CRAN.R-project.org/package=magick>.
+
+12. __plotly__: C. Sievert. Interactive Web-Based Data Visualization with R, plotly, and shiny. Chapman and Hall/CRC Florida, 2020.
+
+13. __ggfortify__: Yuan Tang, Masaaki Horikoshi, and Wenxuan Li. "ggfortify: Unified Interface to Visualize Statistical Result of Popular R Packages." The R Journal 8.2 (2016): 478-489.
+
+14. OpenAI (2023). ChatGPT (version 3.5) [Large language model]. https://chat.openai.com/chat, full script of conversation [here](https://chat.openai.com/share/34c580ef-3332-4db5-8de3-7ff6b80a4a09)
+
+
+
+
+
+

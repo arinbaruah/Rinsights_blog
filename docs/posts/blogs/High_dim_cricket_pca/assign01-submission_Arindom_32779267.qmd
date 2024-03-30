@@ -84,7 +84,9 @@ library(plotly)
 
 
 
-# ML concepts
+# Introduction
+
+The current analysis is designed to perform a classification study in order to be able to accurately classify whether 
 
 ## a) Model accuracy
 

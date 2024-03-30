@@ -86,6 +86,8 @@ library(plotly)
 
 # Introduction
 
+This analysis serves to provide a comprehensive assessment of the ML classification model for Bilby and Quokka identification. By scrutinizing its performance, interpretability, and practical implications, this study aims to contribute to the advancement of wildlife monitoring and conservation efforts through the integration of machine learning techniques.
+
 ## a) Model accuracy
 
 

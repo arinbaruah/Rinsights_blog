@@ -40,6 +40,11 @@ Through advanced statistical techniques, machine learning algorithms, and data v
 
 From player profiling to match prediction, from tactical insights to strategic recommendations, our exploration of high-dimensional cricket data promises to redefine the way we understand, analyze, and appreciate this timeless sport. Join us as we delve into the heart of cricket's data universe and illuminate its myriad dimensions.
 
+# Methodology
+
+The goal of the current analysis is to analyse the high-dimensional data by applying linear as well as non-linear dimension reduction techniques which will allow us to simplify our model and obtain an understanding the complex data.
+
+Additionally, the study will make the use of a grand tour and a 3D scatter plot which will allow us to study the data points in a high-dimensional space.
 
 # Visualisation 
 

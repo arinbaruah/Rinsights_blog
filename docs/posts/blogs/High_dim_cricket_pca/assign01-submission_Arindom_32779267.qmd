@@ -31,6 +31,11 @@ library(magick)
 library(ggfortify)
 library(plotly)
 ```
+:::{.callout-note}
+
+If you're interested to check out the code used for performing the current analysis, please check my GitHub repository [here](https://github.com/arinbaruah/Rinsights_blog/tree/main/docs/posts/blogs/High_dim_cricket_pca).
+:::
+
 
 # Introduction
 

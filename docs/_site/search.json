@@ -683,7 +683,7 @@
     "href": "posts/blogs/High_dim_cricket_PCA/post.html",
     "title": "Performing a high-dimensional data analysis and what does it mean for us ?",
     "section": "",
-    "text": "In this analysis, we embark on a journey into the depths of cricket’s data cosmos, where traditional metrics intertwine with cutting-edge analytics to reveal patterns, trends, and untold stories.\nThrough advanced statistical techniques, machine learning algorithms, and data visualization tools, we transcend the boundaries of conventional analysis to uncover hidden correlations, identify key influencers, and predict future outcomes with unprecedented accuracy.\nFrom player profiling to match prediction, from tactical insights to strategic recommendations, our exploration of high-dimensional cricket data promises to redefine the way we understand, analyze, and appreciate this timeless sport. Join us as we delve into the heart of cricket’s data universe and illuminate its myriad dimensions."
+    "text": "Note\n\n\n\nIf you’re interested to check out the code used for performing the current analysis, please check my GitHub repository here."
   },
   {
     "objectID": "posts/blogs/High_dim_cricket_PCA/post.html#hand-calculation",

@@ -1,5 +1,5 @@
 ---
-title: "Performing a high-dimensional data analysis and what does it mean for us ?"
+title: "Unlocking Insights: Navigating High-Dimensional Data Analysis for Actionable Intelligence"
 author: "Arindom Baruah"
 date: "2024-04-25"
 categories: [R,data cleaning,exploratory data analysis,high dimensional data visualisation,model metrics, principal decomposition, non-linear decomposition]
@@ -33,10 +33,7 @@ library(magick)
 library(ggfortify)
 library(plotly)
 ```
-:::{.callout-note}
 
-If you're interested to check out the code used for performing the current analysis, please check my GitHub repository [here](https://github.com/arinbaruah/Rinsights_blog/tree/main/docs/posts/blogs/High_dim_cricket_pca).
-:::
 
 ![Source: Google images](high-dim.png)
 
@@ -52,7 +49,12 @@ From player profiling to match prediction, from tactical insights to strategic r
 
 The goal of the current analysis is to analyse the high-dimensional data by applying linear as well as non-linear dimension reduction techniques which will allow us to simplify our model and obtain an understanding the complex data.
 
-Additionally, the study will make the use of a grand tour and a 3D scatter plot which will allow us to study the data points in a high-dimensional space.
+Additionally, the study will make the use of a grand tour and a 3D scatter plot which will allow us to study sample data points in a high-dimensional space.
+
+:::{.callout-note}
+
+If you're interested to check out the code used for performing the current analysis, please check my GitHub repository [here](https://github.com/arinbaruah/Rinsights_blog/tree/main/docs/posts/blogs/High_dim_cricket_pca).
+:::
 
 # Visualisation 
 

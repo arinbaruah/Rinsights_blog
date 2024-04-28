@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>htt/plots/index.html</loc>
-    <lastmod>2024-04-27T02:10:48.152Z</lastmod>
+    <lastmod>2024-04-28T13:22:36.341Z</lastmod>
   </url>
   <url>
     <loc>htt/plots/visualisations/Work_hours/index.html</loc>
@@ -91,5 +91,13 @@
   <url>
     <loc>htt/plots/visualisations/January/index.html</loc>
     <lastmod>2024-04-27T02:10:47.705Z</lastmod>
+  </url>
+  <url>
+    <loc>htt/plots/visualisations/KPI_dashboard/Untitled.html</loc>
+    <lastmod>2024-04-28T13:15:40.636Z</lastmod>
+  </url>
+  <url>
+    <loc>htt/plots/visualisations/KPI_dashboard/index.html</loc>
+    <lastmod>2024-04-28T13:22:38.088Z</lastmod>
   </url>
 </urlset>

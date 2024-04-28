@@ -3,7 +3,7 @@ title: "Crisp visualisations : Unveiling Data Dynamics with PowerBI 📊🧑‍�
 author: "Arindam Baruah"
 date: "2024-01-31"
 image: "dashboard.png"
-categories: [analysis,scatter plot,line plot,high contrast,annotations]
+categories: [PowerBI,scatter plot,line plot,dashboards,annotations]
 format: html
 number-sections: true
 toc: true
@@ -13,4 +13,4 @@ execute:
   message: false
 ---
 
-![Source: Google](images/image_1.png){width="40%" height="30%"}
+![PowerBI dashboard for a process monitoring dashboard](Sep_KPI_dashboard.pdf){width=640px height=480px}

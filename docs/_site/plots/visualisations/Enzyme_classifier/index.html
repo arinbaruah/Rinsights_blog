@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.450">
+<meta name="generator" content="quarto-1.4.553">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -24,7 +24,7 @@ ul.task-list li input[type="checkbox"] {
 }
 /* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -81,7 +81,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   "collapse-after": 3,
   "panel-placement": "end",
   "type": "overlay",
-  "limit": 20,
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -90,12 +96,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-more-match-text": "more match in this document",
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Cancel",
     "search-submit-button-title": "Submit",
     "search-label": "Search"
   }
 }</script>
-
 <script src="../../../site_libs/htmlwidgets-1.6.2/htmlwidgets.js"></script>
 <link href="../../../site_libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet">
 <script src="../../../site_libs/datatables-binding-0.28/datatables.js"></script>
@@ -112,10 +118,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <body class="nav-fixed fullcontent">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top">
-    <nav class="navbar navbar-expand-lg navbar-dark ">
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
-      <div class="navbar-brand-container">
+      <div class="navbar-brand-container mx-auto">
     <a class="navbar-brand" href="../../../index.html">
     <span class="navbar-title">R-insights 📊📈🖥️</span>
     </a>
@@ -127,33 +133,33 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../../../about.html" rel="" target="">
- <span class="menu-text">About</span></a>
+    <a class="nav-link" href="../../../about.html"> 
+<span class="menu-text">About</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../../posts/index.html" rel="" target="">
- <span class="menu-text">Blog</span></a>
+    <a class="nav-link" href="../../../posts/index.html"> 
+<span class="menu-text">Blog</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../../plots/index.html" rel="" target="">
- <span class="menu-text">Infographics</span></a>
+    <a class="nav-link" href="../../../plots/index.html"> 
+<span class="menu-text">Infographics</span></a>
   </li>  
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item compact">
-    <a class="nav-link" href="https://github.com/arinbaruah" rel="" target=""><i class="bi bi-github" role="img" aria-label="GitHub">
+    <a class="nav-link" href="https://github.com/arinbaruah"> <i class="bi bi-github" role="img" aria-label="GitHub">
 </i> 
- <span class="menu-text"></span></a>
+<span class="menu-text"></span></a>
   </li>  
   <li class="nav-item compact">
-    <a class="nav-link" href="https://www.linkedin.com/in/arindam-baruah/" rel="" target=""><i class="bi bi-linkedin" role="img" aria-label="LinkedIn">
+    <a class="nav-link" href="https://www.linkedin.com/in/arindam-baruah/"> <i class="bi bi-linkedin" role="img" aria-label="LinkedIn">
 </i> 
- <span class="menu-text"></span></a>
+<span class="menu-text"></span></a>
   </li>  
 </ul>
-            <div class="quarto-navbar-tools">
-</div>
           </div> <!-- /navcollapse -->
+          <div class="quarto-navbar-tools">
+</div>
       </div> <!-- /container-fluid -->
     </nav>
 </header>
@@ -202,10 +208,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 
+
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="https://y9s5q4c4.stackpathcdn.com/wp-content/uploads/2021/07/enzymology-1.png" style="width:40.0%;height:30.0%" class="figure-img"></p>
-<figcaption class="figure-caption">“Source: Google images”</figcaption>
+<figcaption>“Source: Google images”</figcaption>
 </figure>
 </div>
 <section id="introduction" class="level1" data-number="1">
@@ -298,15 +305,19 @@ EC1 represents the class of enzymes known as oxidoreductases. These enzymes cata
 <p>In this step, we will try to check for the presence of null values in the dataset.</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-<div id="fig-missvis" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="index_files/figure-html/fig-missvis-1.png" class="img-fluid figure-img" width="672"></p>
-<figcaption class="figure-caption">Figure&nbsp;1: Missingness in the dataset</figcaption>
+<div id="fig-missvis" class="quarto-figure quarto-figure-center quarto-float anchored" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-missvis-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="index_files/figure-html/fig-missvis-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-missvis-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Missingness in the dataset
+</figcaption>
 </figure>
 </div>
 </div>
 </div>
-<p>Based on the <a href="#fig-missvis">Figure&nbsp;1</a>, we can observe that</p>
+<p>Based on the <a href="#fig-missvis" class="quarto-xref">Figure&nbsp;1</a>, we can observe that</p>
 <div class="alert alert-block alert-success">
 <p>✅ The dataset does not contain any missing values. This indicates that we have a clean dataset which is ready for EDA and further analysis.</p>
 </div>
@@ -320,15 +331,19 @@ EC1 represents the class of enzymes known as oxidoreductases. These enzymes cata
 <p>Let us understand how each of these variables correlate.</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-<div id="fig-corrplot" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="index_files/figure-html/fig-corrplot-1.png" class="img-fluid figure-img" width="672"></p>
-<figcaption class="figure-caption">Figure&nbsp;2: Correlation plot</figcaption>
+<div id="fig-corrplot" class="quarto-figure quarto-figure-center quarto-float anchored" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-corrplot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="index_files/figure-html/fig-corrplot-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-corrplot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: Correlation plot
+</figcaption>
 </figure>
 </div>
 </div>
 </div>
-<p>As we can observe from figure <a href="#fig-corrplot">Figure&nbsp;2</a>,</p>
+<p>As we can observe from figure <a href="#fig-corrplot" class="quarto-xref">Figure&nbsp;2</a>,</p>
 <div class="alert alert-block alert-info">
 <p>None of the variables have an <strong> unusually high correlation with EC1 or EC2 </strong>. However, we do observe multiple variables which have high correlation to each other. This pheonmenon is called <strong> multi-collinearity </strong>. Let us set a correlation threshold of 75%. Any variables with correlation values higher than this will be dropped from the dataset.</p>
 </div>
@@ -341,7 +356,6 @@ EC1 represents the class of enzymes known as oxidoreductases. These enzymes cata
 <p>Now that we have removed the variables that observed to show multi-collinearity, let us now see how the revised dataset looks like.</p>
 <div class="cell">
 <div class="cell-output-display">
-
 <div id="htmlwidget-c1d0836b0714e3f548a5" style="width:500px;height:500px;" class="datatables html-widget "></div>
 <script type="application/json" data-for="htmlwidget-c1d0836b0714e3f548a5">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4","5","6"],[11.93829424,0,6.606881965,0,12.84164325,0],[1.181818182,1.346153846,1.085714286,1.162790698,1.444444444,1.083333333],[-0.24,-0.09,-0.78,-1.3,-1.1,-0.98],[8.17,3.201490511,15.03388953,6.724301321,3.931271989,3.015404674],[11.92250394,10.93233796,11.2380483,11.17117021,9.855740741,10.08746929],[0.171585412,-4.830449539,-5.066255336,-5.276575465,-1.676296296,-1.669305556],[0,24.41586555,0,42.72776471,6.041840829,0],[91.53649165,7.822697123,15.64539425,21.33513764,11.93861058,5.969305288],[0,0,0,0,6.9237372,0],[0,0,53.37823529,0,19.38639965,0],[0,0,0,6.420821623,0,0],[17.74406608,7.822697123,15.64539425,15.64539425,11.93861058,11.75255023],[0,30.70589228,73.14361574,62.10730426,18.88348408,24.41586555],[0,0,0,0,2,1],[1,0,1,1,1,1],[1,1,1,1,0,0]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>EState_VSA2<\/th>\n      <th>FpDensityMorgan1<\/th>\n      <th>HallKierAlpha<\/th>\n      <th>Kappa3<\/th>\n      <th>MaxAbsEStateIndex<\/th>\n      <th>MinEStateIndex<\/th>\n      <th>PEOE_VSA10<\/th>\n      <th>PEOE_VSA14<\/th>\n      <th>PEOE_VSA6<\/th>\n      <th>PEOE_VSA7<\/th>\n      <th>PEOE_VSA8<\/th>\n      <th>SMR_VSA10<\/th>\n      <th>SMR_VSA5<\/th>\n      <th>fr_COO2<\/th>\n      <th>EC1<\/th>\n      <th>EC2<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":6,"columnDefs":[{"className":"dt-right","targets":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[6,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
 </div>
@@ -349,30 +363,38 @@ EC1 represents the class of enzymes known as oxidoreductases. These enzymes cata
 <p>Let us now create the correlation plot of the revised dataset.</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-<div id="fig-corrplotnew" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="index_files/figure-html/fig-corrplotnew-1.png" class="img-fluid figure-img" width="672"></p>
-<figcaption class="figure-caption">Figure&nbsp;3: Correlation plot of revised dataset</figcaption>
+<div id="fig-corrplotnew" class="quarto-figure quarto-figure-center quarto-float anchored" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-corrplotnew-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="index_files/figure-html/fig-corrplotnew-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-corrplotnew-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3: Correlation plot of revised dataset
+</figcaption>
 </figure>
 </div>
 </div>
 </div>
-<p>Figure <a href="#fig-corrplotnew">Figure&nbsp;3</a> depicts the correlation values of all the variables which do not observe to demonstrate multi-collinearity.</p>
+<p>Figure <a href="#fig-corrplotnew" class="quarto-xref">Figure&nbsp;3</a> depicts the correlation values of all the variables which do not observe to demonstrate multi-collinearity.</p>
 </section>
 <section id="sec-label1" class="level2" data-number="3.2">
 <h2 data-number="3.2" class="anchored" data-anchor-id="sec-label1"><span class="header-section-number">3.2</span> Univariate analysis</h2>
 <p>Now that we have figured out the variables of interest, we will perform a univariate analysis of the revised dataset. One of the best ways to study the overall distribution of the variables is through a faceted histogram. Let us dive deeper.</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-<div id="fig-facehist" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="index_files/figure-html/fig-facehist-1.png" class="img-fluid figure-img" width="672"></p>
-<figcaption class="figure-caption">Figure&nbsp;4: Univariate analysis of variables</figcaption>
+<div id="fig-facehist" class="quarto-figure quarto-figure-center quarto-float anchored" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-facehist-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="index_files/figure-html/fig-facehist-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-facehist-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4: Univariate analysis of variables
+</figcaption>
 </figure>
 </div>
 </div>
 </div>
-<p>Based on our analysis of figure <a href="#fig-facehist">Figure&nbsp;4</a>, we can observe that</p>
+<p>Based on our analysis of figure <a href="#fig-facehist" class="quarto-xref">Figure&nbsp;4</a>, we can observe that</p>
 <div class="alert alert-block alert-warning">
 <p>while most variables range over a large scale in the X-axis, certain variables, namely <b> FpDensityMorgan1 </b> and <b> Kappa3 </b> range over a very small scale on the X-axis. This indicates that there is a large scale difference among the various variables. Hence, the dataset could benefit from <b>standardisation technique</b> at a later point of the analysis.</p>
 </div>
@@ -415,25 +437,33 @@ EC1 represents the class of enzymes known as oxidoreductases. These enzymes cata
 </div>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-<div id="fig-featplotEC1" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="index_files/figure-html/fig-featplotEC1-1.png" class="img-fluid figure-img" width="672"></p>
-<figcaption class="figure-caption">Figure&nbsp;5: Feature importances for EC1 using XGBoost</figcaption>
+<div id="fig-featplotEC1" class="quarto-figure quarto-figure-center quarto-float anchored" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-featplotEC1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="index_files/figure-html/fig-featplotEC1-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-featplotEC1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;5: Feature importances for EC1 using XGBoost
+</figcaption>
 </figure>
 </div>
 </div>
 </div>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-<div id="fig-featplotEC2" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="index_files/figure-html/fig-featplotEC2-1.png" class="img-fluid figure-img" width="672"></p>
-<figcaption class="figure-caption">Figure&nbsp;6: Feature importances for EC2 using XGBoost</figcaption>
+<div id="fig-featplotEC2" class="quarto-figure quarto-figure-center quarto-float anchored" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-featplotEC2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="index_files/figure-html/fig-featplotEC2-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-featplotEC2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;6: Feature importances for EC2 using XGBoost
+</figcaption>
 </figure>
 </div>
 </div>
 </div>
-<p>Based on <a href="#fig-featplotEC1">Figure&nbsp;5</a> and <a href="#fig-featplotEC2">Figure&nbsp;6</a>,</p>
+<p>Based on <a href="#fig-featplotEC1" class="quarto-xref">Figure&nbsp;5</a> and <a href="#fig-featplotEC2" class="quarto-xref">Figure&nbsp;6</a>,</p>
 <div class="alert alert-block alert-warning">
 <p>💡 we have obtained the top 5 features using the XGBoost model for each of the EC1 and EC2 indicators. This will help us concentrate our EDA efforts only on the most important features.💡</p>
 </div>
@@ -452,15 +482,19 @@ Note
 </div>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-<div id="fig-radplot" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="index_files/figure-html/fig-radplot-1.png" class="img-fluid figure-img" width="672"></p>
-<figcaption class="figure-caption">Figure&nbsp;7: Median standardised values for EC1 and EC2 indicators</figcaption>
+<div id="fig-radplot" class="quarto-figure quarto-figure-center quarto-float anchored" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-radplot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="index_files/figure-html/fig-radplot-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-radplot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;7: Median standardised values for EC1 and EC2 indicators
+</figcaption>
 </figure>
 </div>
 </div>
 </div>
-<p>After analysing <a href="#fig-radplot">Figure&nbsp;7</a>, we observe that</p>
+<p>After analysing <a href="#fig-radplot" class="quarto-xref">Figure&nbsp;7</a>, we observe that</p>
 <div class="alert alert-block alert-warning">
 <p>💡 The median standardised values for both EC1 and EC2 indicators are very similar. The major difference however can be observed for the variable PEOE_VSA7. EC2 is observed to demonstrate a relatively lower scaled value when compared to EC1.💡</p>
 </div>
@@ -550,10 +584,27 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
-  function tippyHover(el, contentFn) {
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("htt");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
-      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -563,8 +614,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start'
+      placement: 'bottom-start',
     };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -576,7 +636,130 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      return note.innerHTML;
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
     });
   }
       let selectedAnnoteEl;
@@ -620,6 +803,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             }
             div.style.top = top - 2 + "px";
             div.style.height = height + 4 + "px";
+            div.style.left = 0;
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");
@@ -645,6 +829,32 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         });
         selectedAnnoteEl = undefined;
       };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
       // Attach click handler to the DT
       const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
       for (const annoteDlNode of annoteDls) {
@@ -705,6 +915,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script>
 </div> <!-- /content -->
+
 
 
 

@@ -2,15 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>htt/about.html</loc>
-    <lastmod>2024-03-09T15:09:59.040Z</lastmod>
+    <lastmod>2024-03-09T15:09:50.399Z</lastmod>
   </url>
   <url>
     <loc>htt/docs/plots/index.html</loc>
-    <lastmod>2024-03-04T10:37:31.654Z</lastmod>
+    <lastmod>2024-02-20T18:08:57.459Z</lastmod>
   </url>
   <url>
     <loc>htt/docs/plots/visualisations/Work_hours/index.html</loc>
-    <lastmod>2024-03-04T10:37:30.953Z</lastmod>
+    <lastmod>2024-03-28T01:01:17.699Z</lastmod>
   </url>
   <url>
     <loc>htt/docs/plots/visualisations/February/index.html</loc>
@@ -18,11 +18,11 @@
   </url>
   <url>
     <loc>htt/docs/about.html</loc>
-    <lastmod>2024-03-04T10:37:29.203Z</lastmod>
+    <lastmod>2024-05-07T07:13:20.073Z</lastmod>
   </url>
   <url>
     <loc>htt/docs/posts/index.html</loc>
-    <lastmod>2024-03-09T15:09:57.253Z</lastmod>
+    <lastmod>2024-02-20T18:08:58.146Z</lastmod>
   </url>
   <url>
     <loc>htt/docs/posts/blogs/field_diversity/index.html</loc>
@@ -42,7 +42,7 @@
   </url>
   <url>
     <loc>htt/docs/posts/blogs/Spotify top 50/Spotify_v1.html</loc>
-    <lastmod>2024-03-09T15:09:55.989Z</lastmod>
+    <lastmod>2024-03-16T12:14:22.601Z</lastmod>
   </url>
   <url>
     <loc>htt/docs/posts/blogs/coastal_taipan_sightings/index.html</loc>
@@ -74,7 +74,7 @@
   </url>
   <url>
     <loc>htt/docs/index.html</loc>
-    <lastmod>2024-03-04T10:37:28.794Z</lastmod>
+    <lastmod>2024-04-26T10:26:18.918Z</lastmod>
   </url>
   <url>
     <loc>htt/docs/plots/visualisations/Enzyme_classifier/index.html</loc>
@@ -82,7 +82,7 @@
   </url>
   <url>
     <loc>htt/docs/plots/visualisations/welcome/index.html</loc>
-    <lastmod>2024-03-04T10:37:30.442Z</lastmod>
+    <lastmod>2024-05-09T06:09:00.432Z</lastmod>
   </url>
   <url>
     <loc>htt/docs/plots/visualisations/January/index.html</loc>
@@ -90,6 +90,14 @@
   </url>
   <url>
     <loc>htt/index.html</loc>
-    <lastmod>2024-03-09T15:14:55.908Z</lastmod>
+    <lastmod>2024-02-20T18:08:58.152Z</lastmod>
+  </url>
+  <url>
+    <loc>htt/docs/posts/blogs/High_dim_cricket_PCA/post.html</loc>
+    <lastmod>2024-04-27T02:09:48.397Z</lastmod>
+  </url>
+  <url>
+    <loc>htt/docs/posts/blogs/Confusion_matrix/post.html</loc>
+    <lastmod>2024-04-24T14:32:29.032Z</lastmod>
   </url>
 </urlset>

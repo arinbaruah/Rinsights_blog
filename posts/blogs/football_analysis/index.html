@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.450">
+<meta name="generator" content="quarto-1.4.553">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -47,7 +47,13 @@ ul.task-list li input[type="checkbox"] {
   "collapse-after": 3,
   "panel-placement": "end",
   "type": "overlay",
-  "limit": 20,
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -56,6 +62,7 @@ ul.task-list li input[type="checkbox"] {
     "search-more-match-text": "more match in this document",
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Cancel",
     "search-submit-button-title": "Submit",
     "search-label": "Search"
@@ -65,15 +72,42 @@ ul.task-list li input[type="checkbox"] {
   <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
 </head>
 
 <body class="nav-fixed fullcontent">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top">
-    <nav class="navbar navbar-expand-lg navbar-dark ">
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
-      <div class="navbar-brand-container">
+      <div class="navbar-brand-container mx-auto">
     <a class="navbar-brand" href="../../../index.html">
     <span class="navbar-title">R-insights 📊📈🖥️</span>
     </a>
@@ -85,33 +119,33 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../../../about.html" rel="" target="">
- <span class="menu-text">About</span></a>
+    <a class="nav-link" href="../../../about.html"> 
+<span class="menu-text">About</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../../posts/index.html" rel="" target="">
- <span class="menu-text">Blog</span></a>
+    <a class="nav-link" href="../../../posts/index.html"> 
+<span class="menu-text">Blog</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../../plots/index.html" rel="" target="">
- <span class="menu-text">Infographics</span></a>
+    <a class="nav-link" href="../../../plots/index.html"> 
+<span class="menu-text">Infographics</span></a>
   </li>  
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item compact">
-    <a class="nav-link" href="https://github.com/arinbaruah" rel="" target=""><i class="bi bi-github" role="img" aria-label="GitHub">
+    <a class="nav-link" href="https://github.com/arinbaruah"> <i class="bi bi-github" role="img" aria-label="GitHub">
 </i> 
- <span class="menu-text"></span></a>
+<span class="menu-text"></span></a>
   </li>  
   <li class="nav-item compact">
-    <a class="nav-link" href="https://www.linkedin.com/in/arindam-baruah/" rel="" target=""><i class="bi bi-linkedin" role="img" aria-label="LinkedIn">
+    <a class="nav-link" href="https://www.linkedin.com/in/arindam-baruah/"> <i class="bi bi-linkedin" role="img" aria-label="LinkedIn">
 </i> 
- <span class="menu-text"></span></a>
+<span class="menu-text"></span></a>
   </li>  
 </ul>
-            <div class="quarto-navbar-tools">
-</div>
           </div> <!-- /navcollapse -->
+          <div class="quarto-navbar-tools">
+</div>
       </div> <!-- /container-fluid -->
     </nav>
 </header>
@@ -162,6 +196,7 @@ ul.task-list li input[type="checkbox"] {
 
 
 
+
 <p><img src="football.png" class="img-fluid"></p>
 <section id="introduction" class="level1" data-number="1">
 <h1 data-number="1"><span class="header-section-number">1</span> Introduction</h1>
@@ -193,16 +228,20 @@ Task 1
 <p>The above two shot outcomes can be considered as “shots on goal” and will be visualised on the pitch through the code below.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-goal" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="index_files/figure-html/fig-goal-1.png" class="img-fluid figure-img" width="672"></p>
-<figcaption class="figure-caption">Figure&nbsp;1: Total shots on goal</figcaption>
+<div id="fig-goal" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-goal-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="index_files/figure-html/fig-goal-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-goal-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Total shots on goal
+</figcaption>
 </figure>
 </div>
 </div>
 </div>
 <div class="alert alert-block alert-warning">
-<p>Figure <a href="#fig-goal">Figure&nbsp;1</a> illustrates the number of shots on target in the match of Australia Vs Brazil for the Women’s World Cup. Following are the key observations:</p>
+<p>Figure <a href="#fig-goal" class="quarto-xref">Figure&nbsp;1</a> illustrates the number of shots on target in the match of Australia Vs Brazil for the Women’s World Cup. Following are the key observations:</p>
 <ol type="1">
 <li>There were a total of 8 shots on target from both the sides.</li>
 <li>Of these 8 shots, Australia shot 5 goals on target while Brazil shot 3 goals on target.</li>
@@ -224,16 +263,20 @@ Task 2
 </div>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-playershot" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="index_files/figure-html/fig-playershot-1.png" class="img-fluid figure-img" width="672"></p>
-<figcaption class="figure-caption">Figure&nbsp;2: Number of shots by each player of each team</figcaption>
+<div id="fig-playershot" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-playershot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="index_files/figure-html/fig-playershot-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-playershot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: Number of shots by each player of each team
+</figcaption>
 </figure>
 </div>
 </div>
 </div>
 <div class="alert alert-block alert-warning">
-<p><a href="#fig-playershot">Figure&nbsp;2</a> illustrates the number of shots registered by each player of each country. Following are our key observations:</p>
+<p><a href="#fig-playershot" class="quarto-xref">Figure&nbsp;2</a> illustrates the number of shots registered by each player of each country. Following are our key observations:</p>
 <ol type="1">
 <li>There were a total of 21 shots registered by the 2 teams. Of these 21 shots, 11 were attributed to Brazil while the remaining 10 were attributed to Australia.</li>
 <li>A total of 7 players from Australia registered shots while 8 players from Brazil registered shots.</li>
@@ -258,26 +301,34 @@ Task 3
 </div>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-passausall" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="index_files/figure-html/fig-passausall-1.png" class="img-fluid figure-img" width="672"></p>
-<figcaption class="figure-caption">Figure&nbsp;3: Total complete passes by Australia</figcaption>
+<div id="fig-passausall" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-passausall-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="index_files/figure-html/fig-passausall-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-passausall-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3: Total complete passes by Australia
+</figcaption>
 </figure>
 </div>
 </div>
 </div>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-passbraall" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="index_files/figure-html/fig-passbraall-1.png" class="img-fluid figure-img" width="672"></p>
-<figcaption class="figure-caption">Figure&nbsp;4: Total complete passes by Brazil</figcaption>
+<div id="fig-passbraall" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-passbraall-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="index_files/figure-html/fig-passbraall-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-passbraall-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4: Total complete passes by Brazil
+</figcaption>
 </figure>
 </div>
 </div>
 </div>
 <div class="alert alert-block alert-warning">
-<p>Upon analysing the completed passes made by Australia and Brazil throug <a href="#fig-passausall">Figure&nbsp;3</a> and <a href="#fig-passbraall">Figure&nbsp;4</a>, we observe the following:</p>
+<p>Upon analysing the completed passes made by Australia and Brazil throug <a href="#fig-passausall" class="quarto-xref">Figure&nbsp;3</a> and <a href="#fig-passbraall" class="quarto-xref">Figure&nbsp;4</a>, we observe the following:</p>
 <ol type="1">
 <li><strong>Australia made more number of successful passes as compared to Brazil</strong> as can be observed through the density of the arrows in the two figures.</li>
 <li><strong>Australia were observed to effectively use the left and right flanks</strong>.</li>
@@ -290,10 +341,14 @@ Task 3
 <h2 data-number="2.1" class="anchored" data-anchor-id="null-plots-for-total-passes-of-australia-and-brazil"><span class="header-section-number">2.1</span> Null plots for total passes of Australia and Brazil</h2>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-null" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="index_files/figure-html/fig-null-1.png" class="img-fluid figure-img" width="672"></p>
-<figcaption class="figure-caption">Figure&nbsp;5: Null plot generation for passes by each team</figcaption>
+<div id="fig-null" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-null-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="index_files/figure-html/fig-null-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-null-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;5: Null plot generation for passes by each team
+</figcaption>
 </figure>
 </div>
 </div>
@@ -302,7 +357,7 @@ Task 3
 <p>The null hypothesis which will be tested through visual inference is as follows:</p>
 <p><span class="math inline">\(H_o\)</span>: <strong>There is no significant difference in the way the passes were made in the match for the two teams</strong>.</p>
 <p>Null generating mechanism: Permutation of the variable team.name by using the null_permute function.</p>
-<p>Upon showing <a href="#fig-null">Figure&nbsp;5</a> to 8 different subjects, the following results were observed:</p>
+<p>Upon showing <a href="#fig-null" class="quarto-xref">Figure&nbsp;5</a> to 8 different subjects, the following results were observed:</p>
 <ol type="1">
 <li>1 of the 8 subjects were able to distinguish the actual plot (in position 13), citing more number of yellow points (Players from Australia) in the attacking half of the field.</li>
 <li>Remaining 7 of the 8 subjects were not able to distinguish the actual plot from the null plots.</li>
@@ -325,22 +380,30 @@ Task 4
 <p>Answer D</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-denspasslength" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="index_files/figure-html/fig-denspasslength-1.png" class="img-fluid figure-img" width="672"></p>
-<figcaption class="figure-caption">Figure&nbsp;6: Distribution of pass lengths</figcaption>
+<div id="fig-denspasslength" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-denspasslength-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="index_files/figure-html/fig-denspasslength-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-denspasslength-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;6: Distribution of pass lengths
+</figcaption>
 </figure>
 </div>
 </div>
 </div>
-<p>Based on the analysis of <a href="#fig-denspasslength">Figure&nbsp;6</a>, we can observe the pass lengths of both teams are <strong>very similar</strong>. However, these passes could be in different locations on the pitch.</p>
+<p>Based on the analysis of <a href="#fig-denspasslength" class="quarto-xref">Figure&nbsp;6</a>, we can observe the pass lengths of both teams are <strong>very similar</strong>. However, these passes could be in different locations on the pitch.</p>
 <p>Let us now create a lineup of this plot to understand whether there is a visual difference among the pass lengths by each team.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-nullpass" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="index_files/figure-html/fig-nullpass-1.png" class="img-fluid figure-img" width="672"></p>
-<figcaption class="figure-caption">Figure&nbsp;7: Null plot generation for pass length by each team</figcaption>
+<div id="fig-nullpass" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-nullpass-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="index_files/figure-html/fig-nullpass-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-nullpass-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;7: Null plot generation for pass length by each team
+</figcaption>
 </figure>
 </div>
 </div>
@@ -349,7 +412,7 @@ Task 4
 <div class="alert alert-block alert-warning">
 <p><span class="math inline">\(H_o\)</span>: <strong>There is no significant difference in the pass lengths of the two teams</strong>.</p>
 <p>Null generating mechanism = Permutation of the team name by using the null_permute function.</p>
-<p>Upon analysing <a href="#fig-nullpass">Figure&nbsp;7</a>, we could make the following observations:</p>
+<p>Upon analysing <a href="#fig-nullpass" class="quarto-xref">Figure&nbsp;7</a>, we could make the following observations:</p>
 <ol type="1">
 <li>8 subjects were allowed to select the most unique plot in the lineup.</li>
 <li>All 8 of the subjects chose a plot which was not the actual plot.</li>
@@ -362,26 +425,34 @@ Task 4
 <p>While we couldn’t find signficant difference in the pass lengths of each teams, however, can we observe any interesting insights for the long passes made by each team ?</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-longpassauskey" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="index_files/figure-html/fig-longpassauskey-1.png" class="img-fluid figure-img" width="672"></p>
-<figcaption class="figure-caption">Figure&nbsp;8: Long passes by Australia</figcaption>
+<div id="fig-longpassauskey" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-longpassauskey-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="index_files/figure-html/fig-longpassauskey-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-longpassauskey-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;8: Long passes by Australia
+</figcaption>
 </figure>
 </div>
 </div>
 </div>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-longpassbrakey" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="index_files/figure-html/fig-longpassbrakey-1.png" class="img-fluid figure-img" width="672"></p>
-<figcaption class="figure-caption">Figure&nbsp;9: Long passes by Brazil</figcaption>
+<div id="fig-longpassbrakey" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-longpassbrakey-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="index_files/figure-html/fig-longpassbrakey-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-longpassbrakey-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;9: Long passes by Brazil
+</figcaption>
 </figure>
 </div>
 </div>
 </div>
 <div class="alert alert-block alert-warning">
-<p>Based on our analysis of <a href="#fig-longpassauskey">Figure&nbsp;8</a> and <a href="#fig-longpassbrakey">Figure&nbsp;9</a>, we can make the following observations:</p>
+<p>Based on our analysis of <a href="#fig-longpassauskey" class="quarto-xref">Figure&nbsp;8</a> and <a href="#fig-longpassbrakey" class="quarto-xref">Figure&nbsp;9</a>, we can make the following observations:</p>
 <ol type="1">
 <li>Most long passes for Australia originated from the Goalkeeper’s position</li>
 <li>On the other hand, Brazil’s long passes originated from the defense. This suggests that Brazil employed short goal kicks while Australia flung more balls from the goalkeeping position to an attacking position.</li>
@@ -390,26 +461,34 @@ Task 4
 <p>Let us now observe how do the key passes change for each team.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-passauskey" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="index_files/figure-html/fig-passauskey-1.png" class="img-fluid figure-img" width="672"></p>
-<figcaption class="figure-caption">Figure&nbsp;10: Key passes by Australia</figcaption>
+<div id="fig-passauskey" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-passauskey-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="index_files/figure-html/fig-passauskey-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-passauskey-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;10: Key passes by Australia
+</figcaption>
 </figure>
 </div>
 </div>
 </div>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-passbrakey" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="index_files/figure-html/fig-passbrakey-1.png" class="img-fluid figure-img" width="672"></p>
-<figcaption class="figure-caption">Figure&nbsp;11: Key passes by Brazil</figcaption>
+<div id="fig-passbrakey" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-passbrakey-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="index_files/figure-html/fig-passbrakey-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-passbrakey-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;11: Key passes by Brazil
+</figcaption>
 </figure>
 </div>
 </div>
 </div>
 <div class="alert alert-block alert-warning">
-<p>Upon analysing the key passes as illustrated by <a href="#fig-passauskey">Figure&nbsp;10</a> and <a href="#fig-passbrakey">Figure&nbsp;11</a>, we can make the following observations:</p>
+<p>Upon analysing the key passes as illustrated by <a href="#fig-passauskey" class="quarto-xref">Figure&nbsp;10</a> and <a href="#fig-passbrakey" class="quarto-xref">Figure&nbsp;11</a>, we can make the following observations:</p>
 <ol type="1">
 <li>Australia was able to make more number of key passes in the box as compared to Brazil.</li>
 <li>Brazil were able to make only 4 outfield passes in the box while the other 2 were attributed to corners.</li>
@@ -500,10 +579,27 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
-  function tippyHover(el, contentFn) {
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("htt");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
-      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -513,8 +609,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start'
+      placement: 'bottom-start',
     };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -526,7 +631,130 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      return note.innerHTML;
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
     });
   }
       let selectedAnnoteEl;
@@ -570,6 +798,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             }
             div.style.top = top - 2 + "px";
             div.style.height = height + 4 + "px";
+            div.style.left = 0;
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");
@@ -595,6 +824,32 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         });
         selectedAnnoteEl = undefined;
       };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
       // Attach click handler to the DT
       const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
       for (const annoteDlNode of annoteDls) {
@@ -655,6 +910,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script>
 </div> <!-- /content -->
+
 
 
 

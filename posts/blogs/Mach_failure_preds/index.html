@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.450">
+<meta name="generator" content="quarto-1.4.553">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -24,7 +24,7 @@ ul.task-list li input[type="checkbox"] {
 }
 /* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -81,7 +81,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   "collapse-after": 3,
   "panel-placement": "end",
   "type": "overlay",
-  "limit": 20,
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -90,27 +96,54 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-more-match-text": "more match in this document",
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Cancel",
     "search-submit-button-title": "Submit",
     "search-label": "Search"
   }
 }</script>
-
 <script src="../../../site_libs/kePrint-0.0.1/kePrint.js"></script>
 <link href="../../../site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
 
   <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
 </head>
 
 <body class="nav-fixed">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top">
-    <nav class="navbar navbar-expand-lg navbar-dark ">
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
-      <div class="navbar-brand-container">
+      <div class="navbar-brand-container mx-auto">
     <a class="navbar-brand" href="../../../index.html">
     <span class="navbar-title">R-insights 📊📈🖥️</span>
     </a>
@@ -122,33 +155,33 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../../../about.html" rel="" target="">
- <span class="menu-text">About</span></a>
+    <a class="nav-link" href="../../../about.html"> 
+<span class="menu-text">About</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../../posts/index.html" rel="" target="">
- <span class="menu-text">Blog</span></a>
+    <a class="nav-link" href="../../../posts/index.html"> 
+<span class="menu-text">Blog</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../../plots/index.html" rel="" target="">
- <span class="menu-text">Infographics</span></a>
+    <a class="nav-link" href="../../../plots/index.html"> 
+<span class="menu-text">Infographics</span></a>
   </li>  
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item compact">
-    <a class="nav-link" href="https://github.com/arinbaruah" rel="" target=""><i class="bi bi-github" role="img" aria-label="GitHub">
+    <a class="nav-link" href="https://github.com/arinbaruah"> <i class="bi bi-github" role="img" aria-label="GitHub">
 </i> 
- <span class="menu-text"></span></a>
+<span class="menu-text"></span></a>
   </li>  
   <li class="nav-item compact">
-    <a class="nav-link" href="https://www.linkedin.com/in/arindam-baruah/" rel="" target=""><i class="bi bi-linkedin" role="img" aria-label="LinkedIn">
+    <a class="nav-link" href="https://www.linkedin.com/in/arindam-baruah/"> <i class="bi bi-linkedin" role="img" aria-label="LinkedIn">
 </i> 
- <span class="menu-text"></span></a>
+<span class="menu-text"></span></a>
   </li>  
 </ul>
-            <div class="quarto-navbar-tools">
-</div>
           </div> <!-- /navcollapse -->
+          <div class="quarto-navbar-tools">
+</div>
       </div> <!-- /container-fluid -->
     </nav>
 </header>
@@ -234,6 +267,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 
+
 <section id="introduction" class="level1" data-number="1">
 <h1 data-number="1"><span class="header-section-number">1</span> Introduction</h1>
 <p>Binary machine failure prediction using machine learning is a technique employed to anticipate the occurrence of failures or malfunctions in a binary system or machine. With the increasing complexity of modern machines, the ability to predict and prevent failures becomes crucial for optimizing performance, reducing downtime, and avoiding costly repairs.</p>
@@ -244,10 +278,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Binary machine failure prediction using machine learning is widely applied across various industries, including manufacturing, power generation, healthcare, transportation, and more. By leveraging the power of data and advanced analytics, it offers a valuable tool for optimizing maintenance strategies, enhancing productivity, and ensuring the reliability of critical systems.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-fail" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="mach_failure.jpeg" class="img-fluid figure-img" width="512"></p>
-<figcaption class="figure-caption">Figure&nbsp;1: Source: www.gesrepair.com</figcaption>
+<div id="fig-fail" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-fail-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="mach_failure.jpeg" class="img-fluid figure-img" width="512">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-fail-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Source: www.gesrepair.com
+</figcaption>
 </figure>
 </div>
 </div>
@@ -260,10 +298,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>We will use one dataset for the purpose of exploratory data analysis and training the classification model while the test dataset for testing the classification model on a completely new dataset.</p>
 <p>After reading the data, let us see how the train dataset looks like.</p>
 <div class="cell">
+<div id="tbl-train" class="cell quarto-float anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-train-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;1: Glimpse of the train dataset
+</figcaption>
+<div aria-describedby="tbl-train-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
-<div id="tbl-train" class="anchored">
-<table class="lightable-paper table table-sm table-striped small" data-quarto-postprocess="true">
-<caption>Table&nbsp;1: Glimpse of the train dataset</caption>
+<div>
+<table class="lightable-paper do-not-create-environment cell table table-sm table-striped small" data-quarto-postprocess="true">
 <thead>
 <tr class="header">
 <th style="text-align: right;" data-quarto-table-cell-role="th">id</th>
@@ -381,12 +424,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 </tbody>
 </table>
-</div>
 
 
 </div>
 </div>
-<p>From <a href="#tbl-train">Table&nbsp;1</a>, we can observe that there are multiple process parameters present in the dataset which can help us analyse whether a machine undergoes failure. We can also observe that there are multiple abbreviations in this dataset. Let us try to understand what do these abbreviations mean :</p>
+</div>
+</figure>
+</div>
+</div>
+<p>From <a href="#tbl-train" class="quarto-xref">Table&nbsp;1</a>, we can observe that there are multiple process parameters present in the dataset which can help us analyse whether a machine undergoes failure. We can also observe that there are multiple abbreviations in this dataset. Let us try to understand what do these abbreviations mean :</p>
 <ol type="1">
 <li><strong>Tool Wear Failure (TWF)</strong>: A type of machine failure which is associated with excessive tool wear.</li>
 <li><strong>Heat Dissipation Failure (HDF)</strong>: Machine failures which are associated with high process temperatures.</li>
@@ -402,15 +448,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>As a part of checking for the cleanliness of the dataset, let us visaulise the presence of null values for each of the variables.</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-<div id="fig-missvis" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="index_files/figure-html/fig-missvis-1.png" class="img-fluid figure-img" width="672"></p>
-<figcaption class="figure-caption">Figure&nbsp;2: Missingness in the dataset</figcaption>
+<div id="fig-missvis" class="quarto-figure quarto-figure-center quarto-float anchored" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-missvis-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="index_files/figure-html/fig-missvis-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-missvis-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: Missingness in the dataset
+</figcaption>
 </figure>
 </div>
 </div>
 </div>
-<p>As we can observe from figure <a href="#fig-missvis">Figure&nbsp;2</a>, there are no missing values for any of the variables in the dataset. As a result, the <strong>dataset can be considered clean</strong> for further analysis.</p>
+<p>As we can observe from figure <a href="#fig-missvis" class="quarto-xref">Figure&nbsp;2</a>, there are no missing values for any of the variables in the dataset. As a result, the <strong>dataset can be considered clean</strong> for further analysis.</p>
 </section>
 <section id="removal-of-variables" class="level2" data-number="3.2">
 <h2 data-number="3.2" class="anchored" data-anchor-id="removal-of-variables"><span class="header-section-number">3.2</span> Removal of variables</h2>
@@ -455,15 +505,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Let us see the number of machine failures for each of the machine types.</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-<div id="fig-failtype" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="index_files/figure-html/fig-failtype-1.png" class="img-fluid figure-img" width="672"></p>
-<figcaption class="figure-caption">Figure&nbsp;3: Number of machine failures for each type</figcaption>
+<div id="fig-failtype" class="quarto-figure quarto-figure-center quarto-float anchored" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-failtype-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="index_files/figure-html/fig-failtype-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-failtype-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3: Number of machine failures for each type
+</figcaption>
 </figure>
 </div>
 </div>
 </div>
-<p>Figure <a href="#fig-failtype">Figure&nbsp;3</a> illustrates the number of failures observed for each machine type. The failures constitute:<br>
+<p>Figure <a href="#fig-failtype" class="quarto-xref">Figure&nbsp;3</a> illustrates the number of failures observed for each machine type. The failures constitute:<br>
 - <strong>1 %</strong> of the incidents for machine type “H”<br>
 - <strong>2 %</strong> of the incidents for machine type “L”<br>
 - <strong>1 %</strong> of the incidents for machine type “M”<br>
@@ -478,28 +532,36 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Let us first study the distribution of the temperature values.</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-<div id="fig-temps" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="index_files/figure-html/fig-temps-1.png" class="img-fluid figure-img" width="672"></p>
-<figcaption class="figure-caption">Figure&nbsp;4: Temperature variation distribution</figcaption>
+<div id="fig-temps" class="quarto-figure quarto-figure-center quarto-float anchored" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-temps-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="index_files/figure-html/fig-temps-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-temps-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4: Temperature variation distribution
+</figcaption>
 </figure>
 </div>
 </div>
 </div>
-<p>As we can observe from <a href="#fig-temps">Figure&nbsp;4</a>, majority of the heat dissipation failures have occurred <strong>at relatively higher values of air temperatures</strong>. These air temperatures are observed to be <strong>around 302.5 K</strong>. Higher air temperatures invariably leads to lower value of heat dissipation which may cause heat dissipation failure and subsequently, machine failure.</p>
+<p>As we can observe from <a href="#fig-temps" class="quarto-xref">Figure&nbsp;4</a>, majority of the heat dissipation failures have occurred <strong>at relatively higher values of air temperatures</strong>. These air temperatures are observed to be <strong>around 302.5 K</strong>. Higher air temperatures invariably leads to lower value of heat dissipation which may cause heat dissipation failure and subsequently, machine failure.</p>
 <p>Heat dissipation values are governed by the following heat transfer equation.</p>
 <p><span class="math display">\[ \boxed{\Delta H = mC_p(T_{process} - T_{air})}\]</span> Based on the above equation, let us now study how the difference between process and air temperatures vary for heat dissipation failures.</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-<div id="fig-tempdiff" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="index_files/figure-html/fig-tempdiff-1.png" class="img-fluid figure-img" width="672"></p>
-<figcaption class="figure-caption">Figure&nbsp;5: Heat dissipation failure based on temperature difference</figcaption>
+<div id="fig-tempdiff" class="quarto-figure quarto-figure-center quarto-float anchored" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-tempdiff-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="index_files/figure-html/fig-tempdiff-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-tempdiff-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;5: Heat dissipation failure based on temperature difference
+</figcaption>
 </figure>
 </div>
 </div>
 </div>
-<p>As illustrated by figure <a href="#fig-tempdiff">Figure&nbsp;5</a> and based on the heat transfer equation, we can observe that</p>
+<p>As illustrated by figure <a href="#fig-tempdiff" class="quarto-xref">Figure&nbsp;5</a> and based on the heat transfer equation, we can observe that</p>
 <div class="alert alert-info">
 <p><strong> ⚠️ the majority of the heat dissipation failures occur at low temperature differences between process and air temperatures. ⚠️ </strong> .</p>
 </div>
@@ -511,53 +573,65 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><span class="math display">\[ \boxed{P = \omega T} \]</span> Where,</p>
 <p><span class="math inline">\(P =\)</span> Power consumption of the machine in Watts<br>
 <span class="math inline">\(T =\)</span> Torque in Nm<br>
-<span class="math inline">\(\omega = 2\pi N/60\)</span>, with <span class="math inline">\(N\)</span> being the tool rotational speed (RPM)<br>
+<span class="math inline">\(\omega =  2\pi N/60\)</span>, with <span class="math inline">\(N\)</span> being the tool rotational speed (RPM)<br>
 </p>
 <p>Let us now visualise the torque and tool rotation speed values for each machine type.</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-<div id="fig-pwf" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="index_files/figure-html/fig-pwf-1.png" class="img-fluid figure-img" width="672"></p>
-<figcaption class="figure-caption">Figure&nbsp;6: Working window of Torque and Rotational speeds</figcaption>
+<div id="fig-pwf" class="quarto-figure quarto-figure-center quarto-float anchored" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-pwf-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="index_files/figure-html/fig-pwf-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-pwf-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;6: Working window of Torque and Rotational speeds
+</figcaption>
 </figure>
 </div>
 </div>
 </div>
-<p>Based on the plot in figure <a href="#fig-pwf">Figure&nbsp;6</a>, we can observe</p>
+<p>Based on the plot in figure <a href="#fig-pwf" class="quarto-xref">Figure&nbsp;6</a>, we can observe</p>
 <div class="alert alert-info">
 <p><strong> ⚠️The ideal working window for torque lies between 25 Nm - 50 Nm while that for the rotational speed lies between 1250-2000 RPM . ⚠️ </strong> .</p>
 </div>
 <p>Let us now try to study how do the values for tool rotation speeds and torque vary based on power failure (PWF) faceted for each machine type.</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-<div id="fig-facetwindown" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="index_files/figure-html/fig-facetwindown-1.png" class="img-fluid figure-img" width="672"></p>
-<figcaption class="figure-caption">Figure&nbsp;7: Faceted hex plot of working windows for each machine type</figcaption>
+<div id="fig-facetwindown" class="quarto-figure quarto-figure-center quarto-float anchored" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-facetwindown-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="index_files/figure-html/fig-facetwindown-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-facetwindown-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;7: Faceted hex plot of working windows for each machine type
+</figcaption>
 </figure>
 </div>
 </div>
 </div>
-<p>Based on the analysis of figure <a href="#fig-facetwindown">Figure&nbsp;7</a> we can conclude that</p>
+<p>Based on the analysis of figure <a href="#fig-facetwindown" class="quarto-xref">Figure&nbsp;7</a> we can conclude that</p>
 <div class="alert alert-info">
 <p>❌ Power failures (PWF) are observed to majorly occur outside the ideal working window. These failures are <strong> majorly concentrated in either the regions of high torque and low rotational speeds or low torque and high rotational speeds. The observation holds consistent for all three machine types ❌ </strong> .</p>
 </div>
 </section>
 <section id="power-consumption" class="level2" data-number="4.4">
 <h2 data-number="4.4" class="anchored" data-anchor-id="power-consumption"><span class="header-section-number">4.4</span> Power consumption</h2>
-<p>Based on the analysis in section <a href="#sec-label1">Section&nbsp;4.3</a>, let us study how does the power consumption differ for machines which have undergone power failure (PWF).</p>
+<p>Based on the analysis in section <a href="#sec-label1" class="quarto-xref">Section&nbsp;4.3</a>, let us study how does the power consumption differ for machines which have undergone power failure (PWF).</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-<div id="fig-power" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="index_files/figure-html/fig-power-1.png" class="img-fluid figure-img" width="672"></p>
-<figcaption class="figure-caption">Figure&nbsp;8: Probability density of power consumption for each PWF status</figcaption>
+<div id="fig-power" class="quarto-figure quarto-figure-center quarto-float anchored" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-power-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="index_files/figure-html/fig-power-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-power-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;8: Probability density of power consumption for each PWF status
+</figcaption>
 </figure>
 </div>
 </div>
 </div>
-<p>Figure <a href="#fig-power">Figure&nbsp;8</a> illustrates the density distribution of power consumption for each power failure (PWF) status and faceted for each of the machine types. We can observe that:</p>
+<p>Figure <a href="#fig-power" class="quarto-xref">Figure&nbsp;8</a> illustrates the density distribution of power consumption for each power failure (PWF) status and faceted for each of the machine types. We can observe that:</p>
 <div class="alert alert-info">
 <p>⚡️the density plot for machines which have undergone power failure is bimodal in nature while the plot is unimodal for machines which did not undergo power failure. Based on the density plot, we can observe that the ideal working window for power consumption should be between 4000-10000 W. Machines reporting power consumption below or above this band are observed to be prone to undergo power failure.⚡️</p>
 </div>
@@ -567,15 +641,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>The toolwear can play a critical role in terms of overstrain failure (OSF) as <strong>it can lead to excess loads on various parts of the machine equipment.</strong> Hence, it is pertinent to study the importance of toolwear through visualisations.</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-<div id="fig-toolwear" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="index_files/figure-html/fig-toolwear-1.png" class="img-fluid figure-img" width="672"></p>
-<figcaption class="figure-caption">Figure&nbsp;9: Tool wear values for overstrain failure status (OSF) faceted for each machine type</figcaption>
+<div id="fig-toolwear" class="quarto-figure quarto-figure-center quarto-float anchored" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-toolwear-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="index_files/figure-html/fig-toolwear-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-toolwear-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;9: Tool wear values for overstrain failure status (OSF) faceted for each machine type
+</figcaption>
 </figure>
 </div>
 </div>
 </div>
-<p>After analysing figure <a href="#fig-toolwear">Figure&nbsp;9</a>, we observe that</p>
+<p>After analysing figure <a href="#fig-toolwear" class="quarto-xref">Figure&nbsp;9</a>, we observe that</p>
 <div class="alert alert-info">
 <p>🔩 Overstrain failures as a result of tool wear occurs <strong> majorly for tool wear values of 200 mm or above </strong>. While there are some overstrain failures at low toolwear values, however, OSF is majorly a result of higher toolwear as can be observed through the violin plots. This observation is fairly consistent for each of the three machine types. 🔩.</p>
 </div>
@@ -583,7 +661,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="feature-engineering" class="level1" data-number="5">
 <h1 data-number="5"><span class="header-section-number">5</span> Feature Engineering</h1>
-<p>We will majorly concentrate on two new features. These features have already been analysed in sections <a href="#sec-label1">Section&nbsp;4.3</a> and <a href="#sec-label2">Section&nbsp;4.2</a>. These <strong>features are namely temperature difference and power consumption.</strong></p>
+<p>We will majorly concentrate on two new features. These features have already been analysed in sections <a href="#sec-label1" class="quarto-xref">Section&nbsp;4.3</a> and <a href="#sec-label2" class="quarto-xref">Section&nbsp;4.2</a>. These <strong>features are namely temperature difference and power consumption.</strong></p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>df_train <span class="ot">&lt;-</span> df_train <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">temp_diff_k =</span> process_temperature_k <span class="sc">-</span> air_temperature_k) <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="sc">-</span><span class="fu">c</span>(process_temperature_k,air_temperature_k))</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>df_train <span class="ot">&lt;-</span> df_train <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">power_w =</span> torque_nm <span class="sc">*</span> <span class="dv">2</span><span class="sc">*</span> pi <span class="sc">*</span> rotational_speed_rpm<span class="sc">/</span><span class="dv">60</span>) <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="sc">-</span><span class="fu">c</span>(torque_nm,rotational_speed_rpm))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -602,10 +680,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>After analysing the various variables and performing feature engineering, let us create a correlation plot.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-corrplot" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="index_files/figure-html/fig-corrplot-1.png" class="img-fluid figure-img" width="672"></p>
-<figcaption class="figure-caption">Figure&nbsp;10: Correlation plot for the various features in the data</figcaption>
+<div id="fig-corrplot" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-corrplot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="index_files/figure-html/fig-corrplot-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-corrplot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;10: Correlation plot for the various features in the data
+</figcaption>
 </figure>
 </div>
 </div>
@@ -652,54 +734,70 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Let us further study the performance of the logistic regression model through the Receiver Operating Curve (ROC) metric.</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-<div id="fig-roclogit" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="index_files/figure-html/fig-roclogit-1.png" class="img-fluid figure-img" width="672"></p>
-<figcaption class="figure-caption">Figure&nbsp;11: Receiver Operating Curve for Logistic Regression</figcaption>
+<div id="fig-roclogit" class="quarto-figure quarto-figure-center quarto-float anchored" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-roclogit-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="index_files/figure-html/fig-roclogit-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-roclogit-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;11: Receiver Operating Curve for Logistic Regression
+</figcaption>
 </figure>
 </div>
 </div>
 </div>
-<p>Based on the ROC as illustrated by figure <a href="#fig-roclogit">Figure&nbsp;11</a>, we can observe that a large section of the upper half of the plot has been covered by the operating curve.</p>
+<p>Based on the ROC as illustrated by figure <a href="#fig-roclogit" class="quarto-xref">Figure&nbsp;11</a>, we can observe that a large section of the upper half of the plot has been covered by the operating curve.</p>
 <div class="alert alert-info">
 <p>💡 The Area Under Curve (AUC) score of 0.9261326 suggests that the model was able to <strong> predict the machine failures fairly well. </strong> 💡</p>
 </div>
 <p>Next, we try to obtain a more intuitive performance metric of the model by creating a confusion matrix.</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-<div id="fig-confmat" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="index_files/figure-html/fig-confmat-1.png" class="img-fluid figure-img" width="672"></p>
-<figcaption class="figure-caption">Figure&nbsp;12: Confusion matrix for Logistic Regression</figcaption>
+<div id="fig-confmat" class="quarto-figure quarto-figure-center quarto-float anchored" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-confmat-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="index_files/figure-html/fig-confmat-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-confmat-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;12: Confusion matrix for Logistic Regression
+</figcaption>
 </figure>
 </div>
 </div>
 </div>
-<p>Figure <a href="#fig-confmat">Figure&nbsp;12</a> illustrates the confusion matrix for the logistic regression model along with its various performance metrics.</p>
+<p>Figure <a href="#fig-confmat" class="quarto-xref">Figure&nbsp;12</a> illustrates the confusion matrix for the logistic regression model along with its various performance metrics.</p>
 </section>
 <section id="random-forest" class="level2" data-number="7.2">
 <h2 data-number="7.2" class="anchored" data-anchor-id="random-forest"><span class="header-section-number">7.2</span> Random Forest</h2>
 <p>Let us use an ensemble algorithm to classify our results. We shall utilise the Random Forest technique which utilises multiple decision trees to predict results.</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-<div id="fig-errormod" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="index_files/figure-html/fig-errormod-1.png" class="img-fluid figure-img" width="672"></p>
-<figcaption class="figure-caption">Figure&nbsp;13: Error vs Number of trees for Random Forest</figcaption>
+<div id="fig-errormod" class="quarto-figure quarto-figure-center quarto-float anchored" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-errormod-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="index_files/figure-html/fig-errormod-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-errormod-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;13: Error vs Number of trees for Random Forest
+</figcaption>
 </figure>
 </div>
 </div>
 </div>
-<p>As we can observe from figure <a href="#fig-errormod">Figure&nbsp;13</a>,</p>
+<p>As we can observe from figure <a href="#fig-errormod" class="quarto-xref">Figure&nbsp;13</a>,</p>
 <div class="alert alert-info">
 <p>💡 the error of the random forest model is observed to reduce <strong> as the number of trees cross 100 </strong>. 💡</p>
 </div>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-<div id="fig-confmatrf" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="index_files/figure-html/fig-confmatrf-1.png" class="img-fluid figure-img" width="672"></p>
-<figcaption class="figure-caption">Figure&nbsp;14: Confusion matrix of the random forest model</figcaption>
+<div id="fig-confmatrf" class="quarto-figure quarto-figure-center quarto-float anchored" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-confmatrf-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="index_files/figure-html/fig-confmatrf-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-confmatrf-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;14: Confusion matrix of the random forest model
+</figcaption>
 </figure>
 </div>
 </div>
@@ -719,7 +817,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="index_files/figure-html/conf-mat-xgb-1.png" class="img-fluid figure-img" width="672"></p>
-<figcaption class="figure-caption">Confusion matrix of the XGBoost model</figcaption>
+<figcaption>Confusion matrix of the XGBoost model</figcaption>
 </figure>
 </div>
 </div>
@@ -733,7 +831,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="index_files/figure-html/cf-lgb-1.png" class="img-fluid figure-img" width="672"></p>
-<figcaption class="figure-caption">Confusion matrix of the Light GB model</figcaption>
+<figcaption>Confusion matrix of the Light GB model</figcaption>
 </figure>
 </div>
 </div>
@@ -746,7 +844,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="index_files/figure-html/catb-1.png" class="img-fluid figure-img" width="672"></p>
-<figcaption class="figure-caption">Feature importance using Catboost model</figcaption>
+<figcaption>Feature importance using Catboost model</figcaption>
 </figure>
 </div>
 </div>
@@ -756,7 +854,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="index_files/figure-html/cf-cat-1.png" class="img-fluid figure-img" width="672"></p>
-<figcaption class="figure-caption">Confusion matrix of the Catboost model</figcaption>
+<figcaption>Confusion matrix of the Catboost model</figcaption>
 </figure>
 </div>
 </div>
@@ -889,10 +987,27 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
-  function tippyHover(el, contentFn) {
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("htt");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
-      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -902,8 +1017,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start'
+      placement: 'bottom-start',
     };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -915,7 +1039,130 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      return note.innerHTML;
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
     });
   }
       let selectedAnnoteEl;
@@ -959,6 +1206,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             }
             div.style.top = top - 2 + "px";
             div.style.height = height + 4 + "px";
+            div.style.left = 0;
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");
@@ -984,6 +1232,32 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         });
         selectedAnnoteEl = undefined;
       };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
       // Attach click handler to the DT
       const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
       for (const annoteDlNode of annoteDls) {
@@ -1044,6 +1318,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script>
 </div> <!-- /content -->
+
 
 
 

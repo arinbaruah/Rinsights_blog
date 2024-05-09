@@ -3,7 +3,6 @@ title: "All aboard the blog train !"
 author: "Arindam Baruah"
 date: "2023-06-13"
 categories: [news]
-theme: cyborg
 ---
 
 ![](image.gif)

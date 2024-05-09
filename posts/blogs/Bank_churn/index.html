@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.450">
+<meta name="generator" content="quarto-1.4.553">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -24,7 +24,7 @@ ul.task-list li input[type="checkbox"] {
 }
 /* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -81,7 +81,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   "collapse-after": 3,
   "panel-placement": "end",
   "type": "overlay",
-  "limit": 20,
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -90,12 +96,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-more-match-text": "more match in this document",
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Cancel",
     "search-submit-button-title": "Submit",
     "search-label": "Search"
   }
 }</script>
-
 <script src="../../../site_libs/kePrint-0.0.1/kePrint.js"></script>
 <link href="../../../site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
 
@@ -105,10 +111,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <body class="nav-fixed">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top">
-    <nav class="navbar navbar-expand-lg navbar-dark ">
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
-      <div class="navbar-brand-container">
+      <div class="navbar-brand-container mx-auto">
     <a class="navbar-brand" href="../../../index.html">
     <span class="navbar-title">R-insights 📊📈🖥️</span>
     </a>
@@ -120,33 +126,33 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../../../about.html" rel="" target="">
- <span class="menu-text">About</span></a>
+    <a class="nav-link" href="../../../about.html"> 
+<span class="menu-text">About</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../../posts/index.html" rel="" target="">
- <span class="menu-text">Blog</span></a>
+    <a class="nav-link" href="../../../posts/index.html"> 
+<span class="menu-text">Blog</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../../plots/index.html" rel="" target="">
- <span class="menu-text">Infographics</span></a>
+    <a class="nav-link" href="../../../plots/index.html"> 
+<span class="menu-text">Infographics</span></a>
   </li>  
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item compact">
-    <a class="nav-link" href="https://github.com/arinbaruah" rel="" target=""><i class="bi bi-github" role="img" aria-label="GitHub">
+    <a class="nav-link" href="https://github.com/arinbaruah"> <i class="bi bi-github" role="img" aria-label="GitHub">
 </i> 
- <span class="menu-text"></span></a>
+<span class="menu-text"></span></a>
   </li>  
   <li class="nav-item compact">
-    <a class="nav-link" href="https://www.linkedin.com/in/arindam-baruah/" rel="" target=""><i class="bi bi-linkedin" role="img" aria-label="LinkedIn">
+    <a class="nav-link" href="https://www.linkedin.com/in/arindam-baruah/"> <i class="bi bi-linkedin" role="img" aria-label="LinkedIn">
 </i> 
- <span class="menu-text"></span></a>
+<span class="menu-text"></span></a>
   </li>  
 </ul>
-            <div class="quarto-navbar-tools">
-</div>
           </div> <!-- /navcollapse -->
+          <div class="quarto-navbar-tools">
+</div>
       </div> <!-- /container-fluid -->
     </nav>
 </header>
@@ -219,10 +225,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 
+
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="figure/fig1.png" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">Source: Medium</figcaption>
+<figcaption>Source: Medium</figcaption>
 </figure>
 </div>
 <section id="sec-intro" class="level1" data-number="1">
@@ -296,10 +303,15 @@ Reasons for a churn to occur
 </div>
 <div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
 <div class="cell">
+<div id="tbl-data" class="cell quarto-float anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-data-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;1: Bank churn dataset
+</figcaption>
+<div aria-describedby="tbl-data-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
-<div id="tbl-data" class="anchored">
-<table class="lightable-paper table table-sm table-striped small" data-quarto-postprocess="true">
-<caption>Table&nbsp;1: Bank churn dataset</caption>
+<div>
+<table class="lightable-paper do-not-create-environment cell table table-sm table-striped small" data-quarto-postprocess="true">
 <thead>
 <tr class="header">
 <th style="text-align: right;" data-quarto-table-cell-role="th">id</th>
@@ -417,9 +429,12 @@ Reasons for a churn to occur
 </tr>
 </tbody>
 </table>
+
+
 </div>
-
-
+</div>
+</div>
+</figure>
 </div>
 </div>
 </div>
@@ -449,15 +464,19 @@ Reasons for a churn to occur
 <h1 data-number="4"><span class="header-section-number">4</span> Data cleaning</h1>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-misvis" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="index_files/figure-html/fig-misvis-1.png" class="img-fluid figure-img" width="672"></p>
-<figcaption class="figure-caption">Figure&nbsp;1: Check for missing values in the dataset</figcaption>
+<div id="fig-misvis" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-misvis-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="index_files/figure-html/fig-misvis-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-misvis-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Check for missing values in the dataset
+</figcaption>
 </figure>
 </div>
 </div>
 </div>
-<p>As we can observe from <a href="#fig-misvis">Figure&nbsp;1</a>, the dataset is clean and <strong>does not have any missing values to be dealt with.</strong> While this is ideal, it is however not the only check that we must perform in the data.</p>
+<p>As we can observe from <a href="#fig-misvis" class="quarto-xref">Figure&nbsp;1</a>, the dataset is clean and <strong>does not have any missing values to be dealt with.</strong> While this is ideal, it is however not the only check that we must perform in the data.</p>
 </section>
 <section id="data-sanity-checks" class="level1" data-number="5">
 <h1 data-number="5"><span class="header-section-number">5</span> Data sanity checks</h1>
@@ -466,10 +485,15 @@ Reasons for a churn to occur
 <div class="tab-content">
 <div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
 <div class="cell">
+<div id="tbl-occur" class="cell quarto-float anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-occur-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;2: Number of occurrences of each customer
+</figcaption>
+<div aria-describedby="tbl-occur-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
-<div id="tbl-occur" class="anchored">
-<table data-quarto-postprocess="true" class="table table-sm table-striped small">
-<caption>Table&nbsp;2: Number of occurrences of each customer</caption>
+<div>
+<table class="do-not-create-environment cell table table-sm table-striped small" data-quarto-postprocess="true">
 <thead>
 <tr class="header">
 <th style="text-align: right;" data-quarto-table-cell-role="th">CustomerId</th>
@@ -503,40 +527,51 @@ Reasons for a churn to occur
 </tr>
 </tbody>
 </table>
-</div>
 
 
 </div>
 </div>
-<p>Based on <a href="#tbl-occur">Table&nbsp;2</a>, we can observe that the same customer ID appears multiple number of times in the dataset when infact, it was supposed to appear just once. Hence, we can consider the CustomerId variable to be serving no purpose in the current dataset. This shall be dropped in the feature selection section.</p>
+</div>
+</figure>
+</div>
+</div>
+<p>Based on <a href="#tbl-occur" class="quarto-xref">Table&nbsp;2</a>, we can observe that the same customer ID appears multiple number of times in the dataset when infact, it was supposed to appear just once. Hence, we can consider the CustomerId variable to be serving no purpose in the current dataset. This shall be dropped in the feature selection section.</p>
 </div>
 <div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
 <p>The estimated salary variable indicates the income of each customer declared as a salary. <strong>Salaries can never be negative.</strong> Let us quickly check if that indeed is the case.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-salary" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="index_files/figure-html/fig-salary-1.png" class="img-fluid figure-img" width="672"></p>
-<figcaption class="figure-caption">Figure&nbsp;2: Salary distribution of customers</figcaption>
+<div id="fig-salary" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-salary-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="index_files/figure-html/fig-salary-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-salary-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: Salary distribution of customers
+</figcaption>
 </figure>
 </div>
 </div>
 </div>
-<p>Based on the histrogram of the salaries as illustrated by <a href="#fig-salary">Figure&nbsp;2</a>, we can observe that the salaries are <strong>indeed positive which is what is expected.</strong></p>
+<p>Based on the histrogram of the salaries as illustrated by <a href="#fig-salary" class="quarto-xref">Figure&nbsp;2</a>, we can observe that the salaries are <strong>indeed positive which is what is expected.</strong></p>
 </div>
 <div id="tabset-2-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-3-tab">
 <p>Bank account customers are generally required to be adults (&gt; 18 years). We will check if that holds true for the current dataset and attempt to detect any anomalous data such as negative age.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-age" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="index_files/figure-html/fig-age-1.png" class="img-fluid figure-img" width="672"></p>
-<figcaption class="figure-caption">Figure&nbsp;3: Age distribution of the bank customers</figcaption>
+<div id="fig-age" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-age-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="index_files/figure-html/fig-age-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-age-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3: Age distribution of the bank customers
+</figcaption>
 </figure>
 </div>
 </div>
 </div>
-<p>Based on <a href="#fig-age">Figure&nbsp;3</a>, we can observe that the data indeed suggests that the customers are of the right age (&gt;18 years) and there are no anomalous data entries for this variable.</p>
+<p>Based on <a href="#fig-age" class="quarto-xref">Figure&nbsp;3</a>, we can observe that the data indeed suggests that the customers are of the right age (&gt;18 years) and there are no anomalous data entries for this variable.</p>
 </div>
 </div>
 </div>
@@ -548,10 +583,14 @@ Reasons for a churn to occur
 <h2 data-number="6.1" class="anchored" data-anchor-id="correlation-plot"><span class="header-section-number">6.1</span> Correlation plot</h2>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-corrplot" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="index_files/figure-html/fig-corrplot-1.png" class="img-fluid figure-img" width="672"></p>
-<figcaption class="figure-caption">Figure&nbsp;4: Correlation plot</figcaption>
+<div id="fig-corrplot" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-corrplot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="index_files/figure-html/fig-corrplot-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-corrplot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4: Correlation plot
+</figcaption>
 </figure>
 </div>
 </div>
@@ -566,7 +605,7 @@ Key takeaway
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Based on our understanding of the variables as illustrated by the correlation plot in <a href="#fig-corrplot">Figure&nbsp;4</a>, we can infer that there is <strong>no single variable which is highly correlated</strong> to the churn indicator. <strong>We can also observe that none of the features are highly correlated to one another. This indicates that there is no multicollinearity in the choice of our features.</strong></p>
+<p>Based on our understanding of the variables as illustrated by the correlation plot in <a href="#fig-corrplot" class="quarto-xref">Figure&nbsp;4</a>, we can infer that there is <strong>no single variable which is highly correlated</strong> to the churn indicator. <strong>We can also observe that none of the features are highly correlated to one another. This indicates that there is no multicollinearity in the choice of our features.</strong></p>
 </div>
 </div>
 </section>
@@ -575,15 +614,19 @@ Key takeaway
 <p>Let us try to understand if there are any geographical regions which have accounted for high churns.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-geo" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="index_files/figure-html/fig-geo-1.png" class="img-fluid figure-img" width="672"></p>
-<figcaption class="figure-caption">Figure&nbsp;5: Bank accounts for each geographical location</figcaption>
+<div id="fig-geo" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-geo-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="index_files/figure-html/fig-geo-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-geo-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;5: Bank accounts for each geographical location
+</figcaption>
 </figure>
 </div>
 </div>
 </div>
-<p>Based on the illustration <a href="#fig-geo">Figure&nbsp;5</a>, we can observe that the percentage of churns are significantly higher in Germany as compared to France and Spain where the churn percentage appears to be similar.</p>
+<p>Based on the illustration <a href="#fig-geo" class="quarto-xref">Figure&nbsp;5</a>, we can observe that the percentage of churns are significantly higher in Germany as compared to France and Spain where the churn percentage appears to be similar.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -602,15 +645,19 @@ Key takeaway
 <h2 data-number="6.3" class="anchored" data-anchor-id="age-wise-bank-churn"><span class="header-section-number">6.3</span> Age wise bank churn</h2>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-age-churn" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="index_files/figure-html/fig-age-churn-1.png" class="img-fluid figure-img" width="672"></p>
-<figcaption class="figure-caption">Figure&nbsp;6: Age wise churn data</figcaption>
+<div id="fig-age-churn" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-age-churn-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="index_files/figure-html/fig-age-churn-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-age-churn-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;6: Age wise churn data
+</figcaption>
 </figure>
 </div>
 </div>
 </div>
-<p>As we can observe through <a href="#fig-age-churn">Figure&nbsp;6</a>, the churns are associated majorly with customers between the ages of 25 and 60.</p>
+<p>As we can observe through <a href="#fig-age-churn" class="quarto-xref">Figure&nbsp;6</a>, the churns are associated majorly with customers between the ages of 25 and 60.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -635,10 +682,14 @@ Key takeaway
 <p>Let us now try to analyse if the credit scores could tell us anything about the likelihood of the bank account churns.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-cred" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="index_files/figure-html/fig-cred-1.png" class="img-fluid figure-img" width="672"></p>
-<figcaption class="figure-caption">Figure&nbsp;7: Credit score distribution of churned accounts</figcaption>
+<div id="fig-cred" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-cred-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="index_files/figure-html/fig-cred-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-cred-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;7: Credit score distribution of churned accounts
+</figcaption>
 </figure>
 </div>
 </div>
@@ -653,7 +704,7 @@ Key takeaway
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Based on the credit score distribution of the churned and active accounts as illustrated in <a href="#fig-cred">Figure&nbsp;7</a>, we <strong>cannot observe any discernible difference in the credit scores which could indicate the likeliness of a bank account churn</strong>. This indicates that the credit scores of customers may not be a strong factor leading to them closing their bank accounts.</p>
+<p>Based on the credit score distribution of the churned and active accounts as illustrated in <a href="#fig-cred" class="quarto-xref">Figure&nbsp;7</a>, we <strong>cannot observe any discernible difference in the credit scores which could indicate the likeliness of a bank account churn</strong>. This indicates that the credit scores of customers may not be a strong factor leading to them closing their bank accounts.</p>
 </div>
 </div>
 </section>
@@ -662,10 +713,14 @@ Key takeaway
 <p>Next, we can analyse if the churns are mostly from bank accounts which are inactive, possibly due to very low transactions.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-transact" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="index_files/figure-html/fig-transact-1.png" class="img-fluid figure-img" width="672"></p>
-<figcaption class="figure-caption">Figure&nbsp;8: Transaction activity wise churn</figcaption>
+<div id="fig-transact" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-transact-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="index_files/figure-html/fig-transact-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-transact-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;8: Transaction activity wise churn
+</figcaption>
 </figure>
 </div>
 </div>
@@ -680,7 +735,7 @@ Key takeaway
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Based on <a href="#fig-transact">Figure&nbsp;8</a>, we can observe that the percentage of the <strong>bank churns for inactive accounts are more than twice that of the active accounts.</strong></p>
+<p>Based on <a href="#fig-transact" class="quarto-xref">Figure&nbsp;8</a>, we can observe that the percentage of the <strong>bank churns for inactive accounts are more than twice that of the active accounts.</strong></p>
 <p>This indicates that the probability of a churn rises if the transaction activity of the bank account reduces. This could also be measure taken by the bank to reduce the burden of keeping the services activated for accounts which have shown little to no activity for an extended period of duraiton.</p>
 </div>
 </div>
@@ -691,10 +746,14 @@ Key takeaway
 <p>For this, we will flag any balance which is 0.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-balance" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="index_files/figure-html/fig-balance-1.png" class="img-fluid figure-img" width="672"></p>
-<figcaption class="figure-caption">Figure&nbsp;9: Account balance wise churn</figcaption>
+<div id="fig-balance" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-balance-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="index_files/figure-html/fig-balance-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-balance-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;9: Account balance wise churn
+</figcaption>
 </figure>
 </div>
 </div>
@@ -709,8 +768,8 @@ Key takeaway
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p><a href="#fig-balance">Figure&nbsp;9</a> illustrates the percentage of bank accounts churned for accounts with positive balance and zero balance. Contrary to belief, the percentage of churns are actually higher for accounts with positive balance as compared to zero balance accounts.</p>
-<p>This could be due to the fact that account holders with zero balances are generally inactive and may not proactively close their accounts but rather, is done so by the bank to reduce the maintenance cost of keeping zero balance accounts active. However, account holders with positive balance may proactively choose to close their accounts due to various reasons as stated in <a href="#sec-intro">Section&nbsp;1</a> which may lead to the higher percentage of churned accounts.</p>
+<p><a href="#fig-balance" class="quarto-xref">Figure&nbsp;9</a> illustrates the percentage of bank accounts churned for accounts with positive balance and zero balance. Contrary to belief, the percentage of churns are actually higher for accounts with positive balance as compared to zero balance accounts.</p>
+<p>This could be due to the fact that account holders with zero balances are generally inactive and may not proactively close their accounts but rather, is done so by the bank to reduce the maintenance cost of keeping zero balance accounts active. However, account holders with positive balance may proactively choose to close their accounts due to various reasons as stated in <a href="#sec-intro" class="quarto-xref">Section&nbsp;1</a> which may lead to the higher percentage of churned accounts.</p>
 </div>
 </div>
 </section>
@@ -728,26 +787,34 @@ Key takeaway
 <p>Let us study the performance of the logistic regression model through the Receiver Operating Curve (ROC) metric.</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-<div id="fig-roclog" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="index_files/figure-html/fig-roclog-1.png" class="img-fluid figure-img" width="672"></p>
-<figcaption class="figure-caption">Figure&nbsp;10: ROC-AUC metric</figcaption>
+<div id="fig-roclog" class="quarto-figure quarto-figure-center quarto-float anchored" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-roclog-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="index_files/figure-html/fig-roclog-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-roclog-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;10: ROC-AUC metric
+</figcaption>
 </figure>
 </div>
 </div>
 </div>
-<p>Based on the receiver operating curve as illustrated by <a href="#fig-roclog">Figure&nbsp;10</a>, we can observe that while a sizeable are of the graph is covered by the curve, it can however by improved by possibly a better classification algorithm.</p>
+<p>Based on the receiver operating curve as illustrated by <a href="#fig-roclog" class="quarto-xref">Figure&nbsp;10</a>, we can observe that while a sizeable are of the graph is covered by the curve, it can however by improved by possibly a better classification algorithm.</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-<div id="fig-conflog" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="index_files/figure-html/fig-conflog-1.png" class="img-fluid figure-img" width="672"></p>
-<figcaption class="figure-caption">Figure&nbsp;11: Confusion matrix for Logistic Regression classification model</figcaption>
+<div id="fig-conflog" class="quarto-figure quarto-figure-center quarto-float anchored" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-conflog-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="index_files/figure-html/fig-conflog-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-conflog-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;11: Confusion matrix for Logistic Regression classification model
+</figcaption>
 </figure>
 </div>
 </div>
 </div>
-<p><a href="#fig-conflog">Figure&nbsp;11</a> depicts a more intuitive way to understand the performance of the Logistic Regression. The model was able to predict the churned accounts with an <strong>accuracy of 83.4%</strong>.</p>
+<p><a href="#fig-conflog" class="quarto-xref">Figure&nbsp;11</a> depicts a more intuitive way to understand the performance of the Logistic Regression. The model was able to predict the churned accounts with an <strong>accuracy of 83.4%</strong>.</p>
 </div>
 <div id="tabset-3-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-2-tab">
 <p>Let us try to use an extra gradient boosted ensemble method commonly termed as the XGboost classifier.</p>
@@ -759,53 +826,69 @@ Key takeaway
 </div>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-<div id="fig-confxgb" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="index_files/figure-html/fig-confxgb-1.png" class="img-fluid figure-img" width="672"></p>
-<figcaption class="figure-caption">Figure&nbsp;12: Confusion matrix for XGBoost classification model</figcaption>
+<div id="fig-confxgb" class="quarto-figure quarto-figure-center quarto-float anchored" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-confxgb-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="index_files/figure-html/fig-confxgb-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-confxgb-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;12: Confusion matrix for XGBoost classification model
+</figcaption>
 </figure>
 </div>
 </div>
 </div>
-<p>We observe a marginally <strong>better classification accuracy as compared to the logistic regression model for the XGboosted classifier as depicted by <a href="#fig-confxgb">Figure&nbsp;12</a> with an accuracy of 85.1%.</strong></p>
+<p>We observe a marginally <strong>better classification accuracy as compared to the logistic regression model for the XGboosted classifier as depicted by <a href="#fig-confxgb" class="quarto-xref">Figure&nbsp;12</a> with an accuracy of 85.1%.</strong></p>
 </div>
 <div id="tabset-3-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-3-tab">
 <p>Let us utilise the LGBM algorithm and train it on the given dataset.</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-<div id="fig-lgbconf" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="index_files/figure-html/fig-lgbconf-1.png" class="img-fluid figure-img" width="672"></p>
-<figcaption class="figure-caption">Figure&nbsp;13: Confusion matrix for Light GBM classification model</figcaption>
+<div id="fig-lgbconf" class="quarto-figure quarto-figure-center quarto-float anchored" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-lgbconf-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="index_files/figure-html/fig-lgbconf-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-lgbconf-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;13: Confusion matrix for Light GBM classification model
+</figcaption>
 </figure>
 </div>
 </div>
 </div>
-<p>Based on <a href="#fig-lgbconf">Figure&nbsp;13</a>, we can observe that the LGB classifier has actually classified poorly with multiple negatives observed in its classification. We can disregard this model for our purpose of classification.</p>
+<p>Based on <a href="#fig-lgbconf" class="quarto-xref">Figure&nbsp;13</a>, we can observe that the LGB classifier has actually classified poorly with multiple negatives observed in its classification. We can disregard this model for our purpose of classification.</p>
 </div>
 <div id="tabset-3-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-4-tab">
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-<div id="fig-catimp" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="index_files/figure-html/fig-catimp-1.png" class="img-fluid figure-img" width="672"></p>
-<figcaption class="figure-caption">Figure&nbsp;14: Importance of each variable based on the Catboost classification algorithm</figcaption>
+<div id="fig-catimp" class="quarto-figure quarto-figure-center quarto-float anchored" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-catimp-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="index_files/figure-html/fig-catimp-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-catimp-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;14: Importance of each variable based on the Catboost classification algorithm
+</figcaption>
 </figure>
 </div>
 </div>
 </div>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-<div id="fig-catconf" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="index_files/figure-html/fig-catconf-1.png" class="img-fluid figure-img" width="672"></p>
-<figcaption class="figure-caption">Figure&nbsp;15: Confusion matrix for Catboost classification model</figcaption>
+<div id="fig-catconf" class="quarto-figure quarto-figure-center quarto-float anchored" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-catconf-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="index_files/figure-html/fig-catconf-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-catconf-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;15: Confusion matrix for Catboost classification model
+</figcaption>
 </figure>
 </div>
 </div>
 </div>
-<p>Upon utilising the Catboost classifier, we can observe from <a href="#fig-catconf">Figure&nbsp;15</a> that the classifier <strong>has a marginally better accuracy when compared to the logistic regression, XGboost and Light GBM.</strong></p>
-<p>Additionally, <a href="#fig-catimp">Figure&nbsp;14</a> indicates the variables which have the highest importance in predicting the bank account churns. We can observe that the variables, “Number of products” followed by “Age” and “Activity” are the most critical to be able to predict tge churned accounts.</p>
+<p>Upon utilising the Catboost classifier, we can observe from <a href="#fig-catconf" class="quarto-xref">Figure&nbsp;15</a> that the classifier <strong>has a marginally better accuracy when compared to the logistic regression, XGboost and Light GBM.</strong></p>
+<p>Additionally, <a href="#fig-catimp" class="quarto-xref">Figure&nbsp;14</a> indicates the variables which have the highest importance in predicting the bank account churns. We can observe that the variables, “Number of products” followed by “Age” and “Activity” are the most critical to be able to predict tge churned accounts.</p>
 </div>
 </div>
 </div>
@@ -893,10 +976,27 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
-  function tippyHover(el, contentFn) {
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("htt");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
-      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -906,8 +1006,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start'
+      placement: 'bottom-start',
     };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -919,7 +1028,130 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      return note.innerHTML;
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
     });
   }
       let selectedAnnoteEl;
@@ -963,6 +1195,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             }
             div.style.top = top - 2 + "px";
             div.style.height = height + 4 + "px";
+            div.style.left = 0;
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");
@@ -988,6 +1221,32 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         });
         selectedAnnoteEl = undefined;
       };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
       // Attach click handler to the DT
       const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
       for (const annoteDlNode of annoteDls) {
@@ -1048,6 +1307,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script>
 </div> <!-- /content -->
+
 
 
 

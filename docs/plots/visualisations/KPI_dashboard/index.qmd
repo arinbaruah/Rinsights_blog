@@ -5,12 +5,15 @@ date: "2024-01-31"
 image: "dashboard.png"
 categories: [PowerBI,scatter plot,line plot,dashboards,annotations]
 format: html
-number-sections: true
-toc: true
+number-sections: false
+toc: false
 execute: 
   echo: false
   warning: false
   message: false
 ---
 
-![PowerBI dashboard for a process monitoring dashboard](Sep_KPI_dashboard.pdf){width=640px height=480px}
+
+# SteelForge Insight: Real-time Monitoring Dashboard for Hot Rolled Steel Production
+
+![PowerBI dashboard for a process monitoring dashboard](dashboard.png){#fig-steeldash}

@@ -1,7 +1,7 @@
 ---
 title: "Unveiling the Mosaic: A Deep Dive into the Educational Diversity Amongst US PhD Graduates 🧑‍🎓📚🇺🇸"
 author: "Arindam Baruah"
-date: "2023-08-28"
+date: "2024-04-19"
 categories: [R,analysis,visualisation,exploratory data analysis, R-shiny app]
 image: "phd.png"
 bibliography: references.bib 

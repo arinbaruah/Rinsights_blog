@@ -14,18 +14,18 @@
   {
     "listing": "/posts/index.html",
     "items": [
-      "/posts/blogs/High_dim_cricket_PCA/post.html",
-      "/posts/blogs/Confusion_matrix/post.html",
-      "/posts/blogs/Women_Chess_players/index.html",
-      "/posts/blogs/woylies_sightings/index.html",
-      "/posts/blogs/football_analysis/index.html",
-      "/posts/blogs/coastal_taipan_sightings/index.html",
+      "/posts/blogs/Mach_failure_preds/index.html",
+      "/posts/blogs/field_diversity/index.html",
+      "/posts/blogs/gender_diversity/index.html",
       "/posts/blogs/mdss_datathon/index.html",
       "/posts/blogs/Bank_churn/index.html",
+      "/posts/blogs/Women_Chess_players/index.html",
+      "/posts/blogs/woylies_sightings/index.html",
+      "/posts/blogs/High_dim_cricket_PCA/post.html",
+      "/posts/blogs/football_analysis/index.html",
+      "/posts/blogs/coastal_taipan_sightings/index.html",
       "/posts/blogs/Space_race /index.html",
-      "/posts/blogs/gender_diversity/index.html",
-      "/posts/blogs/field_diversity/index.html",
-      "/posts/blogs/Mach_failure_preds/index.html",
+      "/posts/blogs/Confusion_matrix/post.html",
       "/posts/blogs/Spotify top 50/Spotify_v1.html",
       "/posts/blogs/welcome/index.html"
     ]

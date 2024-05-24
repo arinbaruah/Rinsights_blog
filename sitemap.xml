@@ -9,80 +9,84 @@
     <lastmod>2024-03-28T01:01:17.699Z</lastmod>
   </url>
   <url>
-    <loc>htt/plots/visualisations/KPI_dashboard/index.html</loc>
-    <lastmod>2024-05-11T13:38:00.640Z</lastmod>
-  </url>
-  <url>
-    <loc>htt/plots/visualisations/Enzyme_classifier/index.html</loc>
-    <lastmod>2024-02-20T18:08:57.486Z</lastmod>
-  </url>
-  <url>
-    <loc>htt/index.html</loc>
-    <lastmod>2024-04-26T10:26:18.918Z</lastmod>
-  </url>
-  <url>
-    <loc>htt/posts/blogs/Mach_failure_preds/index.html</loc>
-    <lastmod>2024-05-14T05:12:00.528Z</lastmod>
-  </url>
-  <url>
-    <loc>htt/posts/blogs/football_analysis/index.html</loc>
-    <lastmod>2024-02-20T18:08:57.705Z</lastmod>
-  </url>
-  <url>
-    <loc>htt/posts/blogs/woylies_sightings/index.html</loc>
-    <lastmod>2024-02-20T18:08:58.145Z</lastmod>
-  </url>
-  <url>
-    <loc>htt/posts/blogs/gender_diversity/index.html</loc>
-    <lastmod>2024-05-14T05:16:52.685Z</lastmod>
-  </url>
-  <url>
-    <loc>htt/posts/blogs/Space_race /index.html</loc>
-    <lastmod>2024-02-22T03:00:28.278Z</lastmod>
-  </url>
-  <url>
-    <loc>htt/posts/blogs/Bank_churn/index.html</loc>
-    <lastmod>2024-05-14T05:14:51.294Z</lastmod>
-  </url>
-  <url>
-    <loc>htt/posts/blogs/coastal_taipan_sightings/index.html</loc>
-    <lastmod>2024-02-20T18:08:57.681Z</lastmod>
-  </url>
-  <url>
-    <loc>htt/posts/blogs/Spotify top 50/Spotify_v1.html</loc>
-    <lastmod>2024-03-16T12:14:22.601Z</lastmod>
-  </url>
-  <url>
-    <loc>htt/posts/blogs/welcome/index.html</loc>
-    <lastmod>2024-03-06T23:28:08.760Z</lastmod>
-  </url>
-  <url>
-    <loc>htt/posts/blogs/Women_Chess_players/index.html</loc>
-    <lastmod>2024-02-20T18:08:57.677Z</lastmod>
-  </url>
-  <url>
-    <loc>htt/posts/blogs/mdss_datathon/index.html</loc>
-    <lastmod>2024-05-14T05:12:56.264Z</lastmod>
-  </url>
-  <url>
-    <loc>htt/posts/blogs/field_diversity/index.html</loc>
-    <lastmod>2024-05-14T05:18:38.145Z</lastmod>
-  </url>
-  <url>
-    <loc>htt/posts/index.html</loc>
-    <lastmod>2024-02-20T18:08:58.146Z</lastmod>
-  </url>
-  <url>
-    <loc>htt/about.html</loc>
-    <lastmod>2024-05-07T07:13:20.073Z</lastmod>
+    <loc>htt/plots/visualisations/welcome/index.html</loc>
+    <lastmod>2024-05-09T06:09:00.432Z</lastmod>
   </url>
   <url>
     <loc>htt/plots/visualisations/February/index.html</loc>
     <lastmod>2024-03-01T00:47:50.680Z</lastmod>
   </url>
   <url>
-    <loc>htt/plots/visualisations/welcome/index.html</loc>
-    <lastmod>2024-05-09T06:09:00.432Z</lastmod>
+    <loc>htt/about.html</loc>
+    <lastmod>2024-05-07T07:13:20.073Z</lastmod>
+  </url>
+  <url>
+    <loc>htt/posts/index.html</loc>
+    <lastmod>2024-02-20T18:08:58.146Z</lastmod>
+  </url>
+  <url>
+    <loc>htt/posts/blogs/field_diversity/index.html</loc>
+    <lastmod>2024-05-14T05:18:38.145Z</lastmod>
+  </url>
+  <url>
+    <loc>htt/posts/blogs/mdss_datathon/index.html</loc>
+    <lastmod>2024-05-14T05:12:56.264Z</lastmod>
+  </url>
+  <url>
+    <loc>htt/posts/blogs/Women_Chess_players/index.html</loc>
+    <lastmod>2024-02-20T18:08:57.677Z</lastmod>
+  </url>
+  <url>
+    <loc>htt/posts/blogs/welcome/index.html</loc>
+    <lastmod>2024-03-06T23:28:08.760Z</lastmod>
+  </url>
+  <url>
+    <loc>htt/posts/blogs/Spotify top 50/Spotify_v1.html</loc>
+    <lastmod>2024-03-16T12:14:22.601Z</lastmod>
+  </url>
+  <url>
+    <loc>htt/posts/blogs/coastal_taipan_sightings/index.html</loc>
+    <lastmod>2024-02-20T18:08:57.681Z</lastmod>
+  </url>
+  <url>
+    <loc>htt/posts/blogs/Bank_churn/index.html</loc>
+    <lastmod>2024-05-14T05:14:51.294Z</lastmod>
+  </url>
+  <url>
+    <loc>htt/posts/blogs/Space_race /index.html</loc>
+    <lastmod>2024-02-22T03:00:28.278Z</lastmod>
+  </url>
+  <url>
+    <loc>htt/posts/blogs/gender_diversity/index.html</loc>
+    <lastmod>2024-05-14T05:16:52.685Z</lastmod>
+  </url>
+  <url>
+    <loc>htt/posts/blogs/woylies_sightings/index.html</loc>
+    <lastmod>2024-02-20T18:08:58.145Z</lastmod>
+  </url>
+  <url>
+    <loc>htt/posts/blogs/football_analysis/index.html</loc>
+    <lastmod>2024-02-20T18:08:57.705Z</lastmod>
+  </url>
+  <url>
+    <loc>htt/posts/blogs/Mach_failure_preds/index.html</loc>
+    <lastmod>2024-05-14T05:12:00.528Z</lastmod>
+  </url>
+  <url>
+    <loc>htt/index.html</loc>
+    <lastmod>2024-04-26T10:26:18.918Z</lastmod>
+  </url>
+  <url>
+    <loc>htt/plots/visualisations/Enzyme_classifier/index.html</loc>
+    <lastmod>2024-02-20T18:08:57.486Z</lastmod>
+  </url>
+  <url>
+    <loc>htt/plots/visualisations/KPI_dashboard/index.html</loc>
+    <lastmod>2024-05-11T13:38:00.640Z</lastmod>
+  </url>
+  <url>
+    <loc>htt/plots/visualisations/May/post.html</loc>
+    <lastmod>2024-05-24T15:44:09.485Z</lastmod>
   </url>
   <url>
     <loc>htt/plots/visualisations/January/index.html</loc>

@@ -36,3 +36,11 @@ If you're interested in the code which went behind the creation of the above plo
 2. ggplot2: H. Wickham. ggplot2: Elegant Graphics for Data Analysis. Springer-Verlag New York, 2016.
 3. UpsetR: Gehlenborg N (2019). _UpSetR: A More Scalable Alternative to Venn and Euler Diagrams for Visualizing Intersecting Sets_. R package version 1.4.0,
   <https://CRAN.R-project.org/package=UpSetR>.
+  
+<script src="https://utteranc.es/client.js"
+        repo="arinbaruah/Rinsights_blog"
+        issue-term="url"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script>

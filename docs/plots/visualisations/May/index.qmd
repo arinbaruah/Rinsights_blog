@@ -196,6 +196,12 @@ The distribution of data points as observed in the illustration @fig-pcaplayer p
 
 
 
-
+<script src="https://utteranc.es/client.js"
+        repo="arinbaruah/Rinsights_blog"
+        issue-term="url"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script>
 
 

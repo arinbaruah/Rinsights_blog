@@ -192,9 +192,6 @@ The distribution of data points as observed in the illustration @fig-pcaplayer p
 
 13. __ggfortify__: Yuan Tang, Masaaki Horikoshi, and Wenxuan Li. "ggfortify: Unified Interface to Visualize Statistical Result of Popular R Packages." The R Journal 8.2 (2016): 478-489.
 
-14. OpenAI (2023). ChatGPT (version 3.5) [Large language model]. https://chat.openai.com/chat, full script of conversation [here](https://chat.openai.com/share/34c580ef-3332-4db5-8de3-7ff6b80a4a09)
-
-
 
 <script src="https://utteranc.es/client.js"
         repo="arinbaruah/Rinsights_blog"

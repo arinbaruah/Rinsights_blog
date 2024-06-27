@@ -2,7 +2,7 @@
 title: "Lifecycle of Steel: From Extraction to Recycling"
 author: "Arindom Baruah"
 date: "2024-06-26"
-categories: [R,data cleaning,exploratory data analysis,high dimensional data visualisation,model metrics, principal decomposition, non-linear decomposition]
+categories: [R,data cleaning,exploratory data analysis,funnel charts,plot aesthetics]
 quarto-required: ">=1.3.0"
 format:
     html:
@@ -184,3 +184,11 @@ pl_funnel
 ```
 
 
+
+<script src="https://utteranc.es/client.js"
+        repo="arinbaruah/Rinsights_blog"
+        issue-term="url"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script>

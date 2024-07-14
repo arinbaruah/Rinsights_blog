@@ -1,0 +1,215 @@
+---
+title: "TidyTuesday"
+author: "Arindom Baruah"
+date: "2024-07-14"
+categories: [R,data cleaning,exploratory data analysis,high dimensional data visualisation,model metrics, principal decomposition, non-linear decomposition]
+quarto-required: ">=1.3.0"
+format:
+    html:
+        output-file: post.html
+execute: 
+  echo: true
+  message: false
+  warning: false
+  code-fold: true
+number-sections: true
+---
+
+# TidyTuesdayR data
+
+```{r}
+
+# Option 1: tidytuesdayR package 
+## install.packages("tidytuesdayR")
+
+tuesdata <- tidytuesdayR::tt_load('2024-06-25')
+## OR
+tuesdata <- tidytuesdayR::tt_load(2024, week = 26)
+
+lgbtq_movies <- tuesdata$lgbtq_movies
+
+# Option 2: Read directly from GitHub
+
+lgbtq_movies <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2024/2024-06-25/lgbtq_movies.csv')
+
+
+```
+
+
+
+
+
+
+```{r theme}
+
+library(tidyverse)
+library(stringr)
+library(glue)
+library(ggrepel)
+library(ggplot2)
+library(ggtext)
+library(sysfonts)
+library(showtext)
+library(ggridges)
+
+
+# caption handles
+swd <- str_glue("#SWDchallenge: June 2024 &bull; Source: Synthetic data from ChatGPT<br>")  
+li <- str_glue("<span style='font-family:fa6-brands'>&#xf08c;</span>")  
+gh <- str_glue("<span style='font-family:fa6-brands'>&#xf09b;</span>")
+mn <- str_glue("<span style='font-family:fa6-brands'>&#xf4f6;</span>")
+
+
+# plot colors
+bkg_col      <- colorspace::lighten("#f2f5e5", 0.05)    
+title_col    <- "#3d3d3d"           
+subtitle_col <- "#3d3d3d"     
+caption_col  <- "#72647D"   
+text_col     <- colorspace::darken("gray40" , 0.2)  
+
+# fonts
+
+font_add('fa6-brands','fontawesome/otfs/Font Awesome 6 Brands-Regular-400.otf') 
+font_add_google("Oswald", regular.wt = 400, family = "title")                 
+font_add_google("Quattrocento Sans", regular.wt = 400, family = "subtitle")  
+font_add_google("Quattrocento Sans", regular.wt = 400, family = "text")        
+font_add_google("Merriweather", regular.wt = 400,family = "caption")
+showtext_auto(enable = TRUE)  
+
+
+X_icon <- glue("<span style='font-family:fa6-brands'>&#xe61b;</span>")
+
+caption_text <- str_glue("{li} Arindam Baruah | {X_icon} @wizsights | {gh} arinbaruah | Source: TidyTuesday |#rstudio #ggplot2")
+
+theme_set(theme_minimal(base_size = 15, base_family = "text"))                
+
+# Theme updates
+
+theme_update(
+  plot.title.position   = "plot",
+  plot.caption.position = "plot",
+  legend.position       = 'plot',
+  plot.margin           = margin(t = 10, r = 15, b = 0, l = 15),
+  plot.background       = element_rect(fill = bkg_col, color = bkg_col),
+  panel.background      = element_rect(fill = bkg_col, color = bkg_col),
+  axis.title.x          = element_text(margin = margin(10, 0, 0, 0), size = rel(1), color = text_col, family = 'text', face = 'bold'),
+  axis.title.y          = element_text(margin = margin(0, 10, 0, 0), size = rel(1), color = text_col, family = 'text', face = 'bold'),
+  axis.text             = element_text(size = 10, color = text_col, family = 'text',face = "bold"),
+  panel.grid.minor.y    = element_blank(),
+  panel.grid.major.y    = element_line(linetype = "dotted", linewidth = 0.1, color = 'gray40'),
+  panel.grid.minor.x    = element_blank(),
+  panel.grid.major.x    = element_blank(),
+  axis.line.x           = element_line(color = "#d7d7d8", linewidth = .2),
+)
+
+ 
+
+```
+
+
+
+```{r}
+lgbtq_movies
+
+top_langs <- lgbtq_movies %>% group_by(original_language) %>% summarise(Total = n()) %>% arrange(-Total) %>% head(6)
+lgbtq_movies <- lgbtq_movies %>% filter(original_language %in% top_langs$original_language)
+```
+
+
+
+
+
+
+```{r}
+lgbtq_movies <- lgbtq_movies %>% mutate(original_lang = case_when(original_language == "en" ~ "English",
+                                                  original_language == "pt" ~ "Portugese",
+                                                  original_language == "ja" ~ "Japanese",
+                                                  original_language == "fr" ~ "French",
+                                                  original_language == "es" ~ "Spanish",
+                                                  original_language == "de" ~ "German",
+                                                  .default = original_language))
+```
+
+
+
+
+```{r}
+#| code-fold: true
+#| echo: true
+
+lgbtq_colors <- c("#FF0018", "#FFA52C", "#FFFF41", "#008018", "#0000F9", "#86007D", "#8B4513", "#FFD700")
+
+title_text <- "Average vote score distribution by language in LGBTQ+ Movies"
+
+
+subtitle_text <- "Visualizing the average vote scores across LGBTQ+ categorized movies based on their respective languages reveals <br> an intriguing pattern. The overall distribution of vote scores appears to be <strong><span style='color: darkred;'>bimodal</span></strong>, with noticeable peaks at scores <br> of 0 and 6. This suggests that viewers tend to either strongly dislike these movies or find them to be average. <br> Additionally, it's interesting to note that <strong> English-language </strong> movies exhibit a higher frequency of low scores compared <br> to movies in other languages. This may indicate differing audience preferences or varying production quality <br> across different language groups."
+
+caption_text <- str_glue("{li} Arindam Baruah | {X_icon} @wizsights | {gh} arinbaruah | Source: TidyTuesday |#rstudio #ggplot2")
+
+pl <- lgbtq_movies %>% ggplot(aes(vote_average,original_lang)) + 
+  geom_density_ridges(aes(fill = factor(original_lang)), color = "grey30", linewidth = .25, alpha = .9) +
+  scale_fill_manual(values = lgbtq_colors) +
+  geom_vline(xintercept = c(0,5,10), linewidth = .3, linetype = "dotted", lineend = "round",alpha = 0.5) +
+  labs(x = "Average Vote Score",
+       y="",
+       title = title_text,
+       subtitle = subtitle_text,
+       caption = caption_text) +
+  theme(
+    
+     axis.text.x        = element_text(
+      size                = rel(1.5),
+      family              = "text",
+      face                = "bold",
+      color               = title_col,
+      lineheight          = 1.1,
+      margin              = margin(t = 5, b = 5),
+      hjust               = 0.5
+    ),
+    axis.text        = element_text(
+      size                = rel(1.8),
+      family              = "text",
+      face                = "bold",
+      color               = title_col,
+      lineheight          = 1.1,
+      margin              = margin(t = 5, b = 5),
+      hjust               = 0.5
+    ),
+    axis.title        = element_text(
+      size                = rel(1.5),
+      family              = "text",
+      face                = "bold",
+      color               = title_col,
+      lineheight          = 1.1,
+      margin              = margin(t = 5, b = 5),
+      hjust               = 0.5
+    ),
+    plot.title        = element_text(
+      size                = rel(4),
+      family              = "title",
+      face                = "bold",
+      color               = title_col,
+      lineheight          = 1.1,
+      margin              = margin(t = 5, b = 5),
+      hjust               = 0.5
+    ),
+    plot.subtitle         = element_markdown(
+      size                = rel(2), 
+      family              = 'subtitle',
+      color               = subtitle_col,
+      hjust               = 0,
+      lineheight          = 0.4, 
+      margin              = margin(t = 5, b = 1)
+    ),
+    plot.caption          = element_markdown(
+      size                = rel(1.5), 
+      family              = 'caption',
+      color               = caption_col,
+      lineheight          = 0.6,
+      hjust               = 0.5,
+      halign              = 0,
+      margin              = margin(t = 10, b = 10)
+    )) 
+```
+
+

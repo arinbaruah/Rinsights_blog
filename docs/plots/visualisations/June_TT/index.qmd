@@ -1,8 +1,8 @@
 ---
-title: "TidyTuesday"
-author: "Arindom Baruah"
+title: "Observing variations of LGBTQ+ movies scores across languages"
+author: "Arindam Baruah"
 date: "2024-07-14"
-categories: [R,data cleaning,exploratory data analysis,high dimensional data visualisation,model metrics, principal decomposition, non-linear decomposition]
+categories: [R,data cleaning,exploratory data analysis,plot aesthetics, ggplot2]
 quarto-required: ">=1.3.0"
 format:
     html:
@@ -11,39 +11,33 @@ execute:
   echo: true
   message: false
   warning: false
-  code-fold: true
 number-sections: true
 ---
 
-# TidyTuesdayR data
+# Introduction
+
+This week's [TidyTuesday](https://github.com/rfordatascience/tidytuesday/blob/master/README.md) dataset dealt with LGBTQ+ movie data released across the globe and the interesting information that we can extract out of it. 🏳️‍🌈🏳️‍🌈
+
+More details on this dataset [here](https://github.com/rfordatascience/tidytuesday/blob/master/data/2024/2024-06-25/readme.md) 👈
+
+# Methodology
+
+The source of the data and the code used to obtain @fig-plot is delineated through @sec-source to @sec-viz.
+
+## Sourcing the data {#sec-source}
 
 ```{r}
-
-# Option 1: tidytuesdayR package 
-## install.packages("tidytuesdayR")
-
-tuesdata <- tidytuesdayR::tt_load('2024-06-25')
-## OR
-tuesdata <- tidytuesdayR::tt_load(2024, week = 26)
-
-lgbtq_movies <- tuesdata$lgbtq_movies
-
-# Option 2: Read directly from GitHub
-
+#| code-fold: true
 lgbtq_movies <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2024/2024-06-25/lgbtq_movies.csv')
-
-
 ```
 
 
-
-
-
+## Setting the aesthetic theme
 
 ```{r theme}
+#| code-fold: true
 
 library(tidyverse)
-library(stringr)
 library(glue)
 library(ggrepel)
 library(ggplot2)
@@ -106,21 +100,23 @@ theme_update(
 
 ```
 
-
+## Data wrangling
 
 ```{r}
-lgbtq_movies
+#| code-fold: true
 
-top_langs <- lgbtq_movies %>% group_by(original_language) %>% summarise(Total = n()) %>% arrange(-Total) %>% head(6)
+top_langs <- lgbtq_movies %>% group_by(original_language) %>% 
+  summarise(Total = n()) %>% arrange(-Total) %>% head(6)  # Top 6 most released movies by language
+
 lgbtq_movies <- lgbtq_movies %>% filter(original_language %in% top_langs$original_language)
 ```
 
 
 
 
-
-
 ```{r}
+#| code-fold: true
+
 lgbtq_movies <- lgbtq_movies %>% mutate(original_lang = case_when(original_language == "en" ~ "English",
                                                   original_language == "pt" ~ "Portugese",
                                                   original_language == "ja" ~ "Japanese",
@@ -132,6 +128,7 @@ lgbtq_movies <- lgbtq_movies %>% mutate(original_lang = case_when(original_langu
 
 
 
+## Data Visualisation {#sec-viz}
 
 ```{r}
 #| code-fold: true
@@ -212,4 +209,48 @@ pl <- lgbtq_movies %>% ggplot(aes(vote_average,original_lang)) +
     )) 
 ```
 
+## Final visualisation
 
+![Average vote score distribution by language in LGBTQ+ Movies](lgbtq_density_plot.png){#fig-plot}
+
+@fig-plot illustrates the average vote scores of all the LGBTQ+ categorised movies across different languages. For the current analysis, languages containing at least 100 or greater number of movies were considered.
+
+So what do we learn from this ? 🤔🕵🏻‍♀️
+
+:::{.callout-note}
+# Key takeaways
+
+ - It is interesting to note how the average vote score was __bimodal across all languages.__ 🧑‍💻
+ - In general, English LGBTQ+ movies scored lower than others. 🤯 
+ 
+:::
+
+# References
+
+1. __tidyverse__: Wickham H, Averick M, Bryan J, Chang W, McGowan LD, François R, Grolemund G, Hayes A, Henry L, Hester J, Kuhn M,
+  Pedersen TL, Miller E, Bache SM, Müller K, Ooms J, Robinson D, Seidel DP, Spinu V, Takahashi K, Vaughan D, Wilke C,
+  Woo K, Yutani H (2019). “Welcome to the tidyverse.” _Journal of Open Source Software_, *4*(43), 1686.
+  doi:10.21105/joss.01686 <https://doi.org/10.21105/joss.01686>.
+  
+2. __glue__: Hester J, Bryan J (2024). _glue: Interpreted String Literals_. R package version 1.7.0, <https://CRAN.R-project.org/package=glue>.
+
+3. __ggrepel__: Slowikowski K (2024). _ggrepel: Automatically Position Non-Overlapping Text Labels with 'ggplot2'_. R package version 0.9.5,
+  <https://CRAN.R-project.org/package=ggrepel>.
+4. __ggplot2__: H. Wickham. ggplot2: Elegant Graphics for Data Analysis. Springer-Verlag New York, 2016.
+
+5. __ggtext__: Wilke C, Wiernik B (2022). _ggtext: Improved Text Rendering Support for 'ggplot2'_. R package version 0.1.2,
+  <https://CRAN.R-project.org/package=ggtext>.
+6. __sysfonts__: Qiu Y, details. aotifSfAf (2024). _sysfonts: Loading Fonts into R_. R package version 0.8.9,
+  <https://CRAN.R-project.org/package=sysfonts>.
+7. __showtext__: Qiu Y, details. aotisSfAf (2024). _showtext: Using Fonts More Easily in R Graphs_. R package version 0.9-7,
+  <https://CRAN.R-project.org/package=showtext>.
+8. __ggridges__: Wilke C (2024). _ggridges: Ridgeline Plots in 'ggplot2'_. R package version 0.5.6, <https://CRAN.R-project.org/package=ggridges>.
+
+
+<script src="https://utteranc.es/client.js"
+        repo="arinbaruah/Rinsights_blog"
+        issue-term="url"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script>

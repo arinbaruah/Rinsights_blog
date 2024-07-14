@@ -37,7 +37,7 @@ library(htmltools)
 
 I am a current final year graduate student of Business Analytics at [Monash Business School](https://www.monash.edu/business), Monash University. 🧑‍🎓
 
-With a strong foundation from my academic journey, I bring two years of hands-on experience as a data analyst at [ArcelorMittal](https://corporate.arcelormittal.com) and [Nippon Steel](https://www.nipponsteel.com), where I honed my analytical skills in a real-world setting. Additionally, I've spent two years as a teaching assistant at [The Indian Institute of Technology Indore](https://www.iiti.ac.in), contributing to research and development in the field of metallurgy. ⚙️🕵️‍♂️🖥️
+My academic journey has provided me with a strong analytical foundation, further enriched by two years of hands-on experience as a data analyst at [ArcelorMittal](https://corporate.arcelormittal.com) and [Nippon Steel](https://www.nipponsteel.com), where I honed my analytical skills in a real-world setting. Additionally, I've spent two years as a teaching assistant at [The Indian Institute of Technology Indore](https://www.iiti.ac.in), contributing to research and development in the field of metallurgy. ⚙️🕵️‍♂️🖥️
 
 I'm passionate about leveraging data-driven insights and analytical expertise to solve complex business as well as research challenges. 📊
 
@@ -45,7 +45,13 @@ __Please feel free to go through the links below to learn more about my experien
 
 :::{.callout-note}
 # Interested in analytics content ?
-For those interested in uncovering data and what is expected when studying a graduate course in the field of Business Analytics, I post informative content on my blog [R-insights](posts/index.qmd). Be sure to check it out !
+
+For those interested in uncovering data and what is expected when studying a graduate course in the field of Business Analytics, I post informative content on my blog [R-insights](posts/index.qmd).
+
+If you are an F1 head, check out my new series of Formula 1 data analysis performed on Jupyter Python notebooks [here](https://github.com/arinbaruah/Formula-1-performance-analysis). 
+
+Follow my regular F1 session updates on my X account, __[@wizsights](https://x.com/wizsights)__. 
+
 :::
 
 

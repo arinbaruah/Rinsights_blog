@@ -16,6 +16,8 @@ number-sections: true
 
 # Introduction
 
+Get ready to kick off your analysis and celebrate the remarkable achievements in women's football! 🥳🥇⚽️
+
 This week's [TidyTuesday](https://github.com/rfordatascience/tidytuesday/blob/master/README.md) dataset dealt with the Women's English Football League performances between 2011-2023.⚽️
 
 More details on this dataset [here](https://github.com/rfordatascience/tidytuesday/blob/master/data/2024/2024-07-16/readme.md) 👈
@@ -38,6 +40,8 @@ ewf_standings <- readr::read_csv(
 ## Setting the aesthetic theme
 
 ```{r theme}
+#| code-fold: true
+
 library(tidyverse)
 library(stringr)
 library(glue)
@@ -244,6 +248,8 @@ ggsave("EWF_standings.png",pl,dpi = 300,height = 6, width = 10)
 So what do we learn from this ? 🤔🕵🏻‍♀️
 
 :::{.callout-note}
+# Key takeaways
+
 Key insights based on 2011-2023 standings👇
 
 1. Defence wins you championships! 🥇🏆⚽️

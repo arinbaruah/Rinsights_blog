@@ -2,14 +2,14 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.555">
+<meta name="generator" content="quarto-1.5.56">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Arindam Baruah">
 <meta name="dcterms.date" content="2024-01-18">
 
-<title>R-insights 📊📈🖥️ - Detecting a possible event of bank churn using machine learning classification models 💸🏦</title>
+<title>Detecting a possible event of bank churn using machine learning classification models 💸🏦 – R-insights 📊📈🖥️</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -35,7 +35,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -120,7 +120,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
   <span class="navbar-toggler-icon"></span>
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
@@ -151,7 +151,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>  
 </ul>
           </div> <!-- /navcollapse -->
-          <div class="quarto-navbar-tools">
+            <div class="quarto-navbar-tools">
 </div>
       </div> <!-- /container-fluid -->
     </nav>
@@ -303,7 +303,7 @@ Reasons for a churn to occur
 </div>
 <div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
 <div class="cell">
-<div id="tbl-data" class="cell quarto-float anchored">
+<div id="tbl-data" class="cell quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-data-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Table&nbsp;1: Bank churn dataset
@@ -462,7 +462,7 @@ Table&nbsp;1: Bank churn dataset
 <h1 data-number="4"><span class="header-section-number">4</span> Data cleaning</h1>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-misvis" class="quarto-figure quarto-figure-center quarto-float anchored">
+<div id="fig-misvis" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-misvis-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="index_files/figure-html/fig-misvis-1.png" class="img-fluid figure-img" width="672">
@@ -483,7 +483,7 @@ Figure&nbsp;1: Check for missing values in the dataset
 <div class="tab-content">
 <div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
 <div class="cell">
-<div id="tbl-occur" class="cell quarto-float anchored">
+<div id="tbl-occur" class="cell quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-occur-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Table&nbsp;2: Number of occurrences of each customer
@@ -537,7 +537,7 @@ Table&nbsp;2: Number of occurrences of each customer
 <p>The estimated salary variable indicates the income of each customer declared as a salary. <strong>Salaries can never be negative.</strong> Let us quickly check if that indeed is the case.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-salary" class="quarto-figure quarto-figure-center quarto-float anchored">
+<div id="fig-salary" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-salary-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="index_files/figure-html/fig-salary-1.png" class="img-fluid figure-img" width="672">
@@ -555,7 +555,7 @@ Figure&nbsp;2: Salary distribution of customers
 <p>Bank account customers are generally required to be adults (&gt; 18 years). We will check if that holds true for the current dataset and attempt to detect any anomalous data such as negative age.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-age" class="quarto-figure quarto-figure-center quarto-float anchored">
+<div id="fig-age" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-age-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="index_files/figure-html/fig-age-1.png" class="img-fluid figure-img" width="672">
@@ -579,7 +579,7 @@ Figure&nbsp;3: Age distribution of the bank customers
 <h2 data-number="6.1" class="anchored" data-anchor-id="correlation-plot"><span class="header-section-number">6.1</span> Correlation plot</h2>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-corrplot" class="quarto-figure quarto-figure-center quarto-float anchored">
+<div id="fig-corrplot" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-corrplot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="index_files/figure-html/fig-corrplot-1.png" class="img-fluid figure-img" width="672">
@@ -610,7 +610,7 @@ Key takeaway
 <p>Let us try to understand if there are any geographical regions which have accounted for high churns.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-geo" class="quarto-figure quarto-figure-center quarto-float anchored">
+<div id="fig-geo" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-geo-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="index_files/figure-html/fig-geo-1.png" class="img-fluid figure-img" width="672">
@@ -641,7 +641,7 @@ Key takeaway
 <h2 data-number="6.3" class="anchored" data-anchor-id="age-wise-bank-churn"><span class="header-section-number">6.3</span> Age wise bank churn</h2>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-age-churn" class="quarto-figure quarto-figure-center quarto-float anchored">
+<div id="fig-age-churn" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-age-churn-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="index_files/figure-html/fig-age-churn-1.png" class="img-fluid figure-img" width="672">
@@ -678,7 +678,7 @@ Key takeaway
 <p>Let us now try to analyse if the credit scores could tell us anything about the likelihood of the bank account churns.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-cred" class="quarto-figure quarto-figure-center quarto-float anchored">
+<div id="fig-cred" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-cred-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="index_files/figure-html/fig-cred-1.png" class="img-fluid figure-img" width="672">
@@ -709,7 +709,7 @@ Key takeaway
 <p>Next, we can analyse if the churns are mostly from bank accounts which are inactive, possibly due to very low transactions.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-transact" class="quarto-figure quarto-figure-center quarto-float anchored">
+<div id="fig-transact" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-transact-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="index_files/figure-html/fig-transact-1.png" class="img-fluid figure-img" width="672">
@@ -742,7 +742,7 @@ Key takeaway
 <p>For this, we will flag any balance which is 0.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-balance" class="quarto-figure quarto-figure-center quarto-float anchored">
+<div id="fig-balance" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-balance-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="index_files/figure-html/fig-balance-1.png" class="img-fluid figure-img" width="672">
@@ -783,7 +783,7 @@ Key takeaway
 <p>Let us study the performance of the logistic regression model through the Receiver Operating Curve (ROC) metric.</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-<div id="fig-roclog" class="quarto-figure quarto-figure-center quarto-float anchored" data-fig-align="center">
+<div id="fig-roclog" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-roclog-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="index_files/figure-html/fig-roclog-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="672">
@@ -798,7 +798,7 @@ Figure&nbsp;10: ROC-AUC metric
 <p>Based on the receiver operating curve as illustrated by <a href="#fig-roclog" class="quarto-xref">Figure&nbsp;10</a>, we can observe that while a sizeable are of the graph is covered by the curve, it can however by improved by possibly a better classification algorithm.</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-<div id="fig-conflog" class="quarto-figure quarto-figure-center quarto-float anchored" data-fig-align="center">
+<div id="fig-conflog" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-conflog-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="index_files/figure-html/fig-conflog-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="672">
@@ -822,7 +822,7 @@ Figure&nbsp;11: Confusion matrix for Logistic Regression classification model
 </div>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-<div id="fig-confxgb" class="quarto-figure quarto-figure-center quarto-float anchored" data-fig-align="center">
+<div id="fig-confxgb" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-confxgb-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="index_files/figure-html/fig-confxgb-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="672">
@@ -840,7 +840,7 @@ Figure&nbsp;12: Confusion matrix for XGBoost classification model
 <p>Let us utilise the LGBM algorithm and train it on the given dataset.</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-<div id="fig-lgbconf" class="quarto-figure quarto-figure-center quarto-float anchored" data-fig-align="center">
+<div id="fig-lgbconf" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-lgbconf-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="index_files/figure-html/fig-lgbconf-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="672">
@@ -857,7 +857,7 @@ Figure&nbsp;13: Confusion matrix for Light GBM classification model
 <div id="tabset-3-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-4-tab">
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-<div id="fig-catimp" class="quarto-figure quarto-figure-center quarto-float anchored" data-fig-align="center">
+<div id="fig-catimp" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-catimp-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="index_files/figure-html/fig-catimp-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="672">
@@ -871,7 +871,7 @@ Figure&nbsp;14: Importance of each variable based on the Catboost classification
 </div>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-<div id="fig-catconf" class="quarto-figure quarto-figure-center quarto-float anchored" data-fig-align="center">
+<div id="fig-catconf" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-catconf-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="index_files/figure-html/fig-catconf-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="672">
@@ -928,18 +928,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
     return false;
   }
-  const clipboard = new window.ClipboardJS('.code-copy-button', {
-    text: function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
-    }
-  });
-  clipboard.on('success', function(e) {
+  const onCopySuccess = function(e) {
     // button target
     const button = e.trigger;
     // don't keep focus
@@ -971,7 +960,29 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }, 1000);
     // clear code selection
     e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
   });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
     var mailtoRegex = new RegExp(/^mailto:/);
       var filterRegex = new RegExp("htt");
@@ -979,7 +990,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
     }
     // Inspect non-navigation links and adorn them if external
- 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
     for (var i=0; i<links.length; i++) {
       const link = links[i];
       if (!isInternal(link.href)) {

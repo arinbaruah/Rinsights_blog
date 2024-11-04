@@ -2,14 +2,14 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.555">
+<meta name="generator" content="quarto-1.5.56">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Arindam Baruah">
 <meta name="dcterms.date" content="2024-04-19">
 
-<title>R-insights 📊📈🖥️ - Unveiling the Mosaic: A Deep Dive into the Educational Diversity Amongst US PhD Graduates 🧑‍🎓📚🇺🇸</title>
+<title>Unveiling the Mosaic: A Deep Dive into the Educational Diversity Amongst US PhD Graduates 🧑‍🎓📚🇺🇸 – R-insights 📊📈🖥️</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -106,7 +106,7 @@ div.csl-indent {
     </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
   <span class="navbar-toggler-icon"></span>
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
@@ -137,7 +137,7 @@ div.csl-indent {
   </li>  
 </ul>
           </div> <!-- /navcollapse -->
-          <div class="quarto-navbar-tools">
+            <div class="quarto-navbar-tools">
 </div>
       </div> <!-- /container-fluid -->
     </nav>
@@ -187,17 +187,6 @@ div.csl-indent {
    
   <ul>
   <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="header-section-number">1</span> Introduction</a></li>
-  <li><a href="#where-is-the-data-coming-from" id="toc-where-is-the-data-coming-from" class="nav-link" data-scroll-target="#where-is-the-data-coming-from"><span class="header-section-number">2</span> Where is the data coming from 💁‍♂️ ?</a></li>
-  <li><a href="#how-does-the-data-look-like" id="toc-how-does-the-data-look-like" class="nav-link" data-scroll-target="#how-does-the-data-look-like"><span class="header-section-number">3</span> How does the data look like 🔍 ?</a></li>
-  <li><a href="#what-does-the-data-mean" id="toc-what-does-the-data-mean" class="nav-link" data-scroll-target="#what-does-the-data-mean"><span class="header-section-number">4</span> What does the data mean 🤔 ?</a></li>
-  <li><a href="#sec-analysis" id="toc-sec-analysis" class="nav-link" data-scroll-target="#sec-analysis"><span class="header-section-number">5</span> What insights can we gain from the data 🎯📊?</a>
-  <ul class="collapse">
-  <li><a href="#sec-sec1" id="toc-sec-sec1" class="nav-link" data-scroll-target="#sec-sec1"><span class="header-section-number">5.1</span> Are we observing a rise in the popularity of research ?</a></li>
-  <li><a href="#which-fields-of-research-are-these-phds-graduating-in" id="toc-which-fields-of-research-are-these-phds-graduating-in" class="nav-link" data-scroll-target="#which-fields-of-research-are-these-phds-graduating-in"><span class="header-section-number">5.2</span> Which fields of research are these PhDs graduating in ?</a></li>
-  <li><a href="#sec-sec2" id="toc-sec-sec2" class="nav-link" data-scroll-target="#sec-sec2"><span class="header-section-number">5.3</span> A deeper look into the field of Life Sciences 🔬 !</a></li>
-  <li><a href="#how-is-the-distribution-amongst-the-engineering-graduates" id="toc-how-is-the-distribution-amongst-the-engineering-graduates" class="nav-link" data-scroll-target="#how-is-the-distribution-amongst-the-engineering-graduates"><span class="header-section-number">5.4</span> How is the distribution amongst the engineering graduates ✈️ ⚙️?</a></li>
-  </ul></li>
-  <li><a href="#what-are-our-key-takeaways" id="toc-what-are-our-key-takeaways" class="nav-link" data-scroll-target="#what-are-our-key-takeaways"><span class="header-section-number">6</span> What are our key takeaways 📈?</a></li>
   </ul>
 </nav>
     </div>
@@ -239,7 +228,6 @@ Note
 <p>I have also created an R-shiny application to visualise and analyse the current data. Feel free to check it out <a href="https://usxccd-arinbaruah.shinyapps.io/ETC5523_Assignment1_Arindom_32779267/">here</a>.</p>
 </div>
 </div>
-</section>
 <section id="where-is-the-data-coming-from" class="level1" data-number="2">
 <h1 data-number="2"><span class="header-section-number">2</span> Where is the data coming from 💁‍♂️ ?</h1>
 <p>Before we proceed further with our analysis, it is important to figure out the source and the authenticity of the data.</p>
@@ -249,7 +237,7 @@ Note
 <h1 data-number="3"><span class="header-section-number">3</span> How does the data look like 🔍 ?</h1>
 <p>Once we have ascertained the source and authenticity of our data, we will now obtain a glimpse of the dataset. The dataset contains a total of <strong>3370</strong> rows and <strong>5</strong> columns.</p>
 <div class="cell">
-<div id="tbl-df" class="cell quarto-float anchored">
+<div id="tbl-df" class="cell quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-df-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Table&nbsp;1: Initial rows of the dataset
@@ -323,7 +311,7 @@ Table&nbsp;1: Initial rows of the dataset
 <h1 data-number="4"><span class="header-section-number">4</span> What does the data mean 🤔 ?</h1>
 <p>Once the data has been read in and checked though <a href="#tbl-df" class="quarto-xref">Table&nbsp;1</a>, let us understand what do these variables mean. The metadata for the dataset has been described through <a href="#tbl-met" class="quarto-xref">Table&nbsp;2</a>.</p>
 <div class="cell">
-<div id="tbl-met" class="cell quarto-float anchored">
+<div id="tbl-met" class="cell quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-met-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Table&nbsp;2: Description of the variables in the dataset
@@ -382,7 +370,7 @@ Table&nbsp;2: Description of the variables in the dataset
 <p>While the universities and research labs across the United States have historically produced some of the best researchers in the world, it is important to study the growth of these researchers. One of the ways to do so would be through analysing the number of graduating PhDs in the various fields of research.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-year" class="quarto-figure quarto-figure-center quarto-float anchored">
+<div id="fig-year" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-year-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="index_files/figure-html/fig-year-1.png" class="img-fluid figure-img" width="672">
@@ -403,7 +391,7 @@ Figure&nbsp;1: Number of graduating PhDs in the US
 <p>On the other hand, the field of <strong>engineering</strong> is observed to attract the least number of researchers. A part of the reason maybe <strong>due to the vast number of opportunities in the industry or the corporate</strong> which tends to attract more number of engineering graduates rather than the field of research.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-broad" class="quarto-figure quarto-figure-center quarto-float anchored">
+<div id="fig-broad" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-broad-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="index_files/figure-html/fig-broad-1.png" class="img-fluid figure-img" width="672">
@@ -421,7 +409,7 @@ Figure&nbsp;2: PhD graduates in each broad field
 <p>Now that we have established the broad field of Life Sciences to be the one with the most number of PhD graduates,let us look deeper into this field and whether we can break down the distribution further.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-lifesci" class="quarto-figure quarto-figure-center quarto-float anchored">
+<div id="fig-lifesci" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-lifesci-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="index_files/figure-html/fig-lifesci-1.png" class="img-fluid figure-img" width="672">
@@ -443,7 +431,7 @@ Figure&nbsp;3: Distribution of PhD graduates within the field of Life Science
 <p>Now that we have looked into the most popular field of research in <a href="#sec-sec2" class="quarto-xref">Section&nbsp;5.3</a>, let us now investigate the distribution of PhD graduates in the field with the least number of total PhD graduates, which is the field of engineering.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-eng" class="quarto-figure quarto-figure-center quarto-float anchored">
+<div id="fig-eng" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-eng-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="index_files/figure-html/fig-eng-1.png" class="img-fluid figure-img" width="672">
@@ -573,10 +561,8 @@ Session information
 </details>
 
 
-
 </section>
-
-<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+</section><div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
 <div id="ref-brint2016us" class="csl-entry" role="listitem">
 Brint, Steven, and Charles T Clotfelter. 2016. <span>“US Higher Education Effectiveness.”</span> <em>RSF: The Russell Sage Foundation Journal of the Social Sciences</em> 2 (1): 2–37.
 </div>
@@ -586,7 +572,11 @@ McAlpine, Lynn, Montserrat Castello, and Kirsi Pyhaltö. 2020. <span>“What Inf
 <div id="ref-meirmans2019science" class="csl-entry" role="listitem">
 Meirmans, Stephanie, Roger K Butlin, Anne Charmantier, Jan Engelstädter, Astrid T Groot, Kayla C King, Hanna Kokko, Jane M Reid, and Maurine Neiman. 2019. <span>“Science Policies: How Should Science Funding Be Allocated? An Evolutionary Biologists’ Perspective.”</span> <em>Journal of Evolutionary Biology</em> 32 (8): 754–68.
 </div>
-</div></section></div></main> <!-- /main -->
+</div></section></div></main></div>
+
+
+
+ <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -622,18 +612,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
     return false;
   }
-  const clipboard = new window.ClipboardJS('.code-copy-button', {
-    text: function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
-    }
-  });
-  clipboard.on('success', function(e) {
+  const onCopySuccess = function(e) {
     // button target
     const button = e.trigger;
     // don't keep focus
@@ -665,7 +644,29 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }, 1000);
     // clear code selection
     e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
   });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
     var mailtoRegex = new RegExp(/^mailto:/);
       var filterRegex = new RegExp("htt");
@@ -673,7 +674,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
     }
     // Inspect non-navigation links and adorn them if external
- 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
     for (var i=0; i<links.length; i++) {
       const link = links[i];
       if (!isInternal(link.href)) {
@@ -996,7 +997,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script>
-</div> <!-- /content -->
+ <!-- /content -->
 
 
 

@@ -33,7 +33,7 @@ library(htmltools)
 <script src="https://platform.linkedin.com/badges/js/profile.js" async defer type="text/javascript"></script>
 # Arindam Baruah
 
-### Other names: Rin, Aaron
+### Other names: Rin, Arin
 
 I am a current final year graduate student of Business Analytics at [Monash Business School](https://www.monash.edu/business), Monash University. 🧑‍🎓
 

@@ -9,7 +9,7 @@ about:
       href: https://github.com/arinbaruah
 ---
 
-Hi ! I am Arindam Baruah, a graduate student of Business Analytics at [Monash Business School](https://github.com/arinbaruah), Monash University. With a keen interest and salient experiences in the field of analytics, I am intrigued by the patterns which can be uncovered through data visualisations and some very interesting mathematics. I focus on implementing data science concepts to real-world problems and have successfully implemented them for predicting various estimates in the field of manufacturing, hospitality, banking and wild-life conservation.
+Hi ! I am Arindam Baruah, a graduate student of Business Analytics at [Monash Business School](https://www.monash.edu/business/home), Monash University. With a keen interest and salient experiences in the field of analytics, I am intrigued by the patterns which can be uncovered through data visualisations and some very interesting mathematics. I focus on implementing data science concepts to real-world problems and have successfully implemented them for predicting various estimates in the field of manufacturing, hospitality, banking and wild-life conservation.
 
 :::{.callout-note}
 # Major interests

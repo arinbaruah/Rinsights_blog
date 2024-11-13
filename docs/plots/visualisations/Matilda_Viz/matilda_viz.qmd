@@ -1,0 +1,1058 @@
+---
+title: "Visualisation"
+author: "Arindam Baruah"
+format: html
+---
+
+```{r}
+library(tidyverse)
+library(ggthemes)
+library(ggplot2)
+library(janitor)
+library(ggcirclepack)
+```
+
+```{r}
+df_survey <- read_csv("data/survey.csv")
+df_substance_deaths <- read_csv("data/death-rate-from-mental-health-and-substance-use-disorders-who.csv")
+df_substance_deaths_age <- read_csv("data/deaths-substance-disorders-age-who.csv")
+df_us_mental_deaths <- read_csv("data/US_mental_order_deaths.csv")
+df_drug_dependency <- read_csv("data/mental-health-as-risk-for-drug-dependency.csv")
+df_drug_gender <- read_csv("data/deaths-drug-use-disorders-by-sex.csv")
+df_drug_deaths <- tibble(drug = c("Tobacco","Alcohol use","Illicit drugs"),
+                         deaths = c(7.25*10^6,2*10^6,600638)) # Deaths in 2021 by IHME, Global burden of disease
+df_pop <- read_csv("data/population.csv",skip = 3)
+df_overdose <- read_csv("data/drug-overdose-death-rates.csv")
+```
+
+```{r}
+library(tidyverse)
+library(stringr)
+library(glue)
+library(ggrepel)
+library(ggplot2)
+library(ggtext)
+library(sysfonts)
+library(showtext)
+library(geomtextpath)
+library(stringr)
+library(ggplot2)
+library(ggnewscale)
+library(paletteer)
+library(colorspace)
+library(extrafont)
+# caption handles
+swd <- str_glue("#SWDchallenge: June 2024 &bull; Source: Synthetic data from ChatGPT<br>")  
+li <- str_glue("<span style='font-family:fa6-brands'>&#xf08c;</span>")  
+gh <- str_glue("<span style='font-family:fa6-brands'>&#xf09b;</span>")
+mn <- str_glue("<span style='font-family:fa6-brands'>&#xf4f6;</span>")
+
+
+# plot colors
+bkg_col      <- "#FEF9E7" #colorspace::lighten("#FEF9E7", 0.05)    
+title_col    <- "#3d3d3d"           
+subtitle_col <- "#3d3d3d"     
+caption_col  <- "#72647D"   
+text_col     <- colorspace::darken("gray40" , 0.2)  
+
+# fonts
+
+font_add('fa6-brands','fontawesome/otfs/Font Awesome 6 Brands-Regular-400.otf') 
+font_add_google("DM Serif Display", regular.wt = 400, family = "title")                 
+font_add_google("Urbanist", regular.wt = 400, family = "subtitle")  
+font_add_google("Quattrocento Sans", regular.wt = 400, family = "text")        
+font_add_google("Merriweather", regular.wt = 400,family = "caption")
+
+showtext_auto(enable = TRUE)  
+
+
+X_icon <- glue("<span style='font-family:fa6-brands'>&#xe61b;</span>")
+
+caption_text <- str_glue("{li} Arindam Baruah | {X_icon} @wizsights | {gh} arinbaruah | Source: TidyTuesday |#rstudio #ggplot2")
+
+theme_set(theme_minimal(base_size = 15, base_family = "text"))                
+
+# Theme updates
+
+theme_update(
+  plot.title.position   = "plot",
+  plot.caption.position = "plot",
+  legend.position       = 'plot',
+  plot.margin           = margin(t = 10, r = 15, b = 0, l = 15),
+  plot.background       = element_rect(fill = bkg_col, color = bkg_col),
+  panel.background      = element_rect(fill = bkg_col, color = bkg_col),
+  axis.title.x          = element_text(margin = margin(10, 0, 0, 0), size = rel(1), color = text_col, family = 'text', face = 'bold'),
+  axis.title.y          = element_text(margin = margin(0, 10, 0, 0), size = rel(1), color = text_col, family = 'text', face = 'bold'),
+  axis.text             = element_text(size = 10, color = text_col, family = 'text',face = "bold"),
+  panel.grid.minor.y    = element_blank(),
+  panel.grid.major.y    = element_line(linetype = "dotted", linewidth = 0.1, color = 'gray40'),
+  panel.grid.minor.x    = element_blank(),
+  panel.grid.major.x    = element_blank(),
+  axis.line.x           = element_line(color = "#d7d7d8", linewidth = .2),
+)
+```
+
+
+```{r}
+df_drug_gender <- df_drug_gender %>% filter(Year == 2021)
+df_pop <- df_pop %>% select(`Country Name`,`2021`) 
+df_drug_gender <- inner_join(df_drug_gender,df_pop,by = c("Entity"="Country Name"))
+
+
+```
+
+```{r}
+df_drug_gender %>% mutate(prop_male = 100*`Total deaths from drug use disorders among females` / `2021`) %>% 
+  filter(`Total deaths from drug use disorders among males` > 1000)
+```
+# Share of deaths across genders
+
+```{r}
+#| warning: false
+continents <- c("North America","South America","Asia","Oceania","Africa","World")
+
+imp_countries <- c("India","China","United States","Australia","Canada","Germany","United Kingdom")
+
+
+options(scipen = 1000)
+
+note_text <- "Equal male and female deaths"
+
+gr1 <- ggplot(data = df_drug_gender %>% filter(!Entity %in% continents),
+              aes(y = `Total deaths from drug use disorders among males`, 
+x = `Total deaths from drug use disorders among females`)) + geom_point(color = "lightgray") +
+  geom_point(data = df_drug_gender %>% filter(!Entity %in% continents & Entity %in% imp_countries),
+             color = "steelblue",size = 4) +
+  geom_point(data = df_drug_gender %>% filter(Entity == "Ghana"),
+             color = "#FA8072",size = 4) +
+  geom_abline(intercept = 0,slope = 1,linetype = "dashed",alpha = 0.3) + 
+  geom_text_repel(data = df_drug_gender %>% filter(Entity %in% imp_countries | Entity == "Ghana"),
+                  aes(label = Entity,
+                      hjust = -0.5,
+                      vjust = 2),
+                  size = rel(12),
+                  fontface = "bold") +
+     geom_richtext(
+     aes(
+      x = 100, y = 10,
+      label = note_text,
+      family = "text"
+    ),
+    vjust = 1.1,
+    label.color = NA,
+    size = rel(12),
+    fill = bkg_col
+  ) + 
+    geom_curve(
+    aes(x = 96, xend = 75, y = 12, yend = 50),
+    curvature = 0.2,
+    arrow = arrow(length = unit(0.15, "cm"), type = "closed"),
+    color = "black"
+  ) +
+  scale_x_continuous(transform = "log10",labels = scales::comma) +
+  scale_y_continuous(transform = "log10",labels = scales::comma) +
+  labs(x =     "Female deaths",
+       y =     "Male deaths",
+       title = "Drug Use Disorders and Mortality: Understanding the Gender Gap",
+       subtitle = "The data across various countries has revealed a concerning trend: the number of deaths resulting from <span style='color: darkred;'>  drug use disorders is significantly high <br> in the United States </span>, with approximately <strong> 100,000 deaths recorded in 2021 alone </strong>. Furthermore, the data suggests that in most countries with <br> the exception of Ghana, males are disproportionately affected by drug use disorders, with <strong> death rates among males consistently exceeding <br> those among females </strong>. This highlights that males are at a far greater risk of succumbing to the harmful effects of illicit drugs.",
+       caption = "#Rstudio #ggplot2 | Source: IHME, Global Burden of Disease, 2021") +
+  theme(legend.position = "top",
+    legend.title.position = "top",
+    legend.title = element_text(
+      color = text_col,
+      hjust = 0.5,
+      family = "text",
+      face = "bold",
+      size = rel(1),
+    ),
+    legend.text = element_text(
+      color = text_col,
+      family = "text",
+      size = rel(1),
+      face = "bold"
+    ),
+    plot.title            = element_text(
+      size                = 70,
+      family              = "title",
+      face                = "bold",
+      color               = title_col,
+      lineheight          = 0.3,
+      margin              = margin(t = 5, b = 5),
+      hjust               = 0.5
+    ),        
+    plot.subtitle         = element_markdown(
+      size                = 35, 
+      family              = 'subtitle',
+      color               = subtitle_col,
+      hjust               = 0,
+      lineheight          = 0.4, 
+      margin              = margin(t = 5, b = 1)
+    ),
+      plot.caption          = element_markdown(
+      size                = rel(2), 
+      family              = 'caption',
+      color               = caption_col,
+      lineheight          = 0.3,
+      hjust               = 0.5,
+      halign              = 0,
+      margin              = margin(t = 10, b = 10)
+    ),
+    axis.title = element_markdown(
+      size = rel(3),
+      face = "bold"
+    ),
+    axis.text  = element_markdown(
+      size = rel(1.5)
+    )
+  ) 
+
+ggsave("images/Gender_death_rate.jpeg",gr1,dpi = 300,height = 6, width = 10)
+```
+
+
+```{r}
+df_drug_gender %>% filter(Entity != continents) %>% mutate(ratio = `Total deaths from drug use disorders among females`/`Total deaths from drug use disorders among males`) %>% arrange(-ratio)
+```
+
+
+```{r}
+
+my_col = c("United States" = "#A93226","Canada" = "#E67E22","North America" = "#AAB7B8", 
+           "South America" = "#AAB7B8", "Asia" = "#AAB7B8","Oceania" = "#AAB7B8","Africa" = "#AAB7B8")
+tags<- c("North America","South America","Asia","Oceania","Africa","United States","Canada")
+
+gr2 <- ggplot(data = df_substance_deaths %>% filter(Entity %in% tags) , aes(x = Year,
+                                       y = `Death rate from mental and substance use disorders among both sexes`
+                                       )) + 
+    geom_rect(
+    xmin = 2020, xmax = 2022, 
+    ymin = 0, ymax = 40,
+    fill = "#F9E79F",
+    alpha = 0.1
+  ) +
+  geom_line(aes(group = Entity,colour = Entity),linewidth = 0.25) +
+  geom_point(
+        aes(color = Entity), fill = "grey96",
+        shape = 21, size = 2, stroke = .25
+    ) +
+  scale_color_manual(values = my_col |> lighten(.5)) +
+    new_scale_color() +
+    geom_smooth(
+        aes(group = Entity, color = Entity),
+        linewidth = 4, se = FALSE, lineend = "round"
+    ) +
+
+    scale_color_manual(values = my_col |> alpha(0.3)) +
+    
+    new_scale_color() +
+    geom_textsmooth(
+        aes(color = Entity, label = Entity),
+        linewidth = .5, se = FALSE, lineend = "round",
+        fontface = "bold",
+        size = rel(10)
+    ) +    # theme_minimal()  +
+  annotate(
+  "text",
+  x = 2021,
+  y = 10,
+  colour = "#BA4A00",
+  label = 'COVID-19', size = unit(10, "pt")
+) + labs(x = "Year",
+         y = "Deaths per 100K people",
+         title = "Global Trends in Deaths from <br> Mental Health and Substance Use Disorders (2000-2022)",
+         subtitle = "The number of deaths due to mental health and substance use disorders per 100,000 individuals over the years reveals a troubling trend <br> for two specific countries:<span style='color: darkred;'> the United States and Canada </span>. While the death rates have remained relatively stable across other continents, <br> North America presents a stark contrast. Both countries have experienced a significant increase in deaths, particularly in recent years. <strong> <br> This rise has been notably steep following the COVID-19 pandemic </strong>,which may have exacerbated mental health issues due to extended <br> periods of isolation and other pandemic-related stressors. ",
+         caption = "#Rstudio #ggplot2 | Source: World Health Organisation") +
+
+    scale_color_manual(values = my_col |> darken(.25)) +
+  theme(legend.position = "none",
+    legend.title.position = "top",
+    legend.title = element_text(
+      color = text_col,
+      hjust = 0.5,
+      family = "text",
+      face = "bold",
+      size = rel(2),
+    ),
+    legend.text = element_text(
+      color = text_col,
+      family = "text",
+      size = rel(1),
+      face = "bold"
+    ),
+    plot.background = element_rect(colour = bkg_col),
+  plot.title            = element_markdown(
+      size                = 70,
+      family              = "title",
+      face                = "bold",
+      color               = title_col,
+      lineheight          = 0.3,
+      margin              = margin(t = 5, b = 5),
+      hjust               = 0.5
+    ),        
+    plot.subtitle         = element_markdown(
+      size                = 35, 
+      family              = 'subtitle',
+      color               = subtitle_col,
+      hjust               = 0,
+      lineheight          = 0.4, 
+      margin              = margin(t = 5, b = 1)
+    ),
+      plot.caption          = element_markdown(
+      size                = rel(2), 
+      family              = 'caption',
+      color               = caption_col,
+      lineheight          = 0.3,
+      hjust               = 0.5,
+      halign              = 0,
+      margin              = margin(t = 10, b = 10)
+    ),
+    axis.title = element_markdown(
+      size = rel(2),
+      family = "text",
+      face = "bold"
+    ),
+    axis.text  = element_markdown(
+      size = rel(2.5)
+    )
+  )  + xlim(c(2000,2022)) 
+
+gr2
+ggsave("images/Global_death_rate.jpeg",gr2,dpi = 300,height = 6, width = 10)
+```
+
+```{r}
+df_substance_deaths_age <- df_substance_deaths_age %>% clean_names()
+df_substance_deaths_age_long <- df_substance_deaths_age %>% pivot_longer(cols = c(4:8),
+                                                                         values_to = "deaths",
+                                                                         names_to = "age_group")
+
+dim_order <- c("0-4","5-14", "15-49", "50-69",">=70","all")
+
+
+df_substance_deaths_age_long <- df_substance_deaths_age_long %>%  group_by(year) %>% mutate(age_group_clean = case_match(age_group,           "deaths_from_substance_use_disorders_among_both_sexes_aged_0_4_year_olds" ~ "0-4", 
+                                                                                                                         "deaths_from_substance_use_disorders_among_both_sexes_aged_5_14_year_olds" ~ "5-14", 
+                                                                                                                         "deaths_from_substance_use_disorders_among_both_sexes_aged_15_49_year_olds" ~ "15-49", 
+                                                                                                                         "deaths_from_substance_use_disorders_among_both_sexes_aged_50_69_year_olds" ~ "50-69",
+                                                                                                                         "deaths_from_substance_use_disorders_among_both_sexes_aged_70_year_olds" ~ ">=70",
+                                                                                  .default = "all")) %>%
+   mutate(age_group_clean = factor(age_group_clean, levels = dim_order))
+
+```
+
+
+```{r}
+
+age_exclude <- c("all","0-4","5-14")
+df_substance_deaths_age_long <- df_substance_deaths_age_long %>% filter(!age_group_clean %in% age_exclude)
+df_substance_deaths_age_long_grouped <- df_substance_deaths_age_long %>% group_by(age_group_clean,year) %>% summarise(Total_deaths = sum(deaths))
+
+df_substance_deaths_age_long_grouped$age_group_clean <- paste0(
+    df_substance_deaths_age_long_grouped$age_group_clean," yrs"
+)
+
+df_substance_deaths_age_long_grouped <- df_substance_deaths_age_long_grouped %>% filter(year >= 2016)
+df_substance_deaths_age_long_grouped <- df_substance_deaths_age_long_grouped %>% 
+                                          mutate(Total_deaths = Total_deaths/10^6) %>% 
+                                          mutate(Total_deaths = round(Total_deaths,1)) 
+
+df_substance_deaths_age_long_grouped$Total_deaths_label <- paste0(
+    df_substance_deaths_age_long_grouped$Total_deaths," mil"
+)
+```
+
+
+```{r}
+#| warning: false
+title_text <- "Persistent Trends in Deaths from Mental Health and Substance Use Disorders <br> among Middle-Aged Groups"
+
+subtitle_text <- "A closer examination of deaths due to mental health and substance use disorders reveals that <strong> middle-aged individuals, <br> particularly  those between 15-49 years, have consistently  experienced the highest mortality rates.</strong> In recent years, the <br> death toll in this age group has reached up to <span style='color: darkred;'>half a million annually </span>, closely followed by those aged 50-69 years. A <br> significant portion of these deaths occur among the working-age population, suggesting that <strong> professional pressures <br> and stress could be major contributing factors to the decline in mental health, particularly for individuals aged 15-49. </strong>"
+
+
+gr3 <- ggplot(df_substance_deaths_age_long_grouped, aes(id = age_group_clean,area = Total_deaths,fill = Total_deaths)) +
+  geom_circlepack() +
+    geom_circlepack_text( aes(y = after_stat(y + 0.1),
+                              label = Total_deaths_label),
+                           family = "text",color = "white", 
+                           fontface = "bold", lineheight = 0.3,size = 12) +
+  geom_circlepack_text(aes(label = age_group_clean),color = "#f1fffe",size = 9,
+                       check_overlap = TRUE,family = "caption", lineheight = 1) + #theme_void() +
+  facet_wrap(~year) +
+  scale_color_identity() +
+   labs(title = title_text,
+        subtitle = subtitle_text,
+        caption = "#Rstudio #ggcirclepack #ggplot2 | Source: World Health Organisation (2024)"
+        ) +
+   theme(legend.position = "none",
+         strip.text = element_markdown(family = "text",
+                                       size = rel(3)),
+    legend.title.position = "none",
+    legend.title = element_text(
+      color = text_col,
+      hjust = 0.5,
+      family = "text",
+      face = "bold",
+      size = rel(2),
+    ),
+    legend.text = element_text(
+      color = text_col,
+      family = "text",
+      size = rel(1),
+      face = "bold"
+    ),
+  plot.title            = element_markdown(
+      size                = 60,
+      family              = "title",
+      face                = "bold",
+      color               = title_col,
+      lineheight          = 0.3,
+      margin              = margin(t = 5, b = 5),
+      hjust               = 0.5
+    ),        
+    plot.subtitle         = element_markdown(
+      size                = 35, 
+      family              = 'subtitle',
+      color               = subtitle_col,
+      hjust               = 0,
+      lineheight          = 0.4, 
+      margin              = margin(t = 15, b = 1)
+    ),
+      plot.caption          = element_markdown(
+      size                = rel(2), 
+      family              = 'caption',
+      color               = caption_col,
+      lineheight          = 0.3,
+      hjust               = 0.5,
+      halign              = 1,
+      margin              = margin(t = 10, b = 10)
+    ),
+  axis.text = element_blank(),
+  axis.title.y = element_blank(),
+  panel.grid.major = element_blank(),  # Remove major grid lines
+  panel.grid.minor = element_blank()   # Remove minor grid lines
+  ) + scale_fill_continuous_tableau(palette = "Classic Red") + coord_equal()
+  
+
+gr3
+ggsave("images/Global_death_rate_age.jpeg",gr3,dpi = 300,height = 6, width = 10)
+```
+
+```{r}
+df_drug_dependency <- df_drug_dependency %>% clean_names()
+
+title_text <- "Elevated Risk of Substance Dependence Among <br> Professionals in High-Stress Work Environments"
+subtitle_text <- "A high-pressure work environment can significantly impact the mental well-being of professionals, often making them vulnerable to mental <br> health disorders. Statistics show a strong correlation between developing a mental health condition and subsequent substance dependence. <br> Among working professionals, the most common mental health disorders include <strong> ADHD, Social Phobia, Major Depression, and Generalized <br> Anxiety Disorder </strong>. The values presented indicate the likelihood of individuals who develop one of these conditions also turning to substance <br> use as a coping mechanism. <span style='color: darkred;'>A person with a diagnosed ADHD condition is 5.2 times likely to fall victim to substance use.</span> "
+
+work_conditions <- c("Generalized anxiety disorder (GAD)","Major depression",
+                     "Social phobia","Any Anxiety Disorder","Attention deficit hyperactivity (ADHD)")
+
+gr4 <- ggplot(data = df_drug_dependency,aes(x = increased_risk_of_illicit_drug_dependency,
+                                     y = reorder(entity,increased_risk_of_illicit_drug_dependency))) + 
+  geom_col(fill = "lightgray") + 
+  geom_col(data = df_drug_dependency %>% filter(entity %in% work_conditions) ,fill = "#CD5C5C") +
+  geom_text(aes(label = increased_risk_of_illicit_drug_dependency,
+                hjust = 1,fontface = "bold"),color = "white",size = 16) +
+  labs(x = "Risk of substance dependency",
+       y = "",
+       title = title_text,
+       subtitle = subtitle_text,
+       caption = "#Rstudio #ggplot2 | Source: Swendsen et al. (2010)") +
+  theme(legend.position = "none",
+    legend.title = element_text(
+      color = text_col,
+      hjust = 0.5,
+      family = "text",
+      face = "bold",
+      size = rel(2),
+    ),
+    legend.text = element_text(
+      color = text_col,
+      family = "text",
+      size = rel(1),
+      face = "bold"
+    ),
+    plot.title            = element_markdown(
+      size                = 70,
+      family              = "title",
+      face                = "bold",
+      color               = title_col,
+      lineheight          = 0.3,
+      margin              = margin(t = 5, b = 5),
+      hjust               = 0.5
+    ),        
+    plot.subtitle         = element_markdown(
+      size                = 35, 
+      family              = 'subtitle',
+      color               = subtitle_col,
+      hjust               = 0,
+      lineheight          = 0.4, 
+      margin              = margin(t = 5, b = 1)
+    ),
+      plot.caption          = element_markdown(
+      size                = rel(2), 
+      family              = 'caption',
+      color               = caption_col,
+      lineheight          = 0.3,
+      hjust               = 0.5,
+      halign              = 0,
+      margin              = margin(t = 10, b = 10)
+    ),
+    axis.title = element_markdown(
+      size = 30,
+      family = "caption",
+      face = "bold"
+    ),
+    axis.text  = element_markdown(
+      size = 25,
+      face = "bold",
+      family = "caption"
+    ),
+   panel.grid.major = element_blank(),
+   panel.grid.minor = element_blank(),
+  ) 
+
+ggsave("images/drug_dependency.jpeg",gr4,dpi = 300,height = 6, width = 10)
+```
+
+
+```{r}
+library(treemapify)
+
+
+title_text <- "Tobacco’s Toll: Addressing the Leading Cause of Global Substance-Related Deaths"
+
+subtitle_text <- "In 2021, the global annual number of deaths caused by substance use highlighted <strong> tobacco as the leading cause </strong>, with a staggering <span style='color: darkred;'> 7.2 million <br> deaths </span>. <strong>Alcohol</strong> followed as the second highest at <span style='color: darkred;'>2 million deaths</span>, and <strong>illicit drugs</strong> accounted for <span style='color: darkred;'>0.6 million deaths</span>. The overwhelming <br> number of deaths from tobacco, primarily due to smoking,suggests that a significant portion of the global population remains dependent on it. <br> Smoking is often the first substance people become addicted to, often triggered by mental health challenges such as stress. The fact that <br> <span style='color: darkred;'><strong> tobacco- related deaths are more than three times higher than the next leading cause of substance-related deaths </span></strong> underscores the <br> urgent need for focused efforts to limit easy access to tobacco products, such as cigarettes, and to promote cessation programs and <br> awareness campaigns to combat tobacco addiction."
+
+gr7 <- ggplot(df_drug_deaths, aes(area = deaths, fill = deaths,
+               label = paste0(round(deaths/10^6,1)," mil deaths","\n",drug),
+               size = 2.5,
+               family = "text")) +
+  geom_treemap(color = "black",size = 3) +
+  geom_treemap_text(colour = "#FEF9E7",
+                    place = "centre",
+                    fontface = "bold", 
+                    layout = "squarified",
+                    family = "text", 
+                    grow = TRUE, 
+                    padding.x = grid::unit(7, "mm"), 
+                    padding.y = grid::unit(7, "mm")) +
+  scale_fill_continuous_tableau(palette = "Red") +
+  labs(title = title_text,
+       subtitle = subtitle_text,
+       caption = "#Rstudio #ggtreemap #ggplot2 | Source: IHME Global Burden of Disease (2021)") +
+  theme(legend.position = "none",
+    legend.title = element_text(
+      color = text_col,
+      hjust = 0.5,
+      family = "text",
+      face = "bold",
+      size = rel(1),
+    ),
+    legend.text = element_text(
+      color = text_col,
+      family = "text",
+      size = rel(1),
+      face = "bold"
+    ),
+    plot.title            = element_markdown(
+      size                = 55,
+      family              = "title",
+      face                = "bold",
+      color               = title_col,
+      lineheight          = 0.3,
+      margin              = margin(t = 5, b = 5),
+      hjust               = 0.5
+    ),        
+    plot.subtitle         = element_markdown(
+      size                = 35, 
+      family              = 'subtitle',
+      color               = subtitle_col,
+      hjust               = 0,
+      lineheight          = 0.4, 
+      margin              = margin(t = 5, b = 1)
+    ),
+      plot.caption          = element_markdown(
+      size                = rel(2), 
+      family              = 'caption',
+      color               = caption_col,
+      lineheight          = 0.5,
+      hjust               = 0.5,
+      halign              = 0,
+      margin              = margin(t = 10, b = 10)
+    ),
+    axis.title = element_markdown(
+      size = rel(0.7),
+      family = "caption",
+      face = "bold"
+    ),
+    axis.text  = element_markdown(
+      size = rel(0.7),
+      face = "bold",
+      family = "caption"
+    )
+  ) 
+
+ggsave("images/tobacco_deaths.jpeg",gr7,dpi = 300,height = 6, width = 10)
+
+```
+
+
+
+```{r}
+
+df_drug_deaths$main <- "Deaths due to substance abuse"
+
+
+```
+
+
+
+
+
+
+
+
+
+
+```{r}
+cigs_sales <- read_csv(here::here("data/sales-of-cigarettes-per-adult-per-day.csv"), show_col_types = FALSE)
+
+cigs_sales_tidy <- cigs_sales %>%
+                   rename(cigs_sales_daily = `Sales of cigarettes per adult per day (International Smoking Statistics (2017))`) %>%
+                   select(Entity, Year, cigs_sales_daily)
+
+lung_cancer <- read_csv(here::here("data/lung-cancer-deaths-per-100000-by-sex-1950-2002.csv"), show_col_types = FALSE)
+
+lung_cancer_tidy <- lung_cancer %>% select(!Code) %>%
+                                    pivot_longer(cols = -1:-2,
+                                                 names_to = "gender",
+                                                 values_to = "death_rate") %>%
+                                    mutate(gender = as.character(gender)) %>%
+                                    mutate(gender = str_replace_all(gender, "age-standardized_death_rate_per_100k_", ""))
+                                    
+lc_summarised <- lung_cancer_tidy %>%
+                 select(Year, death_rate) %>%
+                 group_by(Year) %>%
+                 summarise(avg_death_rate = round(mean(death_rate),2)) %>%
+                 arrange(Year)
+
+
+lc_cigs_summarised <- cigs_sales_tidy %>%
+                        select(Year, cigs_sales_daily) %>%
+                        group_by(Year) %>%
+                        summarise(cigs_sales_daily = mean(cigs_sales_daily)) %>%
+                        left_join(lc_summarised, by = "Year") %>%
+                        filter(Year %in% 1950:2015)
+
+
+scale = 2
+
+
+```
+
+
+
+
+
+
+
+
+
+```{r}
+#| warning: false
+
+library(ggplot2)
+
+
+title_text <- "Turning the Tide: Decreasing Cigarette Consumption and Deaths <br> Among Smokers"
+  
+subtitle_text <- "Smoking tobacco-based products remains the most widely abused addictive substance, particularly among  individuals struggling with <br> mental health issues. The harmful effects of smoking are well-documented, with lung cancer  being a leading cause of death among heavy <br> smokers. However, there is <strong>a positive trend emerging: the average number of cigarettes sold per adult (aged 15 and above) has been <br> steadily declining since 1974.</strong> <br> <br> This decline is accompanied by a <strong>notable reduction in annual death rates among smokers.</strong> If this trend continues, both the average <br> number of cigarettes sold per adult and the related death rates are <strong>expected to reach record lows </strong> in the coming years. This marks a <br> significant step forward in the fight against substance abuse and its detrimental health effects."
+
+lc_cigs_summarised_long <- lc_cigs_summarised %>% pivot_longer(cols = c(2:3),names_to = "metric",values_to = "value")
+cig_sales <- diff(range(lc_cigs_summarised_long$value[lc_cigs_summarised_long$metric == "cigs_sales_daily"]))
+avg_death <- diff(range(lc_cigs_summarised_long$value[lc_cigs_summarised_long$metric == "avg_death_rate"]))
+
+cig_sales_future_model <- lm(value ~ Year, data = lc_cigs_summarised_long %>% filter(metric == "cigs_sales_daily" & Year>=1980))
+avg_death_future_model <- lm(value ~ Year, data = lc_cigs_summarised_long %>% filter(metric == "avg_death_rate" & Year>=1980))
+
+
+scale_factor <- cig_sales / avg_death
+
+future_years <- data.frame(Year = seq(2016, 2035))
+
+cigs_sales_future <- tibble(Year = seq(2016, 2035),
+                            metric = "Cigarette sales per adult",
+                            value = predict(cig_sales_future_model,
+                                            newdata = future_years))
+avg_death_future <- tibble(Year = seq(2016, 2035),
+                           metric = "Average death rate",
+                            value = predict(avg_death_future_model,
+                                            newdata = future_years))
+
+lc_cigs_summarised_long <- rbind(lc_cigs_summarised_long,cigs_sales_future,avg_death_future)
+
+gr5 <- ggplot(lc_cigs_summarised_long, aes(x = Year)) +
+  # First metric
+  geom_line(aes(y = value,linetype = metric), 
+            data = lc_cigs_summarised_long %>% filter(metric == "cigs_sales_daily"),linewidth = 1.2) +
+  
+  # Second metric on secondary axis
+  geom_line(aes(y = value * scale_factor,linetype = metric), 
+            data = lc_cigs_summarised_long %>% filter(metric == "avg_death_rate"),linewidth = 1.2) +
+    geom_line(aes(y = value * scale_factor,color = metric), 
+            data = lc_cigs_summarised_long %>% filter(metric == "Average death rate"),linewidth = 1.2) +
+    geom_line(aes(y = value,color = metric), 
+            data = lc_cigs_summarised_long %>% filter(metric == "Cigarette sales per adult"),linewidth = 1.2) +
+    geom_segment(aes(x = 1973.5,
+                   y = 7.6,
+                   xend = 1968,
+                   yend = 8),
+               linewidth= 0.2) +
+  geom_point(
+    data = filter(lc_cigs_summarised_long),
+    aes(x = 1974,y = 7.7),
+    size = 4,
+    color = "darkred"
+  ) +
+  
+  annotate(geom = "text",
+           x = 1957,
+           y = 7.8,
+           size = 12,
+           label = 'First reported decrease in \n global cigarette sales in 1974',
+           fontface = "bold",
+          family = "text",
+          lineheight = 0.2) +
+  
+      geom_segment(aes(x = 1988,
+                   y = 6.1,
+                   xend = 1980,
+                   yend = 4),
+               linewidth= 0.2) +
+  geom_point(
+    data = filter(lc_cigs_summarised_long),
+    aes(x = 1988,y = 6.1),
+    size = 4,
+    color = "darkred"
+  ) +
+  annotate(geom = "text",
+           x = 1980,
+           y = 3.3,
+           size = 12,
+           lineheight = 0.2,
+           label = 'Decreasing trend in \n annual smoking death rates after 1990',
+           fontface = "bold",
+          family = "text") +
+  
+  scale_color_manual(values = c(`Average death rate` = "darkred",`Cigarette sales per adult` = "orange")) +
+  scale_y_continuous(
+    name = "Average daily cigarette sales <br> per adult", 
+    sec.axis = sec_axis(~ . / scale_factor, name = "Average death rate <br> per 100K people")) + 
+  guides(linetype = FALSE) +
+  labs(x = "Year",
+       color = "Projections",
+       title = title_text,
+       subtitle = subtitle_text,
+       caption = "#Rstudio #ggplot2 | Source: International Smoking Statistics (2016)") +
+  theme(legend.position = "bottom",
+    legend.title = element_markdown(
+      color = text_col,
+      hjust = 0.5,
+      family = "text",
+      face = "bold",
+      size = rel(3),
+    ),
+    legend.text = element_text(
+      color = text_col,
+      family = "text",
+      size = rel(2),
+      face = "bold"
+    ),
+    plot.title            = element_markdown(
+      size                = 70,
+      family              = "title",
+      face                = "bold",
+      color               = title_col,
+      lineheight          = 0.3,
+      margin              = margin(t = 5, b = 5),
+      hjust               = 0.5
+    ),        
+    plot.subtitle         = element_markdown(
+      size                = 35, 
+      family              = 'subtitle',
+      color               = subtitle_col,
+      hjust               = 0,
+      lineheight          = 0.4, 
+      margin              = margin(t = 5, b = 1)
+    ),
+      plot.caption          = element_markdown(
+      size                = rel(2), 
+      family              = 'caption',
+      color               = caption_col,
+      lineheight          = 0.3,
+      hjust               = 0.5,
+      halign              = 0,
+      margin              = margin(t = 10, b = 10)
+    ),
+    axis.title = element_markdown(
+      size = rel(2.2),
+      family = "caption",
+      face = "bold",
+      lineheight = 0.2
+    ),
+    axis.text  = element_markdown(
+      size = rel(2),
+      face = "bold",
+      family = "caption"
+    )
+  ) 
+
+ggsave("images/cig_sales.jpeg",gr5,dpi = 300,height = 6, width = 10)
+```
+
+
+
+```{r}
+df_overdose_long <- df_overdose %>% pivot_longer(cols = c(4:8),names_to = "drug_type",values_to = "death_rate")
+
+
+df_overdose_long <- df_overdose_long %>% mutate(drug_type_clean = case_match(drug_type,"Any opioid death rates (CDC WONDER)" ~ "Other Opioids",
+                                                                            "Cocaine overdose death rates (CDC WONDER)" ~ "Cocaine",
+                                                                            "Heroin overdose death rates (CDC WONDER)" ~ "Heroin",
+                                                                            "Prescription Opioids death rates (US CDC WONDER)" ~ "Prescription Opioids",
+                                                                            "Synthetic opioids death rates (CDC WONDER)" ~ "Synthetic Opioids"))
+
+
+df_overdose_long$drug_type_clean <- factor(df_overdose_long$drug_type_clean,levels = c("Heroin","Prescription Opioids",
+                                                                                       "Cocaine","Other Opioids","Synthetic Opioids")) 
+df_overdose_percent <- df_overdose_long %>% group_by(drug_type_clean) %>% 
+  mutate(per = round((death_rate - first(death_rate))/first(death_rate),0)) %>% arrange(-per) %>% filter(Year == 2020) 
+
+cols <- c("Other Opioids" = "darkred", 
+          "Cocaine" = "#E59866",
+          "Prescription Opioids" = "#F4D03F",
+          "Synthetic Opioids" = "darkred",
+          "Heroin" = "#16A085")
+
+title_text <- "Rising Overdose Deaths: An Urgent Call for Action <br> on Illicit Drug Abuse"
+subtitle_text <- "The recent surge in overdose deaths in the United States, particularly due to illicit drugs like opioids, heroin, and cocaine, is deeply <br> concerning. This trend suggests that more people are increasingly turning to these substances, potentially driven by underlying issues <br> such as mental health disorders, which lead to addiction and, ultimately, fatal outcomes. In recent years, the <strong> annual death rate due to <br> overdoses has climbed to 20 per 100,000 people </strong> and continues to rise at an alarming pace, particularly for <span style='color: darkred;'>synthetic opioids <br> whose death rates have risen by 58 times since the year 1999</span>. <br> <br> The upward trajectory highlights an <span style='color: darkred;'>urgent need for targeted interventions to address the growing number of drug users </span> and prevent <br> further loss of life due to substance abuse."
+
+gr6 <- ggplot(data = df_overdose_long,aes(x = Year,y = death_rate)) + geom_line(aes(color = drug_type_clean),linewidth = 0.8,
+                                                                                arrow = arrow(type = "closed", 
+                                                                                              length = unit(0.1, "inches"))) +
+  geom_area(alpha = 0.4,aes(fill = drug_type_clean)) + 
+  geom_richtext(
+         data = df_overdose_percent, aes(x = 2012, y = 15, label = glue::glue("<strong> {per} times rise </strong>")),
+         hjust = 1,
+         vjust = -0.15,
+         fill = NA,
+         size =14,
+         color = "darkred",
+         label.padding = unit(.125, "lines"),
+         label.r = unit(0, "lines"),
+         label.size = unit(0, "lines")
+     ) +
+  facet_wrap(~drug_type_clean,nrow = 1)  +
+  scale_fill_manual(values = cols) +
+  scale_color_manual(values = cols) +
+    coord_cartesian(clip = 'off') +
+  labs(x = "Year",y = "Annual death rate <br> per 100K people",
+       title = title_text,
+       subtitle = subtitle_text,
+       caption = "#Rstudio #ggplot2 | Source: US Centers for Disease Control and Prevention") +
+  theme(legend.position = "none",
+        strip.text = element_markdown(
+          family = "text",
+          face = "bold",
+          size = rel(3)
+        ),
+    legend.title = element_markdown(
+      color = text_col,
+      hjust = 0.5,
+      family = "text",
+      face = "bold",
+      size = rel(1),
+    ),
+    legend.text = element_text(
+      color = text_col,
+      family = "text",
+      size = rel(1),
+      face = "bold"
+    ),
+    plot.title            = element_markdown(
+      size                = 70,
+      family              = "title",
+      face                = "bold",
+      color               = title_col,
+      lineheight          = 0.3,
+      margin              = margin(t = 5, b = 5),
+      hjust               = 0.5
+    ),        
+    plot.subtitle         = element_markdown(
+      size                = 35, 
+      family              = 'subtitle',
+      color               = subtitle_col,
+      hjust               = 0,
+      lineheight          = 0.4, 
+      margin              = margin(t = 5, b = 1)
+    ),
+      plot.caption          = element_markdown(
+      size                = rel(2), 
+      family              = 'caption',
+      color               = caption_col,
+      lineheight          = 0.3,
+      hjust               = 0.5,
+      halign              = 0,
+      margin              = margin(t = 10, b = 10)
+    ),
+    axis.title.x = element_markdown(
+      size = rel(2),
+      family = "text",
+      face = "bold"
+    ),
+      axis.title.y = element_markdown(
+      size = rel(2),
+      family = "text",
+      lineheight = 0.2,
+      face = "bold"
+    ),
+    axis.text.x  = element_markdown(
+      size = rel(2.2),
+      face = "bold",
+      family = "caption"
+    ),
+    axis.text.y  = element_markdown(
+      size = rel(2.5),
+      face = "bold",
+      family = "caption"
+    )
+  ) 
+
+ggsave("images/overdose_deaths.jpeg",gr6,dpi = 300,height = 6, width = 10)
+```
+
+```{r}
+
+# work_interfere
+# care_options
+# mentalvsphysical
+
+df_survey_interfere <- df_survey %>% group_by(work_interfere) %>% drop_na() %>% summarise(Total = n()) %>%
+                       mutate(metric = "Work Interference") %>% rename("score" = "work_interfere")
+
+df_survey_care <- df_survey %>% group_by(care_options) %>% summarise(Total = n()) %>%
+   mutate(metric = "Care benefits") %>% rename("score" = "care_options")
+
+df_survey_mentvphy <- df_survey %>% group_by(mental_vs_physical)  %>% summarise(Total = n()) %>%
+  mutate(metric = "Importance") %>% 
+  rename("score" = "mental_vs_physical")
+
+df_survey_leave <- df_survey %>% group_by(leave) %>% summarise(Total = n()) %>% mutate(metric = "Leave benefits") %>%
+  rename("score" = "leave")
+
+df_survey_stats <- rbind(df_survey_interfere,df_survey_care,df_survey_mentvphy,df_survey_leave)
+
+df_survey_stats <- df_survey_stats %>% mutate(sentiment = case_match(score,
+                                                                     "Don't know" ~ "Neutral",
+                                                                     "Somewhat difficult" ~ "Negative",
+                                                                     "Very difficult" ~ "Negative",
+                                                                     "No" ~ "Negative",
+                                                                     "Not sure" ~ "Neutral",
+                                                                     "Sometimes" ~ "Neutral",
+                                                                     "Never" ~ "Positive",
+                                                                     "Rarely" ~ "Positive",
+                                                                     "Often" ~ "Negative",
+                                                                     .default = "Positive",
+                                                                     ))
+
+dim_order <- c("Positive","Neutral","Negative")
+df_survey_stats$sentiment <- factor(df_survey_stats$sentiment,levels = dim_order)
+```
+
+
+
+```{r}
+
+custom_colors <- c("Negative" = "#CB4335",  
+                   "Neutral" = "#D4AC0D",  
+                   "Positive" = "#1E8449") 
+
+title_text <- "Mental Health in High-Stress Work Environments: <br> Are Employers Doing Enough?"
+subtitle_text <- "A <strong>2016 global survey of tech industry employees across 48 countries</strong> explored this issue, finding that about <strong> 75% of respondents believed, <br> or were unsure, that mental health problems interfered with their job performance.</strong> Despite this, over 50% felt that their employers did not <br> take sufficient steps to address mental health concerns. </span> <br> <br> This trend highlights a significant issue: <span style='color: darkred;'><strong>employees in high-stress industries like tech may develop severe mental health problems and <br> turn to illicit substances as coping mechanisms.</span></strong> This underscores the urgent need for better mental health support in workplaces to prevent <br> these outcomes."
+gr8 <- ggplot(data = df_survey_stats,aes(x = Total,y = metric,fill = sentiment)) + 
+  geom_col(position = "fill") + theme(legend.position = "top") +
+  scale_x_continuous(expand = c(0, 0), labels = scales::percent) +
+  scale_fill_manual(values = custom_colors,limits = c("Negative","Neutral","Positive")) +
+  labs(x = "Percentage of respondents",
+       y = "Survey metric",
+       fill = "Survey response on \n mental health at workplace",
+       title = title_text,
+       subtitle = subtitle_text,
+       caption = "#Rstudio #ggplot2 | Source: OSMI Tech Survey (2016)"
+       ) +
+  theme(legend.position = "top",
+        strip.text = element_markdown(
+          family = "text",
+          face = "bold",
+          size = rel(0.7)
+        ),
+    legend.title = element_text(
+      color = text_col,
+      hjust = 0.5,
+      family = "text",
+      face = "bold",
+      lineheight = 0.2,
+      size = rel(2.5),
+    ),
+    legend.text = element_text(
+      color = text_col,
+      family = "text",
+      size = rel(2),
+      face = "bold"
+    ),
+    plot.title            = element_markdown(
+      size                = 70,
+      family              = "title",
+      face                = "bold",
+      color               = title_col,
+      lineheight          = 0.3,
+      margin              = margin(t = 5, b = 5),
+      hjust               = 0.5
+    ),        
+    plot.subtitle         = element_markdown(
+      size                = 35, 
+      family              = 'subtitle',
+      color               = subtitle_col,
+      hjust               = 0,
+      lineheight          = 0.4, 
+      margin              = margin(t = 5, b = 1)
+    ),
+      plot.caption          = element_markdown(
+      size                = rel(2), 
+      family              = 'caption',
+      color               = caption_col,
+      lineheight          = 0.3,
+      hjust               = 0.5,
+      halign              = 0,
+      margin              = margin(t = 10, b = 10)
+    ),
+    axis.title = element_markdown(
+      size = rel(3),
+      lineheight = 0.2,
+      family = "caption",
+      face = "bold"
+    ),
+    axis.text  = element_markdown(
+      size = rel(2.4),
+      face = "bold",
+      family = "caption"
+    )
+  ) 
+  
+ggsave("images/mental_health_survey.jpeg",gr8,dpi = 300,height = 6, width = 10)
+```
+
+200-word paragraph
+
+The infographic titled “The Dual Crisis: Mental Health and Substance Abuse in the Modern World” highlights the alarming global trends in drug use, mental health, and substance-related deaths. It emphasises that men are disproportionately affected by drug-related mortality. Deaths from mental health and substance use disorders have significantly increased, especially in the U.S. and Canada, with a sharp spike following the COVID-19 pandemic. Among middle-aged individuals, those aged 15 to 49—especially working professionals in high-stress environments—are most affected by substance use disorders, suggesting work-related stress as a major contributing factor.
+
+Tobacco remains the most lethal substance, causing over 7.2 million deaths annually—three times more than alcohol and significantly higher than illicit drugs. However, there’s a positive trend in declining cigarette consumption, with usage falling since 1974 and projections suggesting continued decline. On the other hand, the data also presents a concerning rise in synthetic drug use, with opioid overdose deaths surging by 58 times since 1990. The data underscores the urgent need for mental health support, particularly in high-stress industries, where professionals are at an elevated risk of substance dependence. Employers’ lack of adequate mental health support is also highlighted as a critical issue.

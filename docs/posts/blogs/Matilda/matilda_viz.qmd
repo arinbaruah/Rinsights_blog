@@ -1,8 +1,24 @@
 ---
-title: "Visualisation"
+title: "The Dual Crisis: Mental Health and Substance Abuse in the Modern World 😞💉"
 author: "Arindam Baruah"
-format: html
+date: "2024-11-14"
+categories: [R,analysis,exploratory data analysis,visualisation,statistics]
+image: "equality.jpeg"
+number-sections: true
+toc: true
+execute: 
+  echo: false
+  warning: false
+  message: false
 ---
+
+![Source: www.solhapp.com](mental_health.webp)
+
+# Introduction
+
+Substance use and mental health are deeply interconnected aspects of overall well-being. Substance use refers to the consumption of alcohol, drugs, or other psychoactive substances, which, in some cases, can develop into substance use disorders characterized by dependency and negative impacts on daily life. Mental health encompasses emotional, psychological, and social well-being, influencing how we think, feel, and act. Challenges in one area often affect the other; for instance, people with mental health disorders may turn to substances to self-medicate, while substance use can exacerbate or trigger mental health issues. Addressing both requires an integrated approach that considers their complex relationship to promote recovery and resilience.
+
+This visual analysis highlights the alarming global trends in drug use, mental health, and substance-related deaths.
 
 ```{r}
 library(tidyverse)
@@ -1051,7 +1067,7 @@ gr8 <- ggplot(data = df_survey_stats,aes(x = Total,y = metric,fill = sentiment))
 ggsave("images/mental_health_survey.jpeg",gr8,dpi = 300,height = 6, width = 10)
 ```
 
-200-word paragraph
+# Summary
 
 The infographic titled “The Dual Crisis: Mental Health and Substance Abuse in the Modern World” highlights the alarming global trends in drug use, mental health, and substance-related deaths. It emphasises that men are disproportionately affected by drug-related mortality. Deaths from mental health and substance use disorders have significantly increased, especially in the U.S. and Canada, with a sharp spike following the COVID-19 pandemic. Among middle-aged individuals, those aged 15 to 49—especially working professionals in high-stress environments—are most affected by substance use disorders, suggesting work-related stress as a major contributing factor.
 

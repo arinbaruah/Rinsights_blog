@@ -1,0 +1,58 @@
+---
+title: "The Dual Crisis: Mental Health and Substance Abuse in the Modern World"
+author: "Arindam Baruah"
+format: html
+date: "2024-11-14"
+categories: [R,Canva,data cleaning,exploratory data analysis,plot aesthetics, ggplot2]
+quarto-required: ">=1.3.0"
+execute: 
+  echo: false
+  warning: false
+  message: false
+---
+
+![Mental Health and Substance Abuse in the Modern World](images/Resized_merged.png){#fig-matilda}
+
+# Key takeaway
+
+@fig-matilda illustrates the infographic titled “The Dual Crisis: Mental Health and Substance Abuse in the Modern World” highlights the alarming global trends in drug use, mental health, and substance-related deaths. It emphasises that men are disproportionately affected by drug-related mortality. Deaths from mental health and substance use disorders have significantly increased, especially in the U.S. and Canada, with a sharp spike following the COVID-19 pandemic. Among middle-aged individuals, those aged 15 to 49—especially working professionals in high-stress environments—are most affected by substance use disorders, suggesting work-related stress as a major contributing factor.
+
+Tobacco remains the most lethal substance, causing over 7.2 million deaths annually—three times more than alcohol and significantly higher than illicit drugs. However, there’s a positive trend in declining cigarette consumption, with usage falling since 1974 and projections suggesting continued decline. On the other hand, the data also presents a concerning rise in synthetic drug use, with opioid overdose deaths surging by 58 times since 1990. The data underscores the urgent need for mental health support, particularly in high-stress industries, where professionals are at an elevated risk of substance dependence. Employers’ lack of adequate mental health support is also highlighted as a critical issue.
+
+:::{.callout-note}
+# Some good news
+
+This data visualisation infographic entry for the [Matilda Viz 2024](https://www.sydney.edu.au/matilda-centre/news-and-events/matilda-viz-a-data-visualisation-competition-open-to-all-students.html) edition, hosted by the University of Sydney, has made it to the top 10 finalists!
+:::
+
+<script src="https://utteranc.es/client.js"
+        repo="arinbaruah/Rinsights_blog"
+        issue-term="url"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script>
+
+# References
+
+1. __tidyverse__: Wickham H, Averick M, Bryan J, Chang W, McGowan LD, François R, Grolemund G, Hayes A, Henry L, Hester J, Kuhn M,
+  Pedersen TL, Miller E, Bache SM, Müller K, Ooms J, Robinson D, Seidel DP, Spinu V, Takahashi K, Vaughan D, Wilke C,
+  Woo K, Yutani H (2019). “Welcome to the tidyverse.” _Journal of Open Source Software_, *4*(43), 1686.
+  doi:10.21105/joss.01686 <https://doi.org/10.21105/joss.01686>.
+  
+2. __glue__: Hester J, Bryan J (2024). _glue: Interpreted String Literals_. R package version 1.7.0, <https://CRAN.R-project.org/package=glue>.
+
+3. __ggrepel__: Slowikowski K (2024). _ggrepel: Automatically Position Non-Overlapping Text Labels with 'ggplot2'_. R package version 0.9.5,
+  <https://CRAN.R-project.org/package=ggrepel>.
+4. __ggplot2__: H. Wickham. ggplot2: Elegant Graphics for Data Analysis. Springer-Verlag New York, 2016.
+
+5. __ggtext__: Wilke C, Wiernik B (2022). _ggtext: Improved Text Rendering Support for 'ggplot2'_. R package version 0.1.2,
+  <https://CRAN.R-project.org/package=ggtext>.
+6. __sysfonts__: Qiu Y, details. aotifSfAf (2024). _sysfonts: Loading Fonts into R_. R package version 0.8.9,
+  <https://CRAN.R-project.org/package=sysfonts>.
+7. __showtext__: Qiu Y, details. aotisSfAf (2024). _showtext: Using Fonts More Easily in R Graphs_. R package version 0.9-7,
+  <https://CRAN.R-project.org/package=showtext>.
+8. __ggcirclepack__: Last F (2024). _ggcirclepack: What the Package Does (One Line, Title Case)_. R package version 0.0.0.9000, commit 54ec672378fed44ecf055b5f60b0898daec82220, <https://github.com/EvaMaeRey/ggcirclepack>.
+
+9. __treemap__: Tennekes M (2023). _treemap: Treemap Visualization_. R package version 2.4-4,
+  <https://CRAN.R-project.org/package=treemap>.

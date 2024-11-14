@@ -1,0 +1,17 @@
+{
+  "hash": "1115eff33e1c60fce1d5e49c37a566e1",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"Visualisation\"\nauthor: \"Arindam Baruah\"\nformat: html\nexecute: \n  echo: false\n  warning: false\n  message: false\n---\n\n::: {.cell}\n\n:::\n\n::: {.cell}\n\n:::\n\n::: {.cell}\n\n:::\n\n::: {.cell}\n\n:::\n\n\n\n\n# Share of deaths across genders\n\n\n\n::: {.cell}\n\n:::\n\n::: {.cell}\n::: {.cell-output-display}\n![](matilda_viz_files/figure-html/unnamed-chunk-6-1.png){width=672}\n:::\n:::\n\n::: {.cell}\n\n:::\n\n::: {.cell}\n\n:::\n\n::: {.cell}\n::: {.cell-output-display}\n![](matilda_viz_files/figure-html/unnamed-chunk-9-1.png){width=672}\n:::\n:::\n\n::: {.cell}\n\n:::\n\n::: {.cell}\n\n:::\n\n::: {.cell}\n\n:::\n\n::: {.cell}\n\n:::\n\n::: {.cell}\n\n:::\n\n::: {.cell}\n\n:::\n\n::: {.cell}\n\n:::\n\n::: {.cell}\n\n:::\n\n\n\n200-word paragraph\n\nThe infographic titled “The Dual Crisis: Mental Health and Substance Abuse in the Modern World” highlights the alarming global trends in drug use, mental health, and substance-related deaths. It emphasises that men are disproportionately affected by drug-related mortality. Deaths from mental health and substance use disorders have significantly increased, especially in the U.S. and Canada, with a sharp spike following the COVID-19 pandemic. Among middle-aged individuals, those aged 15 to 49—especially working professionals in high-stress environments—are most affected by substance use disorders, suggesting work-related stress as a major contributing factor.\n\nTobacco remains the most lethal substance, causing over 7.2 million deaths annually—three times more than alcohol and significantly higher than illicit drugs. However, there’s a positive trend in declining cigarette consumption, with usage falling since 1974 and projections suggesting continued decline. On the other hand, the data also presents a concerning rise in synthetic drug use, with opioid overdose deaths surging by 58 times since 1990. The data underscores the urgent need for mental health support, particularly in high-stress industries, where professionals are at an elevated risk of substance dependence. Employers’ lack of adequate mental health support is also highlighted as a critical issue.\n",
+    "supporting": [
+      "matilda_viz_files"
+    ],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

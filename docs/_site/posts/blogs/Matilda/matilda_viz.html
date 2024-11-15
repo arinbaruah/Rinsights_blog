@@ -165,7 +165,12 @@ ul.task-list li input[type="checkbox"] {
    
   <ul>
   <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="header-section-number">1</span> Introduction</a></li>
-  <li><a href="#share-of-deaths-across-genders" id="toc-share-of-deaths-across-genders" class="nav-link" data-scroll-target="#share-of-deaths-across-genders"><span class="header-section-number">2</span> Share of deaths across genders</a></li>
+  <li><a href="#analysis" id="toc-analysis" class="nav-link" data-scroll-target="#analysis"><span class="header-section-number">2</span> Analysis</a>
+  <ul class="collapse">
+  <li><a href="#males-are-disproportionately-more-affected-by-drug-use-mortality" id="toc-males-are-disproportionately-more-affected-by-drug-use-mortality" class="nav-link" data-scroll-target="#males-are-disproportionately-more-affected-by-drug-use-mortality"><span class="header-section-number">2.1</span> Males are disproportionately more affected by drug use mortality</a></li>
+  <li><a href="#the-usa-and-canada-are-the-worst-affected-by-mental-health-and-drug-use-deaths" id="toc-the-usa-and-canada-are-the-worst-affected-by-mental-health-and-drug-use-deaths" class="nav-link" data-scroll-target="#the-usa-and-canada-are-the-worst-affected-by-mental-health-and-drug-use-deaths"><span class="header-section-number">2.2</span> The USA and Canada are the worst affected by mental health and drug use deaths</a></li>
+  </ul></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">3</span> Summary</a></li>
   </ul>
 </nav>
     </div>
@@ -186,68 +191,47 @@ ul.task-list li input[type="checkbox"] {
 <h1 data-number="1"><span class="header-section-number">1</span> Introduction</h1>
 <p>Substance use and mental health are deeply interconnected aspects of overall well-being. Substance use refers to the consumption of alcohol, drugs, or other psychoactive substances, which, in some cases, can develop into substance use disorders characterized by dependency and negative impacts on daily life. Mental health encompasses emotional, psychological, and social well-being, influencing how we think, feel, and act. Challenges in one area often affect the other; for instance, people with mental health disorders may turn to substances to self-medicate, while substance use can exacerbate or trigger mental health issues. Addressing both requires an integrated approach that considers their complex relationship to promote recovery and resilience.</p>
 <p>This visual analysis highlights the alarming global trends in drug use, mental health, and substance-related deaths.</p>
+</section>
+<section id="analysis" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Analysis</h1>
+<section id="males-are-disproportionately-more-affected-by-drug-use-mortality" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="males-are-disproportionately-more-affected-by-drug-use-mortality"><span class="header-section-number">2.1</span> Males are disproportionately more affected by drug use mortality</h2>
+<div id="fig-gender" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-gender-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/Gender_death_rate.jpeg" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-gender-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: “Drug use disorders across gender”
+</figcaption>
+</figure>
+</div>
+</section>
+<section id="the-usa-and-canada-are-the-worst-affected-by-mental-health-and-drug-use-deaths" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="the-usa-and-canada-are-the-worst-affected-by-mental-health-and-drug-use-deaths"><span class="header-section-number">2.2</span> The USA and Canada are the worst affected by mental health and drug use deaths</h2>
+<div id="fig-geography" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-geography-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/Global_death_rate.jpeg" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-geography-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: “Rising global deaths due to mental health and substance use across the world”
+</figcaption>
+</figure>
+</div>
 <div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 9 × 7
-  Entity        Code   Year Total deaths from dr…¹ Total deaths from dr…² `2021`
-  &lt;chr&gt;         &lt;chr&gt; &lt;dbl&gt;                  &lt;dbl&gt;                  &lt;dbl&gt;  &lt;dbl&gt;
-1 Brazil        BRA    2021                   352.                  1002. 2.14e8
-2 Canada        CAN    2021                  1781.                  5552. 3.82e7
-3 China         CHN    2021                  2302.                  8943. 1.41e9
-4 Germany       DEU    2021                   359.                  1188. 8.32e7
-5 India         IND    2021                  2898.                  5552. 1.41e9
-6 North America &lt;NA&gt;   2021                 32910.                 82449. 3.70e8
-7 United Kingd… GBR    2021                  1496.                  4135. 6.70e7
-8 United States USA    2021                 30935.                 76046. 3.32e8
-9 World         OWID…  2021                 48449.                126045. 7.89e9
-# ℹ abbreviated names: ¹​`Total deaths from drug use disorders among females`,
-#   ²​`Total deaths from drug use disorders among males`
-# ℹ 1 more variable: prop_male &lt;dbl&gt;</code></pre>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="matilda_viz_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 </div>
 </section>
-<section id="share-of-deaths-across-genders" class="level1" data-number="2">
-<h1 data-number="2"><span class="header-section-number">2</span> Share of deaths across genders</h1>
-<div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 168 × 7
-   Entity       Code   Year Total deaths from dr…¹ Total deaths from dr…² `2021`
-   &lt;chr&gt;        &lt;chr&gt; &lt;dbl&gt;                  &lt;dbl&gt;                  &lt;dbl&gt;  &lt;dbl&gt;
- 1 Ghana        GHA    2021                   5.78                   0.01 3.28e7
- 2 Lesotho      LSO    2021                  11.1                    6.69 2.28e6
- 3 Armenia      ARM    2021                   5.97                   3.93 2.79e6
- 4 Botswana     BWA    2021                   5.7                    4.67 2.59e6
- 5 Dominica     DMA    2021                   0.21                   0.18 7.24e4
- 6 Nicaragua    NIC    2021                   1.46                   1.32 6.85e6
- 7 Belize       BLZ    2021                   0.22                   0.2  4.00e5
- 8 Japan        JPN    2021                 140.                   132.   1.26e8
- 9 South Africa ZAF    2021                 614.                   590.   5.94e7
-10 Eswatini     SWZ    2021                   4.14                   4.39 1.19e6
-# ℹ 158 more rows
-# ℹ abbreviated names: ¹​`Total deaths from drug use disorders among females`,
-#   ²​`Total deaths from drug use disorders among males`
-# ℹ 1 more variable: ratio &lt;dbl&gt;</code></pre>
-</div>
-</div>
-<div class="cell">
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="matilda_viz_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-<div class="cell">
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="matilda_viz_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>200-word paragraph</p>
+</section>
+<section id="summary" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Summary</h1>
 <p>The infographic titled “The Dual Crisis: Mental Health and Substance Abuse in the Modern World” highlights the alarming global trends in drug use, mental health, and substance-related deaths. It emphasises that men are disproportionately affected by drug-related mortality. Deaths from mental health and substance use disorders have significantly increased, especially in the U.S. and Canada, with a sharp spike following the COVID-19 pandemic. Among middle-aged individuals, those aged 15 to 49—especially working professionals in high-stress environments—are most affected by substance use disorders, suggesting work-related stress as a major contributing factor.</p>
 <p>Tobacco remains the most lethal substance, causing over 7.2 million deaths annually—three times more than alcohol and significantly higher than illicit drugs. However, there’s a positive trend in declining cigarette consumption, with usage falling since 1974 and projections suggesting continued decline. On the other hand, the data also presents a concerning rise in synthetic drug use, with opioid overdose deaths surging by 58 times since 1990. The data underscores the urgent need for mental health support, particularly in high-stress industries, where professionals are at an elevated risk of substance dependence. Employers’ lack of adequate mental health support is also highlighted as a critical issue.</p>
 

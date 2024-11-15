@@ -117,11 +117,9 @@ df_drug_gender <- inner_join(df_drug_gender,df_pop,by = c("Entity"="Country Name
 
 ```
 
-```{r}
-df_drug_gender %>% mutate(prop_male = 100*`Total deaths from drug use disorders among females` / `2021`) %>% 
-  filter(`Total deaths from drug use disorders among males` > 1000)
-```
-# Share of deaths across genders
+# Analysis
+
+## Males are disproportionately more affected by drug use mortality
 
 ```{r}
 #| warning: false
@@ -171,7 +169,7 @@ x = `Total deaths from drug use disorders among females`)) + geom_point(color = 
        y =     "Male deaths",
        title = "Drug Use Disorders and Mortality: Understanding the Gender Gap",
        subtitle = "The data across various countries has revealed a concerning trend: the number of deaths resulting from <span style='color: darkred;'>  drug use disorders is significantly high <br> in the United States </span>, with approximately <strong> 100,000 deaths recorded in 2021 alone </strong>. Furthermore, the data suggests that in most countries with <br> the exception of Ghana, males are disproportionately affected by drug use disorders, with <strong> death rates among males consistently exceeding <br> those among females </strong>. This highlights that males are at a far greater risk of succumbing to the harmful effects of illicit drugs.",
-       caption = "#Rstudio #ggplot2 | Source: IHME, Global Burden of Disease, 2021") +
+       caption = str_glue("{li} Arindam Baruah | {X_icon} @wizsights | {gh} arinbaruah | Source: IHME, Global Burden of Disease, 2021 |#Rstudio #ggplot2")) +
   theme(legend.position = "top",
     legend.title.position = "top",
     legend.title = element_text(
@@ -226,10 +224,9 @@ ggsave("images/Gender_death_rate.jpeg",gr1,dpi = 300,height = 6, width = 10)
 ```
 
 
-```{r}
-df_drug_gender %>% filter(Entity != continents) %>% mutate(ratio = `Total deaths from drug use disorders among females`/`Total deaths from drug use disorders among males`) %>% arrange(-ratio)
-```
+!["Drug use disorders across gender"](images/Gender_death_rate.jpeg){#fig-gender}
 
+## The USA and Canada are the worst affected by mental health and drug use deaths
 
 ```{r}
 
@@ -257,9 +254,7 @@ gr2 <- ggplot(data = df_substance_deaths %>% filter(Entity %in% tags) , aes(x = 
         aes(group = Entity, color = Entity),
         linewidth = 4, se = FALSE, lineend = "round"
     ) +
-
     scale_color_manual(values = my_col |> alpha(0.3)) +
-    
     new_scale_color() +
     geom_textsmooth(
         aes(color = Entity, label = Entity),
@@ -277,8 +272,7 @@ gr2 <- ggplot(data = df_substance_deaths %>% filter(Entity %in% tags) , aes(x = 
          y = "Deaths per 100K people",
          title = "Global Trends in Deaths from <br> Mental Health and Substance Use Disorders (2000-2022)",
          subtitle = "The number of deaths due to mental health and substance use disorders per 100,000 individuals over the years reveals a troubling trend <br> for two specific countries:<span style='color: darkred;'> the United States and Canada </span>. While the death rates have remained relatively stable across other continents, <br> North America presents a stark contrast. Both countries have experienced a significant increase in deaths, particularly in recent years. <strong> <br> This rise has been notably steep following the COVID-19 pandemic </strong>,which may have exacerbated mental health issues due to extended <br> periods of isolation and other pandemic-related stressors. ",
-         caption = "#Rstudio #ggplot2 | Source: World Health Organisation") +
-
+         caption = str_glue("{li} Arindam Baruah | {X_icon} @wizsights | {gh} arinbaruah | #Rstudio #ggplot2 | Source: World Health Organisation")) +
     scale_color_manual(values = my_col |> darken(.25)) +
   theme(legend.position = "none",
     legend.title.position = "top",
@@ -332,9 +326,9 @@ gr2 <- ggplot(data = df_substance_deaths %>% filter(Entity %in% tags) , aes(x = 
     )
   )  + xlim(c(2000,2022)) 
 
-gr2
 ggsave("images/Global_death_rate.jpeg",gr2,dpi = 300,height = 6, width = 10)
 ```
+!["Rising global deaths due to mental health and substance use across the world"](images/Global_death_rate.jpeg){#fig-geography}
 
 ```{r}
 df_substance_deaths_age <- df_substance_deaths_age %>% clean_names()

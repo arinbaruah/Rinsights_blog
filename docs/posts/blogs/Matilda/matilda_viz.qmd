@@ -2,7 +2,7 @@
 title: "The Dual Crisis: Mental Health and Substance Abuse in the Modern World 😞💉"
 author: "Arindam Baruah"
 date: "2024-11-14"
-categories: [R,analysis,exploratory data analysis,visualisation,statistics]
+categories: [R,exploratory data analysis,visualisation,statistics]
 image: "equality.jpeg"
 number-sections: true
 toc: true
@@ -441,10 +441,15 @@ gr3 <- ggplot(df_substance_deaths_age_long_grouped, aes(id = age_group_clean,are
   panel.grid.minor = element_blank()   # Remove minor grid lines
   ) + scale_fill_continuous_tableau(palette = "Classic Red") + coord_equal()
   
-
-gr3
 ggsave("images/Global_death_rate_age.jpeg",gr3,dpi = 300,height = 6, width = 10)
 ```
+
+## Deaths among those aged 15-49 are persistently higher
+
+!["Death trends from mental health and substance use across age groups](images/Global_death_rate_age.jpeg){#fig-age}
+
+
+## Higher risk of drug use for those diagnosed with mental health conditions
 
 ```{r}
 df_drug_dependency <- df_drug_dependency %>% clean_names()
@@ -523,7 +528,7 @@ gr4 <- ggplot(data = df_drug_dependency,aes(x = increased_risk_of_illicit_drug_d
 ggsave("images/drug_dependency.jpeg",gr4,dpi = 300,height = 6, width = 10)
 ```
 
-
+!["Statistically higher risk of drug use for diagnosed mental health conditions"](images/drug_dependency.jpeg){#fig-depend}
 ```{r}
 library(treemapify)
 

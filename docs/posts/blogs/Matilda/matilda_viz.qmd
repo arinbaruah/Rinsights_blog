@@ -224,7 +224,7 @@ ggsave("images/Gender_death_rate.jpeg",gr1,dpi = 300,height = 6, width = 10)
 ```
 
 
-!["Drug use disorders across gender"](images/Gender_death_rate.jpeg){#fig-gender}
+![Drug use disorders across gender](images/Gender_death_rate.jpeg){#fig-gender}
 
 ## The USA and Canada are the worst affected by mental health and drug use deaths
 
@@ -328,7 +328,7 @@ gr2 <- ggplot(data = df_substance_deaths %>% filter(Entity %in% tags) , aes(x = 
 
 ggsave("images/Global_death_rate.jpeg",gr2,dpi = 300,height = 6, width = 10)
 ```
-!["Rising global deaths due to mental health and substance use across the world"](images/Global_death_rate.jpeg){#fig-geography}
+![Rising global deaths due to mental health and substance use across the world](images/Global_death_rate.jpeg){#fig-geography}
 
 ```{r}
 df_substance_deaths_age <- df_substance_deaths_age %>% clean_names()
@@ -446,7 +446,11 @@ ggsave("images/Global_death_rate_age.jpeg",gr3,dpi = 300,height = 6, width = 10)
 
 ## Deaths among those aged 15-49 are persistently higher
 
-!["Death trends from mental health and substance use across age groups](images/Global_death_rate_age.jpeg){#fig-age}
+![Death trends from mental health and substance use across age groups](images/Global_death_rate_age.jpeg){#fig-age}
+
+## Global survey of employers indicates that significant progress is still needed to adequately protect employees from mental health challenges.
+
+![Global survey indicating the attitude of employers with regards to mental health](images/mental_health_survey.jpeg){#fig-survey}
 
 
 ## Higher risk of drug use for those diagnosed with mental health conditions
@@ -528,7 +532,9 @@ gr4 <- ggplot(data = df_drug_dependency,aes(x = increased_risk_of_illicit_drug_d
 ggsave("images/drug_dependency.jpeg",gr4,dpi = 300,height = 6, width = 10)
 ```
 
-!["Statistically higher risk of drug use for diagnosed mental health conditions"](images/drug_dependency.jpeg){#fig-depend}
+![Statistically higher risk of drug use for diagnosed mental health conditions](images/drug_dependency.jpeg){#fig-depend}
+
+
 ```{r}
 library(treemapify)
 
@@ -610,6 +616,9 @@ ggsave("images/tobacco_deaths.jpeg",gr7,dpi = 300,height = 6, width = 10)
 
 ```
 
+## Tobacco remains the most lethal substance of abuse
+
+![Substances causing the highest deaths](images/tobacco_deaths.jpeg){#fig-tobacco}
 
 
 ```{r}
@@ -825,6 +834,10 @@ ggsave("images/cig_sales.jpeg",gr5,dpi = 300,height = 6, width = 10)
 ```
 
 
+## Encouraging news: Cigarette consumption is on the decline
+
+![Declining global cigarette consumption and its associated deaths](images/cig_sales.jpeg){#fig-sales}
+
 
 ```{r}
 df_overdose_long <- df_overdose %>% pivot_longer(cols = c(4:8),names_to = "drug_type",values_to = "death_rate")
@@ -944,6 +957,12 @@ gr6 <- ggplot(data = df_overdose_long,aes(x = Year,y = death_rate)) + geom_line(
 
 ggsave("images/overdose_deaths.jpeg",gr6,dpi = 300,height = 6, width = 10)
 ```
+
+## Concerning news: The global consumption of synthetic opioids is on the rise
+
+![Sharp rise in overdose deaths due to synthetic opioids](images/overdose_deaths.jpeg){#fig-overdose}
+
+
 
 ```{r}
 

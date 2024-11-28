@@ -1,0 +1,17 @@
+{
+  "hash": "d8a74dce566e1203b963f96030fc6715",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"Lifecycle of Steel: From Extraction to Recycling\"\nauthor: \"Arindom Baruah\"\ndate: \"2024-06-26\"\ncategories: [R,data cleaning,exploratory data analysis,funnel charts,plot aesthetics]\nquarto-required: \">=1.3.0\"\nformat:\n    html:\n        output-file: post.html\nexecute: \n  echo: false\n  message: false\n  warning: false\nnumber-sections: true\n---\n\n\n\n# Introduction\n\nThis month's challenge involved utilising a funnel chart to visualise data that typically contains progression information. Each bar in the funnel chart would typically relate to the aggregated data for a particular level, with each progression depicting the aggregations for the subsequent levels. 📈\n\nFor this challenge, I decided to plot synthetically generated data of a typical steel manufacturing process from GenAI to create a plot that tells us the total tons of iron/steel that are extracted, processed and finally recycled, thereby following a logical progression of the manufacturing process. 🔬\n\n\n\n\n\n::: {.cell}\n\n:::\n\n::: {.cell}\n\n:::\n\n\n\n# Description\n\nSteel production is one of the heaviest contributors to the carbon footprint of any nation. Leading manufacturers of steel such as China and India often have to deal with large-scale effects of sound, water and air pollution associated with the manufacturing of this ferrous metal. Hence, it is quite important to recycle and reuse steel to reduce its harmful effects on the environment.\n\nSteel, while heavily criticised to be a \"polluted metal\", is also one that humanity cannot do without. Any major civilian infrastructures, defence products, cars or even home electronic goods have some grade of steel in their construction. Steel is essentially a metal which is highly recyclable as well. @fig-funnel illustrates about 40 % of steel in a production process is recycled. Through the use of recycled steel in various steel plants, not only production costs can reduce, but it may also lead to lower tonnage of iron mined, lesser heat and electricity demands at the mills, and lower carbon di-oxide released as a result of iron and steel making.\n\n\n\n::: {.cell}\n::: {.cell-output-display}\n![Lifecycle of Steel: From Extraction to Recycling](index_files/figure-html/fig-funnel-1.png){#fig-funnel width=672}\n:::\n:::\n\n\n\n\n\n<script src=\"https://utteranc.es/client.js\"\n        repo=\"arinbaruah/Rinsights_blog\"\n        issue-term=\"url\"\n        theme=\"github-light\"\n        crossorigin=\"anonymous\"\n        async>\n</script>\n",
+    "supporting": [
+      "index_files"
+    ],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

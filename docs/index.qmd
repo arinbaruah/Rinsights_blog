@@ -1,6 +1,6 @@
 ---
 image: profile_pic.png
-resources: AaronBaruah_Resume.pdf
+resources: ArinBaruah_Resume.pdf
 about: 
   template: jolla
   links: 
@@ -15,7 +15,7 @@ about:
       href: "mailto:abar0090@student.monash.edu"
     - icon: person-lines-fill
       text: CV
-      href: https://arinbaruah.github.io/Rinsights_blog/cv/AaronBaruah_Resume.pdf
+      href: https://github.com/arinbaruah/Rinsights_blog/blob/main/cv/Resume_ArinBaruah.pdf
     - icon: linkedin
       text: LinkedIn
       href: https://www.linkedin.com/in/arindam-baruah/

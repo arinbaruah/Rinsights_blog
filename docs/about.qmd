@@ -1,6 +1,6 @@
 ---
 title: "About my journey"
-author: "Arindam Baruah <br> Monash University <br> abar0090@student.monash.edu"
+author: "Arindam Baruah <br> Monash University <br> arindambaruah839@gmail.com"
 about:
   template: solana
   links:
@@ -9,7 +9,7 @@ about:
       href: https://github.com/arinbaruah
 ---
 
-Hi ! I am Arindam Baruah, a graduate student of Business Analytics at [Monash Business School](https://www.monash.edu/business/home), Monash University. With a keen interest and salient experiences in the field of analytics, I am intrigued by the patterns which can be uncovered through data visualisations and some very interesting mathematics. I focus on implementing data science concepts to real-world problems and have successfully implemented them for predicting various estimates in the field of manufacturing, hospitality, banking and wild-life conservation.
+Hi ! I am ArinBaruah, a Business Analytics graduate at [Monash Business School](https://www.monash.edu/business/home) and a Mechanical & Manufacturing Engineer from [Indian Institute of Technology Indore](www.iiti.ac.in). With a keen interest and salient experiences in the field of engineering analytics, I am intrigued by the patterns which can be uncovered through data visualisations and some very interesting mathematics. I focus on implementing data science concepts to real-world problems and have successfully implemented them for predicting various estimates in the field of manufacturing, hospitality, banking and wild-life conservation.
 
 :::{.callout-note}
 # Major interests
@@ -24,7 +24,40 @@ My studies generally span over various fields and I am constantly in the hunt to
 :::panel-tabset
 ## Melbourne Water Corporation
 
-### Business Analyst intern (2024-Present)
+### Assisstant Cost Controller (11/2024-Present)
+
+##### Major Capital Delivery, Service Assets and Lifecycle department
+
+:::{.callout-note}
+# Skills
+__Project Management,Forecasting,Data Analysis,MS PowerBI, ETL pipeline,Cost controlling, Cost analysis, Data Visualisation,Team Work, Communication Skills, Root Cause Analysis.__
+:::
+
+![](mw_group_pic.jpg)
+
+Soon after the successful completion of my 10 month long internship at Melbourne Water, I am now serving as an Assistant Cost Controller for the WTP Major Projects team. Some of the key responsibilities are enlisted below:
+
+- Successfully implemented an ETS and ARIMA forecast model for obtaining the upcoming number of
+projects that can be expected in the next price submission period, thereby enabling better project
+resource planning and data-driven decision making.
+- Developed an optimized ETL pipeline using PowerQuery and R scripts to automate data cleansing,
+reducing processing time by up to 50% and enabling seamless integration with PowerBI for real-time
+reporting of critical project metrics.
+- Provided detailed insights from project data by implementing text analysis scripts on MS Excel as well
+as R, and subsequently reported the data to the Major Capital Delivery team to obtain the current
+capital expenditure on outsourced project activities.
+- Developed and maintained comprehensive Power BI dashboards to analyse past capital delivery
+performance, providing valuable insights for the design of new delivery models worth up to $5 billion.
+Other dashboards also reported key performance indicators (KPIs) such as project cost variations,
+sustainability scores, financial expenditures, and other critical metrics to support decision-making and
+strategic planning.
+- Designed a custom MS Excel template enabling comprehensive comparison of current and historical
+results, in-depth outlier analysis for KPI submissions by service providers, and discrepancy detection to
+ensure data accuracy. This template is now widely adopted for projects totaling up to $1 billion,
+enhancing reporting accuracy and decision-making.
+
+
+### Business Analyst intern (2/2024-11/2024)
 
 ##### Major Capital Delivery, Service Assets and Lifecycle department
 

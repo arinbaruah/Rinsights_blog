@@ -24,6 +24,8 @@ library(FunnelPlotR)
 library(ggfunnel)
 library(waffle)
 library(ggimage)
+library(ggwordcloud)
+library(png)
 ```
 
 
@@ -121,7 +123,7 @@ theme_update(
 
 
 
-```{r datawrangle}
+```{r datawrangle1}
 
 top_countries_grouped <- cbp_resp %>% filter(citizenship != "OTHER") %>% 
   group_by(citizenship) %>% summarise(total = sum(encounter_count/10^3)) %>% 
@@ -361,7 +363,7 @@ theme_update(
 
 
 
-```{r datawrangle}
+```{r datawrangle2}
 
 top_countries_grouped <- cbp_resp %>% filter(citizenship != "OTHER") %>% 
   group_by(citizenship) %>% summarise(total = sum(encounter_count/10^3)) %>% 
@@ -376,7 +378,7 @@ top_countries_grouped <- cbp_resp %>% filter(citizenship != "OTHER" & citizenshi
 top_countries_grouped$citizenship <- factor(top_countries_grouped$citizenship,levels = top_countries)
 ```
 
-```{r viz}
+```{r viz1}
 
 subtitle_text <- "The U.S. Customs and Border Protection (CBP) has been handling an average of <strong>approximately 178,000 encounters annually </strong> with individuals of <br> various nationalities at the U.S. borders. A chart highlighting the top 10 citizenships of inadmissible individuals at the southern and northern <br> borders reveals that <span style='color:steelblue'><strong>Mexican</strong></span> nationals remain the most frequently encountered. However, this marks the second consecutive decline in encounters <br> involving Mexican citizens. While the numbers for most other nationalities have remained relatively stable, there has been a <strong> significant rise in <br> encounters </strong> with individuals from <span style='color:#cc5200'><strong>Haiti</strong></span> and <span style='color:#004d00'><strong>Venezuela</strong></span>, who were either apprehended for unauthorized border crossings or deemed inadmissible.  "
 
@@ -502,16 +504,16 @@ base_notes_long <- parfumo_data_clean %>% separate_rows(Base_Notes,sep = ",")
 
 
 ```{r}
-main_accords_summarised <- main_accors_long %>% group_by(Release_Year,Main_Accords) %>% summarise(Average_rating = mean(Rating_Value))
+main_accords_summarised <- main_accords_long %>% group_by(Release_Year,Main_Accords) %>% summarise(Average_rating = mean(Rating_Value))
 ```
 
 
 ```{r}
-main_acccords_summarised  %>% ggplot(aes(x = Release_Year,y = Average_rating,color = Main_Accords)) + geom_line() + facet_wrap(~Main_Accords)
+main_accords_summarised %>% ggplot(aes(x = Release_Year,y = Average_rating,color = Main_Accords)) + geom_line() + facet_wrap(~Main_Accords)
 ```
 
 ```{r}
-main_accors_long %>% group_by(Release_Year) %>% summarise(n_distinct(Name))
+main_accords_long %>% group_by(Release_Year) %>% summarise(n_distinct(Name))
 ```
 
 ```{r}

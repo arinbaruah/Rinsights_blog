@@ -1,6 +1,6 @@
 ---
 title: "About my journey"
-author: "Arindam Baruah <br> Monash University <br> arindambaruah839@gmail.com"
+author: "Arindam Baruah <br> arindambaruah839@gmail.com"
 about:
   template: solana
   links:
@@ -9,7 +9,7 @@ about:
       href: https://github.com/arinbaruah
 ---
 
-Hi ! I am ArinBaruah, a Business Analytics graduate at [Monash Business School](https://www.monash.edu/business/home) and a Mechanical & Manufacturing Engineer from [Indian Institute of Technology Indore](www.iiti.ac.in). With a keen interest and salient experiences in the field of engineering analytics, I am intrigued by the patterns which can be uncovered through data visualisations and some very interesting mathematics. I focus on implementing data science concepts to real-world problems and have successfully implemented them for predicting various estimates in the field of manufacturing, hospitality, banking and wild-life conservation.
+Hi ! I am Arin Baruah, a Business Analytics graduate at [Monash Business School](https://www.monash.edu/business/home) and a Mechanical & Manufacturing Engineer from [Indian Institute of Technology Indore](www.iiti.ac.in). With a keen interest and salient experiences in the field of engineering analytics, I am intrigued by the patterns which can be uncovered through data visualisations and some very interesting mathematics. I focus on implementing data science concepts to real-world problems and have successfully implemented them for predicting various estimates in the field of manufacturing, hospitality, banking and wild-life conservation.
 
 :::{.callout-note}
 # Major interests
@@ -24,7 +24,7 @@ My studies generally span over various fields and I am constantly in the hunt to
 :::panel-tabset
 ## Melbourne Water Corporation
 
-### Assisstant Cost Controller (11/2024-Present)
+### Assistant Cost Controller (Nov 2024-Present)
 
 ##### Major Capital Delivery, Service Assets and Lifecycle department
 
@@ -35,7 +35,7 @@ __Project Management,Forecasting,Data Analysis,MS PowerBI, ETL pipeline,Cost con
 
 ![](mw_group_pic.jpg)
 
-Soon after the successful completion of my 10 month long internship at Melbourne Water, I am now serving as an Assistant Cost Controller for the WTP Major Projects team. Some of the key responsibilities are enlisted below:
+Soon after the successful completion of my 10 month long internship at Melbourne Water, I am now serving as an Assistant Cost Controller for the WTP Major Projects team. Some of my achievements and responsibilities are enlisted below:
 
 - Successfully implemented an ETS and ARIMA forecast model for obtaining the upcoming number of
 projects that can be expected in the next price submission period, thereby enabling better project
@@ -57,7 +57,7 @@ ensure data accuracy. This template is now widely adopted for projects totaling 
 enhancing reporting accuracy and decision-making.
 
 
-### Business Analyst intern (2/2024-11/2024)
+### Business Analyst intern (Feb 2024 - Nov 2024)
 
 ##### Major Capital Delivery, Service Assets and Lifecycle department
 
